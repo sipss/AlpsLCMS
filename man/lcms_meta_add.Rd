@@ -2,13 +2,21 @@
 % Please edit documentation in R/lcms_read_samples.R
 \name{lcms_meta_add}
 \alias{lcms_meta_add}
-\title{Title}
+\title{Add metadata to MSnExp object}
 \usage{
-lcms_meta_add(msnexp, metadata, by = "sampleNames")
+lcms_meta_add(object, metadata, by = "sampleNames")
 }
 \arguments{
-\item{by}{}
+\item{object}{Object, possibly derived from \code{\link{eSet-class}}
+    or \code{\linkS4class{AnnotatedDataFrame}}.}
+
+\item{metadata}{A data frame to be merged}
+
+\item{by}{A column present both in `metadata` and in `Biobase::pData(object)`}
+}
+\value{
+The object with the added metadata
 }
 \description{
-Title
+Add metadata to MSnExp object
 }
