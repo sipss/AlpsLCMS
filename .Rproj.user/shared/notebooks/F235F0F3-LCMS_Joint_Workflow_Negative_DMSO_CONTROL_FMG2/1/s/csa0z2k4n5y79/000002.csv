@@ -1,0 +1,6 @@
+"0","output_dir_node1 <- file.path(output_dir, ""01-load-samples"")"
+"0","fs::dir_create(output_dir_node1)"
+"0","# rawconverter <- ""C:/Users/fmadrid/Documents/IBEC/NESTLE/LCMS/HepG2_dataset/20190313_Lumos_Samples/Data/converted"""
+"0","samples_mzxml <- list_mzxml_samples(input_dir, # converted samples directory"
+"0","                                    file_format = ""mzXML"","
+"0","                                    rawconverter = rawconverter)"

@@ -1,0 +1,3 @@
+"0","metadata<- readxl::read_excel(""C:/Users/fmadrid/Documents/IBEC/NESTLE/LCMS/HepG2_dataset/20190313_Lumos_Samples/20190313_DATA_IBEC_sample_key.xlsx"")"
+"0","dataset <- NIHSlcms::lcms_meta_add(dataset, metadata, by = ""sampleNames"")"
+"0","pData(dataset)"

@@ -20,6 +20,15 @@ lcms_dataset_save(lcms_dataset, file_name, ...)
 \description{
 Functions to load and save lcms_dataset objects
 }
+\seealso{
+Other lcms_dataset functions: \code{\link{lcms_meta_export}},
+  \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
+
+Other lcms_dataset_peak_table functions: \code{\link{lcms_meta_export}},
+  \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
+
+Other import/export functions: \code{\link{lcms_meta_export}}
+}
 \concept{import/export functions}
 \concept{lcms_dataset functions}
 \concept{lcms_dataset_peak_table functions}

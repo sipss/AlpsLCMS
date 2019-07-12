@@ -1,0 +1,23 @@
+"0","suppressPackageStartupMessages({"
+"0","  library(NIHSlcms)"
+"0","  library(dplyr)"
+"0","  library(tidyr)"
+"0","  library(ggplot2)"
+"0","  library(IPO)"
+"0","  library(MAIT)"
+"0","})"
+"2","package ‘dplyr’ was built under R version 3.5.3"
+"2","package ‘tidyr’ was built under R version 3.5.3"
+"2","package ‘ggplot2’ was built under R version 3.5.3"
+"2","package ‘IPO’ was built under R version 3.5.2"
+"2","package ‘Rcpp’ was built under R version 3.5.2"
+"2","mzR has been built against a different Rcpp version (0.12.16)
+than is installed on your system (1.0.0). This might lead to errors
+when loading mzR. If you encounter such issues, please send a report,
+including the output of sessionInfo() to the Bioc support forum at 
+https://support.bioconductor.org/. For details see also
+https://github.com/sneumann/mzR/wiki/mzR-Rcpp-compiler-linker-issue."
+"2","replacing previous import ‘BiocGenerics::dims’ by ‘Biobase::dims’ when loading ‘MSnbase’"
+"2","replacing previous import ‘Biobase::dims’ by ‘BiocGenerics::dims’ when loading ‘pcaMethods’"
+"2","replacing previous import ‘BiocGenerics::dims’ by ‘Biobase::dims’ when loading ‘multtest’"
+"2","package ‘rsm’ was built under R version 3.5.2"
