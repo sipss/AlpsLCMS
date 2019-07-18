@@ -1,0 +1,46 @@
+"0","IPO_params = write_opt_params(resultPeakpicking, resultRetcorGroup, output_dir_node3)
+"
+"2","library(xcms)
+"
+"2","library(Rmpi)
+
+"
+"2","xset <- xcmsSet( 
+  method = ""centWave"",
+  peakwidth       = c(21.48, 90),
+  ppm             = 13.25,
+  noise           = 5000,
+  snthresh        = 10,
+  mzdiff          = -0.000449999999999999,
+  prefilter       = c(3, 100),
+  mzCenterFun     = ""wMean"",
+  integrate       = 1,
+  fitgauss        = FALSE,
+  verbose.columns = FALSE)
+"
+"2","xset <- retcor( 
+  xset,
+  method         = ""obiwarp"",
+  plottype       = ""none"",
+  distFunc       = ""cor_opt"",
+  profStep       = 1,
+  center         = 2,
+  response       = 1,
+  gapInit        = 0.64,
+  gapExtend      = 2.7,
+  factorDiag     = 2,
+  factorGap      = 1,
+  localAlignment = 0)
+"
+"2","xset <- group( 
+  xset,
+  method  = ""density"",
+  bw      = 0.879999999999999,
+  mzwid   = 0.0265,
+  minfrac = 1,
+  minsamp = 1,
+  max     = 50)
+
+"
+"2","xset <- fillPeaks(xset)
+"

@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1563199106529.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "17D65411",
+    "lastKnownWriteTime" : 1563199104,
+    "last_content_update" : 1563199104,
+    "path" : "~/IBEC/NESTLE/LCMS/LCMS_Joint_Workflow_Negative_DMSO_CONTROL.Rmd",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "346,42",
+        "scrollLine" : "330"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

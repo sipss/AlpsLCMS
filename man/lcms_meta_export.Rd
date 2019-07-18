@@ -21,8 +21,9 @@ The Excel file name
 Export Metadata to an Excel file
 }
 \seealso{
-Other lcms_dataset functions: \code{\link{lcms_plot_tics}},
-  \code{\link{lcms_tics}},
+Other lcms_dataset functions: \code{\link{filterRTmin}},
+  \code{\link{filterSampleType}},
+  \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}},
   \code{\link{load_and_save_functions}}
 
 Other lcms_dataset_peak_table functions: \code{\link{lcms_plot_tics}},

@@ -21,7 +21,9 @@ lcms_dataset_save(lcms_dataset, file_name, ...)
 Functions to load and save lcms_dataset objects
 }
 \seealso{
-Other lcms_dataset functions: \code{\link{lcms_meta_export}},
+Other lcms_dataset functions: \code{\link{filterRTmin}},
+  \code{\link{filterSampleType}},
+  \code{\link{lcms_meta_export}},
   \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
 
 Other lcms_dataset_peak_table functions: \code{\link{lcms_meta_export}},

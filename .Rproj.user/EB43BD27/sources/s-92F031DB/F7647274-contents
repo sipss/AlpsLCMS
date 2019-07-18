@@ -1,0 +1,158 @@
+#' Default parameters for peak picking optimization
+#'
+#' The function creates default parameters for optimizing
+#' peakpicking algorithms.We perform parameter optimization
+#' on the XCMS preprocessing algorithms using the IPO Package.
+#' This includes Peak Detection (‘Centwave’ and ‘Matched Filter’),
+#' Retention Time Correction (‘obiwarp’) and Peak Correspondence
+#' (‘Density’).
+#' Use this function to generate the template within the
+#' `lcms_peakpicking_optimization` function.
+#'
+#' @param noise numeric, minimum intensity needed to be included in the analysis.
+#' @param snthresh numeric, set the signal to noise ratio threshold to be included.
+#' @param min_peakwidth numeric(two values) with the expected minimal peak width in
+#' chromatographic dimension. Set as a range (min, max) in seconds.
+#' @param max_peakwidth numeric(two values) with the expected maximum peak width in
+#' chromatographic dimension. Set as a range (min, max) in seconds.
+#' @param optimize by default is TRUE. If FALSE, the function does not optimize
+#' the parameters
+#' @return A parameters template for peak picking optimization
+#' @export
+#' @family optimization functions
+#'
+lcms_default_peakpeaking_params <- function(noise = 5000, snthresh = 10,
+                                            min_peakwidth = c(10, 30),
+                                            max_peakwidth = c(35, 90),
+                                            optimize = TRUE){
+  if (optimize == TRUE){
+    peakpickingParameters <- getDefaultXcmsSetStartingParams(method = c("centWave"))
+    peakpickingParameters$noise <- noise
+    peakpickingParameters$snthresh <- snthresh
+    peakpickingParameters$min_peakwidth <- min_peakwidth
+    peakpickingParameters$max_peakwidth <- max_peakwidth
+  } else{
+    peakpickingParameters <- NULL
+  }
+  peakpickingParameters
+}
+
+#' Peak picking optimization
+#'
+#' The function optimize parameters considering a set of samples
+#' for the peak picking algorithm using the IPO Package.
+#' This includes Peak Detection (‘Centwave’ and ‘Matched Filter’),
+#' Retention Time Correction (‘obiwarp’) and Peak Correspondence
+#' (‘Density’).
+#'
+#' @param lcms_dataset An [lcms_dataset_family] object
+#' @param peakpickingParameters Parameters for peak picking
+#' @param opt_path optimization path
+#' @param nSlaves Number of slaves the optimization process should spawn.
+#' @param plots Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo".
+#' @return A peak picking list with the best setting
+#' @export
+#' @family optimization functions
+lcms_peakpicking_optimization <- function (dataset, peakpickingParameters, nSlaves = 4, opt_path, plots = TRUE){
+
+  if(is.null(peakpickingParameters)){
+    resultPeakpicking <- NULL
+  } else{
+    filenames <- pData(dataset)$sampleNames
+    filer <- filenames
+
+    ## Get the spectra
+    data_subset <- dataset %>% MSnbase::filterFile(file = filenames)
+    Biobase::fData(data_subset)$centroided <- TRUE
+    Biobase::fData(data_subset)$peaksCount <- Biobase::fData(data_subset)$originalPeaksCount
+    print("Be aware: do not run twice using the same output directory")
+    print("The algorithm is not able to rewrite files that are alreay in the directory")
+
+    mzR::writeMSData(data_subset, file = filer, outformat = c("mzxml"), copy = FALSE)
+
+    print("Saving filtered chromatogram...")
+
+    samples_op <- fs::dir_ls(opt_path , glob = "*.mzXML")
+    print("Performing peak detection parameter optimization. This will take some time...")
+    time.xcmsSet <- system.time({ # measuring time
+      base::suppressWarnings(
+        base::suppressMessages(
+          resultPeakpicking <- optimizeXcmsSet(files =  samples_op,
+                                               params = peakpickingParameters,
+                                               nSlaves = nSlaves,
+                                               subdir = "plot_ipo",
+                                               plot = plots)
+        )
+      )
+    })
+  }
+  resultPeakpicking
+}
+
+#' Default parameters for optimization of retention time correction and grouping parameters
+#'
+#' The function creates default parameters for optimizing
+#' retention time correction and grouping algorithms.
+#' We perform parameter optimization on the XCMS preprocessing
+#' algorithms using the IPO Package.
+#' Use this function to create the template within `lcms_corgroup_optimization` function.
+#'
+#' @param profStep set the m/z step for generating profile (matrix) data from raw mass spectral data.
+#' Smaller steps yield more precision at the cost of greater memory usage.
+#' @param gapExtend numeric(1) defining the penalty for gap enlargement.
+#' The default value for gapExtend depends on the value of distFun, for distFun = "cor"
+#' and distFun = "cor_opt" it is 2.4, for distFun = "cov" 11.7, for distFun = "euc" 1.8
+#' and for distFun = "prd" 7.8.
+#' @param optimize by default is TRUE. If FALSE, the function does not optimize
+#' the parameters
+#' @return A parameters template for retention time correction and grouping optimization
+#' @export
+#'
+lcms_default_corgroup_params <- function(profStep = 1, gapExtend = 2.7, optimize = TRUE){
+
+  if (optimize == TRUE){
+    retcorGroupParameters <- getDefaultRetGroupStartingParams()
+    retcorGroupParameters$profStep <- profStep
+    retcorGroupParameters$gapExtend <- gapExtend
+  } else{
+    retcorGroupParameters <- NULL
+  }
+  retcorGroupParameters
+}
+
+#' Optimization of retention time correction and grouping parameters.
+#'
+#' The function optimize parameters considering a set of samples
+#' for the retention time correction and grouping using the IPO Package.
+#'
+#' @param optimizedXcmsSetObject XCMS object conatining the `best_settings` parameters.
+#' This object may be created after running `lcms_peakpicking_optimization` and extract
+#' best_settings$xset (e.g. optimizedXcmsSetObject <- resultPeakpicking$best_settings$xset)
+#' @param retcorGroupParameters Parameters for retention time correction and optimization
+#' @param nSlaves Number of slaves the optimization process should spawn.
+#' @param plots Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo".
+#' @return a list with the optimization of parameters for retention time and grouping.
+#' @export
+#'
+lcms_corgroup_optimization <- function (optimizedXcmsSetObject, retcorGroupParameters, nSlaves = 4, plots = TRUE){
+
+  if(is.null(optimizedXcmsSetObject) | is.null(retcorGroupParameters)){
+    resultRetcorGroup <- NULL
+  } else{
+    print("Performing retention time and grouping
+        parameter optimization. This will take some time...")
+    time.RetGroup <- system.time({ # measuring time
+      base::suppressWarnings(
+        base::suppressMessages(
+          resultRetcorGroup <-
+            optimizeRetGroup(xset = optimizedXcmsSetObject,
+                             params = retcorGroupParameters,
+                             nSlaves = nSlaves,
+                             subdir = "plot_ipo",
+                             plot = plots)#plot = plot
+        )
+      )
+    })
+  }
+  resultRetcorGroup
+}

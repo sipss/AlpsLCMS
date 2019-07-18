@@ -20,7 +20,9 @@ Function `lcms_tics` stores summarizes TIC information.
 NOTE: `lcms_tics` assumes that data is already filtered by polarity.
 }
 \seealso{
-Other lcms_dataset functions: \code{\link{lcms_meta_export}},
+Other lcms_dataset functions: \code{\link{filterRTmin}},
+  \code{\link{filterSampleType}},
+  \code{\link{lcms_meta_export}},
   \code{\link{lcms_plot_tics}},
   \code{\link{load_and_save_functions}}
 
