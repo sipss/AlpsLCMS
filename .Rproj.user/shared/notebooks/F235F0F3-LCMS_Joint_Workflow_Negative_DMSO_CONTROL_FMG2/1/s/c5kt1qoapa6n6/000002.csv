@@ -1,2 +1,0 @@
-"0","tics_pos <- lcms_tics(dataset_pos)"
-"0","lcms_plot_tics(tics_pos, rt = c(4, 14), plot_type = ""spec"") "

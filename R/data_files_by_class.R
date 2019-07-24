@@ -1,7 +1,7 @@
 #' Title
 #'
-#' @param x
 #' @param lcms_dataset An [lcms_dataset_family] object
+#' @param dataDir
 #' @return
 #' @export
 #'

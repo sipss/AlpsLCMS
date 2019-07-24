@@ -4,10 +4,12 @@
 \alias{lcms_peakpicking_optimization}
 \title{Peak picking optimization}
 \usage{
-lcms_peakpicking_optimization(dataset, peakpickingParameters,
+lcms_peakpicking_optimization(lcms_dataset, peakpickingParameters,
   nSlaves = 4, opt_path, plots = TRUE)
 }
 \arguments{
+\item{lcms_dataset}{An [lcms_dataset_family] object}
+
 \item{peakpickingParameters}{Parameters for peak picking}
 
 \item{nSlaves}{Number of slaves the optimization process should spawn.}
@@ -15,8 +17,6 @@ lcms_peakpicking_optimization(dataset, peakpickingParameters,
 \item{opt_path}{optimization path}
 
 \item{plots}{Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo".}
-
-\item{lcms_dataset}{An [lcms_dataset_family] object}
 }
 \value{
 A peak picking list with the best setting
