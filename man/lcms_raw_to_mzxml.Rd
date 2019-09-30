@@ -10,7 +10,7 @@ lcms_raw_to_mzxml(samples, options = c("--mzxml", "--select_mono_prec"),
 \arguments{
 \item{samples}{ThermoFisher .raw files}
 
-\item{rawconverter}{The working directory given to [install_RawConverter].}
+\item{rawconverter}{The working directory given to \link{install_RawConverter}.}
 }
 \description{
 Convert RAW samples to mzxml samples
@@ -31,6 +31,6 @@ Installing that tool may not be straightforward on all OS, so we provide some
 helpers.
 
 On non-Windows systems:
-  You will need wine and winetricks installed. Then call `install_RawConverter("/your/installation/directory")`
+You will need wine and winetricks installed. Then call \code{install_RawConverter("/your/installation/directory")}
 }
 

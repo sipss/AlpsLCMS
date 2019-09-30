@@ -5,11 +5,11 @@
 \title{Optimization of retention time correction and grouping parameters.}
 \usage{
 lcms_corgroup_optimization(optimizedXcmsSetObject, retcorGroupParameters,
-  nSlaves = 4, plots = TRUE)
+  nSlaves = 1, opt_path, plots = TRUE)
 }
 \arguments{
-\item{optimizedXcmsSetObject}{XCMS object conatining the `best_settings` parameters.
-This object may be created after running `lcms_peakpicking_optimization` and extract
+\item{optimizedXcmsSetObject}{XCMS object conatining the \code{best_settings} parameters.
+This object may be created after running \code{lcms_peakpicking_optimization} and extract
 best_settings$xset (e.g. optimizedXcmsSetObject <- resultPeakpicking$best_settings$xset)}
 
 \item{retcorGroupParameters}{Parameters for retention time correction and optimization}
@@ -26,10 +26,4 @@ a list with the optimization of parameters for retention time and grouping.
 The function optimize parameters considering a set of samples
 for the retention time correction and grouping using the IPO Package.
 }
-\seealso{
-Other optimization functions: \code{\link{lcms_default_corgroup_params}},
-  \code{\link{lcms_default_peakpeaking_params}},
-  \code{\link{lcms_peakpicking_optimization}},
-  \code{\link{write_opt_params}}
-}
-\concept{optimization functions}
+\concept{optimization functions.}

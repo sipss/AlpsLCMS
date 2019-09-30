@@ -5,10 +5,10 @@
 \title{Peak picking optimization}
 \usage{
 lcms_peakpicking_optimization(lcms_dataset, peakpickingParameters,
-  nSlaves = 4, opt_path, plots = TRUE)
+  nSlaves = 1, opt_path, plots = TRUE)
 }
 \arguments{
-\item{lcms_dataset}{An [lcms_dataset_family] object}
+\item{lcms_dataset}{An \link{lcms_dataset_family} object}
 
 \item{peakpickingParameters}{Parameters for peak picking}
 
@@ -29,8 +29,7 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
 (‘Density’).
 }
 \seealso{
-Other optimization functions: \code{\link{lcms_corgroup_optimization}},
-  \code{\link{lcms_default_corgroup_params}},
+Other optimization functions: \code{\link{lcms_default_corgroup_params}},
   \code{\link{lcms_default_peakpeaking_params}},
   \code{\link{write_opt_params}}
 }

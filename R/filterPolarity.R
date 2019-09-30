@@ -74,7 +74,7 @@ filterSampleType <- function(lcms_dataset,  especial_samples){
   if (length(QC_index) == 0){
     QCs <- NULL
   } else{
-    QCs <- filterFile(lcms_dataset,file = QC_index)
+    QCs <- MSnbase::filterFile(lcms_dataset,file = QC_index)
   }
 
 
@@ -82,7 +82,7 @@ filterSampleType <- function(lcms_dataset,  especial_samples){
   if (length(blank_index) == 0){
     blanks <- NULL
   } else{
-    blanks <- filterFile(lcms_dataset,file = blank_index)
+    blanks <- MSnbase::filterFile(lcms_dataset,file = blank_index)
   }
 
   sample_index <- which(!(lcms_dataset$treatment %in% c(QC_label, blank_label)))
@@ -90,7 +90,7 @@ filterSampleType <- function(lcms_dataset,  especial_samples){
     regular_samples <- NULL
     stop("Your dataset doesn't have any sample not considered Blank or QC sample")
   } else{
-    regular_samples <- filterFile(lcms_dataset, file = sample_index)
+    regular_samples <- MSnbase::filterFile(lcms_dataset, file = sample_index)
   }
 
   datasets_by_class_type <- list(regular_samples = regular_samples,

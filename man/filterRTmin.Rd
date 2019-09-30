@@ -7,7 +7,7 @@
 filterRTmin(lcms_dataset, rt = c(4, 14))
 }
 \arguments{
-\item{lcms_dataset}{An [lcms_dataset_family] object}
+\item{lcms_dataset}{An \link{lcms_dataset_family} object}
 
 \item{rt}{Range of the retention time to keep in minutes}
 

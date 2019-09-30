@@ -26,7 +26,7 @@ lcms_default_peakpeaking_params <- function(noise = 5000, snthresh = 10,
                                             max_peakwidth = c(35, 90),
                                             optimize = TRUE){
   if (optimize == TRUE){
-    peakpickingParameters <- getDefaultXcmsSetStartingParams(method = c("centWave"))
+    peakpickingParameters <- IPO::getDefaultXcmsSetStartingParams(method = c("centWave"))
     peakpickingParameters$noise <- noise
     peakpickingParameters$snthresh <- snthresh
     peakpickingParameters$min_peakwidth <- min_peakwidth
@@ -53,13 +53,16 @@ lcms_default_peakpeaking_params <- function(noise = 5000, snthresh = 10,
 #' @return A peak picking list with the best setting
 #' @export
 #' @family optimization functions
-lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters, nSlaves = 4, opt_path, plots = TRUE){
+lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters, nSlaves = 1, opt_path, plots = TRUE){
+  message("This function requires a folder without previous LC-MS data")
 
   if(is.null(peakpickingParameters)){
     resultPeakpicking <- NULL
   } else{
-    filenames <- pData(lcms_dataset)$sampleNames
+    filenames <- Biobase::pData(lcms_dataset)$sampleNames
     filer <- filenames
+    former_dir <- getwd()
+    setwd(opt_path)
 
     ## Get the spectra
     data_subset <- lcms_dataset %>% MSnbase::filterFile(file = filenames)
@@ -77,7 +80,7 @@ lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters, 
     time.xcmsSet <- system.time({ # measuring time
       base::suppressWarnings(
         base::suppressMessages(
-          resultPeakpicking <- optimizeXcmsSet(files =  samples_op,
+          resultPeakpicking <- IPO::optimizeXcmsSet(files =  samples_op,
                                                params = peakpickingParameters,
                                                nSlaves = nSlaves,
                                                subdir = "plot_ipo",
@@ -85,8 +88,9 @@ lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters, 
         )
       )
     })
+    setwd(former_dir)
   }
-  resultPeakpicking
+  return(resultPeakpicking)
 }
 
 #' Default parameters for optimization of retention time correction and grouping parameters
@@ -111,7 +115,7 @@ lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters, 
 lcms_default_corgroup_params <- function(profStep = 1, gapExtend = 2.7, optimize = TRUE){
 
   if (optimize == TRUE){
-    retcorGroupParameters <- getDefaultRetGroupStartingParams()
+    retcorGroupParameters <- IPO::getDefaultRetGroupStartingParams()
     retcorGroupParameters$profStep <- profStep
     retcorGroupParameters$gapExtend <- gapExtend
   } else{
@@ -134,31 +138,35 @@ lcms_default_corgroup_params <- function(profStep = 1, gapExtend = 2.7, optimize
 #' subfolder called "plot_ipo".
 #' @return a list with the optimization of parameters for retention time and grouping.
 #' @export
-#' @family optimization functions
+#' @family optimization functions.
 lcms_corgroup_optimization <- function (optimizedXcmsSetObject,
                                         retcorGroupParameters,
-                                        nSlaves = 4,
+                                        nSlaves = 1,
+                                        opt_path,
                                         plots = TRUE){
 
   if(is.null(optimizedXcmsSetObject) | is.null(retcorGroupParameters)){
     resultRetcorGroup <- NULL
   } else{
+    former_dir <- getwd()
+    setwd(opt_path)
     print("Performing retention time and grouping
         parameter optimization. This will take some time...")
     time.RetGroup <- system.time({ # measuring time
       base::suppressWarnings(
         base::suppressMessages(
           resultRetcorGroup <-
-            optimizeRetGroup(xset = optimizedXcmsSetObject,
+            IPO::optimizeRetGroup(xset = optimizedXcmsSetObject,
                              params = retcorGroupParameters,
                              nSlaves = nSlaves,
                              subdir = "plot_ipo",
-                             plot = plots)#plot = plot
+                             plot = plots)
         )
       )
     })
+    setwd(former_dir)
   }
-  resultRetcorGroup
+  return(resultRetcorGroup)
 }
 
 #' Displaying and Storing optimized settings
@@ -166,13 +174,13 @@ lcms_corgroup_optimization <- function (optimizedXcmsSetObject,
 #' The function allows visulizing the parameter optimization results by `IPO` Package
 #' allows in the RStudio console. Also you can save this results in plain text files
 #' (i.e. a .CVS file).
-#' @param results_pp
-#' @param results_rtcg
+#' @param results_pp object from the `lcms_peakpicking_optimization`function
+#' @param results_rtcg object from the `lcms_corgroup_optimization`function
 #' @param opt_result_path A directory to save the parameters file
-#' @param csv
-#' @param console
+#' @param csv if TRUE, it writes a file in csv format
+#' @param console if TRUE, it displays the params on the console
 #'
-#' @return
+#' @return A file with the params from the IPO optimization
 #' @export
 #' @family optimization functions
 #' @examples
@@ -226,10 +234,10 @@ write_opt_params<- function(results_pp,
 
 
   if (console == TRUE){
-    writeRScript(paramsPP, paramsRTCGroup)
+    IPO::writeRScript(paramsPP, paramsRTCGroup)
   }
   if (csv == TRUE){
-    writeParamsTable(paramsPP, paramsRTCGroup,
+    IPO::writeParamsTable(paramsPP, paramsRTCGroup,
                      sep = ",", paste0(opt_result_path, "/params.csv"))
   }
   paramsPP

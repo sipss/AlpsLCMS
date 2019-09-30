@@ -18,6 +18,7 @@
 #'
 lcms_plotChrom <- function (chromatogram, treatment_col, rtlim = NULL){
   min2sec <- 60
+  message("Make sure that the column that contains the group class is called `treatment`")
 
   #we need to modify this in order to be more flexible (treatment_col)
   ret_times <- lapply(chromatogram, FUN = rtime)

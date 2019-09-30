@@ -13,9 +13,9 @@ lcms_dataset_save(lcms_dataset, file_name, ...)
 \arguments{
 \item{file_name}{The file name to load or save to}
 
-\item{lcms_dataset}{An object from the [lcms_dataset_family]}
+\item{lcms_dataset}{An object from the \link{lcms_dataset_family}}
 
-\item{...}{Additional arguments passed to [saveRDS].}
+\item{...}{Additional arguments passed to \link{saveRDS}.}
 }
 \description{
 Functions to load and save lcms_dataset objects

@@ -8,7 +8,7 @@ lcms_plot_tics(tics, treatment = treatment, rt = NULL,
   plot_type = "spec")
 }
 \arguments{
-\item{tics}{A Total Ion Count object generated with `lcms_tics`}
+\item{tics}{A Total Ion Count object generated with \code{lcms_tics}}
 
 \item{treatment}{Class groups of the samples}
 

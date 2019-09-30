@@ -7,15 +7,27 @@
 findChromPeaks_cwp(lcms_dataset, params)
 }
 \arguments{
-\item{lcms_dataset}{An [lcms_dataset_family] object}
+\item{lcms_dataset}{An \link{lcms_dataset_family} object}
 
 \item{params}{A converted parameters template from IPO parameters.}
+}
+\value{
+A lcms_dataset with detected peaks
 }
 \description{
 The findChromPeaks_cwp function performs the chromatographic peak
 detection on LC/GC-MS data. The standard method for peak detection
-is *'CentWave'*. We must initialize its parameters according to the
-`IPO` Package optimization. Peak detection aims to detect important
+is \emph{'CentWave'}. We must initialize its parameters according to the
+\code{IPO} Package optimization. Peak detection aims to detect important
 features (peaks) on the chromatographic axis. This will be useful
 for a posterior peak alignment on the chormatophic axis.
+Note: signal processing generally  consists in three main steps:
+(1) peak detection (\code{findChromPeaks_cwp} function),
+(2) peak alignment (\code{align_Rtime} function) and
+(3) peak correspondence (\code{group_peaks} function).
+}
+\examples{
+params <- convert_IPO_to_XCMS(IPO_params)
+peakdet <- findChromPeaks_cwp (dataset, params = params)
+
 }

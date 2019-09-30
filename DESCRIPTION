@@ -1,11 +1,27 @@
 Package: NIHSlcms
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
-Depends: R (>= 3.5.1)
-Imports: MSnbase, Biobase, future, furrr
-License: What license is it under?
+Title: Signal processing of LC-MS metabolomics
+Version: 0.0.0.9001
 Encoding: UTF-8
+Authors@R: c(person(given = "Luis", "Fernandez", email = "lfernandez@ibecbarcelona.eu", role = c("aut", "cre")),person(given = "Francisco", "Madrid-Gambin",email = "fmadrid@ibecbarcelona.eu",role = c("aut")),person(given = "Sergio", "Oller", email = "soller@ibecbarcelona.eu",role = c("aut")))
+Description: Reads RAW and mzXML LC-MS data directories. It provides automated and efficient signal processing for untargeted LC-MS based metabolomics metabolomics. It is able to append metadata, split polarities, data filtering, optimize parameters for signal processing, optimized peak detection, optimized retention time correction, optimized peak correspondence, data imputation, feature annotation and identification through the Human Metabolome Database (HMDB) and perform univariate statistics.
+Depends: R (>= 3.5.1)
+Imports: 
+ MSnbase (>= 2.6.4),
+ forcats (>= 0.3.0),
+ Biobase (>= 2.40.0), 
+ future (>= 1.11.0), 
+ furrr (>= 0.1.0), 
+ xcms (>= 3.2.0),
+ IPO (>= 1.8.1),
+ MAIT (>= 1.14.0),
+ magrittr (>= 1.5),
+ tibble(>= 1.3.4),
+ dplyr (>= 0.7.5),
+ tidyr (>= 0.8.1),
+ methods (>= 3.5.1),
+ knitr (>= 1.23)
+License: What license is it under?
 LazyData: true
 RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr

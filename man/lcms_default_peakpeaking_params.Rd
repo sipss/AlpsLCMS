@@ -33,11 +33,10 @@ This includes Peak Detection (‘Centwave’ and ‘Matched Filter’),
 Retention Time Correction (‘obiwarp’) and Peak Correspondence
 (‘Density’).
 Use this function to generate the template within the
-`lcms_peakpicking_optimization` function.
+\code{lcms_peakpicking_optimization} function.
 }
 \seealso{
-Other optimization functions: \code{\link{lcms_corgroup_optimization}},
-  \code{\link{lcms_default_corgroup_params}},
+Other optimization functions: \code{\link{lcms_default_corgroup_params}},
   \code{\link{lcms_peakpicking_optimization}},
   \code{\link{write_opt_params}}
 }

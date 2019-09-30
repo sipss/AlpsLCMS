@@ -12,8 +12,8 @@
 lcms_tics <- function(lcms_dataset, treatment = treatment){
   tics <- tibble::tibble(
     file = MSnbase::fromFile(lcms_dataset),
-    fileName = pData(lcms_dataset)$sampleNames[file],
-    treatment = pData(lcms_dataset)$treatment[file],
+    fileName = Biobase::pData(lcms_dataset)$sampleNames[file],
+    treatment = Biobase::pData(lcms_dataset)$treatment[file],
     ret_time = MSnbase::rtime(lcms_dataset),
     polarity = rep(unique(MSnbase::polarity(lcms_dataset),length(file))),
     tic = MSnbase::tic(lcms_dataset)
@@ -39,6 +39,8 @@ lcms_tics <- function(lcms_dataset, treatment = treatment){
 #' @family lcms_dataset_peak_table functions
 lcms_plot_tics <- function(tics, treatment = treatment, rt = NULL, plot_type = "spec"){
   min2sec <- 60
+  treatment_col <- scales::hue_pal()(length(unique(tics$treatment)))
+  names(treatment_col) <- unique(tics$treatment)
 
   if (unique(tics$polarity) == 1){
     polarity <- "(positive polarity)"
@@ -60,19 +62,19 @@ lcms_plot_tics <- function(tics, treatment = treatment, rt = NULL, plot_type = "
     }else {
       stop("Non valid retention time range")
     }
-    ggplot(tics) +
-      geom_line(aes(x = ret_time /  min2sec, y = tic, color = treatment, group = file)) +
-      scale_x_continuous("Retention time (min)", limits = rt, breaks = tick_values) +
-      scale_y_continuous("Total Ion Count (a.u.)") +
-      scale_colour_manual("Treatment", values = treatment_col) +
-      ggtitle(paste("Total Ion Count across all retention times", polarity))
+    ggplot2::ggplot(tics) +
+      ggplot2::geom_line(ggplot2::aes(x = ret_time /  min2sec, y = tic, color = treatment, group = file)) +
+      ggplot2::scale_x_continuous("Retention time (min)", limits = rt, breaks = tick_values) +
+      ggplot2::scale_y_continuous("Total Ion Count (a.u.)") +
+      ggplot2::scale_colour_manual("Treatment", values = treatment_col) +
+      ggplot2::ggtitle(paste("Total Ion Count across all retention times", polarity))
   }else if(plot_type == "boxplot"){
-    tics <- tics %>% filter(ret_time >= rt[1] * min2sec & ret_time <= rt[2]* min2sec)
-    ggplot(tics) +
-      geom_boxplot(aes(x = fileName, y = tic, fill = treatment)) +
-      scale_fill_manual("Treatment", values = treatment_col) +
-      scale_y_log10() +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-      ggtitle(paste("Boxplot of the Total Ion Count by sample", polarity))
+    tics <- tics %>% dplyr::filter(ret_time >= rt[1] * min2sec & ret_time <= rt[2]* min2sec)
+    ggplot2::ggplot(tics) +
+      ggplot2::geom_boxplot(ggplot2::aes(x = fileName, y = tic, fill = treatment)) +
+      ggplot2::scale_fill_manual("Treatment", values = treatment_col) +
+      ggplot2::scale_y_log10() +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)) +
+      ggplot2::ggtitle(paste("Boxplot of the Total Ion Count by sample", polarity))
   }
 }

@@ -4,14 +4,14 @@
 \alias{lcms_meta_export}
 \title{Export Metadata to an Excel file}
 \usage{
-lcms_meta_export(dataset, xlsx_file)
+lcms_meta_export(lcms_dataset, xlsx_file)
 }
 \arguments{
+\item{lcms_dataset}{An \link{lcms_dataset_family} object}
+
 \item{xlsx_file}{"The .xlsx excel file"}
 
-\item{lcms_dataset}{An [lcms_dataset_family] object}
-
-\item{groups}{A character vector. Use `"external"` for the external metadata or
+\item{groups}{A character vector. Use \code{"external"} for the external metadata or
 the default for a more generic solution}
 }
 \value{

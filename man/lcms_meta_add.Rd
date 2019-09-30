@@ -12,7 +12,7 @@ lcms_meta_add(object, metadata, by = "sampleNames")
 
 \item{metadata}{A data frame to be merged}
 
-\item{by}{A column present both in `metadata` and in `Biobase::pData(object)`}
+\item{by}{A column present both in \code{metadata} and in \code{Biobase::pData(object)}}
 }
 \value{
 The object with the added metadata

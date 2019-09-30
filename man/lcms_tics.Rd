@@ -7,7 +7,7 @@
 lcms_tics(lcms_dataset, treatment = treatment)
 }
 \arguments{
-\item{lcms_dataset}{An [lcms_dataset_family] object}
+\item{lcms_dataset}{An \link{lcms_dataset_family} object}
 
 \item{treatment}{Class groups of the samples}
 }
@@ -16,8 +16,8 @@ Total Ion Count (TIC) for the polarity samples.
 }
 \description{
 The function performs the Total Ion Count (TIC) for the polarity samples.
-Function `lcms_tics` stores summarizes TIC information.
-NOTE: `lcms_tics` assumes that data is already filtered by polarity.
+Function \code{lcms_tics} stores summarizes TIC information.
+NOTE: \code{lcms_tics} assumes that data is already filtered by polarity.
 }
 \seealso{
 Other lcms_dataset functions: \code{\link{filterRTmin}},

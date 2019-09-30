@@ -7,10 +7,10 @@
 filterSampleType(lcms_dataset, especial_samples)
 }
 \arguments{
-\item{lcms_dataset}{An [lcms_dataset_family] object}
+\item{lcms_dataset}{An \link{lcms_dataset_family} object}
 
 \item{especial_samples}{A list with the especial samples names.
-Use `NULL` if there is not any especial sample in the dataset.}
+Use \code{NULL} if there is not any especial sample in the dataset.}
 }
 \value{
 A filtered dataset with the remained samples
@@ -20,14 +20,16 @@ In a dataset, there are different types of samples for
 checking purposes. For instance, quality control (QC) samples
 may be pools of all samples, and blank samples may be composed
 by the solvent used. Therefore, these samples should be removed
-before alignment and processing from the main dataset. Use `NULL`
+before alignment and processing from the main dataset. Use \code{NULL}
 if there is not any especial sample in the dataset.
 }
 \details{
 The function can distinguish and filter different samples types:
-* Regular samples
-* Blank samples
-* Quality Control samples
+\itemize{
+\item Regular samples
+\item Blank samples
+\item Quality Control samples
+}
 }
 \examples{
 \dontrun{

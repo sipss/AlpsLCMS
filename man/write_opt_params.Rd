@@ -8,12 +8,21 @@ write_opt_params(results_pp, results_rtcg, opt_result_path, csv = TRUE,
   console = TRUE)
 }
 \arguments{
+\item{results_pp}{object from the \code{lcms_peakpicking_optimization}function}
+
+\item{results_rtcg}{object from the \code{lcms_corgroup_optimization}function}
+
 \item{opt_result_path}{A directory to save the parameters file}
 
-\item{console}{}
+\item{csv}{if TRUE, it writes a file in csv format}
+
+\item{console}{if TRUE, it displays the params on the console}
+}
+\value{
+A file with the params from the IPO optimization
 }
 \description{
-The function allows visulizing the parameter optimization results by `IPO` Package
+The function allows visulizing the parameter optimization results by \code{IPO} Package
 allows in the RStudio console. Also you can save this results in plain text files
 (i.e. a .CVS file).
 }
@@ -22,8 +31,7 @@ opt_result_path <- "C:/my_directory"
 write_opt_params(resultPeakpicking, resultRetcorGroup, opt_result_path)
 }
 \seealso{
-Other optimization functions: \code{\link{lcms_corgroup_optimization}},
-  \code{\link{lcms_default_corgroup_params}},
+Other optimization functions: \code{\link{lcms_default_corgroup_params}},
   \code{\link{lcms_default_peakpeaking_params}},
   \code{\link{lcms_peakpicking_optimization}}
 }

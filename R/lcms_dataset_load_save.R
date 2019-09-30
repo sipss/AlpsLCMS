@@ -20,7 +20,6 @@ lcms_dataset_load <- function(file_name) {
 lcms_dataset_save <- function(lcms_dataset, file_name, ...) {
   lcms_diagnose(lcms_dataset) <- NULL
   saveRDS(lcms_dataset, file_name)
-  return(lcms_dataset)
 }
 
 NULL
@@ -37,10 +36,10 @@ NULL
 #' @family lcms_dataset functions
 #' @family lcms_dataset_peak_table functions
 #' @family import/export functions
-lcms_meta_export <- function(dataset,
+lcms_meta_export <- function(lcms_dataset,
                              xlsx_file) {
-  groups_present <- pData(dataset)
-  writexl::write_xlsx(x = pData(dataset), path = xlsx_file)
+  groups_present <- phData(lcms_dataset)
+  writexl::write_xlsx(x = NIHSlcms::phData(lcms_dataset), path = xlsx_file)
 }
 
 NULL

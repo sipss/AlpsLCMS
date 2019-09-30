@@ -13,8 +13,8 @@ read_IPO_to_XCMS(opt_result_path)
 A display of the chosen parameters
 }
 \description{
-The function reads and converts from `IPO` to `XCMS` variable formats: The variable names in IPO and XCMS
-presented some mismatches, thus we had to create a function called *IPO_to_XCMS*
+The function reads and converts from \code{IPO} to \code{XCMS} variable formats: The variable names in IPO and XCMS
+presented some mismatches, thus we had to create a function called \emph{IPO_to_XCMS}
 to achieve compatibility between packages.
 }
 \examples{
