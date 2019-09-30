@@ -9,7 +9,7 @@
 #' Note: signal processing generally  consists in three main steps:
 #' (1) peak detection (`findChromPeaks_cwp` function),
 #' (2) peak alignment (`align_Rtime` function) and
-#' (3) peak correspondence (`group_peaks` function)
+#' (3) peak correspondence (`group_peaks` function).
 #'
 #' @param lcms_dataset An [lcms_dataset_family] object
 #' @param params A converted parameters template from IPO parameters.
