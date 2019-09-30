@@ -1,6 +1,6 @@
 #' Retention Time Correction
 #'
-#' Retention time correction is performed  using *'obiwarp'* method.
+#' Retention time correction is performed using *'obiwarp'* method.
 #' Its optimum parameters are obtaine from `IPO` Package.
 #' Note: signal processing generally  consists in three main steps:
 #' (1) peak detection (`findChromPeaks_cwp` function),
