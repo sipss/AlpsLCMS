@@ -27,8 +27,10 @@ allows in the RStudio console. Also you can save this results in plain text file
 (i.e. a .CVS file).
 }
 \examples{
+\dontrun{
 opt_result_path <- "C:/my_directory"
 write_opt_params(resultPeakpicking, resultRetcorGroup, opt_result_path)
+}
 }
 \seealso{
 Other optimization functions: \code{\link{lcms_default_corgroup_params}},

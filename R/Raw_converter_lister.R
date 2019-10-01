@@ -6,17 +6,34 @@
 #'
 #' @param sample_path Directory in which the samples are.
 #' @param file_format Format of the LC-MS files (e.g. file_format = "raw").
-#' @param rawconverter Directory in which the RawConverter app is located.
+#' @param rawconverter Directory in where the RawConverter application is located.
 #'
 #' @return a list of the LC-MS files in a readable format to create the `lcms_dataset`.
 #' @export
 #'
 #' @examples
 #' \dontrun{
+#' rawconverter_path <-"C:/Users/Biosignal/Desktop/Nestle_2019/LCMS"
+#' path <- system.file("extdata", "1.mzXML", package = "NIHSlcms")
+#' samples_mzxml <- list_mzxml_samples(path,
+#'                                     file_format = "mzXML",
+#'                                     rawconverter = rawconverter_path)
+#'}
+
+#'
+#' \dontrun{
+#' path <- system.file("extdata", "1.raw", package = "NIHSlcms")
+#' samples_mzxml <- list_mzxml_samples(path,
+#'                                     file_format = "raw",
+#'                                     rawconverter = rawconverter_path)
+#'}
+
+#' \dontrun{
 #' samples_mzxml <- list_mzxml_samples(path,
 #'                                     file_format = "mzXML",
 #'                                    rawconverter = rawconverter_path)
-#' }
+#'}
+
 list_mzxml_samples <- function(sample_path, file_format = "raw", rawconverter){
 
   if (file_format == "raw") {

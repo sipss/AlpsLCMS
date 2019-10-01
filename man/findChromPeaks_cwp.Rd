@@ -27,7 +27,9 @@ Note: signal processing generally  consists in three main steps:
 (3) peak correspondence (\code{group_peaks} function).
 }
 \examples{
+\dontrun{
 params <- convert_IPO_to_XCMS(IPO_params)
 peakdet <- findChromPeaks_cwp (dataset, params = params)
+}
 
 }

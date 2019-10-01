@@ -29,9 +29,10 @@ them to spectra on the mass/chage axis.
 After this stage the peak table is finally obtained.
 }
 \examples{
+\dontrun{
 params <- convert_IPO_to_XCMS(IPO_params)
 peakdet <- findChromPeaks_cwp(dataset, params = params)
 peakdet_align <- align_Rtime(peakdet, params = params)
 peak_table <- group_peaks(peakdet_align, params = params)
-
+}
 }

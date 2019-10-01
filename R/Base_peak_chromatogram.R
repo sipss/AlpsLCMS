@@ -12,9 +12,11 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' rtlim <- c(4, 14)
 #' base_peaks <- xcms::chromatogram(lcms_dataset, aggregationFun = "max")
 #' lcms_plotChrom(base_peaks, treatment_col, rtlim = rtlim)
+#'}
 #'
 lcms_plotChrom <- function (chromatogram, treatment_col, rtlim = NULL){
   min2sec <- 60

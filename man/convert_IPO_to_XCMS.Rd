@@ -18,5 +18,7 @@ presented some mismatches, thus we had to create a function called \emph{IPO_to_
 to achieve compatibility between packages.
 }
 \examples{
+\dontrun{
 write_opt_params(resultPeakpicking, resultRetcorGroup, my_directory)
+}
 }

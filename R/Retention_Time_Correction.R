@@ -11,9 +11,11 @@
 #' `findChromPeaks_cwp` function
 #' @param params A converted parameters template from IPO parameters.
 #' @examples
+#' \dontrun{
 #' params <- convert_IPO_to_XCMS(IPO_params)
 #' peakdet <- findChromPeaks_cwp(dataset, params = params)
 #' peakdet_align <- align_Rtime(peakdet, params = params)
+#' }
 #'
 #' @return A lcms_dataset with (1) detected (`findChromPeaks_cwp` function)
 #' and (2) aligned (`align_Rtime` function) peaks

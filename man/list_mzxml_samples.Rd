@@ -11,7 +11,7 @@ list_mzxml_samples(sample_path, file_format = "raw", rawconverter)
 
 \item{file_format}{Format of the LC-MS files (e.g. file_format = "raw").}
 
-\item{rawconverter}{Directory in which the RawConverter app is located.}
+\item{rawconverter}{Directory in where the RawConverter application is located.}
 }
 \value{
 a list of the LC-MS files in a readable format to create the \code{lcms_dataset}.
@@ -23,8 +23,20 @@ download and installation of the \emph{RawConverter} application.
 }
 \examples{
 \dontrun{
+rawconverter_path <-"C:/Users/Biosignal/Desktop/Nestle_2019/LCMS"
+path <- system.file("extdata", "1.mzXML", package = "NIHSlcms")
+samples_mzxml <- list_mzxml_samples(path,
+                                    file_format = "mzXML",
+                                    rawconverter = rawconverter_path)
+}
+
+\dontrun{
+path <- system.file("extdata", "1.raw", package = "NIHSlcms")
+samples_mzxml <- list_mzxml_samples(path,
+                                    file_format = "raw",
+                                    rawconverter = rawconverter_path)
+}
 samples_mzxml <- list_mzxml_samples(path,
                                     file_format = "mzXML",
                                    rawconverter = rawconverter_path)
-}
 }

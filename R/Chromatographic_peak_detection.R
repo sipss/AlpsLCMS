@@ -14,8 +14,10 @@
 #' @param lcms_dataset An [lcms_dataset_family] object
 #' @param params A converted parameters template from IPO parameters.
 #' @examples
+#' \dontrun{
 #' params <- convert_IPO_to_XCMS(IPO_params)
 #' peakdet <- findChromPeaks_cwp (dataset, params = params)
+#' }
 #'
 #' @return A lcms_dataset with detected peaks
 #' @export

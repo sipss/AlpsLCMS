@@ -10,7 +10,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' write_opt_params(resultPeakpicking, resultRetcorGroup, my_directory)
+#' }
 read_IPO_to_XCMS <- function(opt_result_path){
   params <- utils::read.csv(paste0(opt_result_path, "/params.csv"), stringsAsFactors = FALSE)
   preproc_params <- list(ppm = params$ppm,
@@ -54,7 +56,9 @@ read_IPO_to_XCMS <- function(opt_result_path){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' write_opt_params(resultPeakpicking, resultRetcorGroup, my_directory)
+#' }
 convert_IPO_to_XCMS <- function(params){
   preproc_params <- list(ppm = params$ppm,
                          peakwidth = c(params$min_peakwidth, params$max_peakwidth),

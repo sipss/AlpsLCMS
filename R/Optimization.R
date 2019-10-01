@@ -184,8 +184,10 @@ lcms_corgroup_optimization <- function (optimizedXcmsSetObject,
 #' @export
 #' @family optimization functions
 #' @examples
+#' \dontrun{
 #' opt_result_path <- "C:/my_directory"
 #' write_opt_params(resultPeakpicking, resultRetcorGroup, opt_result_path)
+#' }
 write_opt_params<- function(results_pp,
                             results_rtcg,
                             opt_result_path,

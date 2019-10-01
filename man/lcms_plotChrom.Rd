@@ -22,8 +22,10 @@ A base peak chromatogram
 Base peak chromatograms with retention time axis in minutes.
 }
 \examples{
+\dontrun{
 rtlim <- c(4, 14)
 base_peaks <- xcms::chromatogram(lcms_dataset, aggregationFun = "max")
 lcms_plotChrom(base_peaks, treatment_col, rtlim = rtlim)
+}
 
 }

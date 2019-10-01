@@ -20,11 +20,12 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' params <- convert_IPO_to_XCMS(IPO_params)
 #' peakdet <- findChromPeaks_cwp(dataset, params = params)
 #' peakdet_align <- align_Rtime(peakdet, params = params)
 #' peak_table <- group_peaks(peakdet_align, params = params)
-#'
+#' }
 group_peaks <- function (peakdet_align, params) {
   pdp <- xcms::PeakDensityParam(sampleGroups = peakdet_align$treatment,
                               binSize = params$mzwid,

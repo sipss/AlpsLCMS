@@ -17,8 +17,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' rearrange_datafiles_by_class(lcms_dataset = lcms_dataset,
-#'                              dataDir = path)
+#'                             dataDir = path)
+#' }
 rearrange_datafiles_by_class = function(lcms_dataset, dataDir) {
   no_blank_files <- Biobase::pData(lcms_dataset)$sampleNames
   no_blank_files_treatment <- Biobase::pData(lcms_dataset)$treatment

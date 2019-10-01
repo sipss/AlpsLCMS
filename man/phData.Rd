@@ -22,7 +22,9 @@ It uses \link[Biobase:pData]{Biobase::pData} to access phenotypic data such as
 metadata, covariates, etc...
 }
 \examples{
-metadata <- metadata<- readxl::read_excel("D:/myFile.xlsx")
+\dontrun{
+metadata<- readxl::read_excel("D:/myFile.xlsx")
 dataset <- lcms_meta_add(dataset, metadata, by = "sampleNames")
 phData(dataset)
+}
 }

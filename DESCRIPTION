@@ -1,6 +1,6 @@
 Package: NIHSlcms
 Title: Signal processing of LC-MS metabolomics
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Encoding: UTF-8
 Authors@R: c(person(given = "Luis", "Fernandez", email = "lfernandez@ibecbarcelona.eu", role = c("aut", "cre")),person(given = "Francisco", "Madrid-Gambin",email = "fmadrid@ibecbarcelona.eu",role = c("aut")),person(given = "Sergio", "Oller", email = "soller@ibecbarcelona.eu",role = c("aut")))
 Description: Reads RAW and mzXML LC-MS data directories. It provides automated and efficient signal processing for untargeted LC-MS based metabolomics metabolomics. It is able to append metadata, split polarities, data filtering, optimize parameters for signal processing, optimized peak detection, optimized retention time correction, optimized peak correspondence, data imputation, feature annotation and identification through the Human Metabolome Database (HMDB) and perform univariate statistics.

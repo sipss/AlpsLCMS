@@ -14,9 +14,11 @@
 #' @export
 #'
 #' @examples
-#' metadata <- metadata<- readxl::read_excel("D:/myFile.xlsx")
+#' \dontrun{
+#' metadata<- readxl::read_excel("D:/myFile.xlsx")
 #' dataset <- lcms_meta_add(dataset, metadata, by = "sampleNames")
 #' phData(dataset)
+#' }
 
 phData <- function (object) {
   Biobase::pData(object)

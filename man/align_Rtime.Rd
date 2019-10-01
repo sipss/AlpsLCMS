@@ -17,7 +17,7 @@ A lcms_dataset with (1) detected (\code{findChromPeaks_cwp} function)
 and (2) aligned (\code{align_Rtime} function) peaks
 }
 \description{
-Retention time correction is performed  using \emph{'obiwarp'} method.
+Retention time correction is performed using \emph{'obiwarp'} method.
 Its optimum parameters are obtaine from \code{IPO} Package.
 Note: signal processing generally  consists in three main steps:
 (1) peak detection (\code{findChromPeaks_cwp} function),
@@ -25,8 +25,10 @@ Note: signal processing generally  consists in three main steps:
 (3) peak correspondence (\code{group_peaks} function).
 }
 \examples{
+\dontrun{
 params <- convert_IPO_to_XCMS(IPO_params)
 peakdet <- findChromPeaks_cwp(dataset, params = params)
 peakdet_align <- align_Rtime(peakdet, params = params)
+}
 
 }

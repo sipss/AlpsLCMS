@@ -27,6 +27,8 @@ needs a specific directory structure for data managing.
 Otherwise, it can't work properly.
 }
 \examples{
+\dontrun{
 rearrange_datafiles_by_class(lcms_dataset = lcms_dataset,
-                             dataDir = path)
+                            dataDir = path)
+}
 }
