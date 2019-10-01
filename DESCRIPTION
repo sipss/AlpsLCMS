@@ -19,7 +19,14 @@ Imports:
  dplyr (>= 0.7.5),
  tidyr (>= 0.8.1),
  methods (>= 3.5.1),
- knitr (>= 1.23)
+ knitr (>= 1.23),
+ fs (>= 1.3.1),
+ ggplot2 (>= 3.2.0),
+ glue (>= 1.3.1),
+ mzR (>= 2.16.2),
+ rlang (>= 0.4.0),
+ scales (>= 1.0.0),
+ writexl (>= 1.1)
 License: What license is it under?
 LazyData: true
 RoxygenNote: 6.1.1

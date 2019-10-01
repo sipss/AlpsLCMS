@@ -36,7 +36,9 @@ samples_mzxml <- list_mzxml_samples(path,
                                     file_format = "raw",
                                     rawconverter = rawconverter_path)
 }
+\dontrun{
 samples_mzxml <- list_mzxml_samples(path,
                                     file_format = "mzXML",
                                    rawconverter = rawconverter_path)
+}
 }
