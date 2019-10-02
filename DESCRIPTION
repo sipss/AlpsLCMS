@@ -26,10 +26,12 @@ Authors@R: c(
            role = "cph")
         )
 Description: Reads RAW and mzXML LC-MS data directories. 
- It provides automated and efficient signal processing for untargeted LC-MS based metabolomics metabolomics. 
- It is able to append metadata, split polarities, data filtering, optimize parameters for signal processing, 
- optimized peak detection, optimized retention time correction, optimized peak correspondence, data imputation, 
- feature annotation and identification through the Human Metabolome Database (HMDB) and perform univariate statistics.
+ It provides automated and efficient signal processing for untargeted
+ LC-MS based metabolomics metabolomics. It is able to append metadata, 
+ split polarities, data filtering, optimize parameters for signal processing, 
+ optimized peak detection, optimized retention time correction, optimized
+ peak correspondence, data imputation,feature annotation and identification
+ through the Human Metabolome Database (HMDB) and perform univariate statistics.
 License: file LICENSE
 LazyData: TRUE
 Depends: R (>= 3.5.0)
