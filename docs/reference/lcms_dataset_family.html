@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Download and Install RawConverter — install_RawConverter • NIHSlcms</title>
+<title>lcms_dataset like objects (S3 classes) — lcms_dataset_family • NIHSlcms</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Download and Install RawConverter — install_RawConverter" />
+<meta property="og:title" content="lcms_dataset like objects (S3 classes) — lcms_dataset_family" />
 
-<meta property="og:description" content="On non-windows systems, this function requires wine and winetricks to be installed" />
+<meta property="og:description" content="The NIHSlcms package defines and uses several objects to manage LCMS Data." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -101,44 +101,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Download and Install RawConverter</h1>
+    <h1>lcms_dataset like objects (S3 classes)</h1>
     
-    <div class="hidden name"><code>install_RawConverter.Rd</code></div>
+    <div class="hidden name"><code>lcms_dataset_family.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>On non-windows systems, this function requires wine and winetricks to be installed</p>
+    <p>The NIHSlcms package defines and uses several objects to manage LCMS Data.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>install_RawConverter</span>(<span class='no'>rawconverter</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>rawconverter</th>
-      <td><p>Working directory to install RawConverter</p></td>
-    </tr>
-    <tr>
-      <th>force</th>
-      <td><p>logical. Set to <code>TRUE</code> to install even if RawConverter already exists</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+        
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>the working directory</p>
+    <p>These objects share some structure and functions, so it makes sense to have
+an abstract class to ensure that the shared structures are compatible</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='load_and_save_functions.html'>Functions to save and load these objects</a></p></div>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
           </ul>
 
   </div>

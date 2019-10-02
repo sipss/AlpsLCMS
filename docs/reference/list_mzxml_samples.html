@@ -68,7 +68,7 @@ download and installation of the RawConverter application." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
       </span>
     </div>
 
@@ -131,7 +131,7 @@ download and installation of the <em>RawConverter</em> application.</p>
     </tr>
     <tr>
       <th>rawconverter</th>
-      <td><p>Directory in which the RawConverter app is located.</p></td>
+      <td><p>Directory in where the RawConverter application is located.</p></td>
     </tr>
     </table>
     
@@ -142,6 +142,20 @@ download and installation of the <em>RawConverter</em> application.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>rawconverter_path</span> <span class='kw'>&lt;-</span><span class='st'>"C:/Users/Biosignal/Desktop/Nestle_2019/LCMS"</span>
+<span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"1.mzXML"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+<span class='no'>samples_mzxml</span> <span class='kw'>&lt;-</span> <span class='fu'>list_mzxml_samples</span>(<span class='no'>path</span>,
+                                    <span class='kw'>file_format</span> <span class='kw'>=</span> <span class='st'>"mzXML"</span>,
+                                    <span class='kw'>rawconverter</span> <span class='kw'>=</span> <span class='no'>rawconverter_path</span>)
+}
+
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"1.raw"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+<span class='no'>samples_mzxml</span> <span class='kw'>&lt;-</span> <span class='fu'>list_mzxml_samples</span>(<span class='no'>path</span>,
+                                    <span class='kw'>file_format</span> <span class='kw'>=</span> <span class='st'>"raw"</span>,
+                                    <span class='kw'>rawconverter</span> <span class='kw'>=</span> <span class='no'>rawconverter_path</span>)
+}
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>samples_mzxml</span> <span class='kw'>&lt;-</span> <span class='fu'>list_mzxml_samples</span>(<span class='no'>path</span>,
                                     <span class='kw'>file_format</span> <span class='kw'>=</span> <span class='st'>"mzXML"</span>,
                                    <span class='kw'>rawconverter</span> <span class='kw'>=</span> <span class='no'>rawconverter_path</span>)
@@ -163,7 +177,7 @@ download and installation of the <em>RawConverter</em> application.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Luis Fernandez, Francisco Madrid-Gambin, Sergio Oller.</p>
+  <p>Developed by Luis Fernandez, Francisco Madrid-Gambin, Sergio Oller, Ivan Montoliu Roura.</p>
 </div>
 
 <div class="pkgdown">

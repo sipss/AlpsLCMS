@@ -1,4 +1,4 @@
-#' filter an experiment by its polarity
+#' Filter an experiment by its polarity
 #'
 #' This function was merged in
 #' the MSnbase package on 2018-12-10 as proposed at:
@@ -8,8 +8,11 @@
 #' Once MSnbase is released (Bioconductor 3.9, maybe once R 3.6 is out),
 #' remove this function.
 #'
+#'
 #' @param object An MSnExp object
 #' @param polarity. The polarity to keep
+#' @family lcms_dataset functions
+#' @family lcms_filtering functions
 #'
 #' @export
 filterPolarity <- function(object, polarity.) {
@@ -24,11 +27,10 @@ filterPolarity <- function(object, polarity.) {
 #' a range of the retention time in minutes.
 #' @param lcms_dataset An [lcms_dataset_family] object
 #' @param rt Range of the retention time to keep in minutes
-#' @param rt Retention time
-#' @param plot_type The plot class, either boxplot or spectra
 #' @return A filtered dataset with the range of selected rt
 #' @export
 #' @family lcms_dataset functions
+#' @family lcms_filtering functions
 #'
 #' @export
 filterRTmin <- function (lcms_dataset, rt = c(4, 14)){
@@ -55,6 +57,7 @@ filterRTmin <- function (lcms_dataset, rt = c(4, 14)){
 #' @return A filtered dataset with the remained samples
 #' @export
 #' @family lcms_dataset functions
+#' @family lcms_filtering functions
 #' @examples
 #' \dontrun{
 #' especial_samples <-list(QC = "DMSO-Ctrl", blank = "blank")

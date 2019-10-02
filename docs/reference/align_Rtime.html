@@ -34,7 +34,7 @@
 
 <meta property="og:title" content="Retention Time Correction — align_Rtime" />
 
-<meta property="og:description" content="Retention time correction is performed  using 'obiwarp' method.
+<meta property="og:description" content="Retention time correction is performed using 'obiwarp' method.
 Its optimum parameters are obtaine from IPO Package.
 Note: signal processing generally  consists in three main steps:
 (1) peak detection (findChromPeaks_cwp function),
@@ -71,7 +71,7 @@ Note: signal processing generally  consists in three main steps:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@ Note: signal processing generally  consists in three main steps:
 
     <div class="ref-description">
     
-    <p>Retention time correction is performed  using <em>'obiwarp'</em> method.
+    <p>Retention time correction is performed using <em>'obiwarp'</em> method.
 Its optimum parameters are obtaine from <code>IPO</code> Package.
 Note: signal processing generally  consists in three main steps:
 (1) peak detection (<code>findChromPeaks_cwp</code> function),
@@ -145,13 +145,11 @@ and (2) aligned (<code>align_Rtime</code> function) peaks</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>params</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='convert_IPO_to_XCMS.html'>convert_IPO_to_XCMS</a></span>(<span class='no'>IPO_params</span>)</div><div class='output co'>#&gt; <span class='error'>Error in convert_IPO_to_XCMS(IPO_params): object 'IPO_params' not found</span></div><div class='input'><span class='no'>peakdet</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='findChromPeaks_cwp.html'>findChromPeaks_cwp</a></span>(<span class='no'>dataset</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: mzR has been built against a different Rcpp version (1.0.0)</span>
-#&gt; <span class='warning'>than is installed on your system (1.0.2). This might lead to errors</span>
-#&gt; <span class='warning'>when loading mzR. If you encounter such issues, please send a report,</span>
-#&gt; <span class='warning'>including the output of sessionInfo() to the Bioc support forum at </span>
-#&gt; <span class='warning'>https://support.bioconductor.org/. For details see also</span>
-#&gt; <span class='warning'>https://github.com/sneumann/mzR/wiki/mzR-Rcpp-compiler-linker-issue.</span></div><div class='output co'>#&gt; <span class='error'>Error in .nextMethod(.Object, ...): object 'params' not found</span></div><div class='input'><span class='no'>peakdet_align</span> <span class='kw'>&lt;-</span> <span class='fu'>align_Rtime</span>(<span class='no'>peakdet</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>)</div><div class='output co'>#&gt; <span class='error'>Error in .nextMethod(.Object, ...): object 'params' not found</span></div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>params</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='convert_IPO_to_XCMS.html'>convert_IPO_to_XCMS</a></span>(<span class='no'>IPO_params</span>)
+<span class='no'>peakdet</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='findChromPeaks_cwp.html'>findChromPeaks_cwp</a></span>(<span class='no'>dataset</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>)
+<span class='no'>peakdet_align</span> <span class='kw'>&lt;-</span> <span class='fu'>align_Rtime</span>(<span class='no'>peakdet</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -169,7 +167,7 @@ and (2) aligned (<code>align_Rtime</code> function) peaks</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Luis Fernandez, Francisco Madrid-Gambin, Sergio Oller.</p>
+  <p>Developed by Luis Fernandez, Francisco Madrid-Gambin, Sergio Oller, Ivan Montoliu Roura.</p>
 </div>
 
 <div class="pkgdown">
