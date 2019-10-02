@@ -1,21 +1,20 @@
-#' Functions to load and save lcms_dataset objects
+#' Function to load a lcms_dataset object
 #'
-#' @name load_and_save_functions
-#' @param file_name The file name to load or save to
-#' @param lcms_dataset An object from the [lcms_dataset_family]
-#' @param ... Additional arguments passed to [saveRDS].
+#' @param file_name The file name to load
+#' @return An object from the [lcms_dataset_family]
+#' @export
 #' @family lcms_dataset functions
 #' @family lcms_dataset_peak_table functions
 #' @family import/export functions
-NULL
-
-#' @rdname load_and_save_functions
-#' @export
 lcms_dataset_load <- function(file_name) {
   return(readRDS(file_name))
 }
 
-#' @rdname load_and_save_functions
+#' Function to save a lcms_dataset object
+#'
+#' @param lcms_dataset An object from the [lcms_dataset_family]
+#' @param file_name The file name to save to
+#' @param ... Additional arguments passed to [saveRDS].
 #' @export
 lcms_dataset_save <- function(lcms_dataset, file_name, ...) {
   lcms_diagnose(lcms_dataset) <- NULL

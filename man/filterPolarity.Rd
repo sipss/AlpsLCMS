@@ -2,7 +2,7 @@
 % Please edit documentation in R/lcms_dataset_filtering.R
 \name{filterPolarity}
 \alias{filterPolarity}
-\title{filter an experiment by its polarity}
+\title{Filter an experiment by its polarity}
 \usage{
 filterPolarity(object, polarity.)
 }
@@ -21,3 +21,15 @@ https://github.com/lgatto/MSnbase/issues/388
 Once MSnbase is released (Bioconductor 3.9, maybe once R 3.6 is out),
 remove this function.
 }
+\seealso{
+Other lcms_dataset functions: \code{\link{filterRTmin}},
+  \code{\link{filterSampleType}},
+  \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
+
+Other lcms_filtering functions: \code{\link{filterRTmin}},
+  \code{\link{filterSampleType}}
+}
+\concept{lcms_dataset functions}
+\concept{lcms_filtering functions}

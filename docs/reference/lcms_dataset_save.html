@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Total Ion Count (TIC) plot — lcms_plot_tics • NIHSlcms</title>
+<title>Function to save a lcms_dataset object — lcms_dataset_save • NIHSlcms</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Total Ion Count (TIC) plot — lcms_plot_tics" />
+<meta property="og:title" content="Function to save a lcms_dataset object — lcms_dataset_save" />
 
-<meta property="og:description" content="The function performs a plot with the Total Ion Count (TIC)." />
+<meta property="og:description" content="Function to save a lcms_dataset object" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -101,54 +101,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Total Ion Count (TIC) plot</h1>
+    <h1>Function to save a lcms_dataset object</h1>
     
-    <div class="hidden name"><code>lcms_plot_tics.Rd</code></div>
+    <div class="hidden name"><code>lcms_dataset_save.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>The function performs a plot with the Total Ion Count (TIC).</p>
+    <p>Function to save a lcms_dataset object</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_plot_tics</span>(<span class='no'>tics</span>, <span class='kw'>treatment</span> <span class='kw'>=</span> <span class='no'>treatment</span>, <span class='kw'>rt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>plot_type</span> <span class='kw'>=</span> <span class='st'>"spec"</span>)</pre>
+    <pre class="usage"><span class='fu'>lcms_dataset_save</span>(<span class='no'>lcms_dataset</span>, <span class='no'>file_name</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>tics</th>
-      <td><p>A Total Ion Count object generated with <code>lcms_tics</code></p></td>
+      <th>lcms_dataset</th>
+      <td><p>An object from the <a href='lcms_dataset_family.html'>lcms_dataset_family</a></p></td>
     </tr>
     <tr>
-      <th>treatment</th>
-      <td><p>Class groups of the samples</p></td>
+      <th>file_name</th>
+      <td><p>The file name to save to</p></td>
     </tr>
     <tr>
-      <th>rt</th>
-      <td><p>Retention time</p></td>
-    </tr>
-    <tr>
-      <th>plot_type</th>
-      <td><p>The plot class, either boxplot or spectra</p></td>
+      <th>...</th>
+      <td><p>Additional arguments passed to <a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a>.</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Total Ion Count (TIC) for the polarity samples.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other lcms_dataset functions: <code><a href='filterPolarity.html'>filterPolarity</a></code>,
-  <code><a href='filterRTmin.html'>filterRTmin</a></code>,
-  <code><a href='filterSampleType.html'>filterSampleType</a></code>,
-  <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
-  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>, <code><a href='lcms_tics.html'>lcms_tics</a></code></p>
-<p>Other lcms_dataset_peak_table functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
-  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>, <code><a href='lcms_tics.html'>lcms_tics</a></code></p></div>
     
 
   </div>
@@ -156,11 +137,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>

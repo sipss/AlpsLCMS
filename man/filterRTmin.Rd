@@ -19,12 +19,14 @@ The function converts seconds into minutes to cut and keep
 a range of the retention time in minutes.
 }
 \seealso{
-Other lcms_dataset functions: \code{\link{filterSampleType}},
+Other lcms_dataset functions: \code{\link{filterPolarity}},
+  \code{\link{filterSampleType}},
+  \code{\link{lcms_dataset_load}},
   \code{\link{lcms_meta_export}},
-  \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}},
-  \code{\link{load_and_save_functions}}
+  \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
 
-Other lcms_filtering functions: \code{\link{filterSampleType}}
+Other lcms_filtering functions: \code{\link{filterPolarity}},
+  \code{\link{filterSampleType}}
 }
 \concept{lcms_dataset functions}
 \concept{lcms_filtering functions}
