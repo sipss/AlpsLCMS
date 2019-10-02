@@ -1,4 +1,5 @@
 Package: NIHSlcms
+Type: Package
 Title: Signal processing of LC-MS metabolomics
 Version: 0.0.0.9002
 Encoding: UTF-8
@@ -24,8 +25,14 @@ Authors@R: c(
     person(given = "Institute for Bioengineering of Catalonia",
            role = "cph")
         )
-Description: Reads RAW and mzXML LC-MS data directories. It provides automated and efficient signal processing for untargeted LC-MS based metabolomics metabolomics. It is able to append metadata, split polarities, data filtering, optimize parameters for signal processing, optimized peak detection, optimized retention time correction, optimized peak correspondence, data imputation, feature annotation and identification through the Human Metabolome Database (HMDB) and perform univariate statistics.
-Depends: R (>= 3.5.1)
+Description: Reads RAW and mzXML LC-MS data directories. 
+ It provides automated and efficient signal processing for untargeted LC-MS based metabolomics metabolomics. 
+ It is able to append metadata, split polarities, data filtering, optimize parameters for signal processing, 
+ optimized peak detection, optimized retention time correction, optimized peak correspondence, data imputation, 
+ feature annotation and identification through the Human Metabolome Database (HMDB) and perform univariate statistics.
+License: file LICENSE
+LazyData: TRUE
+Depends: R (>= 3.5.0)
 Imports: 
  MSnbase (>= 2.6.4),
  forcats (>= 0.3.0),
@@ -48,8 +55,6 @@ Imports:
  rlang (>= 0.4.0),
  scales (>= 1.0.0),
  writexl (>= 1.1)
-License: What license is it under?
-LazyData: true
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
