@@ -4,9 +4,7 @@
 \alias{lcms_read_samples}
 \title{Read LCMS samples on mzXML format}
 \usage{
-lcms_read_samples(files, pdata = NULL, msLevel. = NULL,
-  verbose = isMSnbaseVerbose(), centroided. = NA, smoothed. = NA,
-  cache. = 1L, mode = c("inMemory", "onDisk"))
+lcms_read_samples(...)
 }
 \arguments{
 \item{...}{Arguments passed on to \code{MSnbase::readMSData}
@@ -45,4 +43,11 @@ An \linkS4class{MSnExp} object for \code{inMemory} mode and a
 }
 \description{
 Read LCMS samples on mzXML format
+}
+\examples{
+data(samples_mzxml)
+dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
+print(dataset)
+
+
 }

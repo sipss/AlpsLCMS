@@ -5,9 +5,18 @@
 #' @inherit MSnbase::readMSData return
 #' @export
 #'
-lcms_read_samples <- MSnbase::readMSData
+#' @examples
+#' data(samples_mzxml)
+#' dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
+#' print(dataset)
+#'
+#'
+lcms_read_samples <- function(...){
+  dataset <- MSnbase::readMSData(...)
+  dataset
+}
 
-
+#
 #' Add metadata to MSnExp object
 #'
 #' @inheritParams Biobase::pData
@@ -16,6 +25,8 @@ lcms_read_samples <- MSnbase::readMSData
 #'
 #' @return The object with the added metadata
 #' @export
+#'
+#'
 lcms_meta_add <- function(object, metadata, by = "sampleNames") {
   phenotype_data <- Biobase::pData(object)
   phenotype_data$sampleNames <- as.character(phenotype_data$sampleNames)
