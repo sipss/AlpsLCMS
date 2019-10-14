@@ -6,46 +6,35 @@
 #'
 #' @param sample_path Directory in which the samples are.
 #' @param file_format Format of the LC-MS files (e.g. file_format = "raw").
-#' @param rawconverter Directory in where the RawConverter application is located.
+#' @param rawconverter_path Directory in where the RawConverter application is located.
 #'
-#' @return a list of the LC-MS files in a readable format to create the `lcms_dataset`.
+#' @return A list of the LC-MS files in a readable format to create the `lcms_dataset`.
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' rawconverter_path <-"C:/Users/Biosignal/Desktop/Nestle_2019/LCMS"
-#' path <- system.file("extdata", "1.mzXML", package = "NIHSlcms")
-#' samples_mzxml <- list_mzxml_samples(path,
-#'                                     file_format = "mzXML",
-#'                                     rawconverter = rawconverter_path)
-#' }
-
-
+#' sample_path <- system.file("extdata", package = "NIHSlcms")
+#' samples_mzxml <- lcms_list_mzxml_samples(sample_path,
+#'                                     file_format = "mzXML")
 #'
 #' \dontrun{
-#' path <- system.file("extdata", "1.raw", package = "NIHSlcms")
-#' samples_mzxml <- list_mzxml_samples(path,
+#' samples_mzxml <- lcms_list_mzxml_samples(sample_path,
 #'                                     file_format = "raw",
-#'                                     rawconverter = rawconverter_path)
+#'                                     rawconverter_path = rawconverter_path)
 #'}
 
-#' \dontrun{
-#' samples_mzxml <- list_mzxml_samples(path,
-#'                                     file_format = "mzXML",
-#'                                    rawconverter = rawconverter_path)
-#'}
-
-list_mzxml_samples <- function(sample_path, file_format = "raw", rawconverter){
+lcms_list_mzxml_samples <- function(sample_path,
+                                    file_format = "mzXML",
+                                    rawconverter_path = NULL){
 
   if (file_format == "raw") {
     #install_RawConverter(rawconverter)
-    samples_raw <- fs::dir_ls(path, glob = "*.raw")
+    samples_raw <- fs::dir_ls(sample_path, glob = "*.raw")
     future::plan(multiprocess)
-    lcms_raw_to_mzxml(samples = samples_raw, rawconverter = rawconverter)
+    lcms_raw_to_mzxml(samples = samples_raw, rawconverter = rawconverter_path)
     future::plan(sequential)
-    sample_names_mzxml <- fs::path_abs(fs::dir_ls(path, glob = "*.mzXML"))
+    sample_names_mzxml <- fs::path_abs(fs::dir_ls(sample_path, glob = "*.mzXML"))
   } else if(file_format == "mzXML") {
-    sample_names_mzxml<- fs::path_abs(fs::dir_ls(path, glob = "*.mzXML"))
+    sample_names_mzxml<- fs::path_abs(fs::dir_ls(sample_path, glob = "*.mzXML"))
   } else {
     stop("Not allowed file format. Use only either *.raw or *.mzMXML files")
   }
