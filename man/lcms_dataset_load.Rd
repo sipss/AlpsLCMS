@@ -25,12 +25,15 @@ Other lcms_dataset functions: \code{\link{filterPolarity}},
   \code{\link{filterRTmin}},
   \code{\link{filterSampleType}},
   \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}},
   \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
 
 Other lcms_dataset_peak_table functions: \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}},
   \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
 
-Other import/export functions: \code{\link{lcms_meta_export}}
+Other import/export functions: \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}}
 }
 \concept{import/export functions}
 \concept{lcms_dataset functions}

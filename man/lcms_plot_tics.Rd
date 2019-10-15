@@ -27,10 +27,12 @@ Other lcms_dataset functions: \code{\link{filterPolarity}},
   \code{\link{filterRTmin}},
   \code{\link{filterSampleType}},
   \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_meta_export}}, \code{\link{lcms_tics}}
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}}, \code{\link{lcms_tics}}
 
 Other lcms_dataset_peak_table functions: \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_meta_export}}, \code{\link{lcms_tics}}
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}}, \code{\link{lcms_tics}}
 }
 \concept{lcms_dataset functions}
 \concept{lcms_dataset_peak_table functions}

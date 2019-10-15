@@ -23,11 +23,10 @@ lcms_dataset_load <- function(file_name) {
 #' @param ... Additional arguments passed to [saveRDS].
 #' @export
 #' @examples
-#' \dontrun{
+#'
 #' lcms_dataset <- lcms_dataset_load(system.file("extdata", "lcms_dataset.rds", package = "NIHSlcms"))
 #' file_name <- "lcms_dataset.rds"
 #' lcms_dataset_save(lcms_dataset, file_name)
-#' }
 #'
 lcms_dataset_save <- function(lcms_dataset, file_name, ...) {
   lcms_diagnose(lcms_dataset) <- NULL
@@ -62,6 +61,27 @@ lcms_meta_export <- function(lcms_dataset,
                              xlsx_file) {
   groups_present <- phData(lcms_dataset)
   writexl::write_xlsx(x = NIHSlcms::phData(lcms_dataset), path = xlsx_file)
+}
+
+#' Reads metadata from an Excel file
+#'
+#' @param xlsx_file xlsx_file "The .xlsx excel file" with metadata
+#' @return A dataframe with the metadata
+#' @export
+#' @family metadata functions
+#' @family lcms_dataset functions
+#' @family lcms_dataset_peak_table functions
+#' @family import/export functions
+#'
+#' @examples
+#'
+#' metadata <- lcms_meta_read(system.file("extdata",
+#'                                              "metadata.xlsx",
+#'                                               package = "NIHSlcms"))
+#'
+  lcms_meta_read <- function(xlsx_file) {
+  meta <- readxl::read_excel(xlsx_file)
+  meta
 }
 
 NULL

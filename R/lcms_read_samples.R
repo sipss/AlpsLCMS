@@ -26,6 +26,17 @@ lcms_read_samples <- function(...){
 #' @return The object with the added metadata
 #' @export
 #'
+#' @examples
+#' \dontrun{
+#' lcms_dataset <- lcms_dataset_load(system.file("extdata",
+#'                                              "lcms_dataset.rds",
+#'                                               package = "NIHSlcms"))
+#'
+#' metadata <- read_excel(system.file("extdata",
+#'                                              "metadata.xlsx",
+#'                                               package = "NIHSlcms"))
+#' lcms_dataset_metadata <- lcms_meta_add(lcms_dataset,metadata)
+#' }
 #'
 lcms_meta_add <- function(object, metadata, by = "sampleNames") {
   phenotype_data <- Biobase::pData(object)
@@ -34,3 +45,5 @@ lcms_meta_add <- function(object, metadata, by = "sampleNames") {
   Biobase::pData(object) <- phenotype_data_extra
   object
 }
+
+
