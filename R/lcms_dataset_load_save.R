@@ -22,6 +22,13 @@ lcms_dataset_load <- function(file_name) {
 #' @param file_name The file name to save to
 #' @param ... Additional arguments passed to [saveRDS].
 #' @export
+#' @examples
+#' \dontrun{
+#' lcms_dataset <- lcms_dataset_load(system.file("extdata", "lcms_dataset.rds", package = "NIHSlcms"))
+#' file_name <- "C:/.../lcms_dataset.rds"
+#' lcms_dataset_save(lcms_dataset, file_name)
+#' }
+#'
 lcms_dataset_save <- function(lcms_dataset, file_name, ...) {
   lcms_diagnose(lcms_dataset) <- NULL
   saveRDS(lcms_dataset, file_name)
