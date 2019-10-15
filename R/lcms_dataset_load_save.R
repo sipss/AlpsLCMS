@@ -25,7 +25,7 @@ lcms_dataset_load <- function(file_name) {
 #' @examples
 #' \dontrun{
 #' lcms_dataset <- lcms_dataset_load(system.file("extdata", "lcms_dataset.rds", package = "NIHSlcms"))
-#' file_name <- "C:/.../lcms_dataset.rds"
+#' file_name <- "lcms_dataset.rds"
 #' lcms_dataset_save(lcms_dataset, file_name)
 #' }
 #'
@@ -48,6 +48,16 @@ NULL
 #' @family lcms_dataset functions
 #' @family lcms_dataset_peak_table functions
 #' @family import/export functions
+#'
+#' @examples
+#' \dontrun{
+#' lcms_dataset_metadata <- lcms_dataset_load(system.file("extdata",
+#'                                              "lcms_dataset_metadata.rds",
+#'                                               package = "NIHSlcms"))
+#' xlsx_file <- "exported_metadata.xlsx"
+#' lcms_meta_export(lcms_dataset_metadata, xlsx_file)
+#' }
+#'
 lcms_meta_export <- function(lcms_dataset,
                              xlsx_file) {
   groups_present <- phData(lcms_dataset)

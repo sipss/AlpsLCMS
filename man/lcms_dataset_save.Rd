@@ -19,7 +19,7 @@ Function to save a lcms_dataset object
 \examples{
 \dontrun{
 lcms_dataset <- lcms_dataset_load(system.file("extdata", "lcms_dataset.rds", package = "NIHSlcms"))
-file_name <- "C:/.../lcms_dataset.rds"
+file_name <- "lcms_dataset.rds"
 lcms_dataset_save(lcms_dataset, file_name)
 }
 

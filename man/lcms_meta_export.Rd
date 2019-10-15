@@ -20,6 +20,16 @@ The Excel file name
 \description{
 Export Metadata to an Excel file
 }
+\examples{
+\dontrun{
+lcms_dataset_metadata <- lcms_dataset_load(system.file("extdata",
+                                             "lcms_dataset_metadata.rds",
+                                              package = "NIHSlcms"))
+xlsx_file <- "exported_metadata.xlsx"
+lcms_meta_export(lcms_dataset_metadata, xlsx_file)
+}
+
+}
 \seealso{
 Other lcms_dataset functions: \code{\link{filterPolarity}},
   \code{\link{filterRTmin}},
