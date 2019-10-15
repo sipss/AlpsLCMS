@@ -6,9 +6,15 @@
 #' @family lcms_dataset functions
 #' @family lcms_dataset_peak_table functions
 #' @family import/export functions
+#'
+#' @examples
+#' file_name <- system.file("extdata", "lcms_dataset.rds", package = "NIHSlcms")
+#' lcms_dataset <- lcms_dataset_load(file_name)
+#'
 lcms_dataset_load <- function(file_name) {
   return(readRDS(file_name))
 }
+
 
 #' Function to save a lcms_dataset object
 #'

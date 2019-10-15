@@ -7,8 +7,8 @@
 #'
 #' @examples
 #' data(samples_mzxml)
-#' dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
-#' print(dataset)
+#' lcms_dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
+#' print(lcms_dataset)
 #'
 #'
 lcms_read_samples <- function(...){
