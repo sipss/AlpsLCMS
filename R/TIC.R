@@ -3,12 +3,19 @@
 #' The function performs the Total Ion Count (TIC) for the polarity samples.
 #' Function `lcms_tics` stores summarizes TIC information.
 #' NOTE: `lcms_tics` assumes that data is already filtered by polarity.
+#'
 #' @param lcms_dataset An [lcms_dataset_family] object
 #' @param treatment Class groups of the samples
 #' @return Total Ion Count (TIC) for the polarity samples.
 #' @export
 #' @family lcms_dataset functions
 #' @family lcms_dataset_peak_table functions
+#' @examples
+#' lcms_dataset <- lcms_dataset_load(system.file
+#'                                   ("extdata","lcms_dataset_pos.rds",
+#'                                     package = "NIHSlcms"))
+#' tics <- lcms_tics(lcms_dataset)
+#'
 lcms_tics <- function(lcms_dataset, treatment = treatment){
   tics <- tibble::tibble(
     file = MSnbase::fromFile(lcms_dataset),
