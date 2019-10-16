@@ -39,7 +39,13 @@ lcms_filterPolarity <- function(object, polarity.) {
 #' @family lcms_filtering functions
 #'
 #' @export
-filterRTmin <- function (lcms_dataset, rt = c(4, 14)){
+#' @examples
+#'
+#' rtime_range = c(4,14)
+#' lcms_dataset <- lcms_dataset_load(system.file("extdata","lcms_dataset_metadata.rds",package = "NIHSlcms"))
+#' lcms_dataset_rt <-lcms_filterRTmin(lcms_dataset, rt = rtime_range)
+#'
+lcms_filterRTmin <- function (lcms_dataset, rt = c(4, 14)){
   min2sec <- 60
   lcms_dataset <- MSnbase::filterRt(lcms_dataset, rt = rt * min2sec)
 }
@@ -64,17 +70,17 @@ filterRTmin <- function (lcms_dataset, rt = c(4, 14)){
 #' @export
 #' @family lcms_dataset functions
 #' @family lcms_filtering functions
-#' @examples
-#' \dontrun{
-#' especial_samples <-list(QC = "DMSO-Ctrl", blank = "blank")
-#' datasets_by_class_type <- filterSampleType(lcms_dataset, especial_samples)
-#'
-#' lcms_dataset_no_blanks <-datasets_by_class_type$regular_samples
-#' lcms_dataset_blanks <- datasets_by_class_type$blanks
-#' lcms_dataset_QCs <- datasets_by_class_type$QCs
-#' }#'
 #' @export
-filterSampleType <- function(lcms_dataset,  especial_samples){
+#'
+#' @examples
+
+#' lcms_dataset <- lcms_dataset_load(system.file("extdata","lcms_dataset_metadata.rds",package = "NIHSlcms"))
+#' especial_samples <-list(QC = "resveratrol", blank = "blank")
+#' datasets_by_class_type <- lcms_filterSampleType(lcms_dataset, especial_samples)
+#' lcms_dataset_regular_samples <-datasets_by_class_type$regular_samples
+#' lcms_dataset_qcs <-datasets_by_class_type$QCs
+
+lcms_filterSampleType <- function(lcms_dataset,  especial_samples){
 
   QC_label <- especial_samples$QC
   blank_label <- especial_samples$blank

@@ -28,15 +28,15 @@ lcms_dataset_pos <- lcms_filterPolarity(lcms_dataset_2_polarities, polarity. = 1
 
 }
 \seealso{
-Other lcms_dataset functions: \code{\link{filterRTmin}},
-  \code{\link{filterSampleType}},
-  \code{\link{lcms_dataset_load}},
+Other lcms_dataset functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_filterRTmin}},
+  \code{\link{lcms_filterSampleType}},
   \code{\link{lcms_meta_export}},
   \code{\link{lcms_meta_read}},
   \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
 
-Other lcms_filtering functions: \code{\link{filterRTmin}},
-  \code{\link{filterSampleType}}
+Other lcms_filtering functions: \code{\link{lcms_filterRTmin}},
+  \code{\link{lcms_filterSampleType}}
 }
 \concept{lcms_dataset functions}
 \concept{lcms_filtering functions}

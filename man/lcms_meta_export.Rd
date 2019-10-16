@@ -33,10 +33,10 @@ lcms_meta_export(lcms_dataset_metadata, xlsx_file)
 \seealso{
 Other metadata functions: \code{\link{lcms_meta_read}}
 
-Other lcms_dataset functions: \code{\link{filterRTmin}},
-  \code{\link{filterSampleType}},
-  \code{\link{lcms_dataset_load}},
+Other lcms_dataset functions: \code{\link{lcms_dataset_load}},
   \code{\link{lcms_filterPolarity}},
+  \code{\link{lcms_filterRTmin}},
+  \code{\link{lcms_filterSampleType}},
   \code{\link{lcms_meta_read}},
   \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
 
