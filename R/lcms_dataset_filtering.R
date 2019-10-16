@@ -13,12 +13,18 @@
 #' @param polarity. The polarity to keep
 #' @family lcms_dataset functions
 #' @family lcms_filtering functions
-#'
 #' @export
-filterPolarity <- function(object, polarity.) {
+#' @examples
+#'
+#' lcms_dataset_2_polarities <- lcms_dataset_load(system.file("extdata","lcms_dataset_metadata.rds",package = "NIHSlcms"))
+#' lcms_dataset_pos <- lcms_filterPolarity(lcms_dataset_2_polarities, polarity. = 1)
+#'
+lcms_filterPolarity <- function(object, polarity.) {
   if (missing(polarity.)) return(object)
   polarity. <- as.numeric(polarity.)
-  object[MSnbase::polarity(object) %in% polarity.]
+  subset <- MSnbase::polarity(object) %in% polarity.
+  object[subset]
+  object
 }
 
 #' Filter by retention time

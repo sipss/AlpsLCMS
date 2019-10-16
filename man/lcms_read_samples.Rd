@@ -10,7 +10,7 @@ lcms_read_samples(...)
 \item{...}{Arguments passed on to \code{MSnbase::readMSData}
 \describe{
   \item{files}{A \code{character} with file names to be read and parsed.}
-  \item{pdata}{An object of class \linkS4class{NAnnotatedDataFrame} or
+  \item{pdata}{An object of class \linkS4class{AnnotatedDataFrame} or
 \code{NULL} (default).}
   \item{msLevel.}{MS level spectra to be read. In \code{inMemory} mode,
 use \code{1} for MS1 spectra or any larger numeric for MSn

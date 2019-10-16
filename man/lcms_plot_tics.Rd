@@ -23,10 +23,10 @@ Total Ion Count (TIC) for the polarity samples.
 The function performs a plot with the Total Ion Count (TIC).
 }
 \seealso{
-Other lcms_dataset functions: \code{\link{filterPolarity}},
-  \code{\link{filterRTmin}},
+Other lcms_dataset functions: \code{\link{filterRTmin}},
   \code{\link{filterSampleType}},
   \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_filterPolarity}},
   \code{\link{lcms_meta_export}},
   \code{\link{lcms_meta_read}}, \code{\link{lcms_tics}}
 

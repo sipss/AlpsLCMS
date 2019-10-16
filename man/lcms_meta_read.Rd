@@ -2,7 +2,7 @@
 % Please edit documentation in R/lcms_dataset_load_save.R
 \name{lcms_meta_read}
 \alias{lcms_meta_read}
-\title{Reads metadata to add to a MSnExp object}
+\title{Reads metadata from an Excel file}
 \usage{
 lcms_meta_read(xlsx_file)
 }
@@ -13,7 +13,7 @@ lcms_meta_read(xlsx_file)
 A dataframe with the metadata
 }
 \description{
-Reads metadata to add to a MSnExp object
+Reads metadata from an Excel file
 }
 \examples{
 
@@ -25,10 +25,10 @@ metadata <- lcms_meta_read(system.file("extdata",
 \seealso{
 Other metadata functions: \code{\link{lcms_meta_export}}
 
-Other lcms_dataset functions: \code{\link{filterPolarity}},
-  \code{\link{filterRTmin}},
+Other lcms_dataset functions: \code{\link{filterRTmin}},
   \code{\link{filterSampleType}},
   \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_filterPolarity}},
   \code{\link{lcms_meta_export}},
   \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
 

@@ -28,15 +28,17 @@ lcms_read_samples <- function(...){
 #'
 #' @examples
 #' \dontrun{
-#' lcms_dataset <- lcms_dataset_load(system.file("extdata",
-#'                                              "lcms_dataset.rds",
-#'                                               package = "NIHSlcms"))
+#' lcms_dataset <- lcms_dataset_load(system.file
+#'                                   ("extdata","lcms_dataset.rds",
+#'                                     package = "NIHSlcms"))
 #'
-#' metadata <- read_excel(system.file("extdata",
-#'                                              "metadata.xlsx",
-#'                                               package = "NIHSlcms"))
-#' lcms_dataset_metadata <- lcms_meta_add(lcms_dataset,metadata)
-#' }
+#' metadata <- lcms_meta_read(system.file("extdata",
+#'                                        "metadata.xlsx",
+#'                                        package = "NIHSlcms"))
+#'
+#' lcms_dataset2 <- lcms_meta_add(lcms_dataset,
+#'                                metadata,
+#'                                by = "sampleNames")}
 #'
 lcms_meta_add <- function(object, metadata, by = "sampleNames") {
   phenotype_data <- Biobase::pData(object)
