@@ -8,11 +8,13 @@
 
 <title>Chromatographic peak detection (CentWave) — findChromPeaks_cwp • NIHSlcms</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,8 +34,8 @@
 
 
 
-<meta property="og:title" content="Chromatographic peak detection (CentWave) — findChromPeaks_cwp" />
 
+<meta property="og:title" content="Chromatographic peak detection (CentWave) — findChromPeaks_cwp" />
 <meta property="og:description" content="The findChromPeaks_cwp function performs the chromatographic peak
 detection on LC/GC-MS data. The standard method for peak detection
 is 'CentWave'. We must initialize its parameters according to the
@@ -45,6 +47,7 @@ Note: signal processing generally  consists in three main steps:
 (2) peak alignment (align_Rtime function) and
 (3) peak correspondence (group_peaks function)." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -94,7 +97,6 @@ Note: signal processing generally  consists in three main steps:
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -116,7 +118,6 @@ Note: signal processing generally  consists in three main steps:
     </div>
 
     <div class="ref-description">
-    
     <p>The findChromPeaks_cwp function performs the chromatographic peak
 detection on LC/GC-MS data. The standard method for peak detection
 is <em>'CentWave'</em>. We must initialize its parameters according to the
@@ -127,11 +128,10 @@ Note: signal processing generally  consists in three main steps:
 (1) peak detection (<code>findChromPeaks_cwp</code> function),
 (2) peak alignment (<code>align_Rtime</code> function) and
 (3) peak correspondence (<code>group_peaks</code> function).</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>findChromPeaks_cwp</span>(<span class='no'>lcms_dataset</span>, <span class='no'>params</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -144,11 +144,10 @@ Note: signal processing generally  consists in three main steps:
       <td><p>A converted parameters template from IPO parameters.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A lcms_dataset with detected peaks</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
@@ -160,9 +159,7 @@ Note: signal processing generally  consists in three main steps:
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

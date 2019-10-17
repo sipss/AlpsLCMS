@@ -35,7 +35,7 @@ The function can distinguish and filter different samples types:
 lcms_dataset <- lcms_dataset_load(system.file("extdata","lcms_dataset_metadata.rds",package = "NIHSlcms"))
 especial_samples <-list(QC = "resveratrol", blank = "blank")
 datasets_by_class_type <- lcms_filterSampleType(lcms_dataset, especial_samples)
-lcms_dataset_regular_samples <-datasets_by_class_type$regular_samples
+lcms_dataset_rs <-datasets_by_class_type$regular_samples
 lcms_dataset_qcs <-datasets_by_class_type$QCs
 }
 \seealso{

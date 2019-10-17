@@ -8,11 +8,13 @@
 
 <title>Extract significant features from a MAIT object — spectral_sig_features • NIHSlcms</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,8 +34,8 @@
 
 
 
-<meta property="og:title" content="Extract significant features from a MAIT object — spectral_sig_features" />
 
+<meta property="og:title" content="Extract significant features from a MAIT object — spectral_sig_features" />
 <meta property="og:description" content="Function spectralSigFeatures takes a MAIT-class object and obtains which of
 the variables are significant given a p-value threshold. The parameters of
 the significant features can ve printed to an output table (TRUE by default).
@@ -41,6 +43,7 @@ Depending on the number of classes in the data, the function chooses between
 using ANOVA tests through function spectralAnova, or T-Student tests by using
 function spectralTStudent." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -90,7 +93,6 @@ function spectralTStudent." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -112,14 +114,12 @@ function spectralTStudent." />
     </div>
 
     <div class="ref-description">
-    
     <p>Function spectralSigFeatures takes a MAIT-class object and obtains which of
 the variables are significant given a p-value threshold. The parameters of
 the significant features can ve printed to an output table (TRUE by default).
 Depending on the number of classes in the data, the function chooses between
 using ANOVA tests through function spectralAnova, or T-Student tests by using
 function spectralTStudent.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>spectral_sig_features</span>(<span class='kw'>MAIT.object</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pvalue</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
@@ -127,7 +127,7 @@ function spectralTStudent.</p>
   <span class='kw'>parametric</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>var.equal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>test.fun</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>jitter</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>jitter.factor</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>jitter.amount</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>namefun</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -180,12 +180,11 @@ function spectralTStudent.</p>
       <td><p>Name of the user-defined posthoc test in the argument test.fun.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A MAIT-class object containing the significant features of the scores
 slot of MAIT-class object used as an input.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
@@ -205,9 +204,7 @@ slot of MAIT-class object used as an input.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

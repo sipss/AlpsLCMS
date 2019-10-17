@@ -8,11 +8,13 @@
 
 <title>Peak Correspondence — group_peaks • NIHSlcms</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,8 +34,8 @@
 
 
 
-<meta property="og:title" content="Peak Correspondence — group_peaks" />
 
+<meta property="og:title" content="Peak Correspondence — group_peaks" />
 <meta property="og:description" content="Peak correspondence is carried out by the 'groupChromPeaks' method,
 with parameters obtained form IPO. Peak Correspondece consist in
 grouping peaks on retention time axis with the purspose of associate
@@ -44,6 +46,7 @@ them to spectra on the mass/chage axis.
 (3) peak correspondence (group_peaks function).
 After this stage the peak table is finally obtained." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -93,7 +96,6 @@ After this stage the peak table is finally obtained." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -115,7 +117,6 @@ After this stage the peak table is finally obtained." />
     </div>
 
     <div class="ref-description">
-    
     <p>Peak correspondence is carried out by the <em>'groupChromPeaks'</em> method,
 with parameters obtained form <code>IPO</code>. Peak Correspondece consist in
 grouping peaks on retention time axis with the purspose of associate
@@ -125,11 +126,10 @@ them to spectra on the mass/chage axis.
 (2) peak alignment (<code>align_Rtime</code> function) and
 (3) peak correspondence (<code>group_peaks</code> function).
 After this stage the peak table is finally obtained.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>group_peaks</span>(<span class='no'>peakdet_align</span>, <span class='no'>params</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -143,13 +143,12 @@ function) and (2) aligned (<code>align_Rtime</code> function) peaks</p></td>
       <td><p>A converted parameters template from IPO parameters.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A lcms_dataset with (1) detected (<code>findChromPeaks_cwp</code> function),
 (2) aligned (<code>align_Rtime</code> function) and (3) grouped  (<code>group_peaks</code>
 function) peaks.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
@@ -163,9 +162,7 @@ function) peaks.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

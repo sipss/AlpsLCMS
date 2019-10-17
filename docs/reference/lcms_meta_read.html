@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write Parameters Table for MAIT functionalities — writeParameterTable • NIHSlcms</title>
+<title>Reads metadata from an Excel file — lcms_meta_read • NIHSlcms</title>
 
 
 <!-- jquery -->
@@ -35,14 +35,8 @@
 
 
 
-<meta property="og:title" content="Write Parameters Table for MAIT functionalities — writeParameterTable" />
-<meta property="og:description" content="MAIT Package allows to annotate the peaks of the peak table provided by XCMS.
-This is done in three different stages:
-Annotation with CAMERA
-Annotation using predefined biotransformation
-Annotation using the Human Metabolome Database (HMDB)
-
-" />
+<meta property="og:title" content="Reads metadata from an Excel file — lcms_meta_read" />
+<meta property="og:description" content="Reads metadata from an Excel file" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,51 +103,57 @@ Annotation using the Human Metabolome Database (HMDB)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Write Parameters Table for MAIT functionalities</h1>
+    <h1>Reads metadata from an Excel file</h1>
     
-    <div class="hidden name"><code>writeParameterTable.Rd</code></div>
+    <div class="hidden name"><code>lcms_meta_read.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>MAIT</code> Package allows to annotate the peaks of the peak table provided by <code>XCMS</code>.
-This is done in three different stages:</p><ul>
-<li><p>Annotation with <code>CAMERA</code></p></li>
-<li><p>Annotation using predefined biotransformation</p></li>
-<li><p>Annotation using the Human Metabolome Database (HMDB)</p></li>
-</ul>
-
+    <p>Reads metadata from an Excel file</p>
     </div>
 
-    <pre class="usage"><span class='fu'>writeParameterTable</span>(<span class='no'>listParameters</span>, <span class='no'>folder</span>)</pre>
+    <pre class="usage"><span class='fu'>lcms_meta_read</span>(<span class='no'>xlsx_file</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>listParameters</th>
-      <td><p>Parameters</p></td>
-    </tr>
-    <tr>
-      <th>folder</th>
-      <td><p>A directory</p></td>
+      <th>xlsx_file</th>
+      <td><p>xlsx_file "The .xlsx excel file" with metadata</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A template with MAIT parameters. Also write the `MAITparameters.csv´ file.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>A dataframe with the metadata</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>*Note: The dataset must be converted from an object of the XCMS Package
-to an object of the MAIT Package.</p>
+    <div class='dont-index'><p>Other metadata functions: <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code></p>
+<p>Other lcms_dataset functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_filterPolarity.html'>lcms_filterPolarity</a></code>,
+  <code><a href='lcms_filterRTmin.html'>lcms_filterRTmin</a></code>,
+  <code><a href='lcms_filterSampleType.html'>lcms_filterSampleType</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>, <code><a href='lcms_tics.html'>lcms_tics</a></code></p>
+<p>Other lcms_dataset_peak_table functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>, <code><a href='lcms_tics.html'>lcms_tics</a></code></p>
+<p>Other import/export functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code></p></div>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='no'>metadata</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_meta_read</span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
+                                             <span class='st'>"metadata.xlsx"</span>,
+                                              <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
+      <li><a href="#see-also">See also</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

@@ -8,11 +8,13 @@
 
 <title>Total Ion Count (TIC) — lcms_tics • NIHSlcms</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -32,12 +34,13 @@
 
 
 
-<meta property="og:title" content="Total Ion Count (TIC) — lcms_tics" />
 
+<meta property="og:title" content="Total Ion Count (TIC) — lcms_tics" />
 <meta property="og:description" content="The function performs the Total Ion Count (TIC) for the polarity samples.
 Function lcms_tics stores summarizes TIC information.
 NOTE: lcms_tics assumes that data is already filtered by polarity." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -87,7 +90,6 @@ NOTE: lcms_tics assumes that data is already filtered by polarity." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         
       </ul>
@@ -109,15 +111,13 @@ NOTE: lcms_tics assumes that data is already filtered by polarity." />
     </div>
 
     <div class="ref-description">
-    
     <p>The function performs the Total Ion Count (TIC) for the polarity samples.
 Function <code>lcms_tics</code> stores summarizes TIC information.
 NOTE: <code>lcms_tics</code> assumes that data is already filtered by polarity.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>lcms_tics</span>(<span class='no'>lcms_dataset</span>, <span class='kw'>treatment</span> <span class='kw'>=</span> <span class='no'>treatment</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -130,34 +130,38 @@ NOTE: <code>lcms_tics</code> assumes that data is already filtered by polarity.<
       <td><p>Class groups of the samples</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Total Ion Count (TIC) for the polarity samples.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other lcms_dataset functions: <code><a href='filterPolarity.html'>filterPolarity</a></code>,
-  <code><a href='filterRTmin.html'>filterRTmin</a></code>,
-  <code><a href='filterSampleType.html'>filterSampleType</a></code>,
-  <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+    <div class='dont-index'><p>Other lcms_dataset functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_filterPolarity.html'>lcms_filterPolarity</a></code>,
+  <code><a href='lcms_filterRTmin.html'>lcms_filterRTmin</a></code>,
+  <code><a href='lcms_filterSampleType.html'>lcms_filterSampleType</a></code>,
   <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code>,
   <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code></p>
 <p>Other lcms_dataset_peak_table functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
   <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code>,
   <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code></p></div>
-    
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>
+                                  (<span class='st'>"extdata"</span>,<span class='st'>"lcms_dataset_pos.rds"</span>,
+                                    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
+<span class='no'>tics</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_tics</span>(<span class='no'>lcms_dataset</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
