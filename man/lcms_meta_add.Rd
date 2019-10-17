@@ -21,7 +21,6 @@ The object with the added metadata
 Add metadata to MSnExp object
 }
 \examples{
-\dontrun{
 lcms_dataset <- lcms_dataset_load(system.file
                                   ("extdata","lcms_dataset.rds",
                                     package = "NIHSlcms"))
@@ -30,8 +29,9 @@ metadata <- lcms_meta_read(system.file("extdata",
                                        "metadata.xlsx",
                                        package = "NIHSlcms"))
 
-lcms_dataset2 <- lcms_meta_add(lcms_dataset,
+lcms_dataset_meta <- lcms_meta_add(lcms_dataset,
                                metadata,
-                               by = "sampleNames")}
+                               by = "sampleNames")
+print(lcms_dataset_meta)
 
 }

@@ -27,7 +27,6 @@ lcms_read_samples <- function(...){
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' lcms_dataset <- lcms_dataset_load(system.file
 #'                                   ("extdata","lcms_dataset.rds",
 #'                                     package = "NIHSlcms"))
@@ -36,9 +35,10 @@ lcms_read_samples <- function(...){
 #'                                        "metadata.xlsx",
 #'                                        package = "NIHSlcms"))
 #'
-#' lcms_dataset2 <- lcms_meta_add(lcms_dataset,
+#' lcms_dataset_meta <- lcms_meta_add(lcms_dataset,
 #'                                metadata,
-#'                                by = "sampleNames")}
+#'                                by = "sampleNames")
+#' print(lcms_dataset_meta)
 #'
 lcms_meta_add <- function(object, metadata, by = "sampleNames") {
   phenotype_data <- Biobase::pData(object)
