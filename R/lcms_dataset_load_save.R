@@ -10,9 +10,11 @@
 #' @examples
 #' file_name <- system.file("extdata", "lcms_dataset.rds", package = "NIHSlcms")
 #' lcms_dataset <- lcms_dataset_load(file_name)
+#' print(lcms_dataset)
 #'
 lcms_dataset_load <- function(file_name) {
-  return(readRDS(file_name))
+  dataset <-base::readRDS(file_name)
+  dataset
 }
 
 
@@ -27,6 +29,7 @@ lcms_dataset_load <- function(file_name) {
 #' lcms_dataset <- lcms_dataset_load(system.file("extdata", "lcms_dataset.rds", package = "NIHSlcms"))
 #' file_name <- "lcms_dataset.rds"
 #' lcms_dataset_save(lcms_dataset, file_name)
+#' print(lcms_dataset)
 #'
 lcms_dataset_save <- function(lcms_dataset, file_name, ...) {
   lcms_diagnose(lcms_dataset) <- NULL
@@ -55,6 +58,7 @@ NULL
 #'                                               package = "NIHSlcms"))
 #' xlsx_file <- "exported_metadata.xlsx"
 #' lcms_meta_export(lcms_dataset_metadata, xlsx_file)
+#' print(lcms_dataset_metadata)
 #' }
 #'
 lcms_meta_export <- function(lcms_dataset,
@@ -78,6 +82,7 @@ lcms_meta_export <- function(lcms_dataset,
 #' metadata <- lcms_meta_read(system.file("extdata",
 #'                                              "metadata.xlsx",
 #'                                               package = "NIHSlcms"))
+#' print(metadata)
 #'
   lcms_meta_read <- function(xlsx_file) {
   meta <- readxl::read_excel(xlsx_file)

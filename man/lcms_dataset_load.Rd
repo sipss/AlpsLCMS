@@ -18,6 +18,7 @@ Function to load a lcms_dataset object
 \examples{
 file_name <- system.file("extdata", "lcms_dataset.rds", package = "NIHSlcms")
 lcms_dataset <- lcms_dataset_load(file_name)
+print(lcms_dataset)
 
 }
 \seealso{

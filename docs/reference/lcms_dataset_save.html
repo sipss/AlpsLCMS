@@ -136,7 +136,31 @@
     <pre class="examples"><div class='input'>
 <span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"lcms_dataset.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
 <span class='no'>file_name</span> <span class='kw'>&lt;-</span> <span class='st'>"lcms_dataset.rds"</span>
-<span class='fu'>lcms_dataset_save</span>(<span class='no'>lcms_dataset</span>, <span class='no'>file_name</span>)</div></pre>
+<span class='fu'>lcms_dataset_save</span>(<span class='no'>lcms_dataset</span>, <span class='no'>file_name</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>lcms_dataset</span>)</div><div class='output co'>#&gt; MSn experiment data ("OnDiskMSnExp")
+#&gt; Object size in memory: 2.85 Mb
+#&gt; - - - Spectra data - - -
+#&gt;  MS level(s): 1 
+#&gt;  Number of spectra: 10876 
+#&gt;  MSn retention times: 0:31 - 27:2 minutes
+#&gt; - - - Processing information - - -
+#&gt; Data loaded [Tue Oct 15 11:20:19 2019] 
+#&gt;  MSnbase version: 2.8.3 
+#&gt; - - - Meta data  - - -
+#&gt; phenoData
+#&gt;   rowNames: 1.mzXML 2.mzXML 3.mzXML 4.mzXML
+#&gt;   varLabels: sampleNames
+#&gt;   varMetadata: labelDescription
+#&gt; Loaded from:
+#&gt;   [1] 1.mzXML...  [4] 4.mzXML
+#&gt;   Use 'fileNames(.)' to see all files.
+#&gt; protocolData: none
+#&gt; featureData
+#&gt;   featureNames: F1.S0001 F1.S0002 ... F4.S2724 (10876 total)
+#&gt;   fvarLabels: fileIdx spIdx ... spectrum (30 total)
+#&gt;   fvarMetadata: labelDescription
+#&gt; experimentData: use 'experimentData(object)'</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

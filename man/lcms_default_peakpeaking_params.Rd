@@ -35,6 +35,11 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
 Use this function to generate the template within the
 \code{lcms_peakpicking_optimization} function.
 }
+\examples{
+default_peakpeaking_params <- lcms_default_peakpeaking_params(optimize = TRUE)
+print(default_peakpeaking_params)
+
+}
 \seealso{
 Other optimization functions: \code{\link{lcms_default_corgroup_params}},
   \code{\link{lcms_peakpicking_optimization}},

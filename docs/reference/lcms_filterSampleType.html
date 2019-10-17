@@ -164,7 +164,7 @@ Use <code>NULL</code> if there is not any especial sample in the dataset.</p></t
     <pre class="examples"><div class='input'><span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"lcms_dataset_metadata.rds"</span>,<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
 <span class='no'>especial_samples</span> <span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>QC</span> <span class='kw'>=</span> <span class='st'>"resveratrol"</span>, <span class='kw'>blank</span> <span class='kw'>=</span> <span class='st'>"blank"</span>)
 <span class='no'>datasets_by_class_type</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_filterSampleType</span>(<span class='no'>lcms_dataset</span>, <span class='no'>especial_samples</span>)
-<span class='no'>lcms_dataset_regular_samples</span> <span class='kw'>&lt;-</span><span class='no'>datasets_by_class_type</span>$<span class='no'>regular_samples</span>
+<span class='no'>lcms_dataset_rs</span> <span class='kw'>&lt;-</span><span class='no'>datasets_by_class_type</span>$<span class='no'>regular_samples</span>
 <span class='no'>lcms_dataset_qcs</span> <span class='kw'>&lt;-</span><span class='no'>datasets_by_class_type</span>$<span class='no'>QCs</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

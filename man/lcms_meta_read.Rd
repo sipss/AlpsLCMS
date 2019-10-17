@@ -20,6 +20,7 @@ Reads metadata from an Excel file
 metadata <- lcms_meta_read(system.file("extdata",
                                              "metadata.xlsx",
                                               package = "NIHSlcms"))
+print(metadata)
 
 }
 \seealso{

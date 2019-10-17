@@ -27,6 +27,7 @@ lcms_dataset_metadata <- lcms_dataset_load(system.file("extdata",
                                               package = "NIHSlcms"))
 xlsx_file <- "exported_metadata.xlsx"
 lcms_meta_export(lcms_dataset_metadata, xlsx_file)
+print(lcms_dataset_metadata)
 }
 
 }

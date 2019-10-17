@@ -145,7 +145,15 @@
     <pre class="examples"><div class='input'>
 <span class='no'>metadata</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_meta_read</span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
                                              <span class='st'>"metadata.xlsx"</span>,
-                                              <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))</div></pre>
+                                              <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>metadata</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 5</span><span>
+#&gt;   sampleNames sampleNumber DIA   treatment   comment
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>  
+#&gt; </span><span style='color: #555555;'>1</span><span> 1.mzXML                1 FALSE oligomycin  </span><span style='color: #BB0000;'>NA</span><span>     
+#&gt; </span><span style='color: #555555;'>2</span><span> 2.mzXML                2 FALSE oligomycin  </span><span style='color: #BB0000;'>NA</span><span>     
+#&gt; </span><span style='color: #555555;'>3</span><span> 3.mzXML                3 FALSE oligomycin  </span><span style='color: #BB0000;'>NA</span><span>     
+#&gt; </span><span style='color: #555555;'>4</span><span> 4.mzXML                4 FALSE resveratrol </span><span style='color: #BB0000;'>NA</span><span>     </div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

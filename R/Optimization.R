@@ -21,6 +21,10 @@
 #' @export
 #' @family optimization functions
 #'
+#' @examples
+#' default_peakpeaking_params <- lcms_default_peakpeaking_params(optimize = TRUE)
+#' print(default_peakpeaking_params)
+#'
 lcms_default_peakpeaking_params <- function(noise = 5000, snthresh = 10,
                                             min_peakwidth = c(10, 30),
                                             max_peakwidth = c(35, 90),
