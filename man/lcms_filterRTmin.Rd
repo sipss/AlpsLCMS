@@ -24,6 +24,8 @@ rtime_range = c(4,14)
 lcms_dataset <- lcms_dataset_load(system.file("extdata","lcms_dataset_metadata.rds",package = "NIHSlcms"))
 lcms_dataset_rt <-lcms_filterRTmin(lcms_dataset, rt = rtime_range)
 
+print(lcms_dataset_rt)
+
 }
 \seealso{
 Other lcms_dataset functions: \code{\link{lcms_dataset_load}},

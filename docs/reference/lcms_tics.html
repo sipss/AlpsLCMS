@@ -149,10 +149,28 @@ NOTE: <code>lcms_tics</code> assumes that data is already filtered by polarity.<
   <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>
+    <pre class="examples"><div class='input'>
+<span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>
                                   (<span class='st'>"extdata"</span>,<span class='st'>"lcms_dataset_pos.rds"</span>,
                                     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
-<span class='no'>tics</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_tics</span>(<span class='no'>lcms_dataset</span>)</div></pre>
+<span class='no'>tics</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_tics</span>(<span class='no'>lcms_dataset</span>)
+
+
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>tics</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5,438 x 6</span><span>
+#&gt;     file fileName treatment  ret_time polarity      tic
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>     1 1.mzXML  oligomycin     30.8        1 54</span><span style='text-decoration: underline;'>707</span><span>836
+#&gt; </span><span style='color: #555555;'> 2</span><span>     1 1.mzXML  oligomycin     32.0        1 50</span><span style='text-decoration: underline;'>848</span><span>732
+#&gt; </span><span style='color: #555555;'> 3</span><span>     1 1.mzXML  oligomycin     33.2        1 60</span><span style='text-decoration: underline;'>874</span><span>132
+#&gt; </span><span style='color: #555555;'> 4</span><span>     1 1.mzXML  oligomycin     34.4        1 55</span><span style='text-decoration: underline;'>246</span><span>420
+#&gt; </span><span style='color: #555555;'> 5</span><span>     1 1.mzXML  oligomycin     35.6        1 54</span><span style='text-decoration: underline;'>986</span><span>128
+#&gt; </span><span style='color: #555555;'> 6</span><span>     1 1.mzXML  oligomycin     36.7        1 58</span><span style='text-decoration: underline;'>655</span><span>904
+#&gt; </span><span style='color: #555555;'> 7</span><span>     1 1.mzXML  oligomycin     37.9        1 47</span><span style='text-decoration: underline;'>223</span><span>740
+#&gt; </span><span style='color: #555555;'> 8</span><span>     1 1.mzXML  oligomycin     39.1        1 55</span><span style='text-decoration: underline;'>195</span><span>204
+#&gt; </span><span style='color: #555555;'> 9</span><span>     1 1.mzXML  oligomycin     40.3        1 52</span><span style='text-decoration: underline;'>463</span><span>652
+#&gt; </span><span style='color: #555555;'>10</span><span>     1 1.mzXML  oligomycin     41.5        1 51</span><span style='text-decoration: underline;'>194</span><span>356
+#&gt; </span><span style='color: #555555;'># ... with 5,428 more rows</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

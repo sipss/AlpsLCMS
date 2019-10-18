@@ -26,6 +26,9 @@ remove this function.
 lcms_dataset_2_polarities <- lcms_dataset_load(system.file("extdata","lcms_dataset_metadata.rds",package = "NIHSlcms"))
 lcms_dataset_pos <- lcms_filterPolarity(lcms_dataset_2_polarities, polarity. = 1)
 
+print(lcms_dataset_pos)
+
+
 }
 \seealso{
 Other lcms_dataset functions: \code{\link{lcms_dataset_load}},

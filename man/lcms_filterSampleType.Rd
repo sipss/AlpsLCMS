@@ -37,6 +37,11 @@ especial_samples <-list(QC = "resveratrol", blank = "blank")
 datasets_by_class_type <- lcms_filterSampleType(lcms_dataset, especial_samples)
 lcms_dataset_rs <-datasets_by_class_type$regular_samples
 lcms_dataset_qcs <-datasets_by_class_type$QCs
+
+print(lcms_dataset_rs)
+
+print(lcms_dataset_qcs)
+
 }
 \seealso{
 Other lcms_dataset functions: \code{\link{lcms_dataset_load}},

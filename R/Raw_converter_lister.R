@@ -15,13 +15,8 @@
 #' sample_path <- system.file("extdata", package = "NIHSlcms")
 #' samples_mzxml <- lcms_list_mzxml_samples(sample_path,
 #'                                     file_format = "mzXML")
+#' print(samples_mzxml)
 #'
-#' \dontrun{
-#' samples_mzxml <- lcms_list_mzxml_samples(sample_path,
-#'                                     file_format = "raw",
-#'                                     rawconverter_path = rawconverter_path)
-#'}
-
 lcms_list_mzxml_samples <- function(sample_path,
                                     file_format = "mzXML",
                                     rawconverter_path = NULL){

@@ -159,6 +159,7 @@ OnDiskMSnExp object for <code>onDisk</code> mode.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>samples_mzxml</span>)
 <span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings</a></span>(<span class='fu'>lcms_read_samples</span>(<span class='no'>samples_mzxml</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"onDisk"</span>))
+
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>lcms_dataset</span>)</div><div class='output co'>#&gt; MSn experiment data ("OnDiskMSnExp")
 #&gt; Object size in memory: 3.1 Mb
 #&gt; - - - Spectra data - - -
@@ -166,7 +167,7 @@ OnDiskMSnExp object for <code>onDisk</code> mode.</p>
 #&gt;  Number of spectra: 10876 
 #&gt;  MSn retention times: 0:31 - 27:2 minutes
 #&gt; - - - Processing information - - -
-#&gt; Data loaded [Thu Oct 17 17:11:12 2019] 
+#&gt; Data loaded [Fri Oct 18 08:57:40 2019] 
 #&gt;  MSnbase version: 2.10.1 
 #&gt; - - - Meta data  - - -
 #&gt; phenoData
@@ -182,7 +183,6 @@ OnDiskMSnExp object for <code>onDisk</code> mode.</p>
 #&gt;   fvarLabels: fileIdx spIdx ... spectrum (33 total)
 #&gt;   fvarMetadata: labelDescription
 #&gt; experimentData: use 'experimentData(object)'</div><div class='input'>
-
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

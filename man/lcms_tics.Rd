@@ -20,10 +20,14 @@ Function \code{lcms_tics} stores summarizes TIC information.
 NOTE: \code{lcms_tics} assumes that data is already filtered by polarity.
 }
 \examples{
+
 lcms_dataset <- lcms_dataset_load(system.file
                                   ("extdata","lcms_dataset_pos.rds",
                                     package = "NIHSlcms"))
 tics <- lcms_tics(lcms_dataset)
+
+
+print(tics)
 
 }
 \seealso{

@@ -147,7 +147,33 @@ a range of the retention time in minutes.</p>
     <pre class="examples"><div class='input'>
 <span class='no'>rtime_range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>14</span>)
 <span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"lcms_dataset_metadata.rds"</span>,<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
-<span class='no'>lcms_dataset_rt</span> <span class='kw'>&lt;-</span><span class='fu'>lcms_filterRTmin</span>(<span class='no'>lcms_dataset</span>, <span class='kw'>rt</span> <span class='kw'>=</span> <span class='no'>rtime_range</span>)</div></pre>
+<span class='no'>lcms_dataset_rt</span> <span class='kw'>&lt;-</span><span class='fu'>lcms_filterRTmin</span>(<span class='no'>lcms_dataset</span>, <span class='kw'>rt</span> <span class='kw'>=</span> <span class='no'>rtime_range</span>)
+
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>lcms_dataset_rt</span>)</div><div class='output co'>#&gt; MSn experiment data ("OnDiskMSnExp")
+#&gt; Object size in memory: 1.1 Mb
+#&gt; - - - Spectra data - - -
+#&gt;  MS level(s): 1 
+#&gt;  Number of spectra: 4131 
+#&gt;  MSn retention times: 4:0 - 13:60 minutes
+#&gt; - - - Processing information - - -
+#&gt; Data loaded [Tue Oct 15 11:20:19 2019] 
+#&gt; Filter: select retention time [240-840] and MS level(s), 1 [Fri Oct 18 08:57:33 2019] 
+#&gt;  MSnbase version: 2.8.3 
+#&gt; - - - Meta data  - - -
+#&gt; phenoData
+#&gt;   rowNames: 1 2 3 4
+#&gt;   varLabels: sampleNames sampleNumber ... comment (5 total)
+#&gt;   varMetadata: labelDescription
+#&gt; Loaded from:
+#&gt;   [1] 1.mzXML...  [4] 4.mzXML
+#&gt;   Use 'fileNames(.)' to see all files.
+#&gt; protocolData: none
+#&gt; featureData
+#&gt;   featureNames: F1.S0358 F1.S0359 ... F4.S1393 (4131 total)
+#&gt;   fvarLabels: fileIdx spIdx ... spectrum (30 total)
+#&gt;   fvarMetadata: labelDescription
+#&gt; experimentData: use 'experimentData(object)'</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

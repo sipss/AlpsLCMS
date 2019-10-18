@@ -8,8 +8,8 @@
 #' @examples
 #' data(samples_mzxml)
 #' lcms_dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
-#' print(lcms_dataset)
 #'
+#' print(lcms_dataset)
 #'
 lcms_read_samples <- function(...){
   dataset <- MSnbase::readMSData(...)

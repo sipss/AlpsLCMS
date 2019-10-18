@@ -11,10 +11,14 @@
 #' @family lcms_dataset functions
 #' @family lcms_dataset_peak_table functions
 #' @examples
+#'
 #' lcms_dataset <- lcms_dataset_load(system.file
 #'                                   ("extdata","lcms_dataset_pos.rds",
 #'                                     package = "NIHSlcms"))
 #' tics <- lcms_tics(lcms_dataset)
+#'
+#'
+#' print(tics)
 #'
 lcms_tics <- function(lcms_dataset, treatment = treatment){
   tics <- tibble::tibble(
@@ -45,6 +49,7 @@ lcms_tics <- function(lcms_dataset, treatment = treatment){
 #' @family lcms_dataset functions
 #' @family lcms_dataset_peak_table functions
 #' @examples
+#'
 #' lcms_dataset <- lcms_dataset_load(system.file
 #'                                   ("extdata","lcms_dataset_pos.rds",
 #'                                     package = "NIHSlcms"))

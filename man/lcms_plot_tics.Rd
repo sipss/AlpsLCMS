@@ -23,6 +23,7 @@ Total Ion Count (TIC) for the polarity samples.
 The function performs a plot with the Total Ion Count (TIC).
 }
 \examples{
+
 lcms_dataset <- lcms_dataset_load(system.file
                                   ("extdata","lcms_dataset_pos.rds",
                                     package = "NIHSlcms"))

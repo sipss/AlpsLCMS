@@ -144,12 +144,11 @@ download and installation of the <em>RawConverter</em> application.</p>
     <pre class="examples"><div class='input'><span class='no'>sample_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>samples_mzxml</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_list_mzxml_samples</span>(<span class='no'>sample_path</span>,
                                     <span class='kw'>file_format</span> <span class='kw'>=</span> <span class='st'>"mzXML"</span>)
-
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>samples_mzxml</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_list_mzxml_samples</span>(<span class='no'>sample_path</span>,
-                                    <span class='kw'>file_format</span> <span class='kw'>=</span> <span class='st'>"raw"</span>,
-                                    <span class='kw'>rawconverter_path</span> <span class='kw'>=</span> <span class='no'>rawconverter_path</span>)
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>samples_mzxml</span>)</div><div class='output co'>#&gt; C:/Users/Biosignal/AppData/Local/Temp/RtmpQZaCrp/temp_libpath10d476b347b8/NIHSlcms/extdata/1.mzXML
+#&gt; C:/Users/Biosignal/AppData/Local/Temp/RtmpQZaCrp/temp_libpath10d476b347b8/NIHSlcms/extdata/2.mzXML
+#&gt; C:/Users/Biosignal/AppData/Local/Temp/RtmpQZaCrp/temp_libpath10d476b347b8/NIHSlcms/extdata/3.mzXML
+#&gt; C:/Users/Biosignal/AppData/Local/Temp/RtmpQZaCrp/temp_libpath10d476b347b8/NIHSlcms/extdata/4.mzXML</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -19,6 +19,9 @@
 #' lcms_dataset_2_polarities <- lcms_dataset_load(system.file("extdata","lcms_dataset_metadata.rds",package = "NIHSlcms"))
 #' lcms_dataset_pos <- lcms_filterPolarity(lcms_dataset_2_polarities, polarity. = 1)
 #'
+#' print(lcms_dataset_pos)
+#'
+#'
 lcms_filterPolarity <- function(object, polarity.) {
   if (missing(polarity.)) return(object)
   polarity. <- as.numeric(polarity.)
@@ -44,6 +47,8 @@ lcms_filterPolarity <- function(object, polarity.) {
 #' rtime_range = c(4,14)
 #' lcms_dataset <- lcms_dataset_load(system.file("extdata","lcms_dataset_metadata.rds",package = "NIHSlcms"))
 #' lcms_dataset_rt <-lcms_filterRTmin(lcms_dataset, rt = rtime_range)
+#'
+#' print(lcms_dataset_rt)
 #'
 lcms_filterRTmin <- function (lcms_dataset, rt = c(4, 14)){
   min2sec <- 60
@@ -79,7 +84,11 @@ lcms_filterRTmin <- function (lcms_dataset, rt = c(4, 14)){
 #' datasets_by_class_type <- lcms_filterSampleType(lcms_dataset, especial_samples)
 #' lcms_dataset_rs <-datasets_by_class_type$regular_samples
 #' lcms_dataset_qcs <-datasets_by_class_type$QCs
-
+#'
+#' print(lcms_dataset_rs)
+#'
+#' print(lcms_dataset_qcs)
+#'
 lcms_filterSampleType <- function(lcms_dataset,  especial_samples){
 
   QC_label <- especial_samples$QC
