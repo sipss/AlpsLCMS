@@ -39,7 +39,7 @@ Imports:
  forcats (>= 0.4.0),
  Biobase (>= 2.44.0), 
  future (>= 1.14.0), 
- furrr (>= 0.1.0), 
+ furrr (>= 0.1.0),
  xcms (>= 3.6.2),
  IPO (>= 1.10.0),
  MAIT (>= 1.18.0),

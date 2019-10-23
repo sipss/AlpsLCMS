@@ -15,17 +15,17 @@
 #' chromatographic dimension. Set as a range (min, max) in seconds.
 #' @param max_peakwidth numeric(two values) with the expected maximum peak width in
 #' chromatographic dimension. Set as a range (min, max) in seconds.
-#' @param optimize by default is TRUE. If FALSE, the function does not optimize
+#' @param optimize by default is TRUE. If FALSE, the function does not initialze the parameters
 #' the parameters
 #' @return A parameters template for peak picking optimization
 #' @export
 #' @family optimization functions
 #'
 #' @examples
-#' default_peakpeaking_params <- lcms_default_peakpeaking_params(optimize = TRUE)
-#' print(default_peakpeaking_params)
+#' default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
+#' print(default_peakpicking_params)
 #'
-lcms_default_peakpeaking_params <- function(noise = 5000, snthresh = 10,
+lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
                                             min_peakwidth = c(10, 30),
                                             max_peakwidth = c(35, 90),
                                             optimize = TRUE){
@@ -49,14 +49,24 @@ lcms_default_peakpeaking_params <- function(noise = 5000, snthresh = 10,
 #' Retention Time Correction (‘obiwarp’) and Peak Correspondence
 #' (‘Density’).
 #'
-#' @param lcms_dataset An [lcms_dataset_family] object
+#' @param lcms_dataset A [lcms_dataset_family] object
 #' @param peakpickingParameters Parameters for peak picking
-#' @param opt_path optimization path
+#' @param opt_path Path where optimization samples and optimized parameters are save. If NULL, a temporary folder is created.
 #' @param nSlaves Number of slaves the optimization process should spawn.
 #' @param plots Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo".
 #' @return A peak picking list with the best setting
 #' @export
 #' @family optimization functions
+#' @examples
+#' \dontrun{
+#' file_name <- system.file("extdata", "lcms_dataset_rt_pos_rs.rds", package = "NIHSlcms")
+#' lcms_dataset <- lcms_dataset_load(file_name)
+#' default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
+#' resultPeakpicking <- lcms_peakpicking_optimization(lcms_dataset,
+#'                                                    default_peakpicking_params,
+#'                                                    opt_path = NULL)
+#' print(resultPeakpicking)}
+#'
 lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters, nSlaves = 1, opt_path, plots = TRUE){
   message("This function requires a folder without previous LC-MS data")
 
@@ -66,6 +76,10 @@ lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters, 
     filenames <- Biobase::pData(lcms_dataset)$sampleNames
     filer <- filenames
     former_dir <- getwd()
+    if(is.null(opt_path)){
+      opt_path <-tempdir()
+
+    }
     setwd(opt_path)
 
     ## Get the spectra
@@ -73,18 +87,18 @@ lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters, 
     Biobase::fData(data_subset)$centroided <- TRUE
     Biobase::fData(data_subset)$peaksCount <- Biobase::fData(data_subset)$originalPeaksCount
     print("Be aware: do not run twice using the same output directory")
-    print("The algorithm is not able to rewrite files that are alreay in the directory")
+    print("The algorithm is not able to rewrite files that are already in the directory")
 
     mzR::writeMSData(data_subset, file = filer, outformat = c("mzxml"), copy = FALSE)
 
     print("Saving filtered chromatogram...")
 
-    samples_op <- fs::dir_ls(opt_path , glob = "*.mzXML")
+    #samples_op <- fs::dir_ls(opt_path , glob = "*.mzXML")
     print("Performing peak detection parameter optimization. This will take some time...")
     time.xcmsSet <- system.time({ # measuring time
       base::suppressWarnings(
         base::suppressMessages(
-          resultPeakpicking <- IPO::optimizeXcmsSet(files =  samples_op,
+          resultPeakpicking <- IPO::optimizeXcmsSet(files =  opt_path,
                                                params = peakpickingParameters,
                                                nSlaves = nSlaves,
                                                subdir = "plot_ipo",

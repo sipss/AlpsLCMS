@@ -2,7 +2,7 @@
 #'
 #' Base peak chromatograms with retention time axis in minutes.
 #'
-#' @param chromatogram A chromatogram object generated with XCMS
+#' @param chromatogram  A XChromatograms object
 #' @param treatment_col Color code by groups. They can be generated using
 #' treatment_col <- scales::hue_pal()(length(unique(lcms_dataset$treatment)))
 #' names(treatment_col) <- unique(lcms_dataset$treatment)
@@ -12,11 +12,16 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' rtlim <- c(4, 14)
+#'
+#' file_name <- system.file("extdata",
+#'                          "lcms_dataset_pos.rds",
+#'                           package = "NIHSlcms")
+#' lcms_dataset <- lcms_dataset_load(file_name)
+#' treatment_col <- scales::hue_pal()(length(unique(lcms_dataset$treatment)))
+#' names(treatment_col) <- unique(lcms_dataset$treatment)
 #' base_peaks <- xcms::chromatogram(lcms_dataset, aggregationFun = "max")
-#' lcms_plotChrom(base_peaks, treatment_col, rtlim = rtlim)
-#'}
+#' lcms_plotChrom(base_peaks, treatment_col, rtlim = c(4, 14))
+#'
 #'
 lcms_plotChrom <- function (chromatogram, treatment_col, rtlim = NULL){
   min2sec <- 60
@@ -28,7 +33,7 @@ lcms_plotChrom <- function (chromatogram, treatment_col, rtlim = NULL){
 
   plot(ret_times[[1]] / min2sec, intensities[[1]], type = "l",
        col = treatment_col[chromatogram$treatment][1], lwd = 1,
-       xlab = "Retention time (min)", ylab = "Intensity  (A.U)",
+       xlab = "Retention time (min)", ylab = "Intensity  (A.U.)",
        xlim = rtlim,
        main = "Base Peak Chromatogram")
 
