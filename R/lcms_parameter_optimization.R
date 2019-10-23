@@ -27,7 +27,7 @@
 #'
 lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
                                             min_peakwidth = c(10, 30),
-                                            max_peakwidth = c(35, 90),
+                                            max_peakwidth = c(35, 120),
                                             optimize = TRUE){
   if (optimize == TRUE){
     peakpickingParameters <- IPO::getDefaultXcmsSetStartingParams(method = c("centWave"))
