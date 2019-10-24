@@ -130,6 +130,10 @@ lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters, 
 #' @return A parameters template for retention time correction and grouping optimization
 #' @export
 #' @family optimization functions
+#' @examples
+#' default_corgroup_params <- lcms_default_corgroup_params(optimize = TRUE)
+#' print(default_corgroup_params)
+#
 lcms_default_corgroup_params <- function(profStep = 1, gapExtend = 2.7, optimize = TRUE){
 
   if (optimize == TRUE){

@@ -14,7 +14,7 @@ lcms_peakpicking_optimization(lcms_dataset, peakpickingParameters,
 
 \item{nSlaves}{Number of slaves the optimization process should spawn.}
 
-\item{opt_path}{optimization path}
+\item{opt_path}{Path where optimization samples and optimized parameters are save. If NULL, a temporary folder is created.}
 
 \item{plots}{Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo".}
 }

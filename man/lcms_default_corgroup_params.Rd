@@ -29,6 +29,10 @@ We perform parameter optimization on the XCMS preprocessing
 algorithms using the IPO Package.
 Use this function to create the template within \code{lcms_corgroup_optimization} function.
 }
+\examples{
+default_corgroup_params <- lcms_default_corgroup_params(optimize = TRUE)
+print(default_corgroup_params)
+}
 \seealso{
 Other optimization functions: \code{\link{lcms_default_peakpicking_params}},
   \code{\link{lcms_peakpicking_optimization}},

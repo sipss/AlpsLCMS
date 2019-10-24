@@ -5,7 +5,7 @@
 \title{Default parameters for peak picking optimization}
 \usage{
 lcms_default_peakpicking_params(noise = 5000, snthresh = 10,
-  min_peakwidth = c(10, 30), max_peakwidth = c(35, 90),
+  min_peakwidth = c(10, 30), max_peakwidth = c(35, 120),
   optimize = TRUE)
 }
 \arguments{

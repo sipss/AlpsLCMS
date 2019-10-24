@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Peak picking optimization — lcms_peakpicking_optimization • NIHSlcms</title>
+<title>Default parameters for peak picking optimization — lcms_default_peakpicking_params • NIHSlcms</title>
 
 
 <!-- jquery -->
@@ -35,12 +35,15 @@
 
 
 
-<meta property="og:title" content="Peak picking optimization — lcms_peakpicking_optimization" />
-<meta property="og:description" content="The function optimize parameters considering a set of samples
-for the peak picking algorithm using the IPO Package.
+<meta property="og:title" content="Default parameters for peak picking optimization — lcms_default_peakpicking_params" />
+<meta property="og:description" content="The function creates default parameters for optimizing
+peakpicking algorithms.We perform parameter optimization
+on the XCMS preprocessing algorithms using the IPO Package.
 This includes Peak Detection (‘Centwave’ and ‘Matched Filter’),
 Retention Time Correction (‘obiwarp’) and Peak Correspondence
-(‘Density’)." />
+(‘Density’).
+Use this function to generate the template within the
+lcms_peakpicking_optimization function." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,65 +110,102 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Peak picking optimization</h1>
+    <h1>Default parameters for peak picking optimization</h1>
     
-    <div class="hidden name"><code>lcms_peakpicking_optimization.Rd</code></div>
+    <div class="hidden name"><code>lcms_default_peakpicking_params.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function optimize parameters considering a set of samples
-for the peak picking algorithm using the IPO Package.
+    <p>The function creates default parameters for optimizing
+peakpicking algorithms.We perform parameter optimization
+on the XCMS preprocessing algorithms using the IPO Package.
 This includes Peak Detection (‘Centwave’ and ‘Matched Filter’),
 Retention Time Correction (‘obiwarp’) and Peak Correspondence
-(‘Density’).</p>
+(‘Density’).
+Use this function to generate the template within the
+<code>lcms_peakpicking_optimization</code> function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_peakpicking_optimization</span>(<span class='no'>lcms_dataset</span>, <span class='no'>peakpickingParameters</span>,
-  <span class='kw'>nSlaves</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>opt_path</span>, <span class='kw'>plots</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>lcms_default_peakpicking_params</span>(<span class='kw'>noise</span> <span class='kw'>=</span> <span class='fl'>5000</span>, <span class='kw'>snthresh</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>min_peakwidth</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10</span>, <span class='fl'>30</span>), <span class='kw'>max_peakwidth</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>35</span>, <span class='fl'>120</span>),
+  <span class='kw'>optimize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>lcms_dataset</th>
-      <td><p>A <a href='lcms_dataset_family.html'>lcms_dataset_family</a> object</p></td>
+      <th>noise</th>
+      <td><p>numeric, minimum intensity needed to be included in the analysis.</p></td>
     </tr>
     <tr>
-      <th>peakpickingParameters</th>
-      <td><p>Parameters for peak picking</p></td>
+      <th>snthresh</th>
+      <td><p>numeric, set the signal to noise ratio threshold to be included.</p></td>
     </tr>
     <tr>
-      <th>nSlaves</th>
-      <td><p>Number of slaves the optimization process should spawn.</p></td>
+      <th>min_peakwidth</th>
+      <td><p>numeric(two values) with the expected minimal peak width in
+chromatographic dimension. Set as a range (min, max) in seconds.</p></td>
     </tr>
     <tr>
-      <th>opt_path</th>
-      <td><p>Path where optimization samples and optimized parameters are save. If NULL, a temporary folder is created.</p></td>
+      <th>max_peakwidth</th>
+      <td><p>numeric(two values) with the expected maximum peak width in
+chromatographic dimension. Set as a range (min, max) in seconds.</p></td>
     </tr>
     <tr>
-      <th>plots</th>
-      <td><p>Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo".</p></td>
+      <th>optimize</th>
+      <td><p>by default is TRUE. If FALSE, the function does not initialze the parameters
+the parameters</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A peak picking list with the best setting</p>
+    <p>A parameters template for peak picking optimization</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other optimization functions: <code><a href='lcms_default_corgroup_params.html'>lcms_default_corgroup_params</a></code>,
-  <code><a href='lcms_default_peakpicking_params.html'>lcms_default_peakpicking_params</a></code>,
+  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
   <code><a href='write_opt_params.html'>write_opt_params</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>file_name</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"lcms_dataset_rt_pos_rs.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
-<span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='no'>file_name</span>)
-<span class='no'>default_peakpicking_params</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_default_peakpicking_params.html'>lcms_default_peakpicking_params</a></span>(<span class='kw'>optimize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>resultPeakpicking</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_peakpicking_optimization</span>(<span class='no'>lcms_dataset</span>,
-                                                   <span class='no'>default_peakpicking_params</span>,
-                                                   <span class='kw'>opt_path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>resultPeakpicking</span>)}</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>default_peakpicking_params</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_default_peakpicking_params</span>(<span class='kw'>optimize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>default_peakpicking_params</span>)</div><div class='output co'>#&gt; $min_peakwidth
+#&gt; [1] 10 30
+#&gt; 
+#&gt; $max_peakwidth
+#&gt; [1]  35 120
+#&gt; 
+#&gt; $ppm
+#&gt; [1] 17 32
+#&gt; 
+#&gt; $mzdiff
+#&gt; [1] -0.001  0.010
+#&gt; 
+#&gt; $snthresh
+#&gt; [1] 10
+#&gt; 
+#&gt; $noise
+#&gt; [1] 5000
+#&gt; 
+#&gt; $prefilter
+#&gt; [1] 3
+#&gt; 
+#&gt; $value_of_prefilter
+#&gt; [1] 100
+#&gt; 
+#&gt; $mzCenterFun
+#&gt; [1] "wMean"
+#&gt; 
+#&gt; $integrate
+#&gt; [1] 1
+#&gt; 
+#&gt; $fitgauss
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $verbose.columns
+#&gt; [1] FALSE
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
