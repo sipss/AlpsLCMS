@@ -36,6 +36,6 @@ print(default_corgroup_params)
 \seealso{
 Other optimization functions: \code{\link{lcms_default_peakpicking_params}},
   \code{\link{lcms_peakpicking_optimization}},
-  \code{\link{write_opt_params}}
+  \code{\link{lcms_write_opt_params}}
 }
 \concept{optimization functions}
