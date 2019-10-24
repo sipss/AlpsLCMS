@@ -161,7 +161,23 @@ lcms_default_corgroup_params <- function(profStep = 1, gapExtend = 2.7, optimize
 #' @return a list with the optimization of parameters for retention time and grouping.
 #' @export
 #' @family optimization functions.
-lcms_corgroup_optimization <- function (optimizedXcmsSetObject,
+#' @examples
+#'
+#' \dontrun{
+#'
+#' file_name <- system.file("extdata", "lcms_opt_xcms_object.rds", package = "NIHSlcms")
+#' optimizedXcmsSetObject <-base::readRDS(file_name)
+#'
+#' opt_result_path <- system.file("extdata", "lcms_default_retcorgroup_params.csv", package = "NIHSlcms")
+#' default_retcorgroup_params <- read_IPO_to_XCMS(opt_result_path)
+#'
+#'
+#' resultRetcorGroup <- lcms_retcorgroup_optimization(optimizedXcmsSetObject,
+#'                                                 default_retcorgroup_params,
+#'                                                 opt_path = NULL)
+#' print(resultRetcorGroup)
+#' }
+lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
                                         retcorGroupParameters,
                                         nSlaves = 1,
                                         opt_path,
@@ -171,6 +187,9 @@ lcms_corgroup_optimization <- function (optimizedXcmsSetObject,
     resultRetcorGroup <- NULL
   } else{
     former_dir <- getwd()
+    if(is.null(opt_path)){
+      opt_path <- tempdir()
+      }
     setwd(opt_path)
     print("Performing retention time and grouping
         parameter optimization. This will take some time...")
