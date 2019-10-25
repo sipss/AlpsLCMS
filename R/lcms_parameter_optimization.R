@@ -53,7 +53,7 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #' @param peakpickingParameters Parameters for peak picking
 #' @param opt_path Path where optimization samples are saved. Id subdir is
 #' @param nSlaves Number of slaves the optimization process should spawn.
-#' @param plots Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo".
+#' @param plots Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo" (default).
 #' @param subdir Folder where surface plots are save. If NULL they are displayed by the graphical device.
 #' @return A peak picking list with the best setting
 #' @export
@@ -172,7 +172,8 @@ lcms_default_retcorgroup_params <- function(profStep = 1, gapExtend = 2.7, optim
 #' @param retcorGroupParameters Parameters for retention time correction and optimization
 #' @param nSlaves Number of slaves the optimization process should spawn.
 #' @param plots Defines if plots should be generated (TRUE) or not (FALSE) in a
-#' subfolder called "plot_ipo".
+#' subfolder called "plot_ipo"(default).
+#' @param subdir Folder where surface plots are save. If NULL they are displayed by the graphical device.
 #' @return a list with the optimization of parameters for retention time and grouping.
 #' @export
 #' @family optimization functions.
@@ -180,34 +181,32 @@ lcms_default_retcorgroup_params <- function(profStep = 1, gapExtend = 2.7, optim
 #'
 #' \dontrun{
 #'
-#' file_name <- system.file("extdata", "lcms_resultPeakpicking.rds", package = "NIHSlcms")
-#' optimizedXcmsSetObject <-base::readRDS(file_name)$best_settings$xset
-#'
-#' opt_result_path <- system.file("extdata", "default_retcorgroup_params.rds", package = "NIHSlcms")
-#' default_retcorgroup_params <- readRDS(opt_result_path)
-#'
+#' file_name_pp <- system.file("extdata", "lcms_resultPeakpicking.rds", package = "NIHSlcms")
+#' optimizedXcmsSetObject <-base::readRDS(file_name_pp)$best_settings$xset
+#' file_name_rcg <- system.file("extdata", "default_retcorgroup_params.rds", package = "NIHSlcms")
+#' default_retcorgroup_params <- base::readRDS(file_name_rcg)
+#' opt_path <-  system.file("extdata", package = "NIHSlcms")
 #'
 #' resultRetcorGroup <- lcms_retcorgroup_optimization(optimizedXcmsSetObject,
-#'                                                 default_retcorgroup_params,
-#'                                                 opt_path = NULL)
+#'                                                    default_retcorgroup_params,
+#'                                                    opt_path = opt_path,
+#'                                                    subdir = NULL)
 #' print(resultRetcorGroup)
 #' }
 lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
                                         retcorGroupParameters,
                                         nSlaves = 1,
                                         opt_path,
+                                        subdir ="plot_ipo",
                                         plots = TRUE){
 
   if(is.null(optimizedXcmsSetObject) | is.null(retcorGroupParameters)){
     resultRetcorGroup <- NULL
   } else{
     former_dir <- getwd()
-    if(is.null(opt_path)){
-      opt_path <- tempdir()
-      }
     setwd(opt_path)
-    print("Performing retention time and grouping
-        parameter optimization. This will take some time...")
+    cat("Performing retention time and grouping
+        parameter optimization. This will take some time...","\n")
     time.RetGroup <- system.time({ # measuring time
       base::suppressWarnings(
         base::suppressMessages(
@@ -215,7 +214,7 @@ lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
             IPO::optimizeRetGroup(xset = optimizedXcmsSetObject,
                              params = retcorGroupParameters,
                              nSlaves = nSlaves,
-                             subdir = "plot_ipo",
+                             subdir = subdir,
                              plot = plots)
         )
       )

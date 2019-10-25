@@ -5,7 +5,8 @@
 \title{Optimization of retention time correction and grouping parameters.}
 \usage{
 lcms_retcorgroup_optimization(optimizedXcmsSetObject,
-  retcorGroupParameters, nSlaves = 1, opt_path, plots = TRUE)
+  retcorGroupParameters, nSlaves = 1, opt_path, subdir = "plot_ipo",
+  plots = TRUE)
 }
 \arguments{
 \item{optimizedXcmsSetObject}{XCMS object conatining the \code{best_settings} parameters.
@@ -16,8 +17,10 @@ best_settings$xset (e.g. optimizedXcmsSetObject <- resultPeakpicking$best_settin
 
 \item{nSlaves}{Number of slaves the optimization process should spawn.}
 
+\item{subdir}{Folder where surface plots are save. If NULL they are displayed by the graphical device.}
+
 \item{plots}{Defines if plots should be generated (TRUE) or not (FALSE) in a
-subfolder called "plot_ipo".}
+subfolder called "plot_ipo"(default).}
 }
 \value{
 a list with the optimization of parameters for retention time and grouping.
@@ -30,16 +33,16 @@ for the retention time correction and grouping using the IPO Package.
 
 \dontrun{
 
-file_name <- system.file("extdata", "lcms_resultPeakpicking.rds", package = "NIHSlcms")
-optimizedXcmsSetObject <-base::readRDS(file_name)$best_settings$xset
-
-opt_result_path <- system.file("extdata", "default_retcorgroup_params.rds", package = "NIHSlcms")
-default_retcorgroup_params <- readRDS(opt_result_path)
-
+file_name_pp <- system.file("extdata", "lcms_resultPeakpicking.rds", package = "NIHSlcms")
+optimizedXcmsSetObject <-base::readRDS(file_name_pp)$best_settings$xset
+file_name_rcg <- system.file("extdata", "default_retcorgroup_params.rds", package = "NIHSlcms")
+default_retcorgroup_params <- base::readRDS(file_name_rcg)
+opt_path <-  system.file("extdata", package = "NIHSlcms")
 
 resultRetcorGroup <- lcms_retcorgroup_optimization(optimizedXcmsSetObject,
-                                                default_retcorgroup_params,
-                                                opt_path = NULL)
+                                                   default_retcorgroup_params,
+                                                   opt_path = opt_path,
+                                                   subdir = NULL)
 print(resultRetcorGroup)
 }
 }
