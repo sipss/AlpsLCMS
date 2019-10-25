@@ -51,24 +51,28 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #'
 #' @param lcms_dataset A [lcms_dataset_family] object
 #' @param peakpickingParameters Parameters for peak picking
-#' @param opt_path Path where optimization samples and optimized parameters are save. If NULL, a temporary folder is created.
+#' @param opt_path Path where optimization samples are saved. Id subdir is
 #' @param nSlaves Number of slaves the optimization process should spawn.
 #' @param plots Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo".
+#' @param subdir Folder where surface plots are save. If NULL they are displayed by the graphical device.
 #' @return A peak picking list with the best setting
 #' @export
 #' @family optimization functions
 #' @examples
 #' \dontrun{
+#' opt_path <-  system.file("extdata", package = "NIHSlcms")
 #' file_name <- system.file("extdata", "lcms_dataset_rt_pos_rs.rds", package = "NIHSlcms")
 #' lcms_dataset <- lcms_dataset_load(file_name)
 #' default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
 #' resultPeakpicking <- lcms_peakpicking_optimization(lcms_dataset,
 #'                                                    default_peakpicking_params,
-#'                                                    opt_path = NULL)
+#'                                                    opt_path = opt_path,
+#'                                                    subdir = NULL)
 #' print(resultPeakpicking)}
 #'
-lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters, nSlaves = 1, opt_path, plots = TRUE){
-  message("This function requires a folder without previous LC-MS data")
+lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters,
+                                           nSlaves = 1, opt_path, subdir ="plot_ipo",
+                                           plots = TRUE){
 
   if(is.null(peakpickingParameters)){
     resultPeakpicking <- NULL
@@ -76,22 +80,33 @@ lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters, 
     filenames <- Biobase::pData(lcms_dataset)$sampleNames
     filer <- filenames
     former_dir <- getwd()
-    if(is.null(opt_path)){
-      opt_path <- tempdir()
-
-    }
     setwd(opt_path)
 
     ## Get the spectra
     data_subset <- lcms_dataset %>% MSnbase::filterFile(file = filenames)
     Biobase::fData(data_subset)$centroided <- TRUE
     Biobase::fData(data_subset)$peaksCount <- Biobase::fData(data_subset)$originalPeaksCount
-    print("Be aware: do not run twice using the same output directory")
-    print("The algorithm is not able to rewrite files that are already in the directory")
+    cat("Be careful if you run twice the function using the same output directory.", "\n")
+    cat("The algorithm won't rewrite files that are already in the directory, but will store new samples in it.", "\n")
 
-    mzR::writeMSData(data_subset, file = filer, outformat = c("mzxml"), copy = FALSE)
+    mzxml_in_opt_path <- lcms_list_mzxml_samples(opt_path, file_format = "mzXML",
+                                                 rawconverter_path = NULL)
 
-    print("Saving filtered chromatogram...")
+    file_names_opt_path <- stringr::str_c(stringr::str_match(mzxml_in_opt_path,"\\w+\\.mzXML$"))
+    num_mzxml_opt_path <- length(file_names_opt_path)
+    file_names_union <- union(file_names_opt_path, filer)
+
+    if(is.null(num_mzxml_opt_path)){
+        mzR::writeMSData(data_subset, file = filer, outformat = c("mzxml"), copy = FALSE)
+        aux_filer <- stringr::str_c(filer,collapse = " ")
+        cat(stringr::str_c("Samples used for optimization:",
+                         "\n", "\t",aux_filer, "\n",collapse =" "))
+    }else {
+      aux_file_names_union <- stringr::str_c(file_names_union,collapse = " ")
+      cat(stringr::str_c("Samples used for optimization:",
+                              "\n", "\t", aux_file_names_union,"\n", collapse =" "))
+    }
+    cat("Saving filtered chromatogram...","\n")
 
     #samples_op <- fs::dir_ls(opt_path , glob = "*.mzXML")
     print("Performing peak detection parameter optimization. This will take some time...")
@@ -101,7 +116,7 @@ lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters, 
           resultPeakpicking <- IPO::optimizeXcmsSet(files =  opt_path,
                                                params = peakpickingParameters,
                                                nSlaves = nSlaves,
-                                               subdir = "plot_ipo",
+                                               subdir = subdir,
                                                plot = plots)
         )
       )

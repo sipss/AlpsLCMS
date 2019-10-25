@@ -5,7 +5,7 @@
 \title{Peak picking optimization}
 \usage{
 lcms_peakpicking_optimization(lcms_dataset, peakpickingParameters,
-  nSlaves = 1, opt_path, plots = TRUE)
+  nSlaves = 1, opt_path, subdir = "plot_ipo", plots = TRUE)
 }
 \arguments{
 \item{lcms_dataset}{A \link{lcms_dataset_family} object}
@@ -14,7 +14,9 @@ lcms_peakpicking_optimization(lcms_dataset, peakpickingParameters,
 
 \item{nSlaves}{Number of slaves the optimization process should spawn.}
 
-\item{opt_path}{Path where optimization samples and optimized parameters are save. If NULL, a temporary folder is created.}
+\item{opt_path}{Path where optimization samples are saved. Id subdir is}
+
+\item{subdir}{Folder where surface plots are save. If NULL they are displayed by the graphical device.}
 
 \item{plots}{Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo".}
 }
@@ -30,12 +32,14 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
 }
 \examples{
 \dontrun{
+opt_path <-  system.file("extdata", package = "NIHSlcms")
 file_name <- system.file("extdata", "lcms_dataset_rt_pos_rs.rds", package = "NIHSlcms")
 lcms_dataset <- lcms_dataset_load(file_name)
 default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
 resultPeakpicking <- lcms_peakpicking_optimization(lcms_dataset,
                                                    default_peakpicking_params,
-                                                   opt_path = NULL)
+                                                   opt_path = opt_path,
+                                                   subdir = NULL)
 print(resultPeakpicking)}
 
 }
