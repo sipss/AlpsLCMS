@@ -59,7 +59,7 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #' @export
 #' @family optimization functions
 #' @examples
-#' \dontrun{
+
 #' opt_path <-  system.file("extdata", package = "NIHSlcms")
 #' file_name <- system.file("extdata", "lcms_dataset_rt_pos_rs.rds", package = "NIHSlcms")
 #' lcms_dataset <- lcms_dataset_load(file_name)
@@ -68,7 +68,7 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #'                                                    default_peakpicking_params,
 #'                                                    opt_path = opt_path,
 #'                                                    subdir = NULL)
-#' print(resultPeakpicking)}
+#' print(resultPeakpicking)
 #'
 lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters,
                                            nSlaves = 1, opt_path, subdir ="plot_ipo",
@@ -179,9 +179,6 @@ lcms_default_retcorgroup_params <- function(profStep = 1, gapExtend = 2.7, optim
 #' @export
 #' @family optimization functions.
 #' @examples
-#'
-#' \dontrun{
-#'
 #' file_name_pp <- system.file("extdata", "lcms_resultPeakpicking.rds", package = "NIHSlcms")
 #' optimizedXcmsSetObject <-base::readRDS(file_name_pp)$best_settings$xset
 #' file_name_rcg <- system.file("extdata", "default_retcorgroup_params.rds", package = "NIHSlcms")
@@ -193,7 +190,7 @@ lcms_default_retcorgroup_params <- function(profStep = 1, gapExtend = 2.7, optim
 #'                                                    opt_path = opt_path,
 #'                                                    subdir = NULL)
 #' print(resultRetcorGroup)
-#' }
+
 lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
                                         retcorGroupParameters,
                                         nSlaves = 1,
@@ -249,10 +246,14 @@ lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
 #' @export
 #' @family optimization functions
 #' @examples
-#' \dontrun{
-#' opt_result_path <- tempdir()
-#' lcms_write_opt_params(resultPeakpicking, resultRetcorGroup, opt_result_path)
-#' }
+#'  opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+#'  file_name_pp <- system.file("extdata", "lcms_resultPeakpicking.rds", package = "NIHSlcms")
+#'  file_name_rcg <- system.file("extdata", "lcms_resultRetcorGroup.rds", package = "NIHSlcms")
+#'  lcms_resultPeakpicking <- base::readRDS(file_name_pp)
+#'  lmcs_resultRetcorGroup <- base::readRDS(file_name_rcg)
+#'
+#'  lcms_write_opt_params(lcms_resultPeakpicking, lmcs_resultRetcorGroup, opt_result_path)
+#'
 lcms_write_opt_params<- function(results_pp,
                             results_rtcg,
                             opt_result_path,

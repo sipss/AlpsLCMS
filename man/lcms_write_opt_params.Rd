@@ -27,10 +27,14 @@ allows in the RStudio console. Also you can save this results in plain text file
 (i.e. a .CVS file).
 }
 \examples{
-\dontrun{
-opt_result_path <- tempdir()
-lcms_write_opt_params(resultPeakpicking, resultRetcorGroup, opt_result_path)
-}
+ opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+ file_name_pp <- system.file("extdata", "lcms_resultPeakpicking.rds", package = "NIHSlcms")
+ file_name_rcg <- system.file("extdata", "lcms_resultRetcorGroup.rds", package = "NIHSlcms")
+ lcms_resultPeakpicking <- base::readRDS(file_name_pp)
+ lmcs_resultRetcorGroup <- base::readRDS(file_name_rcg)
+
+ lcms_write_opt_params(lcms_resultPeakpicking, lmcs_resultRetcorGroup, opt_result_path)
+
 }
 \seealso{
 Other optimization functions: \code{\link{lcms_default_peakpicking_params}},

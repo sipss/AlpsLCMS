@@ -30,9 +30,6 @@ The function optimize parameters considering a set of samples
 for the retention time correction and grouping using the IPO Package.
 }
 \examples{
-
-\dontrun{
-
 file_name_pp <- system.file("extdata", "lcms_resultPeakpicking.rds", package = "NIHSlcms")
 optimizedXcmsSetObject <-base::readRDS(file_name_pp)$best_settings$xset
 file_name_rcg <- system.file("extdata", "default_retcorgroup_params.rds", package = "NIHSlcms")
@@ -44,6 +41,5 @@ resultRetcorGroup <- lcms_retcorgroup_optimization(optimizedXcmsSetObject,
                                                    opt_path = opt_path,
                                                    subdir = NULL)
 print(resultRetcorGroup)
-}
 }
 \concept{optimization functions.}
