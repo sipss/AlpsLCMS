@@ -68,7 +68,6 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #'                                                    default_peakpicking_params,
 #'                                                    opt_path = opt_path,
 #'                                                    subdir = NULL)
-#' print(resultPeakpicking)
 #'
 lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters,
                                            nSlaves = 1, opt_path, subdir ="plot_ipo",
@@ -189,7 +188,6 @@ lcms_default_retcorgroup_params <- function(profStep = 1, gapExtend = 2.7, optim
 #'                                                    default_retcorgroup_params,
 #'                                                    opt_path = opt_path,
 #'                                                    subdir = NULL)
-#' print(resultRetcorGroup)
 
 lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
                                         retcorGroupParameters,

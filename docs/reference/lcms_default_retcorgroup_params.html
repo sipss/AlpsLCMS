@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Base peak chromatogram — lcms_plotChrom • NIHSlcms</title>
+<title>Default parameters for optimization of retention time correction and grouping parameters — lcms_default_retcorgroup_params • NIHSlcms</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,12 @@
 
 
 
-<meta property="og:title" content="Base peak chromatogram — lcms_plotChrom" />
-<meta property="og:description" content="Base peak chromatograms with retention time axis in minutes." />
+<meta property="og:title" content="Default parameters for optimization of retention time correction and grouping parameters — lcms_default_retcorgroup_params" />
+<meta property="og:description" content="The function creates default parameters for optimizing
+retention time correction and grouping algorithms.
+We perform parameter optimization on the XCMS preprocessing
+algorithms using the IPO Package.
+Use this function to create the template within lcms_corgroup_optimization function." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,57 +107,107 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Base peak chromatogram</h1>
+    <h1>Default parameters for optimization of retention time correction and grouping parameters</h1>
     
-    <div class="hidden name"><code>lcms_plotChrom.Rd</code></div>
+    <div class="hidden name"><code>lcms_default_retcorgroup_params.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Base peak chromatograms with retention time axis in minutes.</p>
+    <p>The function creates default parameters for optimizing
+retention time correction and grouping algorithms.
+We perform parameter optimization on the XCMS preprocessing
+algorithms using the IPO Package.
+Use this function to create the template within <code>lcms_corgroup_optimization</code> function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_plotChrom</span>(<span class='no'>chromatogram</span>, <span class='no'>treatment_col</span>, <span class='kw'>rtlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>lcms_default_retcorgroup_params</span>(<span class='kw'>profStep</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>gapExtend</span> <span class='kw'>=</span> <span class='fl'>2.7</span>,
+  <span class='kw'>optimize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>chromatogram</th>
-      <td><p>A XChromatograms object</p></td>
+      <th>profStep</th>
+      <td><p>set the m/z step for generating profile (matrix) data from raw mass spectral data.
+Smaller steps yield more precision at the cost of greater memory usage.</p></td>
     </tr>
     <tr>
-      <th>treatment_col</th>
-      <td><p>Color code by groups. They can be generated using
-treatment_col &lt;- scales::hue_pal()(length(unique(lcms_dataset$treatment)))
-names(treatment_col) &lt;- unique(lcms_dataset$treatment)</p></td>
+      <th>gapExtend</th>
+      <td><p>numeric(1) defining the penalty for gap enlargement.
+The default value for gapExtend depends on the value of distFun, for distFun = "cor"
+and distFun = "cor_opt" it is 2.4, for distFun = "cov" 11.7, for distFun = "euc" 1.8
+and for distFun = "prd" 7.8.</p></td>
     </tr>
     <tr>
-      <th>rtlim</th>
-      <td><p>retention time boundaries (e.g. c(4,14))</p></td>
+      <th>optimize</th>
+      <td><p>by default is TRUE. If FALSE, the function does not optimize
+the parameters</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A base peak chromatogram</p>
+    <p>A parameters template for retention time correction and grouping optimization</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other optimization functions: <code><a href='lcms_default_peakpicking_params.html'>lcms_default_peakpicking_params</a></code>,
+  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_write_opt_params.html'>lcms_write_opt_params</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>file_name</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
-                         <span class='st'>"lcms_dataset_pos.rds"</span>,
-                          <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
-<span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='no'>file_name</span>)
-<span class='no'>treatment_col</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/hue_pal.html'>hue_pal</a></span>()(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>lcms_dataset</span>$<span class='no'>treatment</span>)))
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>treatment_col</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>lcms_dataset</span>$<span class='no'>treatment</span>)
-<span class='no'>base_peaks</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>xcms</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/xcms/man/chromatogram-method.html'>chromatogram</a></span>(<span class='no'>lcms_dataset</span>, <span class='kw'>aggregationFun</span> <span class='kw'>=</span> <span class='st'>"max"</span>)</div><div class='output co'>#&gt; <span class='message'>Error in (function (x)  : attempt to apply non-function</span></div><div class='input'><span class='fu'>lcms_plotChrom</span>(<span class='no'>base_peaks</span>, <span class='no'>treatment_col</span>, <span class='kw'>rtlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>14</span>))</div><div class='output co'>#&gt; <span class='message'>Make sure that the column that contains the group class is called `treatment`</span></div><div class='img'><img src='lcms_plotChrom-1.png' alt='' width='700' height='433' /></div><div class='input'>
-
-</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>default_retcorgroup_params</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_default_retcorgroup_params</span>(<span class='kw'>optimize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>default_retcorgroup_params</span>)</div><div class='output co'>#&gt; $distFunc
+#&gt; [1] "cor_opt"
+#&gt; 
+#&gt; $gapInit
+#&gt; [1] 0.0 0.4
+#&gt; 
+#&gt; $gapExtend
+#&gt; [1] 2.7
+#&gt; 
+#&gt; $profStep
+#&gt; [1] 1
+#&gt; 
+#&gt; $plottype
+#&gt; [1] "none"
+#&gt; 
+#&gt; $response
+#&gt; [1] 1
+#&gt; 
+#&gt; $factorDiag
+#&gt; [1] 2
+#&gt; 
+#&gt; $factorGap
+#&gt; [1] 1
+#&gt; 
+#&gt; $localAlignment
+#&gt; [1] 0
+#&gt; 
+#&gt; $retcorMethod
+#&gt; [1] "obiwarp"
+#&gt; 
+#&gt; $bw
+#&gt; [1] 22 38
+#&gt; 
+#&gt; $minfrac
+#&gt; [1] 0.3 0.7
+#&gt; 
+#&gt; $mzwid
+#&gt; [1] 0.015 0.035
+#&gt; 
+#&gt; $minsamp
+#&gt; [1] 1
+#&gt; 
+#&gt; $max
+#&gt; [1] 50
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
