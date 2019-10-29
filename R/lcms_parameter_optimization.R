@@ -109,7 +109,8 @@ lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters,
     cat("Saving filtered chromatogram...","\n")
 
     #samples_op <- fs::dir_ls(opt_path , glob = "*.mzXML")
-    print("Performing peak detection parameter optimization. This will take some time...")
+    cat("Performing retention time and grouping
+        parameter optimization. This will take some time...","\n")
     time.xcmsSet <- system.time({ # measuring time
       base::suppressWarnings(
         base::suppressMessages(
