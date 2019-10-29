@@ -205,17 +205,26 @@ lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
   } else{
     former_dir <- getwd()
     setwd(opt_path)
+
+    quiet <- function(x) {
+           base::sink(base::tempfile())
+           base::on.exit(base::sink())
+           base::invisible(base::force(x))
+        }
+
+
     cat("Performing retention time and grouping
         parameter optimization. This will take some time...","\n")
-    time.RetGroup <- system.time({ # measuring time
+   time.RetGroup <- system.time({ # measuring time
       base::suppressWarnings(
         base::suppressMessages(
-          resultRetcorGroup <-
-            IPO::optimizeRetGroup(xset = optimizedXcmsSetObject,
-                             params = retcorGroupParameters,
-                             nSlaves = nSlaves,
-                             subdir = subdir,
-                             plot = plots)
+          resultRetcorGroup <-quiet(
+                    IPO::optimizeRetGroup(xset = optimizedXcmsSetObject,
+                                          params = retcorGroupParameters,
+                                          nSlaves = nSlaves,
+                                          subdir = subdir,
+                                          plot = plots)
+        )
         )
       )
     })
