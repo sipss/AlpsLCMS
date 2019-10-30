@@ -1,10 +1,10 @@
 #' Read IPO parameters to XCMS format
 #'
 #' The function reads and converts from `IPO` to `XCMS` variable formats: The variable names in IPO and XCMS
-#' presented some mismatches, thus we had to create a function called *IPO_to_XCMS*
-#' to achieve compatibility between packages.
+#' presented some mismatches, thus we had to create a function called *lcms_read_ipo_to_xcms*
+#' to achieve compatibility between packages when reading these parameters from a .csv file.
 #'
-#' @param opt_result_path A directory to save the parameters file
+#' @param opt_result_path A directory where the parameters file is stored
 #'
 #' @return A display of the chosen parameters
 #' @export
@@ -48,19 +48,20 @@ lcms_read_ipo_to_xcms <- function(opt_result_path){
 #' Converts IPO parameters to XCMS format
 #'
 #' The function converts from `IPO` to `XCMS` variable formats: The variable names in IPO and XCMS
-#' presented some mismatches, thus we had to create a function called *IPO_to_XCMS*
-#' to achieve compatibility between packages.
+#' presented some mismatches, thus we had to create a function called *lcms_convert_ipo_to_xcms*
+#' to achieve compatibility between packages when these parameters are stored in a list.
 #'
-#' @param params An object with the IPO parameters, generated with the `write_opt_params` function
+#' @param params A list with the IPO parameters, generated with the `lcms_write_opt_params` function
 #'
 #' @return Parameters in XCMS format
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' write_opt_params(resultPeakpicking, resultRetcorGroup, my_directory)
-#' }
-convert_IPO_to_XCMS <- function(params){
+#' opt_result_path <-  system.file("extdata", "params.rds", package = "NIHSlcms")
+#' lcms_preproc_params <- lcms_convert_ipo_to_xcms(params)
+#' print(lcms_preproc_params)
+
+lcms_convert_ipo_to_xcms <- function(params){
   preproc_params <- list(ppm = params$ppm,
                          peakwidth = c(params$min_peakwidth, params$max_peakwidth),
                          snthresh = as.numeric(params$snthresh),
