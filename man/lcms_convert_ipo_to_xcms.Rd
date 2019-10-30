@@ -19,6 +19,7 @@ to achieve compatibility between packages when these parameters are stored in a 
 }
 \examples{
 opt_result_path <-  system.file("extdata", "params.rds", package = "NIHSlcms")
+params <- base::readRDS(opt_result_path)
 lcms_preproc_params <- lcms_convert_ipo_to_xcms(params)
 print(lcms_preproc_params)
 }
