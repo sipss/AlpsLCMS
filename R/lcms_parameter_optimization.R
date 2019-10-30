@@ -244,7 +244,7 @@ lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
 #' @export
 #' @family optimization functions
 #' @examples
-#'  opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+#'  opt_result_path <-  tempdir(check = FALSE)
 #'  file_name_pp <- system.file("extdata", "lcms_resultPeakpicking.rds", package = "NIHSlcms")
 #'  file_name_rcg <- system.file("extdata", "lcms_resultRetcorGroup.rds", package = "NIHSlcms")
 #'  lcms_resultPeakpicking <- base::readRDS(file_name_pp)
@@ -306,5 +306,4 @@ lcms_write_opt_params<- function(results_pp,
     IPO::writeParamsTable(paramsPP, paramsRTCGroup,
                      sep = ",", paste0(opt_result_path, "/params.csv"))
   }
-  paramsPP
 }

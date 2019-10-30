@@ -27,7 +27,7 @@ allows in the RStudio console. Also you can save this results in plain text file
 (i.e. a .CVS file).
 }
 \examples{
- opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+ opt_result_path <-  tempdir(check = FALSE)
  file_name_pp <- system.file("extdata", "lcms_resultPeakpicking.rds", package = "NIHSlcms")
  file_name_rcg <- system.file("extdata", "lcms_resultRetcorGroup.rds", package = "NIHSlcms")
  lcms_resultPeakpicking <- base::readRDS(file_name_pp)

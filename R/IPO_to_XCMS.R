@@ -10,10 +10,11 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' write_opt_params(resultPeakpicking, resultRetcorGroup, my_directory)
-#' }
-read_IPO_to_XCMS <- function(opt_result_path){
+#' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+#' lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
+#' print(lcms_preproc_params)
+#'
+lcms_read_ipo_to_xcms <- function(opt_result_path){
   params <- utils::read.csv(paste0(opt_result_path, "/params.csv"), stringsAsFactors = FALSE)
   preproc_params <- list(ppm = params$ppm,
                          peakwidth = c(params$min_peakwidth, params$max_peakwidth),

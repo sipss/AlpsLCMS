@@ -40,6 +40,5 @@ resultRetcorGroup <- lcms_retcorgroup_optimization(optimizedXcmsSetObject,
                                                    default_retcorgroup_params,
                                                    opt_path = opt_path,
                                                    subdir = NULL)
-print(resultRetcorGroup)
 }
 \concept{optimization functions.}

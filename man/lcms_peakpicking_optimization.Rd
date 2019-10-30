@@ -39,7 +39,6 @@ resultPeakpicking <- lcms_peakpicking_optimization(lcms_dataset,
                                                    default_peakpicking_params,
                                                    opt_path = opt_path,
                                                    subdir = NULL)
-print(resultPeakpicking)
 
 }
 \seealso{
