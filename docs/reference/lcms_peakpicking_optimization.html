@@ -162,21 +162,17 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
   <code><a href='lcms_write_opt_params.html'>lcms_write_opt_params</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>opt_path</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>opt_path</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>file_name</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"lcms_dataset_rt_pos_rs.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='no'>file_name</span>)
 <span class='no'>default_peakpicking_params</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_default_peakpicking_params.html'>lcms_default_peakpicking_params</a></span>(<span class='kw'>optimize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>resultPeakpicking</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_peakpicking_optimization</span>(<span class='no'>lcms_dataset</span>,
                                                    <span class='no'>default_peakpicking_params</span>,
                                                    <span class='kw'>opt_path</span> <span class='kw'>=</span> <span class='no'>opt_path</span>,
-                                                   <span class='kw'>subdir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; Be careful if you run twice the function using the same output directory. 
-#&gt; The algorithm won't rewrite files that are already in the directory, but will store new samples in it. 
-#&gt; Samples used for optimization:
-#&gt; 	1.mzXML 2.mzXML 3.mzXML 4.mzXML
-#&gt; Saving filtered chromatogram... 
-#&gt; Performing retention time and grouping
-#&gt;         parameter optimization. This will take some time... </div><div class='img'><img src='lcms_peakpicking_optimization-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='lcms_peakpicking_optimization-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='lcms_peakpicking_optimization-3.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+                                                   <span class='kw'>subdir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

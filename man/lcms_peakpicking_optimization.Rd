@@ -31,6 +31,7 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
 (‘Density’).
 }
 \examples{
+\dontrun{
 opt_path <-  system.file("extdata", package = "NIHSlcms")
 file_name <- system.file("extdata", "lcms_dataset_rt_pos_rs.rds", package = "NIHSlcms")
 lcms_dataset <- lcms_dataset_load(file_name)
@@ -40,6 +41,7 @@ resultPeakpicking <- lcms_peakpicking_optimization(lcms_dataset,
                                                    opt_path = opt_path,
                                                    subdir = NULL)
 
+}
 }
 \seealso{
 Other optimization functions: \code{\link{lcms_default_peakpicking_params}},

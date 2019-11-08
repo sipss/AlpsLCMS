@@ -17,13 +17,23 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' rearrange_datafiles_by_class(lcms_dataset = lcms_dataset,
+
+#' file_name <- system.file("extdata", "lcms_dataset_rt_pos_rs.rds", package = "NIHSlcms")
+#' lcms_dataset <- lcms_dataset_load(file_name)
+#' path <- tempdir()
+#' lcms_rearrange_datafiles_by_class(lcms_dataset = lcms_dataset,
 #'                             dataDir = path)
-#' }
-rearrange_datafiles_by_class = function(lcms_dataset, dataDir) {
+#' x = list.files(path = paste(path, list.files(path = path),
+#'                            sep = "/"), full.names = TRUE)
+#' fileList <- x[grep(pattern =".mzXML$", x)]
+#' fileList
+
+
+lcms_rearrange_datafiles_by_class <- function(lcms_dataset, dataDir) {
   no_blank_files <- Biobase::pData(lcms_dataset)$sampleNames
   no_blank_files_treatment <- Biobase::pData(lcms_dataset)$treatment
+
+
 
   filetreat_info <- data.frame(Filename = no_blank_files,
                                Treatment= no_blank_files_treatment,
@@ -40,15 +50,21 @@ rearrange_datafiles_by_class = function(lcms_dataset, dataDir) {
   filetreat_info <- lapply(filetreat_info, FUN = drop_treatment)
 
   for (i in seq_along(filetreat_info)){
-  filer <- filetreat_info[[i]][["FileName"]]
-  foldname <-names(filetreat_info)[i]
-  treatDir <- paste0(dataDir, "/", foldname, "/")
-  dir.create(treatDir)
-  data_subset <- lcms_dataset %>% MSnbase::filterFile(file = filer)
-  Biobase::fData(data_subset)$centroided <- TRUE
-  Biobase::fData(data_subset)$peaksCount <- Biobase::fData(data_subset)$originalPeaksCount
-  mzR::writeMSData(data_subset,
-                   file = unlist(lapply(treatDir, FUN = paste0, filer)),
-                   outformat = c("mzxml"), copy = FALSE)
+    filer <- filetreat_info[[i]][["FileName"]]
+    foldname <-names(filetreat_info)[i]
+    treatDir <- paste0(dataDir, "/", foldname, "/")
+    if (length(dir(treatDir)) > 0) {
+      cat("There are already directories / files in the folder. Not saving new ones.")
+      cat("\n")
+      return()
+    }else{
+      dir.create(treatDir)
+      data_subset <- lcms_dataset %>% MSnbase::filterFile(file = filer)
+      Biobase::fData(data_subset)$centroided <- TRUE
+      Biobase::fData(data_subset)$peaksCount <- Biobase::fData(data_subset)$originalPeaksCount
+      mzR::writeMSData(data_subset,
+                       file = unlist(lapply(treatDir, FUN = paste0, filer)),
+                       outformat = c("mzxml"), copy = FALSE)
+    }
   }
 }
