@@ -150,10 +150,14 @@ Note: signal processing generally  consists in three main steps:
     <p>A lcms_dataset with detected peaks</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>params</span> <span class='kw'>&lt;-</span> <span class='fu'>convert_IPO_to_XCMS</span>(<span class='no'>IPO_params</span>)
-<span class='no'>peakdet</span> <span class='kw'>&lt;-</span> <span class='fu'>findChromPeaks_cwp</span> (<span class='no'>dataset</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"rearrange_mait"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+<span class='co'># fileList &lt;- list.files(path = paste(path, list.files(path = path), sep = "/"), full.names = TRUE)</span>
+<span class='no'>fileList</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='no'>path</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='co'>#params &lt;- convert_IPO_to_XCMS(IPO_params)</span>
+<span class='no'>fileList</span></div><div class='output co'>#&gt; [1] "oligomycin/1.mzXML"  "oligomycin/2.mzXML"  "oligomycin/3.mzXML" 
+#&gt; [4] "resveratrol/4.mzXML"</div><div class='input'>#peakdet <- findChromPeaks_cwp (dataset, params = params)
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

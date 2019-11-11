@@ -215,6 +215,7 @@ lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
 
     cat("Performing retention time and grouping
         parameter optimization. This will take some time...","\n")
+
    time.RetGroup <- system.time({ # measuring time
       base::suppressWarnings(
         base::suppressMessages(

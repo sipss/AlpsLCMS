@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read LCMS samples on mzXML format — lcms_read_samples • NIHSlcms</title>
+<title>Chromatographic peak detection (CentWave) — lcms_findChromPeaks_cwp • NIHSlcms</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,17 @@
 
 
 
-<meta property="og:title" content="Read LCMS samples on mzXML format — lcms_read_samples" />
-<meta property="og:description" content="Read LCMS samples on mzXML format" />
+<meta property="og:title" content="Chromatographic peak detection (CentWave) — lcms_findChromPeaks_cwp" />
+<meta property="og:description" content="The findChromPeaks_cwp function performs the chromatographic peak
+detection on LC/GC-MS data. The standard method for peak detection
+is 'CentWave'. We must initialize its parameters according to the
+IPO Package optimization. Peak detection aims to detect important
+features (peaks) on the chromatographic axis. This will be useful
+for a posterior peak alignment on the chormatophic axis.
+Note: signal processing generally  consists in three main steps:
+(1) peak detection (lcms_findChromPeaks_cwp function),
+(2) peak alignment (lcms_align_Rtime function) and
+(3) peak correspondence (lcms_group_peaks function)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,71 +112,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read LCMS samples on mzXML format</h1>
+    <h1>Chromatographic peak detection (CentWave)</h1>
     
-    <div class="hidden name"><code>lcms_read_samples.Rd</code></div>
+    <div class="hidden name"><code>lcms_findChromPeaks_cwp.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Read LCMS samples on mzXML format</p>
+    <p>The findChromPeaks_cwp function performs the chromatographic peak
+detection on LC/GC-MS data. The standard method for peak detection
+is <em>'CentWave'</em>. We must initialize its parameters according to the
+<code>IPO</code> Package optimization. Peak detection aims to detect important
+features (peaks) on the chromatographic axis. This will be useful
+for a posterior peak alignment on the chormatophic axis.
+Note: signal processing generally  consists in three main steps:
+(1) peak detection (<code>lcms_findChromPeaks_cwp</code> function),
+(2) peak alignment (<code>lcms_align_Rtime</code> function) and
+(3) peak correspondence (<code>lcms_group_peaks</code> function).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_read_samples</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>lcms_findChromPeaks_cwp</span>(<span class='no'>lcms_dataset</span>, <span class='no'>params</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Arguments passed on to <code><a href='https://rdrr.io/pkg/MSnbase/man/readMSData.html'>MSnbase::readMSData</a></code></p><dl class='dl-horizontal'>
-  <dt>files</dt><dd><p>A <code>character</code> with file names to be read and parsed.</p></dd>
-  <dt>pdata</dt><dd><p>An object of class AnnotatedDataFrame or
-<code>NULL</code> (default).</p></dd>
-  <dt>msLevel.</dt><dd><p>MS level spectra to be read. In <code>inMemory</code> mode,
-use <code>1</code> for MS1 spectra or any larger numeric for MSn
-spectra. Default is <code>2</code> for <code>InMemory</code> mode. <code>onDisk</code> mode
-supports multiple levels and will, by default, read all the
-data.</p></dd>
-  <dt>verbose</dt><dd><p>Verbosity flag. Default is to use
-<code>isMSnbaseVerbose()</code>.</p></dd>
-  <dt>centroided.</dt><dd><p>A <code>logical</code>, indicating whether spectra are
-centroided or not. Default is <code>NA</code> in which case the information
-is extracted from the raw file (for mzML or mzXML files). In
-<code>onDisk</code>, it can also be set for different MS levels by a
-vector of logicals, where the first element is for MS1, the
-second element is for MS2, ... See OnDiskMSnExp for
-an example.</p></dd>
-  <dt>smoothed.</dt><dd><p>A <code>logical</code> indicating whether spectra already
-smoothed or not. Default is <code>NA</code>.</p></dd>
-  <dt>cache.</dt><dd><p>Numeric indicating caching level. Default is 0 for
-MS1 and 1 MS2 (or higher). Only relevant for <code>inMemory</code> mode.</p></dd>
-  <dt>mode</dt><dd><p>On of <code>"inMemory"</code> (default) or <code>"onDisk"</code>. The former
-loads the raw data in memory, while the latter only generates
-the object and the raw data is accessed on disk when
-needed. See the <em>benchmarking</em> vignette for memory and speed
-implications.</p></dd>
-
-</dl></td>
+      <th>lcms_dataset</th>
+      <td><p>An <a href='lcms_dataset_family.html'>lcms_dataset_family</a> object</p></td>
+    </tr>
+    <tr>
+      <th>params</th>
+      <td><p>A converted parameters template from IPO parameters.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An MSnExp object for <code>inMemory</code> mode and a
-OnDiskMSnExp object for <code>onDisk</code> mode.</p>
+    <p>A lcms_dataset with detected peaks</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>samples_mzxml</span>)
-<span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings</a></span>(<span class='fu'>lcms_read_samples</span>(<span class='no'>samples_mzxml</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"onDisk"</span>))
+    <pre class="examples"><div class='input'><span class='no'>file_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"rearrange_mait"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+<span class='no'>samples_mzxml</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='no'>file_path</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>meta_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"metadata.xlsx"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+<span class='no'>opt_result_path</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+<span class='no'>lcms_preproc_params</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></span>(<span class='no'>opt_result_path</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>lcms_dataset</span>)</div><div class='output co'>#&gt; MSn experiment data ("OnDiskMSnExp")
-#&gt; Object size in memory: 3.1 Mb
+<span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings</a></span>(<span class='fu'><a href='lcms_read_samples.html'>lcms_read_samples</a></span>(<span class='no'>samples_mzxml</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"onDisk"</span>))
+<span class='no'>metadata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_meta_read.html'>lcms_meta_read</a></span>(<span class='no'>meta_path</span>)
+<span class='no'>lcms_dataset_meta</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_meta_add.html'>lcms_meta_add</a></span>(<span class='no'>lcms_dataset</span>, <span class='no'>metadata</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"sampleNames"</span>)
+
+<span class='no'>peakdet</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_findChromPeaks_cwp</span>(<span class='no'>lcms_dataset</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>lcms_preproc_params</span>)</div><div class='output co'>#&gt; Finding chromatographic peaks using the optimized set of parameters
+#&gt;         obtained from IPO package. </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peakdet</span>)</div><div class='output co'>#&gt; MSn experiment data ("XCMSnExp")
+#&gt; Object size in memory: 3.11 Mb
 #&gt; - - - Spectra data - - -
 #&gt;  MS level(s): 1 
 #&gt;  Number of spectra: 10876 
 #&gt;  MSn retention times: 0:31 - 27:2 minutes
 #&gt; - - - Processing information - - -
-#&gt; Data loaded [Mon Nov 11 16:10:52 2019] 
+#&gt; Data loaded [Mon Nov 11 16:09:46 2019] 
 #&gt;  MSnbase version: 2.10.1 
 #&gt; - - - Meta data  - - -
 #&gt; phenoData
@@ -182,7 +183,12 @@ OnDiskMSnExp object for <code>onDisk</code> mode.</p>
 #&gt;   featureNames: F1.S0001 F1.S0002 ... F4.S2724 (10876 total)
 #&gt;   fvarLabels: fileIdx spIdx ... spectrum (33 total)
 #&gt;   fvarMetadata: labelDescription
-#&gt; experimentData: use 'experimentData(object)'</div><div class='input'>
+#&gt; experimentData: use 'experimentData(object)'
+#&gt; - - - xcms preprocessing - - -
+#&gt; Chromatographic peak detection:
+#&gt;  method: centWave 
+#&gt;  834 peaks identified in 4 samples.
+#&gt;  On average 208 chromatographic peaks per sample.</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
