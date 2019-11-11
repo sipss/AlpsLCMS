@@ -2,11 +2,11 @@
 
 export("%>%")
 export("lcms_diagnose<-")
-export(align_Rtime)
 export(cluster)
 export(group_peaks)
 export(identify_metabolites)
 export(install_RawConverter)
+export(lcms_align_Rtime)
 export(lcms_convert_ipo_to_xcms)
 export(lcms_dataset_load)
 export(lcms_dataset_save)

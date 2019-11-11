@@ -154,7 +154,7 @@ function) peaks.</p>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>params</span> <span class='kw'>&lt;-</span> <span class='fu'>convert_IPO_to_XCMS</span>(<span class='no'>IPO_params</span>)
 <span class='no'>peakdet</span> <span class='kw'>&lt;-</span> <span class='fu'>findChromPeaks_cwp</span>(<span class='no'>dataset</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>)
-<span class='no'>peakdet_align</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='align_Rtime.html'>align_Rtime</a></span>(<span class='no'>peakdet</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>)
+<span class='no'>peakdet_align</span> <span class='kw'>&lt;-</span> <span class='fu'>align_Rtime</span>(<span class='no'>peakdet</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>)
 <span class='no'>peak_table</span> <span class='kw'>&lt;-</span> <span class='fu'>group_peaks</span>(<span class='no'>peakdet_align</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>)
 }</div></pre>
   </div>
