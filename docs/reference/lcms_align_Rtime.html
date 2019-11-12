@@ -149,20 +149,20 @@ and (2) aligned (<code>lcms_align_Rtime</code> function) peaks</p>
 <span class='no'>opt_result_path</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>lcms_preproc_params</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></span>(<span class='no'>opt_result_path</span>)
 
-<span class='no'>peakdet_align</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_align_Rtime</span>(<span class='no'>peakdet</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>lcms_preproc_params</span>)</div><div class='output co'>#&gt; Aligning the peak table using the optimized set of parameters
-#&gt;         obtained from IPO package. </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peakdet_align</span>)</div><div class='output co'>#&gt; MSn experiment data ("XCMSnExp")
+<span class='no'>peakdet_align</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_align_Rtime</span>(<span class='no'>peakdet</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>lcms_preproc_params</span>)</div><div class='output co'>#&gt; 
+#&gt;  Aligning the peak table using the optimized set of parameters obtained from IPO package. </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peakdet_align</span>)</div><div class='output co'>#&gt; MSn experiment data ("XCMSnExp")
 #&gt; Object size in memory: 3.12 Mb
 #&gt; - - - Spectra data - - -
 #&gt;  MS level(s): 1 
 #&gt;  Number of spectra: 10876 
 #&gt;  MSn retention times: 0:31 - 27:1 minutes
 #&gt; - - - Processing information - - -
-#&gt; Data loaded [Mon Nov 11 16:15:20 2019] 
+#&gt; Data loaded [Tue Nov 12 11:59:47 2019] 
 #&gt;  MSnbase version: 2.10.1 
 #&gt; - - - Meta data  - - -
 #&gt; phenoData
-#&gt;   rowNames: 1.mzXML 2.mzXML 3.mzXML 4.mzXML
-#&gt;   varLabels: sampleNames
+#&gt;   rowNames: 1 2 3 4
+#&gt;   varLabels: sampleNames sampleNumber ... comment (5 total)
 #&gt;   varMetadata: labelDescription
 #&gt; Loaded from:
 #&gt;   [1] 1.mzXML...  [4] 4.mzXML

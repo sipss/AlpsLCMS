@@ -31,8 +31,7 @@ lcms_align_Rtime <- function (peakdet, params) {
       base::invisible(base::force(x))
     }
 
-  cat("Aligning the peak table using the optimized set of parameters
-        obtained from IPO package.","\n")
+  cat("\n","Aligning the peak table using the optimized set of parameters obtained from IPO package.","\n")
 
   obiwarp_params <- base::suppressWarnings(
                             base::suppressMessages(

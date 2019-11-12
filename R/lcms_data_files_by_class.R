@@ -26,7 +26,9 @@
 #' x = list.files(path = paste(path, list.files(path = path),
 #'                            sep = "/"), full.names = TRUE)
 #' fileList <- x[grep(pattern =".mzXML$", x)]
-#' fileList
+#'
+#' print(fileList)
+
 
 
 lcms_rearrange_datafiles_by_class <- function(lcms_dataset, dataDir) {

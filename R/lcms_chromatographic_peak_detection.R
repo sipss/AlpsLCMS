@@ -24,7 +24,7 @@
 #' metadata <- lcms_meta_read(meta_path)
 #' lcms_dataset_meta <- lcms_meta_add(lcms_dataset, metadata, by = "sampleNames")
 #'
-#' peakdet <- lcms_findChromPeaks_cwp(lcms_dataset, params = lcms_preproc_params)
+#' peakdet <- lcms_findChromPeaks_cwp(lcms_dataset_meta, params = lcms_preproc_params)
 #' print(peakdet)
 #'
 #' @return A lcms_dataset with detected peaks
@@ -38,8 +38,7 @@ lcms_findChromPeaks_cwp <- function (lcms_dataset, params) {
   }
 
 
-  cat("Finding chromatographic peaks using the optimized set of parameters
-        obtained from IPO package.","\n")
+  cat("\n","Finding chromatographic peaks using the optimized set of parameters obtained from IPO package.","\n")
 
   cwp <- base::suppressWarnings(
             base::suppressMessages(
@@ -53,8 +52,8 @@ lcms_findChromPeaks_cwp <- function (lcms_dataset, params) {
                                               integrate = params$integrate,
                                               fitgauss = params$fitgauss,
                                               verboseColumns = params$verbose.columns))
-                                    )
-                                   )
+                                  )
+                               )
 
   peakdet <- base::suppressWarnings(
                 base::suppressMessages(
