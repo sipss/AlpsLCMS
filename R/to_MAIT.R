@@ -41,7 +41,7 @@ writeParameterTable <- function(listParameters, folder){
 #' @return A MAIT object
 #' @export
 #'
-to_MAIT <- function (dataDir = NULL, project = NULL, preproc_params = NULL,  peakTable = NULL){
+lcms_to_MAIT <- function (dataDir = NULL, project = NULL, preproc_params = NULL,  peakTable = NULL){
 
   parameters <- c(dataDir = dataDir, preproc_params)
   getClassDef("MAIT","MAIT")
