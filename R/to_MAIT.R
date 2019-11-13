@@ -34,7 +34,8 @@ writeParameterTable <- function(listParameters, folder){
 #' Function to create a MAIT object using data from xcms
 #'
 #' @param dataDir directory with LC-MS datafiles
-#' @param project name of the project
+#' @param projectDir path to the the project directory
+#' @param project name of the
 #' @param preproc_params params from XCMS
 #' @param peakTable XCMS procesed LC-MS data
 #'
@@ -48,14 +49,16 @@ writeParameterTable <- function(listParameters, folder){
 #' lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #'
 #' dataDir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
+#' projectDir <-  system.file("extdata", package = "NIHSlcms")
 #' project <- "project"
 #'
 #' peak_table_MAIT <- lcms_to_MAIT(dataDir = dataDir,
+#'                                 projectDir = projectDir,
 #'                                 project = project,
 #'                                 preproc_params = lcms_preproc_params,
 #'                                 peakTable = peak_table)
 #' print(peak_table_MAIT)
-lcms_to_MAIT <- function (dataDir = NULL, project = NULL, preproc_params = NULL,  peakTable = NULL){
+lcms_to_MAIT <- function (dataDir = NULL, projectDir = NULL, project = NULL, preproc_params = NULL,  peakTable = NULL){
 
   quiet <- function(x) {
     base::sink(base::tempfile())
@@ -63,17 +66,15 @@ lcms_to_MAIT <- function (dataDir = NULL, project = NULL, preproc_params = NULL,
     base::invisible(base::force(x))
   }
 
-  cat("\n","Building a MAIT object from xcms data.","\n")
+  cat("Building a MAIT object from xcms data.","\n")
   parameters <- c(dataDir = dataDir, preproc_params)
   getClassDef("MAIT","MAIT")
   MAIT.object = signature(MAIT.Object = "MAIT")
   MAIT.object <- methods::new("MAIT")
 
+
   if (is.null(dataDir)) {
     stop("No input directory was given")
-  }
-  if (is.null(project)) {
-    stop("No project name was included")
   }
   if (is.null(preproc_params)) {
     stop("No parameters for preprocessing were included")
@@ -82,12 +83,12 @@ lcms_to_MAIT <- function (dataDir = NULL, project = NULL, preproc_params = NULL,
     stop("No peak was included")
   }
 
-
   MAIT.object@RawData@parameters@sampleProcessing <- parameters
   NIHSlcms::writeParameterTable(base::suppressMessages(base::suppressWarnings(
                                                               quiet(MAIT::parameters(MAIT.object)))),
                                                               folder = base::suppressMessages(
                                                                                 base::suppressWarnings(quiet(MAIT::resultsPath(MAIT.object))))) # warning: resultsPath
+
   class <- list.files(dataDir)
   classNum <- vector(length = length(class))
   fileList <- list.files(path = paste(dataDir, list.files(path = dataDir),
@@ -102,19 +103,24 @@ lcms_to_MAIT <- function (dataDir = NULL, project = NULL, preproc_params = NULL,
   if (length(list.files(dataDir)) == 1) {
     warning("Warning: Input data only has one class!")
   }
+
   if (is.null(project)) {
     warning("Warning: Project name is empty!")
   }
-  if (!is.null(project)) {
-    resultsPath <- paste("Results", project, sep = "_")
-    dir.create(resultsPath)
-  }
-  else {
-    resultsPath <- "Results"
-    dir.create(resultsPath)
-  }
 
-  peakTable <- as(peakTable, "xcmsSet")
+  if (!is.null(projectDir)) {
+    resultsPath <- paste(projectDir, paste("Results", project, sep = "_"), sep ="/")
+    if (any(base::dir.exists(resultsPath))) {
+      cat("There are already directories / files in the folder. Not saving new ones.")
+      cat("\n")
+      }else{
+      dir.create(resultsPath)
+      }
+  }else{
+        resultsPath <- "Results"
+        dir.create(resultsPath)
+  }
+  peakTable <- base::suppressMessages(as(peakTable, "xcmsSet"))
   peakTable <-  base::suppressMessages(
                       base::suppressWarnings(quiet(xcms::fillPeaks(peakTable))
                                             )

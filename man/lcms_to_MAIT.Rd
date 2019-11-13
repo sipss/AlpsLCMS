@@ -4,13 +4,15 @@
 \alias{lcms_to_MAIT}
 \title{to MAIT}
 \usage{
-lcms_to_MAIT(dataDir = NULL, project = NULL, preproc_params = NULL,
-  peakTable = NULL)
+lcms_to_MAIT(dataDir = NULL, projectDir = NULL, project = NULL,
+  preproc_params = NULL, peakTable = NULL)
 }
 \arguments{
 \item{dataDir}{directory with LC-MS datafiles}
 
-\item{project}{name of the project}
+\item{projectDir}{path to the the project directory}
+
+\item{project}{name of the}
 
 \item{preproc_params}{params from XCMS}
 
@@ -30,9 +32,11 @@ opt_result_path <-  system.file("extdata", package = "NIHSlcms")
 lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 
 dataDir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
+projectDir <-  system.file("extdata", package = "NIHSlcms")
 project <- "project"
 
 peak_table_MAIT <- lcms_to_MAIT(dataDir = dataDir,
+                                projectDir = projectDir,
                                 project = project,
                                 preproc_params = lcms_preproc_params,
                                 peakTable = peak_table)

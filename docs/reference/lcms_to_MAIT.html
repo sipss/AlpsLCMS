@@ -112,8 +112,8 @@
     <p>Function to create a MAIT object using data from xcms</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_to_MAIT</span>(<span class='kw'>dataDir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>project</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>preproc_params</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>peakTable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>lcms_to_MAIT</span>(<span class='kw'>dataDir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>projectDir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>project</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>preproc_params</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>peakTable</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -123,8 +123,12 @@
       <td><p>directory with LC-MS datafiles</p></td>
     </tr>
     <tr>
+      <th>projectDir</th>
+      <td><p>path to the the project directory</p></td>
+    </tr>
+    <tr>
       <th>project</th>
-      <td><p>name of the project</p></td>
+      <td><p>name of the</p></td>
     </tr>
     <tr>
       <th>preproc_params</th>
@@ -148,13 +152,14 @@
 <span class='no'>lcms_preproc_params</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></span>(<span class='no'>opt_result_path</span>)
 
 <span class='no'>dataDir</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"rearrange_mait"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+<span class='no'>projectDir</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>project</span> <span class='kw'>&lt;-</span> <span class='st'>"project"</span>
 
 <span class='no'>peak_table_MAIT</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_to_MAIT</span>(<span class='kw'>dataDir</span> <span class='kw'>=</span> <span class='no'>dataDir</span>,
+                                <span class='kw'>projectDir</span> <span class='kw'>=</span> <span class='no'>projectDir</span>,
                                 <span class='kw'>project</span> <span class='kw'>=</span> <span class='no'>project</span>,
                                 <span class='kw'>preproc_params</span> <span class='kw'>=</span> <span class='no'>lcms_preproc_params</span>,
-                                <span class='kw'>peakTable</span> <span class='kw'>=</span> <span class='no'>peak_table</span>)</div><div class='output co'>#&gt; 
-#&gt;  Building a MAIT object from xcms data. </div><div class='output co'>#&gt; <span class='warning'>Warning: 'Results_project' already exists</span></div><div class='output co'>#&gt; <span class='message'>Note: you might want to set/adjust the 'sampclass' of the returned xcmSet object before proceeding with the analysis.</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peak_table_MAIT</span>)</div><div class='output co'>#&gt; A MAIT object built of 4 samples
+                                <span class='kw'>peakTable</span> <span class='kw'>=</span> <span class='no'>peak_table</span>)</div><div class='output co'>#&gt; Building a MAIT object from xcms data. </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peak_table_MAIT</span>)</div><div class='output co'>#&gt; A MAIT object built of 4 samples
 #&gt; The object contains 3 samples of class oligomycin
 #&gt; The object contains 1 samples of class resveratrol</div></pre>
   </div>
