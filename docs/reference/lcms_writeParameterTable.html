@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Write Parameters Table for MAIT functionalities — writeParameterTable • NIHSlcms</title>
+<title>Write Parameters Table for MAIT functionalities — lcms_writeParameterTable • NIHSlcms</title>
 
 
 <!-- jquery -->
@@ -35,7 +35,7 @@
 
 
 
-<meta property="og:title" content="Write Parameters Table for MAIT functionalities — writeParameterTable" />
+<meta property="og:title" content="Write Parameters Table for MAIT functionalities — lcms_writeParameterTable" />
 <meta property="og:description" content="Write Parameters Table for MAIT functionalities" />
 <meta name="twitter:card" content="summary" />
 
@@ -105,14 +105,14 @@
     <div class="page-header">
     <h1>Write Parameters Table for MAIT functionalities</h1>
     
-    <div class="hidden name"><code>writeParameterTable.Rd</code></div>
+    <div class="hidden name"><code>lcms_writeParameterTable.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Write Parameters Table for MAIT functionalities</p>
     </div>
 
-    <pre class="usage"><span class='fu'>writeParameterTable</span>(<span class='no'>listParameters</span>, <span class='no'>folder</span>)</pre>
+    <pre class="usage"><span class='fu'>lcms_writeParameterTable</span>(<span class='no'>listParameters</span>, <span class='no'>folder</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -129,7 +129,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A template with MAIT parameters. Also write the `MAITparameters.csv´ file.</p>
+    <p>A template with MAIT parameters. Also write the `MAITparameters.csv´ file, if needed.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -138,19 +138,17 @@
 <span class='no'>lcms_preproc_params</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></span>(<span class='no'>opt_result_path</span>)
 <span class='no'>parameters</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>dataDir</span> <span class='kw'>=</span> <span class='no'>dataDir</span>, <span class='no'>lcms_preproc_params</span>)
 
-<span class='fu'>getClassDef</span>(<span class='st'>"MAIT"</span>,<span class='st'>"MAIT"</span>)</div><div class='output co'>#&gt; Class "MAIT" [package "MAIT"]
-#&gt; 
-#&gt; Slots:
-#&gt;                                                                           
-#&gt; Name:       FeatureInfo          RawData       Validation        PhenoData
-#&gt; Class: MAIT.FeatureInfo     MAIT.RawData  MAIT.Validation   MAIT.PhenoData
-#&gt;                        
-#&gt; Name:       FeatureData
-#&gt; Class: MAIT.FeatureData</div><div class='input'><span class='no'>MAIT.object</span> <span class='kw'>=</span> <span class='fu'>signature</span>(<span class='kw'>MAIT.Object</span> <span class='kw'>=</span> <span class='st'>"MAIT"</span>)
+<span class='no'>quiet</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) {
+             <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/sink.html'>sink</a></span>(<span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>())
+             <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/on.exit.html'>on.exit</a></span>(<span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/sink.html'>sink</a></span>())
+             <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/invisible.html'>invisible</a></span>(<span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/force.html'>force</a></span>(<span class='no'>x</span>))}
+
+<span class='fu'>quiet</span>(<span class='fu'>getClassDef</span>(<span class='st'>"MAIT"</span>,<span class='st'>"MAIT"</span>))
+<span class='no'>MAIT.object</span> <span class='kw'>=</span> <span class='fu'>signature</span>(<span class='kw'>MAIT.Object</span> <span class='kw'>=</span> <span class='st'>"MAIT"</span>)
 <span class='no'>MAIT.object</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>methods</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/methods/new.html'>new</a></span>(<span class='st'>"MAIT"</span>)
 <span class='no'>MAIT.object</span>@<span class='kw'>RawData</span>@<span class='kw'>parameters</span>@<span class='kw'>sampleProcessing</span> <span class='kw'>&lt;-</span> <span class='no'>parameters</span>
-<span class='fu'>writeParameterTable</span>(<span class='kw pkg'>MAIT</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/MAIT/man/parameters.html'>parameters</a></span>(<span class='no'>MAIT.object</span>), <span class='kw'>folder</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt;                 Value                                                                                                      
-#&gt; dataDir         "C:/Users/Biosignal/AppData/Local/Temp/RtmpCWcmrL/temp_libpath1c1457ce1c25/NIHSlcms/extdata/rearrange_mait"
+<span class='fu'>lcms_writeParameterTable</span>(<span class='kw pkg'>MAIT</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/MAIT/man/parameters.html'>parameters</a></span>(<span class='no'>MAIT.object</span>), <span class='kw'>folder</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt;                 Value                                                                                                      
+#&gt; dataDir         "C:/Users/Biosignal/AppData/Local/Temp/Rtmp0adOpY/temp_libpath42b057ee698f/NIHSlcms/extdata/rearrange_mait"
 #&gt; ppm             "36.95"                                                                                                    
 #&gt; peakwidth1      "13"                                                                                                       
 #&gt; peakwidth2      "171"                                                                                                      

@@ -24,6 +24,18 @@ A MAIT object
 \description{
 Function to create a MAIT object using data from xcms
 }
+\details{
+\code{MAIT} Package allows to annotate the peaks of the peak table provided by \code{XCMS}.
+This is done in three different stages:
+\itemize{
+\item Annotation with \code{CAMERA}
+\item Annotation using predefined biotransformation
+\item Annotation using the Human Metabolome Database (HMDB)
+}
+
+*Note: The dataset must be converted from an object of the XCMS Package
+to an object of the MAIT Package.
+}
 \examples{
 
 file_name <-  system.file("extdata", "peak_table_imputed.rds", package = "NIHSlcms")

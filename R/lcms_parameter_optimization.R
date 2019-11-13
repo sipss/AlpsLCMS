@@ -61,7 +61,7 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #' @examples
 
 #' \dontrun{
-#' opt_path <-  system.file("extdata", package = "NIHSlcms")
+#' opt_path <-  system.file("extdata","ipo_opt", package = "NIHSlcms")
 #' file_name <- system.file("extdata", "lcms_dataset_rt_pos_rs.rds", package = "NIHSlcms")
 #' lcms_dataset <- lcms_dataset_load(file_name)
 #' default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
@@ -88,7 +88,7 @@ lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters,
     Biobase::fData(data_subset)$centroided <- TRUE
     Biobase::fData(data_subset)$peaksCount <- Biobase::fData(data_subset)$originalPeaksCount
     cat("Be careful if you run twice the function using the same output directory.", "\n")
-    cat("The algorithm won't rewrite files that are already in the directory, but will store new samples in it.", "\n")
+    cat("The algorithm will remove the files stored in it, and then write the new files.", "\n")
 
     mzxml_in_opt_path <- lcms_list_mzxml_samples(opt_path, file_format = "mzXML",
                                                  rawconverter_path = NULL)
@@ -97,16 +97,15 @@ lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters,
     num_mzxml_opt_path <- length(file_names_opt_path)
     file_names_union <- union(file_names_opt_path, filer)
 
-    if(is.null(num_mzxml_opt_path)){
-        mzR::writeMSData(data_subset, file = filer, outformat = c("mzxml"), copy = FALSE)
-        aux_filer <- stringr::str_c(filer,collapse = " ")
-        cat(stringr::str_c("Samples used for optimization:",
-                         "\n", "\t",aux_filer, "\n",collapse =" "))
-    }else {
-      aux_file_names_union <- stringr::str_c(file_names_union,collapse = " ")
-      cat(stringr::str_c("Samples used for optimization:",
-                              "\n", "\t", aux_file_names_union,"\n", collapse =" "))
+    if(num_mzxml_opt_path > 0){
+      file.remove(file_names_opt_path)
     }
+
+    mzR::writeMSData(data_subset, file = filer, outformat = c("mzxml"), copy = FALSE)
+    aux_filer <- stringr::str_c(filer,collapse = " ")
+    cat(stringr::str_c("Samples used for optimization:",
+                       "\n", "\t",aux_filer, "\n",collapse =" "))
+
     cat("Saving filtered chromatogram...","\n")
 
     #samples_op <- fs::dir_ls(opt_path , glob = "*.mzXML")

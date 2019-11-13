@@ -1,20 +1,28 @@
 #' Write Parameters Table for MAIT functionalities
 #'
-#'`MAIT` Package allows to annotate the peaks of the peak table provided by `XCMS`.
-#'This is done in three different stages:
-#' * Annotation with `CAMERA`
-#' * Annotation using predefined biotransformation
-#' * Annotation using the Human Metabolome Database (HMDB)
-#'
-#' *Note: The dataset must be converted from an object of the XCMS Package
-#' to an object of the MAIT Package.
-#'
 #' @param listParameters Parameters
-#' @param folder A directory
-#' @return A template with MAIT parameters. Also write the `MAITparameters.csv´ file.
+#' @param folder A directory. If NULL, no .csv file is created.
+#' @return A template with MAIT parameters. Also write the `MAITparameters.csv´ file, if needed.
 #' @export
+#' @examples
 #'
-writeParameterTable <- function(listParameters, folder){
+#' dataDir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
+#' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+#' lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
+#' parameters <- c(dataDir = dataDir, lcms_preproc_params)
+#'
+#' quiet <- function(x) {
+#'              base::sink(base::tempfile())
+#'              base::on.exit(base::sink())
+#'              base::invisible(base::force(x))}
+#'
+#' quiet(getClassDef("MAIT","MAIT"))
+#' MAIT.object = signature(MAIT.Object = "MAIT")
+#' MAIT.object <- methods::new("MAIT")
+#' MAIT.object@RawData@parameters@sampleProcessing <- parameters
+#' lcms_writeParameterTable(MAIT::parameters(MAIT.object), folder = NULL)
+#'
+lcms_writeParameterTable <- function(listParameters, folder){
   outputTable <- as.matrix(c(unlist(listParameters@sampleProcessing),
                              unlist(listParameters@peakAnnotation),
                              unlist(listParameters@peakAggregation),
@@ -25,13 +33,25 @@ writeParameterTable <- function(listParameters, folder){
                              unlist(listParameters@plotPCA),
                              unlist(listParameters@plotHeatmap)))
   colnames(outputTable) <- c("Value")
-  write.csv(file=paste(folder,"MAITparameters.csv", sep="/"), outputTable)
+  if(!is.null(folder)){
+    write.csv(file=paste(folder,"MAITparameters.csv", sep="/"), outputTable)
+  }
   return(outputTable)
 }
 
 #' to MAIT
 #'
 #' Function to create a MAIT object using data from xcms
+#'
+#' `MAIT` Package allows to annotate the peaks of the peak table provided by `XCMS`.
+#' This is done in three different stages:
+#'
+#' * Annotation with `CAMERA`
+#' * Annotation using predefined biotransformation
+#' * Annotation using the Human Metabolome Database (HMDB)
+#'
+#' *Note: The dataset must be converted from an object of the XCMS Package
+#' to an object of the MAIT Package.
 #'
 #' @param dataDir directory with LC-MS datafiles
 #' @param projectDir path to the the project directory
@@ -84,7 +104,7 @@ lcms_to_MAIT <- function (dataDir = NULL, projectDir = NULL, project = NULL, pre
   }
 
   MAIT.object@RawData@parameters@sampleProcessing <- parameters
-  NIHSlcms::writeParameterTable(base::suppressMessages(base::suppressWarnings(
+  lcms_writeParameterTable(base::suppressMessages(base::suppressWarnings(
                                                               quiet(MAIT::parameters(MAIT.object)))),
                                                               folder = base::suppressMessages(
                                                                                 base::suppressWarnings(quiet(MAIT::resultsPath(MAIT.object))))) # warning: resultsPath
