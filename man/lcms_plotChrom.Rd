@@ -4,10 +4,10 @@
 \alias{lcms_plotChrom}
 \title{Base peak chromatogram}
 \usage{
-lcms_plotChrom(chromatogram, treatment_col, rtlim = NULL)
+lcms_plotChrom(chromatogram_object, treatment_col, rtlim = NULL)
 }
 \arguments{
-\item{chromatogram}{A XChromatograms object}
+\item{chromatogram_object}{A XChromatograms object}
 
 \item{treatment_col}{Color code by groups. They can be generated using
 treatment_col <- scales::hue_pal()(length(unique(lcms_dataset$treatment)))
