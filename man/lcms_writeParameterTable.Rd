@@ -9,17 +9,18 @@ lcms_writeParameterTable(listParameters, folder)
 \arguments{
 \item{listParameters}{Parameters}
 
-\item{folder}{A directory. If NULL, no .csv file is created.}
+\item{folder}{A directory to store a .csv file where the  parameter table is stored.}
 }
 \value{
-A template with MAIT parameters. Also write the `MAITparameters.csv´ file, if needed.
+A template with MAIT parameters.
 }
 \description{
 Write Parameters Table for MAIT functionalities
 }
 \examples{
-
+\dontrun{
 dataDir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
+MAITparams_path <- system.file("extdata", "Results_project", package = "NIHSlcms")
 opt_result_path <-  system.file("extdata", package = "NIHSlcms")
 lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 parameters <- c(dataDir = dataDir, lcms_preproc_params)
@@ -33,6 +34,7 @@ quiet(getClassDef("MAIT","MAIT"))
 MAIT.object = signature(MAIT.Object = "MAIT")
 MAIT.object <- methods::new("MAIT")
 MAIT.object@RawData@parameters@sampleProcessing <- parameters
-lcms_writeParameterTable(MAIT::parameters(MAIT.object), folder = NULL)
+lcms_writeParameterTable(MAIT::parameters(MAIT.object), folder = MAITparams_path)
+}
 
 }

@@ -1,12 +1,13 @@
 #' Write Parameters Table for MAIT functionalities
 #'
 #' @param listParameters Parameters
-#' @param folder A directory. If NULL, no .csv file is created.
-#' @return A template with MAIT parameters. Also write the `MAITparameters.csv´ file, if needed.
+#' @param folder A directory to store a .csv file where the  parameter table is stored.
+#' @return A template with MAIT parameters.
 #' @export
 #' @examples
-#'
+#' \dontrun{
 #' dataDir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
+#' MAITparams_path <- system.file("extdata", "Results_project", package = "NIHSlcms")
 #' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
 #' lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #' parameters <- c(dataDir = dataDir, lcms_preproc_params)
@@ -20,7 +21,8 @@
 #' MAIT.object = signature(MAIT.Object = "MAIT")
 #' MAIT.object <- methods::new("MAIT")
 #' MAIT.object@RawData@parameters@sampleProcessing <- parameters
-#' lcms_writeParameterTable(MAIT::parameters(MAIT.object), folder = NULL)
+#' lcms_writeParameterTable(MAIT::parameters(MAIT.object), folder = MAITparams_path)
+#' }
 #'
 lcms_writeParameterTable <- function(listParameters, folder){
   outputTable <- as.matrix(c(unlist(listParameters@sampleProcessing),
@@ -33,9 +35,7 @@ lcms_writeParameterTable <- function(listParameters, folder){
                              unlist(listParameters@plotPCA),
                              unlist(listParameters@plotHeatmap)))
   colnames(outputTable) <- c("Value")
-  if(!is.null(folder)){
-    write.csv(file=paste(folder,"MAITparameters.csv", sep="/"), outputTable)
-  }
+  write.csv(file=paste(folder,"MAITparameters.csv", sep="/"), outputTable)
   return(outputTable)
 }
 
@@ -93,6 +93,8 @@ lcms_to_MAIT <- function (dataDir = NULL, projectDir = NULL, project = NULL, pre
   MAIT.object <- methods::new("MAIT")
 
 
+
+
   if (is.null(dataDir)) {
     stop("No input directory was given")
   }
@@ -102,12 +104,9 @@ lcms_to_MAIT <- function (dataDir = NULL, projectDir = NULL, project = NULL, pre
   if (is.null(peakTable)) {
     stop("No peak was included")
   }
-
+  print(MAIT::resultsPath(MAIT.object))
   MAIT.object@RawData@parameters@sampleProcessing <- parameters
-  lcms_writeParameterTable(base::suppressMessages(base::suppressWarnings(
-                                                              quiet(MAIT::parameters(MAIT.object)))),
-                                                              folder = base::suppressMessages(
-                                                                                base::suppressWarnings(quiet(MAIT::resultsPath(MAIT.object))))) # warning: resultsPath
+
 
   class <- list.files(dataDir)
   classNum <- vector(length = length(class))
@@ -134,12 +133,22 @@ lcms_to_MAIT <- function (dataDir = NULL, projectDir = NULL, project = NULL, pre
       cat("There are already directories / files in the folder. Not saving new ones.")
       cat("\n")
       }else{
-      dir.create(resultsPath)
+        dir.create(resultsPath)
+        peakTable <- base::suppressMessages(as(peakTable, "xcmsSet"))
+        peakTable <-  base::suppressMessages(
+          base::suppressWarnings(quiet(xcms::fillPeaks(peakTable))
+          )
+        )
       }
   }else{
         resultsPath <- "Results"
         dir.create(resultsPath)
   }
+
+  lcms_writeParameterTable(base::suppressMessages(base::suppressWarnings(
+                                                                        quiet(MAIT::parameters(MAIT.object)))),
+                          folder = resultsPath)
+
   peakTable <- base::suppressMessages(as(peakTable, "xcmsSet"))
   peakTable <-  base::suppressMessages(
                       base::suppressWarnings(quiet(xcms::fillPeaks(peakTable))

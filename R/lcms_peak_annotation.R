@@ -10,21 +10,17 @@
 #' to an object of the MAIT Package.
 #'
 #' @inheritParams MAIT::peakAnnotation
-#'
 #' @return A MAIT-class object with [xsAnnotate-class] in the rawData slot.
 #' @export
 #' @examples
 #' \dontrun{
-#' peak_table_MAIT <- to_MAIT(dataDir = dataDir,
-#'         project = project,
-#'         preproc_params = preproc_params,
-#'         peakTable = peakTable)
-#'
-#' peak_table_ANN <- peak_annotation(MAIT.object = peak_table_MAIT)
-#' raw_data(peak_table_ANN)
+#  file_name <-  system.file("extdata","peak_table_MAIT.rds", package = "NIHSlcms")
+#' peak_table <- base::readRDS(file_name)
+#' peak_table_ANN <- lcms_peak_annotation(MAIT.object = peak_table)
+#' lcms_raw_data(peak_table_ANN)
 #' }
 
-peak_annotation <- function (MAIT.object = NULL,
+lcms_peak_annotation <- function (MAIT.object = NULL,
                              corrWithSamp = 0.7,
                              perfwhm = 0.6,
                              sigma = 6,
@@ -36,22 +32,102 @@ peak_annotation <- function (MAIT.object = NULL,
                              calcCiS = TRUE,
                              calcCaS = TRUE,
                              graphMethod = "hcs",
-                             annotateAdducts = TRUE)
-{
-MAIT::peakAnnotation(MAIT.object = MAIT.object,
-corrWithSamp = corrWithSamp,
-perfwhm = perfwhm,
-sigma = sigma,
-adductTable = adductTable,
-printSpectraTable = printSpectraTable,
-corrBetSamp = corrBetSamp,
-pval = pval,
-calcIso = calcIso,
-calcCiS = calcCiS,
-calcCaS = calcCaS,
-graphMethod = graphMethod,
-annotateAdducts = annotateAdducts)
+                             annotateAdducts = TRUE){
+
+        if (is.null(MAIT.object)) {
+          stop("No MAIT object was given")
+        }
+        if (length(MAIT.object@RawData@data) != 1) {
+          stop("Raw data is not correct. Try running again signalProcessing function")
+        }
+        parameters <- list(corrWithSamp, corrBetSamp, perfwhm, sigma,
+                           adductTable, pval, calcIso, calcCiS, calcCaS, graphMethod,
+                           annotateAdducts)
+        names(parameters) <- c("corrWithSamp", "corrBetSamp", "perfwhm",
+                               "sigma", "adductTable", "peakAnnotation pvalue", "calcIso",
+                               "calcCiS", "calcCaS", "graphMethod", "annotateAdducts")
+        MAIT.object@RawData@parameters@peakAnnotation <- parameters
+        lcms_writeParameterTable(parameters(MAIT.object), folder = MAIT.object@PhenoData@resultsPath)
+        if (is.null(adductTable)) {
+          cat("WARNING: No input adduct/fragment table was given. Selecting default MAIT table for positive polarity...",
+              fill = TRUE)
+          cat("Set adductTable equal to negAdducts to use the default MAIT table for negative polarity",
+              fill = TRUE)
+          peakAnnEnv <- new.env()
+          data(MAITtables, envir = peakAnnEnv)
+          adducts <- get(x = "posAdducts", envir = peakAnnEnv)
+        }
+        else {
+          if (adductTable == "negAdducts") {
+            cat("adductTable has been set to negAdducts. The default MAIT adducts table for negative polarization is selected...",
+                fill = TRUE)
+            peakAnnEnv <- new.env()
+            data(MAITtables, envir = peakAnnEnv)
+            adducts <- get(x = "negAdducts", envir = peakAnnEnv)
+          }
+          else {
+            adducts <- read.csv2(paste(adductTable, ".csv",
+                                       sep = ""), dec = ".", header = TRUE, sep = ",")
+          }
+        }
+        resultsPath <- MAIT.object@PhenoData@resultsPath
+        xsa <- xsAnnotate(rawData(MAIT.object)$xcmsSet)
+        xsaF <- groupFWHM(xsa, perfwhm = perfwhm, sigma = sigma)
+        cat("Spectrum build after retention time done", fill = TRUE)
+        xsaFA <- findIsotopes(xsaF)
+        cat("Isotope annotation done", fill = TRUE)
+        xsaFA <- groupCorr(xsaFA, cor_eic_th = corrWithSamp, cor_exp_th = corrBetSamp,
+                           calcIso = calcIso, calcCiS = calcCiS, calcCaS = calcCaS,
+                           pval = pval, graphMethod = graphMethod)
+        cat("Spectrum number increased after correlation done",
+            fill = TRUE)
+        if (annotateAdducts == TRUE) {
+          xsaFA <- findAdducts(xsaFA, rules = adducts, polarity = "positive")
+          cat("Adduct/fragment annotation done", fill = TRUE)
+        }
+        peakList <- getPeaklist(xsaFA)
+        peakList <- peakList[order(as.numeric(peakList$pcgroup)),
+                             ]
+        peakList[, 4] <- peakList[, 4]/60
+        peakList[, 5] <- peakList[, 5]/60
+        peakList[, 6] <- peakList[, 6]/60
+        peakList[, 1:6] <- round(peakList[, 1:6], 4)
+        if (printSpectraTable == TRUE) {
+          tab <- cbind(peakList[, 1], peakList[, 4], peakList[,
+                                                              dim(peakList)[2]])
+          rownames(tab) <- rep("", dim(tab)[1])
+          colnames(tab) <- c("mass", "rt", "spectra Index")
+          if (!file.exists(paste(resultsPath, "Tables", sep = "/"))) {
+            if (resultsPath == "") {
+              dir.create("Tables")
+            }
+            else {
+              dir.create(paste(resultsPath, "Tables", sep = "/"))
+            }
+          }
+          else {
+            cat(" ", fill = TRUE)
+            warning(paste("Warning: Folder", paste(resultsPath,
+                                                   "Tables", sep = "/"), "already exists. Possible file overwritting."))
+          }
+          if (resultsPath == "") {
+            writeExcelTable(file = tab, file.name = "Tables/Spectra")
+          }
+          else {
+            writeExcelTable(file = tab, file.name = paste(resultsPath,
+                                                          "Tables/Spectra", sep = "/"))
+          }
+        }
+        xsaFA <- list(xsaFA)
+        names(xsaFA) <- "xsaFA"
+        MAIT.object@RawData@data <- xsaFA
+        return(MAIT.object)
+
 }
+
+
+
+
 
 #' Raw data extractor from a MAIT object
 #'
@@ -68,9 +144,9 @@ annotateAdducts = annotateAdducts)
 #'         peakTable = peakTable)
 #'
 #' peak_table_ANN <- peak_annotation(MAIT.object = peak_table_MAIT)
-#' raw_data(peak_table_ANN)
+#' lcms_raw_data(peak_table_ANN)
 #' }
-raw_data <- function (MAIT.object) {
+lcms_raw_data <- function (MAIT.object) {
   MAIT::rawData(MAIT.object)
 }
 
