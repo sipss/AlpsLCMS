@@ -16,15 +16,15 @@ An object from the \link{lcms_dataset_family}
 Function to load a lcms_dataset object
 }
 \examples{
-file_name <- system.file("extdata", "lcms_dataset.rds", package = "NIHSlcms")
-lcms_dataset <- lcms_dataset_load(file_name)
-print(lcms_dataset)
-
+file_name <- system.file("extdata", "dataset.rds", package = "NIHSlcms")
+dataset <- lcms_dataset_load(file_name)
+print(dataset)
 }
 \seealso{
-Other lcms_dataset functions: \code{\link{lcms_filterPolarity}},
-  \code{\link{lcms_filterRTmin}},
-  \code{\link{lcms_filterSampleType}},
+Other lcms_dataset functions: \code{\link{lcms_filter_mz}},
+  \code{\link{lcms_filter_polarity}},
+  \code{\link{lcms_filter_rt_min}},
+  \code{\link{lcms_filter_sample_type}},
   \code{\link{lcms_meta_export}},
   \code{\link{lcms_meta_read}},
   \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}

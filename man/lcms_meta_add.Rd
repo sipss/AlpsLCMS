@@ -15,23 +15,22 @@ lcms_meta_add(object, metadata, by = "sampleNames")
 \item{by}{A column present both in \code{metadata} and in \code{Biobase::pData(object)}}
 }
 \value{
-The object with the added metadata
+An object from the \link{lcms_dataset_family} with metadata added
 }
 \description{
 Add metadata to MSnExp object
 }
 \examples{
-lcms_dataset <- lcms_dataset_load(system.file
-                                  ("extdata","lcms_dataset.rds",
-                                    package = "NIHSlcms"))
+dataset <- lcms_dataset_load(system.file
+                                  ("extdata","dataset.rds",
+                                  package = "NIHSlcms"))
 
 metadata <- lcms_meta_read(system.file("extdata",
                                        "metadata.xlsx",
                                        package = "NIHSlcms"))
 
-lcms_dataset_meta <- lcms_meta_add(lcms_dataset,
+dataset_metadata <- lcms_meta_add(dataset,
                                metadata,
                                by = "sampleNames")
-print(lcms_dataset_meta)
-
+print(dataset_metadata)
 }

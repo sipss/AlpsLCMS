@@ -22,9 +22,10 @@
 #' @family optimization functions
 #'
 #' @examples
+#' \dontrun{
 #' default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
 #' print(default_peakpicking_params)
-#'
+#' }
 lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
                                             min_peakwidth = c(10, 30),
                                             max_peakwidth = c(35, 120),
@@ -62,7 +63,7 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 
 #' \dontrun{
 #' opt_path <-  system.file("extdata","ipo_opt", package = "NIHSlcms")
-#' file_name <- system.file("extdata", "lcms_dataset_rt_pos_rs.rds", package = "NIHSlcms")
+#' file_name <- system.file("extdata", "lcms_dataset_pos_rt_rs.rds", package = "NIHSlcms")
 #' lcms_dataset <- lcms_dataset_load(file_name)
 #' default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
 #' resultPeakpicking <- lcms_peakpicking_optimization(lcms_dataset,
@@ -147,8 +148,10 @@ lcms_peakpicking_optimization <- function (lcms_dataset, peakpickingParameters,
 #' @export
 #' @family optimization functions
 #' @examples
+#' \dontrun{
 #' default_retcorgroup_params <- lcms_default_retcorgroup_params(optimize = TRUE)
 #' print(default_retcorgroup_params)
+#' }
 #
 lcms_default_retcorgroup_params <- function(profStep = 1, gapExtend = 2.7, optimize = TRUE){
 
@@ -248,14 +251,15 @@ lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
 #' @export
 #' @family optimization functions
 #' @examples
-#'  opt_result_path <-  tempdir(check = FALSE)
+#' \dontrun{
+#'  opt_result_path <-system.file("extdata", "ipo_opt", package = "NIHSlcms")
 #'  file_name_pp <- system.file("extdata", "lcms_resultPeakpicking.rds", package = "NIHSlcms")
 #'  file_name_rcg <- system.file("extdata", "lcms_resultRetcorGroup.rds", package = "NIHSlcms")
 #'  lcms_resultPeakpicking <- base::readRDS(file_name_pp)
 #'  lmcs_resultRetcorGroup <- base::readRDS(file_name_rcg)
 #'
 #'  lcms_write_opt_params(lcms_resultPeakpicking, lmcs_resultRetcorGroup, opt_result_path)
-#'
+#' }
 lcms_write_opt_params<- function(results_pp,
                             results_rtcg,
                             opt_result_path,

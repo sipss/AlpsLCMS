@@ -4,10 +4,10 @@
 \alias{lcms_meta_export}
 \title{Export Metadata to an Excel file}
 \usage{
-lcms_meta_export(lcms_dataset, xlsx_file)
+lcms_meta_export(dataset, xlsx_file)
 }
 \arguments{
-\item{lcms_dataset}{An \link{lcms_dataset_family} object}
+\item{dataset}{An \link{lcms_dataset_family} object}
 
 \item{xlsx_file}{"The .xlsx excel file"}
 
@@ -22,22 +22,23 @@ Export Metadata to an Excel file
 }
 \examples{
 \dontrun{
-lcms_dataset_metadata <- lcms_dataset_load(system.file("extdata",
-                                             "lcms_dataset_metadata.rds",
+dataset_metadata <- lcms_dataset_load(system.file("extdata",
+                                             "dataset_metadata.rds",
                                               package = "NIHSlcms"))
 xlsx_file <- "exported_metadata.xlsx"
-lcms_meta_export(lcms_dataset_metadata, xlsx_file)
-print(lcms_dataset_metadata)
-}
+lcms_meta_export(dataset_metadata, xlsx_file)
+print(dataset_metadata)
 
+}
 }
 \seealso{
 Other metadata functions: \code{\link{lcms_meta_read}}
 
 Other lcms_dataset functions: \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_filterPolarity}},
-  \code{\link{lcms_filterRTmin}},
-  \code{\link{lcms_filterSampleType}},
+  \code{\link{lcms_filter_mz}},
+  \code{\link{lcms_filter_polarity}},
+  \code{\link{lcms_filter_rt_min}},
+  \code{\link{lcms_filter_sample_type}},
   \code{\link{lcms_meta_read}},
   \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
 

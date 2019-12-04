@@ -17,12 +17,10 @@ Function rawData extracts the raw data used to build the MAIT-class object
 }
 \examples{
 \dontrun{
-peak_table_MAIT <- to_MAIT(dataDir = dataDir,
-        project = project,
-        preproc_params = preproc_params,
-        peakTable = peakTable)
+file_name <-  system.file("extdata", "peak_table_MAIT.rds", package = "NIHSlcms")
+peak_table <- base::readRDS(file_name)
 
-peak_table_ANN <- peak_annotation(MAIT.object = peak_table_MAIT)
-lcms_raw_data(peak_table_ANN)
+peak_table_ANN <- peak_annotation(MAIT.object = peak_table)
+lcms_raw_data(peak_table)
 }
 }

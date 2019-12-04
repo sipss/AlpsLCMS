@@ -10,10 +10,11 @@
 #' @export
 #'
 #' @examples
-#' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+#' \dontrun{
+#' opt_result_path <-  system.file("extdata","ipo_opt", package = "NIHSlcms")
 #' lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #' print(lcms_preproc_params)
-#'
+#' }
 lcms_read_ipo_to_xcms <- function(opt_result_path){
   params <- utils::read.csv(paste0(opt_result_path, "/params.csv"), stringsAsFactors = FALSE)
   preproc_params <- list(ppm = params$ppm,
@@ -57,10 +58,12 @@ lcms_read_ipo_to_xcms <- function(opt_result_path){
 #' @export
 #'
 #' @examples
-#' opt_result_path <-  system.file("extdata", "params.rds", package = "NIHSlcms")
+#' \dontrun{
+#' opt_result_path <-  system.file("extdata","ipo_opt", "params.rds", package = "NIHSlcms")
 #' params <- base::readRDS(opt_result_path)
 #' lcms_preproc_params <- lcms_convert_ipo_to_xcms(params)
 #' print(lcms_preproc_params)
+#' }
 
 lcms_convert_ipo_to_xcms <- function(params){
   preproc_params <- list(ppm = params$ppm,

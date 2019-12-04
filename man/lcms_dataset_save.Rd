@@ -7,20 +7,19 @@
 lcms_dataset_save(lcms_dataset, file_name, ...)
 }
 \arguments{
-\item{lcms_dataset}{An object from the \link{lcms_dataset_family}}
-
 \item{file_name}{The file name to save to}
 
 \item{...}{Additional arguments passed to \link{saveRDS}.}
+
+\item{dataset}{An object from the \link{lcms_dataset_family}}
 }
 \description{
 Function to save a lcms_dataset object
 }
 \examples{
-
-lcms_dataset <- lcms_dataset_load(system.file("extdata", "lcms_dataset.rds", package = "NIHSlcms"))
-file_name <- "lcms_dataset.rds"
-lcms_dataset_save(lcms_dataset, file_name)
-print(lcms_dataset)
+dataset <- lcms_dataset_load(system.file("extdata", "dataset.rds", package = "NIHSlcms"))
+file_name <- "dataset.rds"
+lcms_dataset_save(dataset, file_name)
+print(dataset)
 
 }

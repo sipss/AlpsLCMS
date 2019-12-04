@@ -20,6 +20,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
 #' peakdet_align <- base::readRDS(file_name)
 #' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
@@ -27,7 +28,7 @@
 #'
 #' peak_table <- lcms_group_peaks(peakdet_align, params = lcms_preproc_params)
 #' print(peak_table)
-#'
+#' }
 lcms_group_peaks <- function (peakdet_align, params) {
       quiet <- function(x) {
         base::sink(base::tempfile())

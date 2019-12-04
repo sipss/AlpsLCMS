@@ -38,16 +38,20 @@ implications.}
 }}
 }
 \value{
-An \linkS4class{MSnExp} object for \code{inMemory} mode and a
-\linkS4class{OnDiskMSnExp} object for \code{onDisk} mode.
+An object from the \link{lcms_dataset_family}
 }
 \description{
 Read LCMS samples on mzXML format
 }
 \examples{
-data(samples_mzxml)
-lcms_dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
+file_path <- system.file("extdata", package = "NIHSlcms")
+rawconverter <- NULL
+file_format <- "mzXML"
+samples_mzxml <- lcms_list_mzxml_samples(file_path,
+                                        file_format = file_format,
+                                        rawconverter = rawconverter)
+samples_mzxml <- as.character(samples_mzxml)
+dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
 
-print(lcms_dataset)
-
+print(dataset)
 }

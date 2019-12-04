@@ -22,7 +22,7 @@ A base peak chromatogram
 Base peak chromatograms with retention time axis in minutes.
 }
 \examples{
-
+\dontrun{
 file_name <- system.file("extdata",
                          "lcms_dataset_pos.rds",
                           package = "NIHSlcms")
@@ -30,7 +30,7 @@ lcms_dataset <- lcms_dataset_load(file_name)
 treatment_col <- scales::hue_pal()(length(unique(lcms_dataset$treatment)))
 names(treatment_col) <- unique(lcms_dataset$treatment)
 base_peaks <- xcms::chromatogram(lcms_dataset, aggregationFun = "max")
-lcms_plotChrom(base_peaks, treatment_col, rtlim = c(4, 14))
+lcms_plotChrom(base_peaks, treatment_col, rtlim = c(4, 10))
 
-
+}
 }

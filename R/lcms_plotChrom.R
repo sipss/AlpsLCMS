@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#'
+#' \dontrun{
 #' file_name <- system.file("extdata",
 #'                          "lcms_dataset_pos.rds",
 #'                           package = "NIHSlcms")
@@ -20,9 +20,9 @@
 #' treatment_col <- scales::hue_pal()(length(unique(lcms_dataset$treatment)))
 #' names(treatment_col) <- unique(lcms_dataset$treatment)
 #' base_peaks <- xcms::chromatogram(lcms_dataset, aggregationFun = "max")
-#' lcms_plotChrom(base_peaks, treatment_col, rtlim = c(4, 14))
+#' lcms_plotChrom(base_peaks, treatment_col, rtlim = c(4, 10))
 #'
-#'
+#' }
 lcms_plotChrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
   min2sec <- 60
   message("Make sure that the column that contains the group class is called `treatment`")

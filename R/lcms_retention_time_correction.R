@@ -11,6 +11,7 @@
 #' `findChromPeaks_cwp` function
 #' @param params A converted parameters template from IPO parameters.
 #' @examples
+#' \dontrun{
 #' file_name <-  system.file("extdata", "peakdet.rds", package = "NIHSlcms")
 #' peakdet <- base::readRDS(file_name)
 #' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
@@ -18,6 +19,7 @@
 #'
 #' peakdet_align <- lcms_align_Rtime(peakdet, params = lcms_preproc_params)
 #' print(peakdet_align)
+#' }
 #'
 #' @return A lcms_dataset with (1) detected (`lcms_findChromPeaks_cwp` function)
 #' and (2) aligned (`lcms_align_Rtime` function) peaks

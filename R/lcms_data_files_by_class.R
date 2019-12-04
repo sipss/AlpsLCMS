@@ -17,18 +17,16 @@
 #' @export
 #'
 #' @examples
-
-#' file_name <- system.file("extdata", "lcms_dataset_rt_pos_rs.rds", package = "NIHSlcms")
+#' \dontrun{
+#' file_name <- system.file("extdata", "lcms_dataset_pos_rt_rs.rds", package = "NIHSlcms")
 #' lcms_dataset <- lcms_dataset_load(file_name)
-#' path <- tempdir()
+#' path <- system.file("extdata","rearrange_mait", package = "NIHSlcms")
 #' lcms_rearrange_datafiles_by_class(lcms_dataset = lcms_dataset,
 #'                             dataDir = path)
-#' x = list.files(path = paste(path, list.files(path = path),
+#' fileList = list.files(path = paste(path, list.files(path = path),
 #'                            sep = "/"), full.names = TRUE)
-#' fileList <- x[grep(pattern =".mzXML$", x)]
-#'
 #' print(fileList)
-
+#' }
 
 
 lcms_rearrange_datafiles_by_class <- function(lcms_dataset, dataDir) {

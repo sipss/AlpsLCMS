@@ -27,6 +27,7 @@ Note: signal processing generally  consists in three main steps:
 (3) peak correspondence (\code{lcms_group_peaks} function).
 }
 \examples{
+\dontrun{
 file_path <- system.file("extdata", "rearrange_mait", package = "NIHSlcms")
 samples_mzxml <- list.files(file_path, recursive = TRUE, full.names = TRUE)
 meta_path <- system.file("extdata", "metadata.xlsx", package = "NIHSlcms")
@@ -39,5 +40,6 @@ lcms_dataset_meta <- lcms_meta_add(lcms_dataset, metadata, by = "sampleNames")
 
 peakdet <- lcms_findChromPeaks_cwp(lcms_dataset_meta, params = lcms_preproc_params)
 print(peakdet)
+}
 
 }

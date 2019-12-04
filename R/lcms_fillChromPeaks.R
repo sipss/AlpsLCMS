@@ -7,11 +7,13 @@
 #' @return A peak table where the missing peaks have been filled
 #' @export
 #' @examples
+#' \dontrun{
 #' file_name <-  system.file("extdata", "peak_table.rds", package = "NIHSlcms")
 #' peak_table <- base::readRDS(file_name)
 #' peak_table_imputed <- lcms_fillChromPeaks(peak_table)
 #'
 #' print(peak_table_imputed)
+#' }
 lcms_fillChromPeaks <- function(peak_table){
   quiet <- function(x) {
     base::sink(base::tempfile())

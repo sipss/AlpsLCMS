@@ -14,6 +14,7 @@
 #' @param lcms_dataset An [lcms_dataset_family] object
 #' @param params A converted parameters template from IPO parameters.
 #' @examples
+#' \dontrun{
 #' file_path <- system.file("extdata", "rearrange_mait", package = "NIHSlcms")
 #' samples_mzxml <- list.files(file_path, recursive = TRUE, full.names = TRUE)
 #' meta_path <- system.file("extdata", "metadata.xlsx", package = "NIHSlcms")
@@ -26,6 +27,7 @@
 #'
 #' peakdet <- lcms_findChromPeaks_cwp(lcms_dataset_meta, params = lcms_preproc_params)
 #' print(peakdet)
+#' }
 #'
 #' @return A lcms_dataset with detected peaks
 #' @export

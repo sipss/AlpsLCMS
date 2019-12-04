@@ -18,8 +18,9 @@ presented some mismatches, thus we had to create a function called \emph{lcms_re
 to achieve compatibility between packages when reading these parameters from a .csv file.
 }
 \examples{
-opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+\dontrun{
+opt_result_path <-  system.file("extdata","ipo_opt", package = "NIHSlcms")
 lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 print(lcms_preproc_params)
-
+}
 }
