@@ -49,19 +49,17 @@ lcms_tics <- function(lcms_dataset, treatment = treatment){
 #' @family lcms_dataset functions
 #' @family lcms_dataset_peak_table functions
 #' @examples
-#' \dontrun{
 #' dataset <- lcms_dataset_load(system.file
 #'                                   ("extdata","dataset_pos.rds",
 #'                                     package = "NIHSlcms"))
 #' tics <- lcms_tics(dataset)
 #'
 #' lcms_plot_tics(tics, treatment = treatment,
-#'                rt = c(4, 10),plot_type = "spec")
+#'                rt = c(4, 8),plot_type = "spec")
 #'
 #' lcms_plot_tics(tics, treatment = treatment,
-#'                rt = c(4, 10), plot_type = "boxplot")
+#'                rt = c(4, 8), plot_type = "boxplot")
 #'
-#' }
 lcms_plot_tics <- function(tics, treatment = treatment, rt = NULL, plot_type = "spec"){
   min2sec <- 60
   treatment_col <- scales::hue_pal()(length(unique(tics$treatment)))
