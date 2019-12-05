@@ -32,7 +32,8 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
 }
 \examples{
 \dontrun{
-opt_path <-  system.file("extdata","ipo_opt", package = "NIHSlcms")
+opt_path <- "C:/Users/Biosignal/Desktop/LCMS_2019/NIHSlcms/inst/extdata/ipo_opt"
+base::dir.create(opt_path)
 file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "NIHSlcms")
 dataset <- lcms_dataset_load(file_name)
 default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
@@ -40,7 +41,6 @@ resultPeakpicking <- lcms_peakpicking_optimization(dataset,
                                                    default_peakpicking_params,
                                                    opt_path = opt_path,
                                                    subdir = NULL)
-
 }
 }
 \seealso{

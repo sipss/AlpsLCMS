@@ -4,14 +4,14 @@
 \alias{lcms_dataset_save}
 \title{Function to save a lcms_dataset object}
 \usage{
-lcms_dataset_save(lcms_dataset, file_name, ...)
+lcms_dataset_save(dataset, file_name, ...)
 }
 \arguments{
+\item{dataset}{An object from the \link{lcms_dataset_family}}
+
 \item{file_name}{The file name to save to}
 
 \item{...}{Additional arguments passed to \link{saveRDS}.}
-
-\item{dataset}{An object from the \link{lcms_dataset_family}}
 }
 \description{
 Function to save a lcms_dataset object

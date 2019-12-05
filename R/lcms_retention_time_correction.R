@@ -3,29 +3,28 @@
 #' Retention time correction is performed using *'obiwarp'* method.
 #' Its optimum parameters are obtaine from `IPO` Package.
 #' Note: signal processing generally  consists in three main steps:
-#' (1) peak detection (`lcms_findChromPeaks_cwp` function),
-#' (2) peak alignment (`lcms_align_Rtime` function) and
+#' (1) peak detection (`lcms_find_chrom_peaks_cwp` function),
+#' (2) peak alignment (`lcms_align_rtime` function) and
 #' (3) peak correspondence (`lcms_group_peaks` function).
 #'
-#' @param peakdet A lcms_dataset with detected peaks from the
-#' `findChromPeaks_cwp` function
+#' @param peakdet A dataset with detected peaks from the
+#' `lcms_find_chrom_peaks_cwp` function
 #' @param params A converted parameters template from IPO parameters.
 #' @examples
 #' \dontrun{
 #' file_name <-  system.file("extdata", "peakdet.rds", package = "NIHSlcms")
 #' peakdet <- base::readRDS(file_name)
 #' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
-#' lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
+#' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #'
-#' peakdet_align <- lcms_align_Rtime(peakdet, params = lcms_preproc_params)
+#' peakdet_align <- lcms_align_rtime(peakdet, params = preproc_params)
 #' print(peakdet_align)
 #' }
 #'
-#' @return A lcms_dataset with (1) detected (`lcms_findChromPeaks_cwp` function)
-#' and (2) aligned (`lcms_align_Rtime` function) peaks
+#' @return A dataset with (1) detected (`lcms_find_chrom_peaks_cwp` function)
+#' and (2) aligned (`lcms_align_rtime` function) peaks
 #' @export
-#'
-lcms_align_Rtime <- function (peakdet, params) {
+lcms_align_rtime <- function (peakdet, params) {
 
   quiet <- function(x) {
       base::sink(base::tempfile())

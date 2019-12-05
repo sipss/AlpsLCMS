@@ -7,11 +7,11 @@
 #' features (peaks) on the chromatographic axis. This will be useful
 #' for a posterior peak alignment on the chormatophic axis.
 #' Note: signal processing generally  consists in three main steps:
-#' (1) peak detection (`lcms_findChromPeaks_cwp` function),
-#' (2) peak alignment (`lcms_align_Rtime` function) and
+#' (1) peak detection (`lcms_find_chromp_peaks_cwp` function),
+#' (2) peak alignment (`lcms_align_rtime` function) and
 #' (3) peak correspondence (`lcms_group_peaks` function).
 #'
-#' @param lcms_dataset An [lcms_dataset_family] object
+#' @param dataset An [lcms_dataset_family] object
 #' @param params A converted parameters template from IPO parameters.
 #' @examples
 #' \dontrun{
@@ -19,20 +19,19 @@
 #' samples_mzxml <- list.files(file_path, recursive = TRUE, full.names = TRUE)
 #' meta_path <- system.file("extdata", "metadata.xlsx", package = "NIHSlcms")
 #' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
-#' lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
+#' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #'
-#' lcms_dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
+#' dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
 #' metadata <- lcms_meta_read(meta_path)
-#' lcms_dataset_meta <- lcms_meta_add(lcms_dataset, metadata, by = "sampleNames")
+#' dataset_meta <- lcms_meta_add(dataset, metadata, by = "sampleNames")
 #'
-#' peakdet <- lcms_findChromPeaks_cwp(lcms_dataset_meta, params = lcms_preproc_params)
+#' peakdet <- lcms_find_chrom_peaks_cwp(dataset_meta, params = preproc_params)
 #' print(peakdet)
 #' }
-#'
-#' @return A lcms_dataset with detected peaks
+#' @return A dataset with the detected peaks added
 #' @export
 #'
-lcms_findChromPeaks_cwp <- function (lcms_dataset, params) {
+lcms_find_chrom_peaks_cwp <- function (dataset, params) {
      quiet <- function(x) {
                 base::sink(base::tempfile())
                 base::on.exit(base::sink())
@@ -59,7 +58,7 @@ lcms_findChromPeaks_cwp <- function (lcms_dataset, params) {
 
   peakdet <- base::suppressWarnings(
                 base::suppressMessages(
-                         quiet(xcms::findChromPeaks(lcms_dataset, param = cwp))
+                         quiet(xcms::findChromPeaks(dataset, param = cwp))
                                    )
                                   )
   return(peakdet)

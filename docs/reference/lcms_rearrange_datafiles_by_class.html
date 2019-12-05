@@ -153,17 +153,16 @@ going to be saved</p></td>
 <span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='no'>file_name</span>)
 <span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"rearrange_mait"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='fu'>lcms_rearrange_datafiles_by_class</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset</span>,
-                            <span class='kw'>dataDir</span> <span class='kw'>=</span> <span class='no'>path</span>)
-<span class='no'>fileList</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>path</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>path</span>),
+                            <span class='kw'>dataDir</span> <span class='kw'>=</span> <span class='no'>path</span>)</div><div class='output co'>#&gt; There are already directories / files in the folder. Not saving new ones.</div><div class='output co'>#&gt; NULL</div><div class='input'><span class='no'>fileList</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>path</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>path</span>),
                            <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"/"</span>), <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>fileList</span>)</div><div class='output co'>#&gt; [1] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C02.mzXML"            
-#&gt; [2] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C04.mzXML"            
-#&gt; [3] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C07.mzXML"            
-#&gt; [4] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C18.mzXML"            
-#&gt; [5] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C01.mzXML"
-#&gt; [6] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C05.mzXML"
-#&gt; [7] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C09.mzXML"
-#&gt; [8] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C11.mzXML"</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>fileList</span>)</div><div class='output co'>#&gt; [1] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C02.mzXML"            
+#&gt; [2] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C04.mzXML"            
+#&gt; [3] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C07.mzXML"            
+#&gt; [4] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C18.mzXML"            
+#&gt; [5] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C01.mzXML"
+#&gt; [6] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C05.mzXML"
+#&gt; [7] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C09.mzXML"
+#&gt; [8] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C11.mzXML"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

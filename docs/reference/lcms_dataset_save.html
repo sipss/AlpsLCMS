@@ -112,11 +112,15 @@
     <p>Function to save a lcms_dataset object</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_dataset_save</span>(<span class='no'>lcms_dataset</span>, <span class='no'>file_name</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>lcms_dataset_save</span>(<span class='no'>dataset</span>, <span class='no'>file_name</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>dataset</th>
+      <td><p>An object from the <a href='lcms_dataset_family.html'>lcms_dataset_family</a></p></td>
+    </tr>
     <tr>
       <th>file_name</th>
       <td><p>The file name to save to</p></td>
@@ -124,10 +128,6 @@
     <tr>
       <th>...</th>
       <td><p>Additional arguments passed to <a href='https://rdrr.io/r/base/readRDS.html'>saveRDS</a>.</p></td>
-    </tr>
-    <tr>
-      <th>dataset</th>
-      <td><p>An object from the <a href='lcms_dataset_family.html'>lcms_dataset_family</a></p></td>
     </tr>
     </table>
 

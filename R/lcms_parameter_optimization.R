@@ -58,9 +58,9 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #' @export
 #' @family optimization functions
 #' @examples
-
 #' \dontrun{
-#' opt_path <-  system.file("extdata","ipo_opt", package = "NIHSlcms")
+#' opt_path <- "C:/Users/Biosignal/Desktop/LCMS_2019/NIHSlcms/inst/extdata/ipo_opt"
+#' base::dir.create(opt_path)
 #' file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "NIHSlcms")
 #' dataset <- lcms_dataset_load(file_name)
 #' default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
@@ -68,8 +68,7 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #'                                                    default_peakpicking_params,
 #'                                                    opt_path = opt_path,
 #'                                                    subdir = NULL)
-#'
-#'}
+#' }
 lcms_peakpicking_optimization <- function (dataset, peakpickingParameters,
                                            nSlaves = 1, opt_path, subdir ="plot_ipo",
                                            plots = TRUE){
@@ -77,13 +76,13 @@ lcms_peakpicking_optimization <- function (dataset, peakpickingParameters,
   if(is.null(peakpickingParameters)){
     resultPeakpicking <- NULL
   } else{
-    filenames <- Biobase::pData(lcms_dataset)$sampleNames
+    filenames <- Biobase::pData(dataset)$sampleNames
     filer <- filenames
     former_dir <- getwd()
     setwd(opt_path)
 
     ## Get the spectra
-    data_subset <- lcms_dataset %>% MSnbase::filterFile(file = filenames)
+    data_subset <- dataset %>% MSnbase::filterFile(file = filenames)
     Biobase::fData(data_subset)$centroided <- TRUE
     Biobase::fData(data_subset)$peaksCount <- Biobase::fData(data_subset)$originalPeaksCount
     cat("Be careful if you run twice the function using the same output directory.", "\n")

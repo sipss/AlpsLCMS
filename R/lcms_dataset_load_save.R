@@ -30,9 +30,9 @@ lcms_dataset_load <- function(file_name) {
 #' lcms_dataset_save(dataset, file_name)
 #' print(dataset)
 #'
-lcms_dataset_save <- function(lcms_dataset, file_name, ...) {
-  lcms_diagnose(lcms_dataset) <- NULL
-  saveRDS(lcms_dataset, file_name)
+lcms_dataset_save <- function(dataset, file_name, ...) {
+  lcms_diagnose(dataset) <- NULL
+  saveRDS(dataset, file_name)
 }
 
 #NULL
@@ -62,7 +62,7 @@ lcms_dataset_save <- function(lcms_dataset, file_name, ...) {
 #' }
 lcms_meta_export <- function(dataset,
                              xlsx_file) {
-  groups_present <- phData(lcms_dataset)
+  groups_present <- phData(dataset)
   writexl::write_xlsx(x = NIHSlcms::phData(dataset), path = xlsx_file)
 }
 

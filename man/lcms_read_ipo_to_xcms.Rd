@@ -20,7 +20,7 @@ to achieve compatibility between packages when reading these parameters from a .
 \examples{
 \dontrun{
 opt_result_path <-  system.file("extdata","ipo_opt", package = "NIHSlcms")
-lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
-print(lcms_preproc_params)
+preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
+print(preproc_params)
 }
 }

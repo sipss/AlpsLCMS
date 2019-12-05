@@ -12,8 +12,8 @@
 #' @examples
 #' \dontrun{
 #' opt_result_path <-  system.file("extdata","ipo_opt", package = "NIHSlcms")
-#' lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
-#' print(lcms_preproc_params)
+#' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
+#' print(preproc_params)
 #' }
 lcms_read_ipo_to_xcms <- function(opt_result_path){
   params <- utils::read.csv(paste0(opt_result_path, "/params.csv"), stringsAsFactors = FALSE)
@@ -53,16 +53,14 @@ lcms_read_ipo_to_xcms <- function(opt_result_path){
 #' to achieve compatibility between packages when these parameters are stored in a list.
 #'
 #' @param params A list with the IPO parameters, generated with the `lcms_write_opt_params` function
-#'
 #' @return Parameters in XCMS format
 #' @export
-#'
 #' @examples
 #' \dontrun{
 #' opt_result_path <-  system.file("extdata","ipo_opt", "params.rds", package = "NIHSlcms")
 #' params <- base::readRDS(opt_result_path)
-#' lcms_preproc_params <- lcms_convert_ipo_to_xcms(params)
-#' print(lcms_preproc_params)
+#' preproc_params <- lcms_convert_ipo_to_xcms(params)
+#' print(preproc_params)
 #' }
 
 lcms_convert_ipo_to_xcms <- function(params){

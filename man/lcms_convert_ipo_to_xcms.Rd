@@ -21,7 +21,7 @@ to achieve compatibility between packages when these parameters are stored in a 
 \dontrun{
 opt_result_path <-  system.file("extdata","ipo_opt", "params.rds", package = "NIHSlcms")
 params <- base::readRDS(opt_result_path)
-lcms_preproc_params <- lcms_convert_ipo_to_xcms(params)
-print(lcms_preproc_params)
+preproc_params <- lcms_convert_ipo_to_xcms(params)
+print(preproc_params)
 }
 }
