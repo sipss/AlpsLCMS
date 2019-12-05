@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rearrange datafiles by class — lcms_rearrange_datafiles_by_class • NIHSlcms</title>
+<title>Base peak chromatogram — lcms_plot_chrom • NIHSlcms</title>
 
 
 <!-- jquery -->
@@ -35,16 +35,8 @@
 
 
 
-<meta property="og:title" content="Rearrange datafiles by class — lcms_rearrange_datafiles_by_class" />
-<meta property="og:description" content="Although Data Preprocessing can be performed using any
-filepath with the XCMS Package, it is convenient to
-rearrange data files by sample class (that is, all the
-samples belonging to the same sample class are included
-in the same folder). We do this because, after the
-Preprocessing stage, the MAIT Package takes care
-of Data Annotation and Metabolite Identification. MAIT
-needs a specific directory structure for data managing.
-Otherwise, it can't work properly." />
+<meta property="og:title" content="Base peak chromatogram — lcms_plot_chrom" />
+<meta property="og:description" content="Base peak chromatograms with retention time axis in minutes." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,59 +103,48 @@ Otherwise, it can't work properly." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Rearrange datafiles by class</h1>
+    <h1>Base peak chromatogram</h1>
     
-    <div class="hidden name"><code>lcms_rearrange_datafiles_by_class.Rd</code></div>
+    <div class="hidden name"><code>lcms_plot_chrom.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Although Data Preprocessing can be performed using any
-filepath with the <code>XCMS</code> Package, it is convenient to
-rearrange data files by sample class (that is, all the
-samples belonging to the same sample class are included
-in the same folder). We do this because, after the
-Preprocessing stage, the <code>MAIT</code> Package takes care
-of Data Annotation and Metabolite Identification. <code>MAIT</code>
-needs a specific directory structure for data managing.
-Otherwise, it can't work properly.</p>
+    <p>Base peak chromatograms with retention time axis in minutes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_rearrange_datafiles_by_class</span>(<span class='no'>dataset</span>, <span class='no'>dataDir</span>)</pre>
+    <pre class="usage"><span class='fu'>lcms_plot_chrom</span>(<span class='no'>chromatogram_object</span>, <span class='no'>treatment_col</span>, <span class='kw'>rtlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dataset</th>
-      <td><p>An <a href='lcms_dataset_family.html'>lcms_dataset_family</a> object</p></td>
+      <th>chromatogram_object</th>
+      <td><p>A XChromatograms object</p></td>
     </tr>
     <tr>
-      <th>dataDir</th>
-      <td><p>a directory in where LC-MS files are
-going to be saved</p></td>
+      <th>treatment_col</th>
+      <td><p>Color code by groups. They can be generated using</p></td>
+    </tr>
+    <tr>
+      <th>rtlim</th>
+      <td><p>retention time boundaries (e.g. c(4,8))</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>LC-MS datafiles sorted by class treatment</p>
+    <p>A base peak chromatogram</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>file_name</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"dataset_pos_rt_rs.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+    <pre class="examples"><div class='input'><span class='no'>file_name</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
+                         <span class='st'>"dataset_pos.rds"</span>,
+                          <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='no'>file_name</span>)
-<span class='no'>path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"rearrange_mait"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
-<span class='fu'>lcms_rearrange_datafiles_by_class</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset</span>,
-                            <span class='kw'>dataDir</span> <span class='kw'>=</span> <span class='no'>path</span>)
-<span class='no'>fileList</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>path</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>path</span>),
-                           <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"/"</span>), <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>fileList</span>)</div><div class='output co'>#&gt; [1] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C02.mzXML"            
-#&gt; [2] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C04.mzXML"            
-#&gt; [3] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C07.mzXML"            
-#&gt; [4] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C18.mzXML"            
-#&gt; [5] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C01.mzXML"
-#&gt; [6] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C05.mzXML"
-#&gt; [7] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C09.mzXML"
-#&gt; [8] "C:/Users/Biosignal/AppData/Local/Temp/Rtmpu0JAJM/temp_libpath56d841ba64e0/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C11.mzXML"</div></pre>
+<span class='no'>treatment_col</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/hue_pal.html'>hue_pal</a></span>()(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>dataset</span>$<span class='no'>treatment</span>)))
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>treatment_col</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>dataset</span>$<span class='no'>treatment</span>)
+<span class='no'>base_peaks</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>xcms</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/xcms/man/chromatogram-method.html'>chromatogram</a></span>(<span class='no'>dataset</span>, <span class='kw'>aggregationFun</span> <span class='kw'>=</span> <span class='st'>"max"</span>)
+<span class='fu'>lcms_plot_chrom</span>(<span class='no'>base_peaks</span>, <span class='no'>treatment_col</span>, <span class='kw'>rtlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt; <span class='message'>Make sure that the column that contains the group class is called `treatment`</span></div><div class='img'><img src='lcms_plot_chrom-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

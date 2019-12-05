@@ -4,26 +4,20 @@
 #'
 #' @param chromatogram_object  A XChromatograms object
 #' @param treatment_col Color code by groups. They can be generated using
-#' treatment_col <- scales::hue_pal()(length(unique(lcms_dataset$treatment)))
-#' names(treatment_col) <- unique(lcms_dataset$treatment)
-#' @param rtlim retention time boundaries (e.g. c(4,14))
-#'
+#' @param rtlim retention time boundaries (e.g. c(4,8))
 #' @return A base peak chromatogram
 #' @export
-#'
 #' @examples
-#' \dontrun{
 #' file_name <- system.file("extdata",
-#'                          "lcms_dataset_pos.rds",
+#'                          "dataset_pos.rds",
 #'                           package = "NIHSlcms")
-#' lcms_dataset <- lcms_dataset_load(file_name)
-#' treatment_col <- scales::hue_pal()(length(unique(lcms_dataset$treatment)))
-#' names(treatment_col) <- unique(lcms_dataset$treatment)
-#' base_peaks <- xcms::chromatogram(lcms_dataset, aggregationFun = "max")
-#' lcms_plotChrom(base_peaks, treatment_col, rtlim = c(4, 10))
+#' dataset <- lcms_dataset_load(file_name)
+#' treatment_col <- scales::hue_pal()(length(unique(dataset$treatment)))
+#' names(treatment_col) <- unique(dataset$treatment)
+#' base_peaks <- xcms::chromatogram(dataset, aggregationFun = "max")
+#' lcms_plot_chrom(base_peaks, treatment_col, rtlim = c(4, 8))
 #'
-#' }
-lcms_plotChrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
+lcms_plot_chrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
   min2sec <- 60
   message("Make sure that the column that contains the group class is called `treatment`")
 
