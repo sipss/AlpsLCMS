@@ -156,7 +156,7 @@ This is done in three different stages:</p><ul>
 to an object of the MAIT Package.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>file_name</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"peak_table_imputed.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>peak_table</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name</span>)
 <span class='no'>opt_result_path</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
@@ -170,9 +170,9 @@ to an object of the MAIT Package.</p>
                                 <span class='kw'>projectDir</span> <span class='kw'>=</span> <span class='no'>projectDir</span>,
                                 <span class='kw'>project</span> <span class='kw'>=</span> <span class='no'>project</span>,
                                 <span class='kw'>preproc_params</span> <span class='kw'>=</span> <span class='no'>lcms_preproc_params</span>,
-                                <span class='kw'>peakTable</span> <span class='kw'>=</span> <span class='no'>peak_table</span>)</div><div class='output co'>#&gt; Building a MAIT object from xcms data. </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peak_table_MAIT</span>)</div><div class='output co'>#&gt; A MAIT object built of 4 samples
-#&gt; The object contains 3 samples of class oligomycin
-#&gt; The object contains 1 samples of class resveratrol</div></pre>
+                                <span class='kw'>peakTable</span> <span class='kw'>=</span> <span class='no'>peak_table</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peak_table_MAIT</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

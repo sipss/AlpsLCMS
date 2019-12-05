@@ -10,33 +10,28 @@
 #' needs a specific directory structure for data managing.
 #' Otherwise, it can't work properly.
 #'
-#' @param lcms_dataset An [lcms_dataset_family] object
+#' @param dataset An [lcms_dataset_family] object
 #' @param dataDir a directory in where LC-MS files are
 #' going to be saved
 #' @return LC-MS datafiles sorted by class treatment
 #' @export
-#'
 #' @examples
-#' \dontrun{
-#' file_name <- system.file("extdata", "lcms_dataset_pos_rt_rs.rds", package = "NIHSlcms")
-#' lcms_dataset <- lcms_dataset_load(file_name)
+#' file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "NIHSlcms")
+#' dataset <- lcms_dataset_load(file_name)
 #' path <- system.file("extdata","rearrange_mait", package = "NIHSlcms")
-#' lcms_rearrange_datafiles_by_class(lcms_dataset = lcms_dataset,
+#' lcms_rearrange_datafiles_by_class(dataset = dataset,
 #'                             dataDir = path)
 #' fileList = list.files(path = paste(path, list.files(path = path),
 #'                            sep = "/"), full.names = TRUE)
 #' print(fileList)
-#' }
-
-
-lcms_rearrange_datafiles_by_class <- function(lcms_dataset, dataDir) {
-  no_blank_files <- Biobase::pData(lcms_dataset)$sampleNames
-  no_blank_files_treatment <- Biobase::pData(lcms_dataset)$treatment
+lcms_rearrange_datafiles_by_class <- function(dataset, dataDir) {
+  files <- Biobase::pData(dataset)$sampleNames
+  files_treatment <- Biobase::pData(dataset)$treatment
 
 
 
-  filetreat_info <- data.frame(Filename = no_blank_files,
-                               Treatment= no_blank_files_treatment,
+  filetreat_info <- data.frame(Filename = files,
+                               Treatment= files_treatment,
                                stringsAsFactors = FALSE)
   filetreat_info <- filetreat_info %>% dplyr::group_by(Treatment) %>% dplyr::arrange(Treatment)
   filetreat_info <- split(filetreat_info, filetreat_info$Treatment)
@@ -59,7 +54,7 @@ lcms_rearrange_datafiles_by_class <- function(lcms_dataset, dataDir) {
       return()
     }else{
       dir.create(treatDir)
-      data_subset <- lcms_dataset %>% MSnbase::filterFile(file = filer)
+      data_subset <- dataset %>% MSnbase::filterFile(file = filer)
       Biobase::fData(data_subset)$centroided <- TRUE
       Biobase::fData(data_subset)$peaksCount <- Biobase::fData(data_subset)$originalPeaksCount
       mzR::writeMSData(data_subset,

@@ -123,17 +123,18 @@
     </tr>
     <tr>
       <th>folder</th>
-      <td><p>A directory. If NULL, no .csv file is created.</p></td>
+      <td><p>A directory to store a .csv file where the  parameter table is stored.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A template with MAIT parameters. Also write the `MAITparameters.csv´ file, if needed.</p>
+    <p>A template with MAIT parameters.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>dataDir</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"rearrange_mait"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+<span class='no'>MAITparams_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"Results_project"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>opt_result_path</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>lcms_preproc_params</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></span>(<span class='no'>opt_result_path</span>)
 <span class='no'>parameters</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>dataDir</span> <span class='kw'>=</span> <span class='no'>dataDir</span>, <span class='no'>lcms_preproc_params</span>)
@@ -147,36 +148,8 @@
 <span class='no'>MAIT.object</span> <span class='kw'>=</span> <span class='fu'>signature</span>(<span class='kw'>MAIT.Object</span> <span class='kw'>=</span> <span class='st'>"MAIT"</span>)
 <span class='no'>MAIT.object</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>methods</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/methods/new.html'>new</a></span>(<span class='st'>"MAIT"</span>)
 <span class='no'>MAIT.object</span>@<span class='kw'>RawData</span>@<span class='kw'>parameters</span>@<span class='kw'>sampleProcessing</span> <span class='kw'>&lt;-</span> <span class='no'>parameters</span>
-<span class='fu'>lcms_writeParameterTable</span>(<span class='kw pkg'>MAIT</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/MAIT/man/parameters.html'>parameters</a></span>(<span class='no'>MAIT.object</span>), <span class='kw'>folder</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt;                 Value                                                                                                      
-#&gt; dataDir         "C:/Users/Biosignal/AppData/Local/Temp/RtmpKO6n6r/temp_libpath58942cc5381d/NIHSlcms/extdata/rearrange_mait"
-#&gt; ppm             "36.95"                                                                                                    
-#&gt; peakwidth1      "13"                                                                                                       
-#&gt; peakwidth2      "171"                                                                                                      
-#&gt; snthresh        "10"                                                                                                       
-#&gt; prefilter1      "3"                                                                                                        
-#&gt; prefilter2      "100"                                                                                                      
-#&gt; mzCenterFun     "wMean"                                                                                                    
-#&gt; integrate       "1"                                                                                                        
-#&gt; mzdiff          "0.021"                                                                                                    
-#&gt; fitgauss        "FALSE"                                                                                                    
-#&gt; noise           "5000"                                                                                                     
-#&gt; verbose.columns "FALSE"                                                                                                    
-#&gt; profStep        "1"                                                                                                        
-#&gt; centerSample    "4"                                                                                                        
-#&gt; response        "1"                                                                                                        
-#&gt; distFun         "cor_opt"                                                                                                  
-#&gt; gapInit         "0.1584"                                                                                                   
-#&gt; gapExtend       "2.7"                                                                                                      
-#&gt; factorDiag      "2"                                                                                                        
-#&gt; factorGap       "1"                                                                                                        
-#&gt; localAlignment  "FALSE"                                                                                                    
-#&gt; initPenalty     "0"                                                                                                        
-#&gt; bw              "0.879999999999999"                                                                                        
-#&gt; minFraction     "1"                                                                                                        
-#&gt; minSamples      "1"                                                                                                        
-#&gt; maxFeatures     "50"                                                                                                       
-#&gt; mzwid           "0.0265"                                                                                                   </div><div class='input'>
-</div></pre>
+<span class='fu'>lcms_writeParameterTable</span>(<span class='kw pkg'>MAIT</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/MAIT/man/parameters.html'>parameters</a></span>(<span class='no'>MAIT.object</span>), <span class='kw'>folder</span> <span class='kw'>=</span> <span class='no'>MAITparams_path</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

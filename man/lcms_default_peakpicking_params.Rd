@@ -36,10 +36,8 @@ Use this function to generate the template within the
 \code{lcms_peakpicking_optimization} function.
 }
 \examples{
-\dontrun{
 default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
 print(default_peakpicking_params)
-}
 }
 \seealso{
 Other optimization functions: \code{\link{lcms_default_retcorgroup_params}},

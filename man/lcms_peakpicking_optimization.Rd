@@ -4,11 +4,11 @@
 \alias{lcms_peakpicking_optimization}
 \title{Peak picking optimization}
 \usage{
-lcms_peakpicking_optimization(lcms_dataset, peakpickingParameters,
+lcms_peakpicking_optimization(dataset, peakpickingParameters,
   nSlaves = 1, opt_path, subdir = "plot_ipo", plots = TRUE)
 }
 \arguments{
-\item{lcms_dataset}{A \link{lcms_dataset_family} object}
+\item{dataset}{A \link{lcms_dataset_family} object}
 
 \item{peakpickingParameters}{Parameters for peak picking}
 
@@ -33,10 +33,10 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
 \examples{
 \dontrun{
 opt_path <-  system.file("extdata","ipo_opt", package = "NIHSlcms")
-file_name <- system.file("extdata", "lcms_dataset_pos_rt_rs.rds", package = "NIHSlcms")
-lcms_dataset <- lcms_dataset_load(file_name)
+file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "NIHSlcms")
+dataset <- lcms_dataset_load(file_name)
 default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
-resultPeakpicking <- lcms_peakpicking_optimization(lcms_dataset,
+resultPeakpicking <- lcms_peakpicking_optimization(dataset,
                                                    default_peakpicking_params,
                                                    opt_path = opt_path,
                                                    subdir = NULL)

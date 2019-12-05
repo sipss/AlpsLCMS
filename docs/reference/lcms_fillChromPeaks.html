@@ -130,46 +130,13 @@ that were not detected in the previous steps of the signal preprocessing workflo
     <p>A peak table where the missing peaks have been filled</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>file_name</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"peak_table.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='no'>file_name</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"peak_table.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>peak_table</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name</span>)
-<span class='no'>peak_table_imputed</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_fillChromPeaks</span>(<span class='no'>peak_table</span>)</div><div class='output co'>#&gt; 
-#&gt;  Imputing missing peaks of the peak table. </div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peak_table_imputed</span>)</div><div class='output co'>#&gt; MSn experiment data ("XCMSnExp")
-#&gt; Object size in memory: 3.13 Mb
-#&gt; - - - Spectra data - - -
-#&gt;  MS level(s): 1 
-#&gt;  Number of spectra: 10876 
-#&gt;  MSn retention times: 0:31 - 27:1 minutes
-#&gt; - - - Processing information - - -
-#&gt; Data loaded [Tue Nov 12 11:59:47 2019] 
-#&gt;  MSnbase version: 2.10.1 
-#&gt; - - - Meta data  - - -
-#&gt; phenoData
-#&gt;   rowNames: 1 2 3 4
-#&gt;   varLabels: sampleNames sampleNumber ... comment (5 total)
-#&gt;   varMetadata: labelDescription
-#&gt; Loaded from:
-#&gt;   [1] 1.mzXML...  [4] 4.mzXML
-#&gt;   Use 'fileNames(.)' to see all files.
-#&gt; protocolData: none
-#&gt; featureData
-#&gt;   featureNames: F1.S0001 F1.S0002 ... F4.S2724 (10876 total)
-#&gt;   fvarLabels: fileIdx spIdx ... spectrum (33 total)
-#&gt;   fvarMetadata: labelDescription
-#&gt; experimentData: use 'experimentData(object)'
-#&gt; - - - xcms preprocessing - - -
-#&gt; Chromatographic peak detection:
-#&gt;  method: centWave 
-#&gt;  1281 peaks identified in 4 samples.
-#&gt;  On average 320 chromatographic peaks per sample.
-#&gt; Alignment/retention time adjustment:
-#&gt;  method: obiwarp 
-#&gt; Correspondence:
-#&gt;  method: chromatographic peak density 
-#&gt;  264 features identified.
-#&gt;  Median mz range of features: 4.1436e-05
-#&gt;  Median rt range of features: 0.0075062
-#&gt;  447 filled peaks (on average 111.75 per sample).</div></pre>
+<span class='no'>peak_table_imputed</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_fillChromPeaks</span>(<span class='no'>peak_table</span>)
+
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peak_table_imputed</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

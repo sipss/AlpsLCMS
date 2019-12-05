@@ -32,7 +32,7 @@ for the retention time correction and grouping using the IPO Package.
 \examples{
 
 \dontrun{
-file_name_pp <- system.file("extdata", "lcms_resultPeakpicking.rds", package = "NIHSlcms")
+file_name_pp <- system.file("extdata", "resultPeakpicking.rds", package = "NIHSlcms")
 optimizedXcmsSetObject <-base::readRDS(file_name_pp)$best_settings$xset
 file_name_rcg <- system.file("extdata", "default_retcorgroup_params.rds", package = "NIHSlcms")
 default_retcorgroup_params <- base::readRDS(file_name_rcg)

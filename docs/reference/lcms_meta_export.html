@@ -112,13 +112,13 @@
     <p>Export Metadata to an Excel file</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_meta_export</span>(<span class='no'>lcms_dataset</span>, <span class='no'>xlsx_file</span>)</pre>
+    <pre class="usage"><span class='fu'>lcms_meta_export</span>(<span class='no'>dataset</span>, <span class='no'>xlsx_file</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>lcms_dataset</th>
+      <th>dataset</th>
       <td><p>An <a href='lcms_dataset_family.html'>lcms_dataset_family</a> object</p></td>
     </tr>
     <tr>
@@ -139,9 +139,10 @@ the default for a more generic solution</p></td>
 
     <div class='dont-index'><p>Other metadata functions: <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code></p>
 <p>Other lcms_dataset functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
-  <code><a href='lcms_filterPolarity.html'>lcms_filterPolarity</a></code>,
-  <code><a href='lcms_filterRTmin.html'>lcms_filterRTmin</a></code>,
-  <code><a href='lcms_filterSampleType.html'>lcms_filterSampleType</a></code>,
+  <code><a href='lcms_filter_mz.html'>lcms_filter_mz</a></code>,
+  <code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a></code>,
+  <code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a></code>,
+  <code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a></code>,
   <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code>,
   <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>, <code><a href='lcms_tics.html'>lcms_tics</a></code></p>
 <p>Other lcms_dataset_peak_table functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
@@ -152,12 +153,13 @@ the default for a more generic solution</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>lcms_dataset_metadata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
-                                             <span class='st'>"lcms_dataset_metadata.rds"</span>,
+<span class='no'>dataset_metadata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
+                                             <span class='st'>"dataset_metadata.rds"</span>,
                                               <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
 <span class='no'>xlsx_file</span> <span class='kw'>&lt;-</span> <span class='st'>"exported_metadata.xlsx"</span>
-<span class='fu'>lcms_meta_export</span>(<span class='no'>lcms_dataset_metadata</span>, <span class='no'>xlsx_file</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>lcms_dataset_metadata</span>)
+<span class='fu'>lcms_meta_export</span>(<span class='no'>dataset_metadata</span>, <span class='no'>xlsx_file</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>dataset_metadata</span>)
+
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

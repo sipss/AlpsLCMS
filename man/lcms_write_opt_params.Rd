@@ -29,12 +29,12 @@ allows in the RStudio console. Also you can save this results in plain text file
 \examples{
 \dontrun{
  opt_result_path <-system.file("extdata", "ipo_opt", package = "NIHSlcms")
- file_name_pp <- system.file("extdata", "lcms_resultPeakpicking.rds", package = "NIHSlcms")
- file_name_rcg <- system.file("extdata", "lcms_resultRetcorGroup.rds", package = "NIHSlcms")
- lcms_resultPeakpicking <- base::readRDS(file_name_pp)
- lmcs_resultRetcorGroup <- base::readRDS(file_name_rcg)
+ file_name_pp <- system.file("extdata", "resultPeakpicking.rds", package = "NIHSlcms")
+ file_name_rcg <- system.file("extdata", "resultRetcorGroup.rds", package = "NIHSlcms")
+ resultPeakpicking <- base::readRDS(file_name_pp)
+ resultRetcorGroup <- base::readRDS(file_name_rcg)
 
- lcms_write_opt_params(lcms_resultPeakpicking, lmcs_resultRetcorGroup, opt_result_path)
+ lcms_write_opt_params(resultPeakpicking, resultRetcorGroup, opt_result_path)
 }
 }
 \seealso{

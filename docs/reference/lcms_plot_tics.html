@@ -142,9 +142,10 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other lcms_dataset functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
-  <code><a href='lcms_filterPolarity.html'>lcms_filterPolarity</a></code>,
-  <code><a href='lcms_filterRTmin.html'>lcms_filterRTmin</a></code>,
-  <code><a href='lcms_filterSampleType.html'>lcms_filterSampleType</a></code>,
+  <code><a href='lcms_filter_mz.html'>lcms_filter_mz</a></code>,
+  <code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a></code>,
+  <code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a></code>,
+  <code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a></code>,
   <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
   <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code>, <code><a href='lcms_tics.html'>lcms_tics</a></code></p>
 <p>Other lcms_dataset_peak_table functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
@@ -152,16 +153,15 @@
   <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code>, <code><a href='lcms_tics.html'>lcms_tics</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>
-                                  (<span class='st'>"extdata"</span>,<span class='st'>"lcms_dataset_pos.rds"</span>,
+    <pre class="examples"><div class='input'><span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>
+                                  (<span class='st'>"extdata"</span>,<span class='st'>"dataset_pos.rds"</span>,
                                     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
-<span class='no'>tics</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_tics.html'>lcms_tics</a></span>(<span class='no'>lcms_dataset</span>)
+<span class='no'>tics</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_tics.html'>lcms_tics</a></span>(<span class='no'>dataset</span>)
 
 <span class='fu'>lcms_plot_tics</span>(<span class='no'>tics</span>, <span class='kw'>treatment</span> <span class='kw'>=</span> <span class='no'>treatment</span>,
-               <span class='kw'>rt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>14</span>),<span class='kw'>plot_type</span> <span class='kw'>=</span> <span class='st'>"spec"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 3372 rows containing missing values (geom_path).</span></div><div class='img'><img src='lcms_plot_tics-1.png' alt='' width='700' height='433' /></div><div class='input'>
+               <span class='kw'>rt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>8</span>),<span class='kw'>plot_type</span> <span class='kw'>=</span> <span class='st'>"spec"</span>)</div><div class='img'><img src='lcms_plot_tics-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'>lcms_plot_tics</span>(<span class='no'>tics</span>, <span class='kw'>treatment</span> <span class='kw'>=</span> <span class='no'>treatment</span>,
-               <span class='kw'>rt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>14</span>), <span class='kw'>plot_type</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>)</div><div class='img'><img src='lcms_plot_tics-2.png' alt='' width='700' height='433' /></div><div class='input'>
+               <span class='kw'>rt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>8</span>), <span class='kw'>plot_type</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>)</div><div class='img'><img src='lcms_plot_tics-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

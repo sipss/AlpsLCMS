@@ -128,9 +128,10 @@
     <p>An object from the <a href='lcms_dataset_family.html'>lcms_dataset_family</a></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other lcms_dataset functions: <code><a href='lcms_filterPolarity.html'>lcms_filterPolarity</a></code>,
-  <code><a href='lcms_filterRTmin.html'>lcms_filterRTmin</a></code>,
-  <code><a href='lcms_filterSampleType.html'>lcms_filterSampleType</a></code>,
+    <div class='dont-index'><p>Other lcms_dataset functions: <code><a href='lcms_filter_mz.html'>lcms_filter_mz</a></code>,
+  <code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a></code>,
+  <code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a></code>,
+  <code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a></code>,
   <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
   <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code>,
   <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>, <code><a href='lcms_tics.html'>lcms_tics</a></code></p>
@@ -141,32 +142,32 @@
   <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>file_name</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"lcms_dataset.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
-<span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_dataset_load</span>(<span class='no'>file_name</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>lcms_dataset</span>)</div><div class='output co'>#&gt; MSn experiment data ("OnDiskMSnExp")
-#&gt; Object size in memory: 2.85 Mb
+    <pre class="examples"><div class='input'><span class='no'>file_name</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"dataset.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+<span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_dataset_load</span>(<span class='no'>file_name</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>dataset</span>)</div><div class='output co'>#&gt; MSn experiment data ("OnDiskMSnExp")
+#&gt; Object size in memory: 1.08 Mb
 #&gt; - - - Spectra data - - -
 #&gt;  MS level(s): 1 
-#&gt;  Number of spectra: 10876 
-#&gt;  MSn retention times: 0:31 - 27:2 minutes
+#&gt;  Number of spectra: 4053 
+#&gt;  MSn retention times: 4:0 - 7:60 minutes
 #&gt; - - - Processing information - - -
-#&gt; Data loaded [Tue Oct 15 11:20:19 2019] 
-#&gt;  MSnbase version: 2.8.3 
+#&gt; Data loaded [Wed Dec 04 13:00:29 2019] 
+#&gt;  MSnbase version: 2.10.1 
 #&gt; - - - Meta data  - - -
 #&gt; phenoData
-#&gt;   rowNames: 1.mzXML 2.mzXML 3.mzXML 4.mzXML
+#&gt;   rowNames: MRC_Run1_10uL_C01.mzXML MRC_Run1_10uL_C02.mzXML ...
+#&gt;     MRC_Run1_10uL_C18.mzXML (8 total)
 #&gt;   varLabels: sampleNames
 #&gt;   varMetadata: labelDescription
 #&gt; Loaded from:
-#&gt;   [1] 1.mzXML...  [4] 4.mzXML
+#&gt;   [1] MRC_Run1_10uL_C01.mzXML...  [8] MRC_Run1_10uL_C18.mzXML
 #&gt;   Use 'fileNames(.)' to see all files.
 #&gt; protocolData: none
 #&gt; featureData
-#&gt;   featureNames: F1.S0001 F1.S0002 ... F4.S2724 (10876 total)
-#&gt;   fvarLabels: fileIdx spIdx ... spectrum (30 total)
+#&gt;   featureNames: F1.S001 F1.S002 ... F8.S499 (4053 total)
+#&gt;   fvarLabels: fileIdx spIdx ... spectrum (33 total)
 #&gt;   fvarMetadata: labelDescription
-#&gt; experimentData: use 'experimentData(object)'</div><div class='input'>
-</div></pre>
+#&gt; experimentData: use 'experimentData(object)'</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

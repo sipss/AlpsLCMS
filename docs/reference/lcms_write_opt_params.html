@@ -154,44 +154,15 @@ allows in the RStudio console. Also you can save this results in plain text file
   <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'> <span class='no'>opt_result_path</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(<span class='kw'>check</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
- <span class='no'>file_name_pp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"lcms_resultPeakpicking.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
- <span class='no'>file_name_rcg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"lcms_resultRetcorGroup.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
- <span class='no'>lcms_resultPeakpicking</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_pp</span>)
- <span class='no'>lmcs_resultRetcorGroup</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_rcg</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+ <span class='no'>opt_result_path</span> <span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"ipo_opt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+ <span class='no'>file_name_pp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"resultPeakpicking.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+ <span class='no'>file_name_rcg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"resultRetcorGroup.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+ <span class='no'>resultPeakpicking</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_pp</span>)
+ <span class='no'>resultRetcorGroup</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_rcg</span>)
 
- <span class='fu'>lcms_write_opt_params</span>(<span class='no'>lcms_resultPeakpicking</span>, <span class='no'>lmcs_resultRetcorGroup</span>, <span class='no'>opt_result_path</span>)</div><div class='output co'>#&gt; <span class='message'>library(xcms)</span></div><div class='output co'>#&gt; <span class='message'>library(Rmpi)</span></div><div class='output co'>#&gt; <span class='message'>xset &lt;- xcmsSet( </span>
-#&gt; <span class='message'>  method = "centWave",</span>
-#&gt; <span class='message'>  peakwidth       = c(13, 171),</span>
-#&gt; <span class='message'>  ppm             = 36.95,</span>
-#&gt; <span class='message'>  noise           = 5000,</span>
-#&gt; <span class='message'>  snthresh        = 10,</span>
-#&gt; <span class='message'>  mzdiff          = 0.021,</span>
-#&gt; <span class='message'>  prefilter       = c(3, 100),</span>
-#&gt; <span class='message'>  mzCenterFun     = "wMean",</span>
-#&gt; <span class='message'>  integrate       = 1,</span>
-#&gt; <span class='message'>  fitgauss        = FALSE,</span>
-#&gt; <span class='message'>  verbose.columns = FALSE)</span></div><div class='output co'>#&gt; <span class='message'>xset &lt;- retcor( </span>
-#&gt; <span class='message'>  xset,</span>
-#&gt; <span class='message'>  method         = "obiwarp",</span>
-#&gt; <span class='message'>  plottype       = "none",</span>
-#&gt; <span class='message'>  distFunc       = "cor_opt",</span>
-#&gt; <span class='message'>  profStep       = 1,</span>
-#&gt; <span class='message'>  center         = 4,</span>
-#&gt; <span class='message'>  response       = 1,</span>
-#&gt; <span class='message'>  gapInit        = 0.1584,</span>
-#&gt; <span class='message'>  gapExtend      = 2.7,</span>
-#&gt; <span class='message'>  factorDiag     = 2,</span>
-#&gt; <span class='message'>  factorGap      = 1,</span>
-#&gt; <span class='message'>  localAlignment = 0)</span></div><div class='output co'>#&gt; <span class='message'>xset &lt;- group( </span>
-#&gt; <span class='message'>  xset,</span>
-#&gt; <span class='message'>  method  = "density",</span>
-#&gt; <span class='message'>  bw      = 0.879999999999999,</span>
-#&gt; <span class='message'>  mzwid   = 0.0265,</span>
-#&gt; <span class='message'>  minfrac = 1,</span>
-#&gt; <span class='message'>  minsamp = 1,</span>
-#&gt; <span class='message'>  max     = 50)</span></div><div class='output co'>#&gt; <span class='message'>xset &lt;- fillPeaks(xset)</span></div><div class='input'>
-</div></pre>
+ <span class='fu'>lcms_write_opt_params</span>(<span class='no'>resultPeakpicking</span>, <span class='no'>resultRetcorGroup</span>, <span class='no'>opt_result_path</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
