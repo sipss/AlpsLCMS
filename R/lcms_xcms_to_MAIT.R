@@ -6,11 +6,11 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' dataDir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
-#' MAITparams_path <- system.file("extdata", "Results_project", package = "NIHSlcms")
+#' data_dir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
+#' mait_params_path <- system.file("extdata", "results_project", package = "NIHSlcms")
 #' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
-#' lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
-#' parameters <- c(dataDir = dataDir, lcms_preproc_params)
+#' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
+#' parameters <- c(dataDir = dataDir, preproc_params)
 #'
 #' quiet <- function(x) {
 #'              base::sink(base::tempfile())
@@ -21,9 +21,9 @@
 #' MAIT.object = signature(MAIT.Object = "MAIT")
 #' MAIT.object <- methods::new("MAIT")
 #' MAIT.object@RawData@parameters@sampleProcessing <- parameters
-#' lcms_writeParameterTable(MAIT::parameters(MAIT.object), folder = MAITparams_path)
+#' lcms_write_parameter_table(MAIT::parameters(MAIT.object), folder = mait_params_path)
 #' }
-lcms_writeParameterTable <- function(listParameters, folder){
+lcms_write_parameter_table <- function(listParameters, folder){
   outputTable <- as.matrix(c(unlist(listParameters@sampleProcessing),
                              unlist(listParameters@peakAnnotation),
                              unlist(listParameters@peakAggregation),
@@ -52,33 +52,32 @@ lcms_writeParameterTable <- function(listParameters, folder){
 #' *Note: The dataset must be converted from an object of the XCMS Package
 #' to an object of the MAIT Package.
 #'
-#' @param dataDir directory with LC-MS datafiles
-#' @param projectDir path to the the project directory
+#' @param data_dir directory with LC-MS datafiles
+#' @param project_dir path to the the project directory
 #' @param project name of the
 #' @param preproc_params params from XCMS
-#' @param peakTable XCMS procesed LC-MS data
+#' @param peak_table XCMS procesed LC-MS data
 #'
 #' @return A MAIT object
 #' @export
 #' @examples
-#' \dontrun{
 #' file_name <-  system.file("extdata", "peak_table_imputed.rds", package = "NIHSlcms")
 #' peak_table <- base::readRDS(file_name)
 #' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
-#' lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
+#' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #'
-#' dataDir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
-#' projectDir <-  system.file("extdata", package = "NIHSlcms")
+#' data_dir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
+#' project_dir <-  system.file("extdata", package = "NIHSlcms")
 #' project <- "project"
 #'
-#' peak_table_MAIT <- lcms_to_MAIT(dataDir = dataDir,
-#'                                 projectDir = projectDir,
+#' peak_table_mait <- lcms_to_mait(data_dir = data_dir,
+#'                                 project_dir = project_dir,
 #'                                 project = project,
-#'                                 preproc_params = lcms_preproc_params,
-#'                                 peakTable = peak_table)
-#' print(peak_table_MAIT)
-#' }
-lcms_to_MAIT <- function (dataDir = NULL, projectDir = NULL, project = NULL, preproc_params = NULL,  peakTable = NULL){
+#'                                 preproc_params = preproc_params,
+#'                                 peak_table = peak_table)
+#' print(peak_table_mait)
+#'
+lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, preproc_params = NULL,  peak_table = NULL){
 
   quiet <- function(x) {
     base::sink(base::tempfile())
@@ -87,7 +86,7 @@ lcms_to_MAIT <- function (dataDir = NULL, projectDir = NULL, project = NULL, pre
   }
 
   cat("Building a MAIT object from xcms data.","\n")
-  parameters <- c(dataDir = dataDir, preproc_params)
+  parameters <- c(dataDir = data_dir, preproc_params)
   getClassDef("MAIT","MAIT")
   MAIT.object = signature(MAIT.Object = "MAIT")
   MAIT.object <- methods::new("MAIT")
@@ -95,31 +94,31 @@ lcms_to_MAIT <- function (dataDir = NULL, projectDir = NULL, project = NULL, pre
 
 
 
-  if (is.null(dataDir)) {
+  if (is.null(data_dir)) {
     stop("No input directory was given")
   }
   if (is.null(preproc_params)) {
     stop("No parameters for preprocessing were included")
   }
-  if (is.null(peakTable)) {
+  if (is.null(peak_table)) {
     stop("No peak was included")
   }
   print(MAIT::resultsPath(MAIT.object))
   MAIT.object@RawData@parameters@sampleProcessing <- parameters
 
 
-  class <- list.files(dataDir)
+  class <- list.files(data_dir)
   classNum <- vector(length = length(class))
-  fileList <- list.files(path = paste(dataDir, list.files(path = dataDir),
+  fileList <- list.files(path = paste(data_dir, list.files(path = data_dir),
                                       sep = "/"), full.names = TRUE)
   for (i in 1:length(class)) {
-    classNum[i] <- length(list.files(paste(dataDir, list.files(dataDir)[i],
+    classNum[i] <- length(list.files(paste(data_dir, list.files(data_dir)[i],
                                            sep = "/")))
   }
 
   classes <- rep(class, classNum)
 
-  if (length(list.files(dataDir)) == 1) {
+  if (length(list.files(data_dir)) == 1) {
     warning("Warning: Input data only has one class!")
   }
 
@@ -127,35 +126,35 @@ lcms_to_MAIT <- function (dataDir = NULL, projectDir = NULL, project = NULL, pre
     warning("Warning: Project name is empty!")
   }
 
-  if (!is.null(projectDir)) {
-    resultsPath <- paste(projectDir, paste("Results", project, sep = "_"), sep ="/")
+  if (!is.null(project_dir)) {
+    resultsPath <- paste(project_dir, paste("results", project, sep = "_"), sep ="/")
     if (any(base::dir.exists(resultsPath))) {
       cat("There are already directories / files in the folder. Not saving new ones.")
       cat("\n")
       }else{
         dir.create(resultsPath)
-        peakTable <- base::suppressMessages(as(peakTable, "xcmsSet"))
-        peakTable <-  base::suppressMessages(
-          base::suppressWarnings(quiet(xcms::fillPeaks(peakTable))
+        peak_table <- base::suppressMessages(as(peak_table, "xcmsSet"))
+        peak_table <-  base::suppressMessages(
+          base::suppressWarnings(quiet(xcms::fillPeaks(peak_table))
           )
         )
       }
   }else{
-        resultsPath <- "Results"
+        resultsPath <- "results"
         dir.create(resultsPath)
   }
 
-  lcms_writeParameterTable(base::suppressMessages(base::suppressWarnings(
+  lcms_write_parameter_table(base::suppressMessages(base::suppressWarnings(
                                                                         quiet(MAIT::parameters(MAIT.object)))),
                           folder = resultsPath)
 
-  peakTable <- base::suppressMessages(as(peakTable, "xcmsSet"))
-  peakTable <-  base::suppressMessages(
-                      base::suppressWarnings(quiet(xcms::fillPeaks(peakTable))
+  peak_table <- base::suppressMessages(as(peak_table, "xcmsSet"))
+  peak_table <-  base::suppressMessages(
+                      base::suppressWarnings(quiet(xcms::fillPeaks(peak_table))
                                             )
                                    )
 
-  fPeaks <- list(peakTable)
+  fPeaks <- list(peak_table)
   names(fPeaks) <- "xcmsSet"
   MAIT.object@RawData@data <- fPeaks
   MAIT.object@PhenoData@classes <- class
