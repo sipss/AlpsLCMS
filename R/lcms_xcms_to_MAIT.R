@@ -5,12 +5,11 @@
 #' @return A template with MAIT parameters.
 #' @export
 #' @examples
-#' \dontrun{
 #' data_dir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
 #' mait_params_path <- system.file("extdata", "results_project", package = "NIHSlcms")
 #' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
 #' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
-#' parameters <- c(dataDir = dataDir, preproc_params)
+#' parameters <- c(dataDir = data_dir, preproc_params)
 #'
 #' quiet <- function(x) {
 #'              base::sink(base::tempfile())
@@ -22,7 +21,6 @@
 #' MAIT.object <- methods::new("MAIT")
 #' MAIT.object@RawData@parameters@sampleProcessing <- parameters
 #' lcms_write_parameter_table(MAIT::parameters(MAIT.object), folder = mait_params_path)
-#' }
 lcms_write_parameter_table <- function(listParameters, folder){
   outputTable <- as.matrix(c(unlist(listParameters@sampleProcessing),
                              unlist(listParameters@peakAnnotation),
@@ -103,7 +101,7 @@ lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, p
   if (is.null(peak_table)) {
     stop("No peak was included")
   }
-  print(MAIT::resultsPath(MAIT.object))
+  #print(MAIT::resultsPath(MAIT.object))
   MAIT.object@RawData@parameters@sampleProcessing <- parameters
 
 
