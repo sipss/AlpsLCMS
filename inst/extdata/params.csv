@@ -1,0 +1,2 @@
+"min_peakwidth","max_peakwidth","ppm","mzdiff","snthresh","noise","prefilter","value_of_prefilter","mzCenterFun","integrate","fitgauss","verbose.columns","gapInit","bw","minfrac","mzwid","distFunc","gapExtend","profStep","plottype","response","factorDiag","factorGap","localAlignment","retcorMethod","minsamp","max","center"
+"1",10,35,32,-0.001,10,5000,3,100,"wMean",1,FALSE,FALSE,0.64,12.4,0.94,0.003,"cor_opt",2.7,1,"none",1,2,1,0,"obiwarp",1,50,2
