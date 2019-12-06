@@ -17,10 +17,8 @@ It plots the retention time correction vs the original retention time for each o
 coloured by sample class.
 }
 \examples{
-\dontrun{
 file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
 data <- base::readRDS(file_name)
 rta_plot <- lcms_retention_time_alignment_plot(data)
 print(rta_plot)
-}
 }

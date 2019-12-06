@@ -5,12 +5,10 @@
 #'
 #' @param data An aligned lcms_dataset
 #' @examples
-#' \dontrun{
 #' file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
 #' data <- base::readRDS(file_name)
 #' rta_plot <- lcms_retention_time_alignment_plot(data)
 #' print(rta_plot)
-#' }
 #' @return The plot for the retention time correction
 #' @export
 #'
