@@ -1,23 +1,21 @@
 #' Image of Chromatographic Peaks by sample
 #'
 #' It plots the an image of the chromatographic peaks for each sample. This function is useful if
-#' you are interested in knowking the effect of the retention time correction on the chromatographic axis.
+#' you are interested in knowing the effect of the retention time correction on the chromatographic axis.
 #'
-#' @param lcms_dataset An lcms_dataset
+#' @param dataset An dataset
 #' @examples
-#' \dontrun{
 #' file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
-#' lcms_dataset <- base::readRDS(file_name)
-#' chr_peak_image <- lmcs_plotChromPeakImageRTmin(lcms_dataset, binSize = 5, xlim = NULL, log = FALSE,
+#' dataset <- base::readRDS(file_name)
+#' chr_peak_image <- lmcs_plot_chrom_peak_image(dataset, binSize = 5, xlim = NULL, log = FALSE,
 #'                                                xlab = "retention time (min)", yaxt = par("yaxt"))
 #'                                                title(main ="Detected Peaks (Aligned)")
-#' }
 #' @return An image with the detected chromatographic peak, for each sample
 #' @export
 
 
 
-lmcs_plotChromPeakImageRTmin <- function (x, binSize = 30, xlim = NULL, log = FALSE, xlab = "retention time",
+lmcs_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE, xlab = "retention time",
                                      yaxt = par("yaxt"), main = "Chromatographic peak counts",
                                      ...)
 {
