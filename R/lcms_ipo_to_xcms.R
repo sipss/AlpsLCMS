@@ -10,11 +10,9 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' opt_result_path <-  system.file("extdata","ipo_opt", package = "NIHSlcms")
 #' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #' print(preproc_params)
-#' }
 lcms_read_ipo_to_xcms <- function(opt_result_path){
   params <- utils::read.csv(paste0(opt_result_path, "/params.csv"), stringsAsFactors = FALSE)
   preproc_params <- list(ppm = params$ppm,
