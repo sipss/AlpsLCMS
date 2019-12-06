@@ -16,7 +16,7 @@ lcms_peakpicking_optimization(dataset, peakpickingParameters,
 
 \item{opt_path}{Path where optimization samples are saved. Id subdir is}
 
-\item{subdir}{Folder where surface plots are save. If NULL they are displayed by the graphical device.}
+\item{subdir}{Folder where surface plots are saved. If NULL they are displayed by the graphical device.}
 
 \item{plots}{Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo" (default).}
 }
@@ -32,12 +32,11 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
 }
 \examples{
 \dontrun{
-opt_path <- "C:/Users/Biosignal/Desktop/LCMS_2019/NIHSlcms/inst/extdata/ipo_opt"
-base::dir.create(opt_path)
+opt_path <- system.file("extdata", "ipo_opt", package = "NIHSlcms")
 file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "NIHSlcms")
 dataset <- lcms_dataset_load(file_name)
 default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
-resultPeakpicking <- lcms_peakpicking_optimization(dataset,
+result_peakpicking <- lcms_peakpicking_optimization(dataset,
                                                    default_peakpicking_params,
                                                    opt_path = opt_path,
                                                    subdir = NULL)

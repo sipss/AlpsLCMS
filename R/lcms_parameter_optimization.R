@@ -53,22 +53,22 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #' @param opt_path Path where optimization samples are saved. Id subdir is
 #' @param nSlaves Number of slaves the optimization process should spawn.
 #' @param plots Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo" (default).
-#' @param subdir Folder where surface plots are save. If NULL they are displayed by the graphical device.
+#' @param subdir Folder where surface plots are saved. If NULL they are displayed by the graphical device.
 #' @return A peak picking list with the best setting
 #' @export
 #' @family optimization functions
 #' @examples
 #' \dontrun{
-#' opt_path <- "C:/Users/Biosignal/Desktop/LCMS_2019/NIHSlcms/inst/extdata/ipo_opt"
-#' base::dir.create(opt_path)
+#' opt_path <- system.file("extdata", "ipo_opt", package = "NIHSlcms")
 #' file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "NIHSlcms")
 #' dataset <- lcms_dataset_load(file_name)
 #' default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
-#' resultPeakpicking <- lcms_peakpicking_optimization(dataset,
+#' result_peakpicking <- lcms_peakpicking_optimization(dataset,
 #'                                                    default_peakpicking_params,
 #'                                                    opt_path = opt_path,
 #'                                                    subdir = NULL)
 #' }
+
 lcms_peakpicking_optimization <- function (dataset, peakpickingParameters,
                                            nSlaves = 1, opt_path, subdir ="plot_ipo",
                                            plots = TRUE){
@@ -177,19 +177,18 @@ lcms_default_retcorgroup_params <- function(profStep = 1, gapExtend = 2.7, optim
 #' @export
 #' @family optimization functions.
 #' @examples
-#'
 #' \dontrun{
-#' file_name_pp <- system.file("extdata", "resultPeakpicking.rds", package = "NIHSlcms")
+#' file_name_pp <- system.file("extdata", "result_peakpicking.rds", package = "NIHSlcms")
 #' optimizedXcmsSetObject <-base::readRDS(file_name_pp)$best_settings$xset
 #' file_name_rcg <- system.file("extdata", "default_retcorgroup_params.rds", package = "NIHSlcms")
 #' default_retcorgroup_params <- base::readRDS(file_name_rcg)
 #' opt_path <-  system.file("extdata", package = "NIHSlcms")
 #'
-#' resultRetcorGroup <- lcms_retcorgroup_optimization(optimizedXcmsSetObject,
+#' result_retcorgroup <- lcms_retcorgroup_optimization(optimizedXcmsSetObject,
 #'                                                    default_retcorgroup_params,
 #'                                                    opt_path = opt_path,
 #'                                                    subdir = NULL)
-#'}
+#' }
 lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
                                         retcorGroupParameters,
                                         nSlaves = 1,
