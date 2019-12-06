@@ -29,13 +29,11 @@ them to spectra on the mass/chage axis.
 After this stage the peak table is finally obtained.
 }
 \examples{
-\dontrun{
 file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
 peakdet_align <- base::readRDS(file_name)
 opt_result_path <-  system.file("extdata", package = "NIHSlcms")
-lcms_preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
+preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 
-peak_table <- lcms_group_peaks(peakdet_align, params = lcms_preproc_params)
+peak_table <- lcms_group_peaks(peakdet_align, params = preproc_params)
 print(peak_table)
-}
 }

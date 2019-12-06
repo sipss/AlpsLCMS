@@ -28,6 +28,7 @@
 #' peakdet <- lcms_find_chrom_peaks_cwp(dataset_meta, params = preproc_params)
 #' print(peakdet)
 #' }
+#
 #' @return A dataset with the detected peaks added
 #' @export
 #'

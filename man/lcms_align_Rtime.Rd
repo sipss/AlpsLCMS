@@ -25,7 +25,6 @@ Note: signal processing generally  consists in three main steps:
 (3) peak correspondence (\code{lcms_group_peaks} function).
 }
 \examples{
-\dontrun{
 file_name <-  system.file("extdata", "peakdet.rds", package = "NIHSlcms")
 peakdet <- base::readRDS(file_name)
 opt_result_path <-  system.file("extdata", package = "NIHSlcms")
@@ -33,6 +32,5 @@ preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 
 peakdet_align <- lcms_align_rtime(peakdet, params = preproc_params)
 print(peakdet_align)
-}
 
 }
