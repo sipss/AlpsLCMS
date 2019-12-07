@@ -30,7 +30,7 @@ Set to TRUE if an output table has to be produced. The table should be found in 
 }
 \value{
 An output table is stored in the folder (working
-directory)/Tables/SearchTable.csv if printCSVfile is set to TRUE. More info
+directory)/tables/SearchTable.csv if printCSVfile is set to TRUE. More info
 at metaboliteTable
 }
 \description{
@@ -38,10 +38,9 @@ Takes a MAIT object and performs the metabolite search for the significant
 features
 }
 \examples{
-\dontrun{
-file_name <- system.file("extdata", "peak_table_sig_ANN.rds", package = "NIHSlcms")
+file_name <- system.file("extdata", "peak_table_sig_ann.rds", package = "NIHSlcms")
 peak_table <- readRDS(file_name)
 metabololite_table <- lcms_identify_metabolites(MAIT.object = peak_table,
                               peakTolerance = 0.005)
-}
+
 }

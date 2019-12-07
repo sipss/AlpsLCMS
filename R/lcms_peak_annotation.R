@@ -665,16 +665,15 @@ lcms_sig_peaks_table<-function(
 #' @inheritParams MAIT::identifyMetabolites
 #'
 #' @return An output table is stored in the folder (working
-#'   directory)/Tables/SearchTable.csv if printCSVfile is set to TRUE. More info
+#'   directory)/tables/SearchTable.csv if printCSVfile is set to TRUE. More info
 #'   at metaboliteTable
 #' @export
 #' @examples
-#' \dontrun{
-#' file_name <- system.file("extdata", "peak_table_sig_ANN.rds", package = "NIHSlcms")
+#' file_name <- system.file("extdata", "peak_table_sig_ann.rds", package = "NIHSlcms")
 #' peak_table <- readRDS(file_name)
 #' metabololite_table <- lcms_identify_metabolites(MAIT.object = peak_table,
 #'                               peakTolerance = 0.005)
-#' }
+#'
   lcms_identify_metabolites <- function(MAIT.object=NULL,
                                   peakTolerance=0.005,
                                   database=NULL,
@@ -710,7 +709,7 @@ lcms_sig_peaks_table<-function(
                            "polarity")
 
     MAIT.object@RawData@parameters@identifyMetabolites <- parameters
-    lcms_writeParameterTable(parameters(MAIT.object),folder= MAIT.object@PhenoData@resultsPath)
+    lcms_write_parameter_table(parameters(MAIT.object),folder= MAIT.object@PhenoData@resultsPath)
 
     signSpectra <-featureSigID(MAIT.object)
     sigPeaksTable <- sigPeaksTable(MAIT.object,printCSVfile=FALSE)
@@ -865,16 +864,16 @@ lcms_sig_peaks_table<-function(
 
     if(printCSVfile==TRUE){
 
-      if(!file.exists(paste(resultsPath,"Tables",sep="/"))){
-        dir.create(paste(resultsPath,"Tables",sep="/"))
-        write.table(metaboliteTable,paste(paste( MAIT.object@PhenoData@resultsPath,"Tables","metaboliteTable",sep="/"),".csv",sep=""),col.names=NA,row.names=TRUE,sep=",")
+      if(!file.exists(paste(resultsPath,"tables",sep="/"))){
+        dir.create(paste(resultsPath,"tables",sep="/"))
+        write.table(metaboliteTable,paste(paste( MAIT.object@PhenoData@resultsPath,"tables","metaboliteTable",sep="/"),".csv",sep=""),col.names=NA,row.names=TRUE,sep=",")
 
       }else{
 
         cat(" " ,fill=TRUE)
-        cat(paste("Warning: Folder",paste(resultsPath,"Tables",sep="/"),"already exists. Possible file overwritting.",sep=" "),fill=TRUE)
-        #warning(paste("Folder",paste(resultsPath,"Tables",sep="/"),"already exists. Possible file overwritting.",sep=" "))
-        write.table(metaboliteTable,paste(paste( MAIT.object@PhenoData@resultsPath,"Tables","metaboliteTable",sep="/"),".csv",sep=""),col.names=NA,row.names=TRUE,sep=",")
+        cat(paste("Warning: Folder",paste(resultsPath,"tables",sep="/"),"already exists. Possible file overwritting.",sep=" "),fill=TRUE)
+        #warning(paste("Folder",paste(resultsPath,"tables",sep="/"),"already exists. Possible file overwritting.",sep=" "))
+        write.table(metaboliteTable,paste(paste( MAIT.object@PhenoData@resultsPath,"tables","metaboliteTable",sep="/"),".csv",sep=""),col.names=NA,row.names=TRUE,sep=",")
 
       }
     }
