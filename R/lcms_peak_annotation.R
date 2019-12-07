@@ -168,16 +168,14 @@ lcms_raw_data <- function (MAIT.object) {
 #'   slot of MAIT-class object used as an input.
 #' @export
 #' @examples
-#' \dontrun{
-#' file_name <-  system.file("extdata", "peak_table_ANN.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata", "peak_table_ann.rds", package = "NIHSlcms")
 #' peak_table <- base::readRDS(file_name)
-#' peak_table@PhenoData@classes <- c("plasma","plasma..ringer...palm")
-#' peak_table_sig_ANN <- lcms_spectral_sig_features(MAIT.object = peak_table,
+#' peak_table_sig_ann <- lcms_spectral_sig_features(MAIT.object = peak_table,
 #'                                           pvalue=0.05,
 #'                                           p.adj="none",
 #'                                           scale=FALSE)
-#' print(peak_table_sig_ANN)
-#' }
+#' print(peak_table_sig_ann)
+#'
 lcms_spectral_sig_features <- function(MAIT.object = NULL,
                                   pvalue = 0.05,
                                   p.adj = "none",
@@ -199,22 +197,22 @@ lcms_spectral_sig_features <- function(MAIT.object = NULL,
   }
   if (method(MAIT.object) == "") {
     cat("Skipping peak aggregation step...")
-    MAIT.object <- lcms_peakAggregation(MAIT.object, scale = scale)
+    MAIT.object <- lcms_peak_aggregation(MAIT.object, scale = scale)
   }
   if (is.null(test.fun)) {
     if (length(classes(MAIT.object)) == 2) {
       if (parametric == TRUE) {
         if (var.equal == TRUE) {
-          out <- lcms_spectralTStudent(pvalue = pvalue, p.adj = p.adj,
+          out <- lcms_spectral_tstudent(pvalue = pvalue, p.adj = p.adj,
                                   MAIT.object = MAIT.object, printCSVfile = printCSVfile)
         }
         else {
-          out <- lcms_spectralWelch(pvalue = pvalue, p.adj = p.adj,
+          out <- lcms_spectral_welch(pvalue = pvalue, p.adj = p.adj,
                                MAIT.object = MAIT.object, printCSVfile = printCSVfile)
         }
       }
       else {
-        out <- lcms_spectralWilcox(pvalue = pvalue, p.adj = p.adj,
+        out <- lcms_spectral_wilcox(pvalue = pvalue, p.adj = p.adj,
                               MAIT.object = MAIT.object, printCSVfile = printCSVfile,
                               jitter = jitter, jitter.factor = jitter.factor,
                               jitter.amount = jitter.amount)
@@ -222,17 +220,17 @@ lcms_spectral_sig_features <- function(MAIT.object = NULL,
     }
     else {
       if (parametric == TRUE) {
-        out <- lcms_spectralAnova(pvalue = pvalue, p.adj = p.adj,
+        out <- lcms_spectral_anova(pvalue = pvalue, p.adj = p.adj,
                              MAIT.object = MAIT.object, printCSVfile = printCSVfile)
       }
       else {
-        out <- lcms_spectralKruskal(pvalue = pvalue, p.adj = p.adj,
+        out <- lcms_spectral_kruskal(pvalue = pvalue, p.adj = p.adj,
                                MAIT.object = MAIT.object, printCSVfile = printCSVfile)
       }
     }
   }
   else {
-    out <- lcms_spectralFUN(pvalue = pvalue, p.adj = p.adj, MAIT.object = MAIT.object,
+    out <- lcms_spectral_fun(pvalue = pvalue, p.adj = p.adj, MAIT.object = MAIT.object,
                        printCSVfile = printCSVfile, test.fun = test.fun,
                        namefun = namefun)
   }
@@ -253,7 +251,7 @@ lcms_spectral_sig_features <- function(MAIT.object = NULL,
 #' @keywords internal
 #' @noRd
 
-lcms_peakAggregation<-function(MAIT.object=NULL,
+lcms_peak_aggregation<-function(MAIT.object=NULL,
                           method="None",
                           clases=NULL,
                           samples=NULL,
@@ -290,7 +288,7 @@ lcms_peakAggregation<-function(MAIT.object=NULL,
                          "peakAggregation signVariables",
                          "peakAggregation RemoveOnePeakSpectra")
   MAIT.object@RawData@parameters@peakAggregation <- parameters
-  lcms_writeParameterTable(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
+  lcms_write_parameter_table(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
   classes <- classes(MAIT.object)
   classNum <- classNum(MAIT.object)
   resultsPath <- MAIT.object@PhenoData@resultsPath#resultsPath(MAIT.object)
@@ -354,12 +352,12 @@ lcms_peakAggregation<-function(MAIT.object=NULL,
   }
 
   if(printCSVfile==TRUE){
-    if(!file.exists(paste(resultsPath,"Tables",sep="/"))){
+    if(!file.exists(paste(resultsPath,"tables",sep="/"))){
 
-      dir.create(paste(resultsPath,"Tables",sep="/"))
+      dir.create(paste(resultsPath,"tables",sep="/"))
     }else{
       cat(" " ,fill=TRUE)
-      #         warning(paste("Folder",paste(resultsPath,"Tables",sep="/"),"already exists. Possible file overwritting.",sep=" "),fill=TRUE)
+      #         warning(paste("Folder",paste(resultsPath,"tables",sep="/"),"already exists. Possible file overwritting.",sep=" "),fill=TRUE)
     }
 
     tabl <- scores(MAIT.object)
@@ -380,7 +378,7 @@ lcms_peakAggregation<-function(MAIT.object=NULL,
     }else{
       norm <- "notScaled"
     }
-    write.table(file=paste(resultsPath,paste("Tables/dataSet_",norm,".csv",sep=""),sep="/"),x=tabl,row.names=TRUE,col.names=NA,sep=",")
+    write.table(file=paste(resultsPath,paste("tables/dataSet_",norm,".csv",sep=""),sep="/"),x=tabl,row.names=TRUE,col.names=NA,sep=",")
   }
 
   return(MAIT.object)
@@ -439,7 +437,6 @@ lcms_peakAggregation<-function(MAIT.object=NULL,
 #' \dontrun{
 #' file_name <-  system.file("extdata", "peak_table_sig_ANN.rds", package = "NIHSlcms")
 #' peak_table <- base::readRDS(file_name)
-#' #peak_table@PhenoData@classes <- c("plasma","plasma..ringer...palm")
 #' sig_table <- lcms_sig_peaks_table(peak_table,  printCSVfile=FALSE)
 #' str(sig_table)
 #' }

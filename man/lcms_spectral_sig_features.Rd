@@ -72,14 +72,12 @@ using ANOVA tests through function spectralAnova, or T-Student tests by using
 function spectralTStudent.
 }
 \examples{
-\dontrun{
-file_name <-  system.file("extdata", "peak_table_ANN.rds", package = "NIHSlcms")
+file_name <-  system.file("extdata", "peak_table_ann.rds", package = "NIHSlcms")
 peak_table <- base::readRDS(file_name)
-peak_table@PhenoData@classes <- c("plasma","plasma..ringer...palm")
-peak_table_sig_ANN <- lcms_spectral_sig_features(MAIT.object = peak_table,
+peak_table_sig_ann <- lcms_spectral_sig_features(MAIT.object = peak_table,
                                           pvalue=0.05,
                                           p.adj="none",
                                           scale=FALSE)
-print(peak_table_sig_ANN)
-}
+print(peak_table_sig_ann)
+
 }

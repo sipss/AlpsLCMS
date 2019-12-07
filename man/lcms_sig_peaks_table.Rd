@@ -73,7 +73,6 @@ features.
 \dontrun{
 file_name <-  system.file("extdata", "peak_table_sig_ANN.rds", package = "NIHSlcms")
 peak_table <- base::readRDS(file_name)
-#peak_table@PhenoData@classes <- c("plasma","plasma..ringer...palm")
 sig_table <- lcms_sig_peaks_table(peak_table,  printCSVfile=FALSE)
 str(sig_table)
 }

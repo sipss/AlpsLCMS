@@ -8,7 +8,7 @@
 #' @keywords internal
 #' @noRd
 
-lcms_spectralTStudent <- function(MAIT.object=NULL,
+lcms_spectral_tstudent <- function(MAIT.object=NULL,
                                   pvalue=0.05,
                                   p.adj="none",
                                   printCSVfile=TRUE){
@@ -21,7 +21,7 @@ lcms_spectralTStudent <- function(MAIT.object=NULL,
   names(parameters) <- c("T-Student pvalue",
                          "T-Student p.adj")
   MAIT.object@RawData@parameters@sigFeatures <- parameters
-  lcms_writeParameterTable(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
+  lcms_write_parameter_table(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
 
   data <- scores(MAIT.object)
   clases <- classes(MAIT.object)
@@ -78,7 +78,7 @@ lcms_spectralTStudent <- function(MAIT.object=NULL,
 #' @return A MAIT-class object containing the significant features of the scores slot of MAIT-class object used as an input.
 #' @keywords internal
 #' @noRd
-lcms_spectralWelch <- function(MAIT.object=NULL,
+lcms_spectral_welch <- function(MAIT.object=NULL,
                                pvalue=0.05,
                                p.adj="none",
                                printCSVfile=TRUE){
@@ -93,7 +93,7 @@ lcms_spectralWelch <- function(MAIT.object=NULL,
                          "Welch p.adj")
 
   MAIT.object@RawData@parameters@sigFeatures <- parameters
-  lcms_writeParameterTable(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
+  lcms_write_parameter_table(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
 
 
   data <- scores(MAIT.object)
@@ -155,7 +155,7 @@ lcms_spectralWelch <- function(MAIT.object=NULL,
 #' @return A MAIT-class object containing the significant features of the scores slot of MAIT-class object used as an input.
 #' @keywords internal
 #' @noRd
-lcms_spectralWilcox <- function(MAIT.object=NULL,
+lcms_spectral_wilcox <- function(MAIT.object=NULL,
                                 pvalue=0.05,
                                 p.adj="none",
                                 printCSVfile=TRUE,
@@ -171,7 +171,7 @@ lcms_spectralWilcox <- function(MAIT.object=NULL,
                          "Mann-Whitney p.adj")
 
   MAIT.object@RawData@parameters@sigFeatures <- parameters
-  lcms_writeParameterTable(parameters(MAIT.object),folder = MAIT.object@PhenoData@resultsPath)
+  lcms_write_parameter_table(parameters(MAIT.object),folder = MAIT.object@PhenoData@resultsPath)
 
   data <- scores(MAIT.object)
   clases <- classes(MAIT.object)
@@ -234,7 +234,7 @@ lcms_spectralWilcox <- function(MAIT.object=NULL,
 #' @return A MAIT-class object containing the significant features of the scores slot of MAIT-class object used as an input.
 #' @keywords internal
 #' @noRd
-lcms_spectralAnova <- function (pvalue=0.05,
+lcms_spectral_anova <- function (pvalue=0.05,
                                 p.adj="none",
                                 MAIT.object=NULL,
                                 printCSVfile=TRUE)
@@ -249,7 +249,7 @@ lcms_spectralAnova <- function (pvalue=0.05,
   names(parameters) <- c("Anova p-value",
                          "Anova p.adj")
   MAIT.object@RawData@parameters@sigFeatures <- parameters
-  lcms_writeParameterTable(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
+  lcms_write_parameter_table(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
 
   data <- scores(MAIT.object)
   clases <- classes(MAIT.object)
@@ -302,7 +302,7 @@ lcms_spectralAnova <- function (pvalue=0.05,
 #' @return A MAIT-class object containing the significant features of the scores slot of MAIT-class object used as an input.
 #' @keywords internal
 #' @noRd
-lcms_spectralKruskal <- function (pvalue=0.05,
+lcms_spectral_kruskal <- function (pvalue=0.05,
                                   p.adj="none",
                                   MAIT.object=NULL,
                                   printCSVfile=TRUE)
@@ -317,7 +317,7 @@ lcms_spectralKruskal <- function (pvalue=0.05,
                          "Kruskal-Wallis  p.adj")
 
   MAIT.object@RawData@parameters@sigFeatures <- parameters
-  lcms_writeParameterTable(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
+  lcms_write_parameter_table(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
 
   data <- scores(MAIT.object)
   clases <- classes(MAIT.object)
@@ -371,7 +371,7 @@ lcms_spectralKruskal <- function (pvalue=0.05,
 #' @return A MAIT-class object containing the significant features of the scores slot of MAIT-class object used as an input.
 #' @keywords internal
 #' @noRd
-lcms_spectralFUN <- function (pvalue=0.05,
+lcms_spectral_fun <- function (pvalue=0.05,
                               p.adj="none",
                               MAIT.object=NULL,
                               printCSVfile=TRUE,
@@ -401,7 +401,7 @@ lcms_spectralFUN <- function (pvalue=0.05,
                            paste(namefun,"p-value","p.adj",sep=" "))
   }
   MAIT.object@RawData@parameters@sigFeatures <- parameters
-  lcms_writeParameterTable(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
+  lcms_write_parameter_table(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
 
   data <- scores(MAIT.object)
   clases <- classes(MAIT.object)
