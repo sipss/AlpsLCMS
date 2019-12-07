@@ -102,7 +102,7 @@ if(biofluid_type == "Any"){
   Measured <- Measured %>%
                 dplyr::mutate(Selected_Biofluid = "Any")
 
-  max_area_wordcloud <- 9#6
+  max_area_wordcloud <- 15#6
 
 } else{
   Measured <- Measured %>%
@@ -131,7 +131,7 @@ if(!is.null(significance)){
 plot_df <- Measured %>%
   dplyr::select(Retention_Time, Spectra, Metabolite, Pvalue_Adj) %>%
   dplyr::mutate(Spectra = as.factor(Spectra)) %>%
-  dplyr::mutate(Angle = 90 * sample(c(0, 1),
+  dplyr::mutate(Angle = 0 * sample(c(0, 1),#90
                              dplyr::n(), replace = TRUE,
                              prob = c(60, 40))) %>%
   dplyr::top_n(max_words,-log10(Pvalue_Adj))
