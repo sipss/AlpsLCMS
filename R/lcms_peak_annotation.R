@@ -106,25 +106,25 @@ lcms_peak_annotation <- function (MAIT.object = NULL,
                                                               dim(peakList)[2]])
           rownames(tab) <- rep("", dim(tab)[1])
           colnames(tab) <- c("mass", "rt", "spectra Index")
-          if (!file.exists(paste(resultsPath, "Tables", sep = "/"))) {
+          if (!file.exists(paste(resultsPath, "tables", sep = "/"))) {
             if (resultsPath == "") {
               dir.create("Tables")
             }
             else {
-              dir.create(paste(resultsPath, "Tables", sep = "/"))
+              dir.create(paste(resultsPath, "tables", sep = "/"))
             }
           }
           else {
             cat(" ", fill = TRUE)
             warning(paste("Warning: Folder", paste(resultsPath,
-                                                   "Tables", sep = "/"), "already exists. Possible file overwritting."))
+                                                   "tables", sep = "/"), "already exists. Possible file overwritting."))
           }
           if (resultsPath == "") {
-            writeExcelTable(file = tab, file.name = "Tables/Spectra")
+            writeExcelTable(file = tab, file.name = "tables/spectra")
           }
           else {
             writeExcelTable(file = tab, file.name = paste(resultsPath,
-                                                          "Tables/Spectra", sep = "/"))
+                                                          "tables/spectra", sep = "/"))
           }
         }
         xsaFA <- list(xsaFA)
@@ -142,13 +142,12 @@ lcms_peak_annotation <- function (MAIT.object = NULL,
 #' @return A list containing either a xcmsSet or a xsAnnotate object.
 #' @export
 #' @examples
-#' \dontrun{
-#' file_name <-  system.file("extdata", "peak_table_MAIT.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata", "peak_table_mait.rds", package = "NIHSlcms")
 #' peak_table <- base::readRDS(file_name)
+#' peak_table_ann <- lcms_peak_annotation(MAIT.object = peak_table)
 #'
-#' peak_table_ANN <- peak_annotation(MAIT.object = peak_table)
-#' lcms_raw_data(peak_table)
-#' }
+#' lcms_raw_data(peak_table_ann)
+#'
 lcms_raw_data <- function (MAIT.object) {
   MAIT::rawData(MAIT.object)
 }

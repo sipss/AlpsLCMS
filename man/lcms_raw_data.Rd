@@ -16,11 +16,10 @@ A list containing either a xcmsSet or a xsAnnotate object.
 Function rawData extracts the raw data used to build the MAIT-class object
 }
 \examples{
-\dontrun{
-file_name <-  system.file("extdata", "peak_table_MAIT.rds", package = "NIHSlcms")
+file_name <-  system.file("extdata", "peak_table_mait.rds", package = "NIHSlcms")
 peak_table <- base::readRDS(file_name)
+peak_table_ann <- lcms_peak_annotation(MAIT.object = peak_table)
 
-peak_table_ANN <- peak_annotation(MAIT.object = peak_table)
-lcms_raw_data(peak_table)
-}
+lcms_raw_data(peak_table_ann)
+
 }
