@@ -13,12 +13,11 @@
 #' @return A MAIT-class object with [xsAnnotate-class] in the rawData slot.
 #' @export
 #' @examples
-#' \dontrun{
-#  file_name <-  system.file("extdata","peak_table_MAIT.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata","peak_table_mait.rds", package = "NIHSlcms")
 #' peak_table <- base::readRDS(file_name)
-#' peak_table_ANN <- lcms_peak_annotation(MAIT.object = peak_table)
-#' lcms_raw_data(peak_table_ANN)
-#' }
+#' peak_table_ann <- lcms_peak_annotation(MAIT.object = peak_table)
+#' lcms_raw_data(peak_table_ann)
+#'
 lcms_peak_annotation <- function (MAIT.object = NULL,
                              corrWithSamp = 0.7,
                              perfwhm = 0.6,
@@ -57,7 +56,7 @@ lcms_peak_annotation <- function (MAIT.object = NULL,
                                "sigma", "adductTable", "peakAnnotation pvalue", "calcIso",
                                "calcCiS", "calcCaS", "graphMethod", "annotateAdducts")
         MAIT.object@RawData@parameters@peakAnnotation <- parameters
-        lcms_writeParameterTable(parameters(MAIT.object), folder = MAIT.object@PhenoData@resultsPath)
+        lcms_write_parameter_table(parameters(MAIT.object), folder = MAIT.object@PhenoData@resultsPath)
         if (is.null(adductTable)) {
           cat("WARNING: No input adduct/fragment table was given. Selecting default MAIT table for positive polarity...",
               fill = TRUE)

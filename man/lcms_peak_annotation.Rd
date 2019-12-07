@@ -79,9 +79,9 @@ This is done in three different stages:
 to an object of the MAIT Package.
 }
 \examples{
-\dontrun{
+file_name <-  system.file("extdata","peak_table_mait.rds", package = "NIHSlcms")
 peak_table <- base::readRDS(file_name)
-peak_table_ANN <- lcms_peak_annotation(MAIT.object = peak_table)
-lcms_raw_data(peak_table_ANN)
-}
+peak_table_ann <- lcms_peak_annotation(MAIT.object = peak_table)
+lcms_raw_data(peak_table_ann)
+
 }
