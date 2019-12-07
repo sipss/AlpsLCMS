@@ -16,8 +16,7 @@
 #' and a bar plot with the number of potential cantidates by detected compound.
 #' @export
 #' @examples
-#' \dontrun{
-#' path_result <-  system.file("extdata","Results_project","Tables","metaboliteTable.csv", package = "NIHSlcms")
+#' path_result <-  system.file("extdata","results_project","tables","metaboliteTable.csv", package = "NIHSlcms")
 #' plots <- lcms_plot_metabolites(path_result, biofluid_type = "Any",
 #'                                    significance = 0.05,
 #'                                    metabolite_rm = FALSE,
@@ -25,7 +24,7 @@
 #' plots$cloud
 #'
 #' plots$freq
-#' }
+
 lcms_plot_metabolites <- function(path_result, biofluid_type = "Any",
                                       significance = 0.05,
                                       metabolite_rm = TRUE,
@@ -103,14 +102,14 @@ if(biofluid_type == "Any"){
   Measured <- Measured %>%
                 dplyr::mutate(Selected_Biofluid = "Any")
 
-  max_area_wordcloud <- 6
+  max_area_wordcloud <- 9#6
 
 } else{
   Measured <- Measured %>%
                 dplyr::filter_at(vars(Biofluid), all_vars(str_detect(Biofluid, biofluid_type))) %>%
                 dplyr::mutate(Selected_Biofluid = biofluid_type)
 
-  max_area_wordcloud <- 11
+  max_area_wordcloud <- 20#11
 }
 
 # Select and arrange the data

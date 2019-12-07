@@ -31,8 +31,7 @@ of the metabolite.
 Additionally we plot the a bar plot corresponding to the number of metabolites candidates associated to a single compound.
 }
 \examples{
-\dontrun{
-path_result <-  system.file("extdata","Results_project","Tables","metaboliteTable.csv", package = "NIHSlcms")
+path_result <-  system.file("extdata","results_project","tables","metaboliteTable.csv", package = "NIHSlcms")
 plots <- lcms_plot_metabolites(path_result, biofluid_type = "Any",
                                    significance = 0.05,
                                    metabolite_rm = FALSE,
@@ -40,5 +39,4 @@ plots <- lcms_plot_metabolites(path_result, biofluid_type = "Any",
 plots$cloud
 
 plots$freq
-}
 }
