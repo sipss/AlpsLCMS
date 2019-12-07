@@ -65,15 +65,14 @@ letters are statistically different clases.
 The last columns contain the mean and median values for each feature
 }
 \description{
-Function sigPeaksTable takes an MAIT-class object containing significant
+Function lcms_sig_peaks_table takes an MAIT-class object containing significant
 feature information and builds a table with the information related to these
 features.
 }
 \examples{
-\dontrun{
-file_name <-  system.file("extdata", "peak_table_sig_ANN.rds", package = "NIHSlcms")
+file_name <-  system.file("extdata", "peak_table_sig_ann.rds", package = "NIHSlcms")
 peak_table <- base::readRDS(file_name)
 sig_table <- lcms_sig_peaks_table(peak_table,  printCSVfile=FALSE)
 str(sig_table)
-}
+
 }

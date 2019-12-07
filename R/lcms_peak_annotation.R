@@ -244,7 +244,7 @@ lcms_spectral_sig_features <- function(MAIT.object = NULL,
 }
 
 
-#' lcms_peakAggregation function applies a peak aggregation technique to the data of a MAIT-class object.
+#' lcms_peak_aggregation function applies a peak aggregation technique to the data of a MAIT-class object.
 #'
 #' @inheritParams MAIT::peakAggregation
 #' @return An MAIT-class object.
@@ -390,7 +390,7 @@ lcms_peak_aggregation<-function(MAIT.object=NULL,
 #' Build a table of the information related to the significant features
 #' contained in a MAIT object
 #'
-#' Function sigPeaksTable takes an MAIT-class object containing significant
+#' Function lcms_sig_peaks_table takes an MAIT-class object containing significant
 #' feature information and builds a table with the information related to these
 #' features.
 #' @inheritParams MAIT::sigPeaksTable
@@ -434,12 +434,11 @@ lcms_peak_aggregation<-function(MAIT.object=NULL,
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' file_name <-  system.file("extdata", "peak_table_sig_ANN.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata", "peak_table_sig_ann.rds", package = "NIHSlcms")
 #' peak_table <- base::readRDS(file_name)
 #' sig_table <- lcms_sig_peaks_table(peak_table,  printCSVfile=FALSE)
 #' str(sig_table)
-#' }
+#'
 lcms_sig_peaks_table<-function(
                               MAIT.object=NULL,
                               printCSVfile=FALSE,
@@ -643,13 +642,13 @@ lcms_sig_peaks_table<-function(
     }
 
     if(printCSVfile==TRUE){
-      if(!file.exists(paste(resultsPath,"Tables",sep="/"))){
-        dir.create(paste(resultsPath,"Tables",sep="/"))
+      if(!file.exists(paste(resultsPath,"tables",sep="/"))){
+        dir.create(paste(resultsPath,"tables",sep="/"))
       }else{
         cat(" " ,fill=TRUE)
-        warning(paste("Folder",paste(resultsPath,"Tables",sep="/"),"already exists. Possible file overwritting.",sep=" "))
+        warning(paste("Folder",paste(resultsPath,"tables",sep="/"),"already exists. Possible file overwritting.",sep=" "))
       }
-      write.csv(x=sigPeaksTable,file=paste(resultsPath,"Tables/significantFeatures.csv",sep="/"),row.names=FALSE)
+      write.csv(x=sigPeaksTable,file=paste(resultsPath,"tables/significantFeatures.csv",sep="/"),row.names=FALSE)
     }
 
   }else{
