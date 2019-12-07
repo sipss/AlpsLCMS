@@ -13,19 +13,17 @@
 #' The files will be stored in the directory /PCA_Scoreplots.
 #' @export
 #' @examples
-#'\dontrun{
-#' file_name_1 <-  system.file("extdata","peak_table_sig_ANN.rds", package = "NIHSlcms")
+#' file_name_1 <-  system.file("extdata","peak_table_sig_ann.rds", package = "NIHSlcms")
 #' peak_table <- base::readRDS(file_name_1)
-#' file_name_2 <-  system.file("extdata","lcms_dataset_pos_rt_rs.rds", package = "NIHSlcms")
-#' lcms_dataset <-  base::readRDS(file_name_2)
-#' treatment_col <- scales::hue_pal()(length(unique(lcms_dataset$treatment)))
+#' file_name_2 <-  system.file("extdata","dataset_pos_rt_rs.rds", package = "NIHSlcms")
+#' dataset <-  base::readRDS(file_name_2)
+#' treatment_col <- scales::hue_pal()(length(unique(dataset$treatment)))
+#'
+#' lcms_peak_table_pca(peak_table,
+#'                    treament_col = treatment_col,
+#'                    Log = FALSE,
+#'                    center = TRUE, scale = FALSE)
 
-#' peak_table_pca <- lcms_peak_table_pca(peak_table,
-#'                                       treament_col = treatment_col,
-#'                                       Log = FALSE,
-#'                                       center = TRUE, scale = FALSE)
-#' print(peak_table_pca)
-#' }
 
 
 lcms_peak_table_pca <- function (MAIT.object = NULL,treament_col, Log = FALSE, center = TRUE, scale = TRUE)
@@ -43,7 +41,7 @@ lcms_peak_table_pca <- function (MAIT.object = NULL,treament_col, Log = FALSE, c
   names(parameters) <- c("PCA data logarithm", "PCA data centered",
     "PCA data scaled")
   MAIT.object@RawData@parameters@plotPCA <- parameters
-  lcms_writeParameterTable(parameters(MAIT.object), folder = MAIT.object@PhenoData@resultsPath)
+  lcms_write_parameter_table(parameters(MAIT.object), folder = MAIT.object@PhenoData@resultsPath)
   data <- scores(MAIT.object)
   clases <- classes(MAIT.object)
   classNum <- classNum(MAIT.object)
@@ -67,7 +65,7 @@ lcms_peak_table_pca <- function (MAIT.object = NULL,treament_col, Log = FALSE, c
     dir.create(paste(resultsPath, "PCA", sep = "/"))
   }else {
     cat(" ", fill = TRUE)
-    cat(paste("Warning: Folder", paste(resultsPath, "PCA_Results",
+    cat(paste("Warning: Folder", paste(resultsPath, "pca_results",
       sep = "/"), "already exists. Possible file overwritting.",
       sep = " "), fill = TRUE)
   }
