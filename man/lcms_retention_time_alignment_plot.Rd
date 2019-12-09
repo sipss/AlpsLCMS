@@ -45,7 +45,9 @@ Other dataset functions: \code{\link{lcms_align_rtime}},
 
 Other retention time correction functions: \code{\link{lcms_align_rtime}}
 
-Other visualization functions: \code{\link{lcms_peakpicking_optimization}},
+Other visualization functions: \code{\link{lcms_peak_table_boxplots}},
+  \code{\link{lcms_peak_table_pca}},
+  \code{\link{lcms_peakpicking_optimization}},
   \code{\link{lcms_plot_chrom}},
   \code{\link{lcms_plot_tics}},
   \code{\link{lcms_retcorgroup_optimization}},

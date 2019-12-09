@@ -28,19 +28,12 @@ Set to TRUE The peak annotation is provided in the output table
 \value{
 A table containing:
 First column (mz): Peak mass
-
-Second column(mzmin): Minimum peak mass of the peak group.
-
-Third column(mzmax): Maximum peak mass of the peak group.
-
-Fourth column(rt): Peak retention time (in minutes).
-
-Fifth column(rtmin): Minimum peak retention time of the peak group.
-
-Sixth column(rtmax): Maximum peak retention time of the peak group.
-
-Seventh column(npeaks): Number of samples where the peak has been detected.
-
+Second column (mzmin): Minimum peak mass of the peak group.
+Third column (mzmax): Maximum peak mass of the peak group.
+Fourth column (rt): Peak retention time (in minutes).
+Fifth column (rtmin): Minimum peak retention time of the peak group.
+Sixth column (rtmax): Maximum peak retention time of the peak group.
+Seventh column (npeaks): Number of samples where the peak has been detected.
 The columns from the nineth to the column labeled "isotopes" contain number
 of class samples where the peak has been detected and the intensities of the
 peak among samples.
@@ -54,7 +47,6 @@ The column labeled pcgroup contains the spectral ID of the peak.
 
 The P.adjust column contains the corrected peak p-value using post-hoc
 methods.
-
 The p column shows the peak p-value with no multiple test correction.
 
 The Fisher column shows the Fisher test results for the peak. Each of the
@@ -62,7 +54,7 @@ letters separated by the character "_" corresponds to a class value. Classes
 having the same letters are indistinguible whereas those having different
 letters are statistically different clases.
 
-The last columns contain the mean and median values for each feature
+The last columns contain the mean and median values for each feature.
 }
 \description{
 Function lcms_sig_peaks_table takes an MAIT-class object containing significant
@@ -76,3 +68,42 @@ sig_table <- lcms_sig_peaks_table(peak_table,  printCSVfile=FALSE)
 str(sig_table)
 
 }
+\seealso{
+Other metabolite identification functions: \code{\link{lcms_identify_metabolites}},
+  \code{\link{lcms_peak_annotation}},
+  \code{\link{lcms_peak_table_boxplots}},
+  \code{\link{lcms_raw_data}},
+  \code{\link{lcms_spectral_sig_features}},
+  \code{\link{lcms_to_mait}},
+  \code{\link{lcms_write_parameter_table}}
+
+Other dataset_peak_table functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_identify_metabolites}},
+  \code{\link{lcms_peak_annotation}},
+  \code{\link{lcms_peak_table_boxplots}},
+  \code{\link{lcms_peak_table_pca}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_raw_data}},
+  \code{\link{lcms_spectral_sig_features}},
+  \code{\link{lcms_tics}}, \code{\link{lcms_to_mait}}
+
+Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},
+  \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_identify_metabolites}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}},
+  \code{\link{lcms_peak_annotation}},
+  \code{\link{lcms_raw_data}},
+  \code{\link{lcms_read_ipo_to_xcms}},
+  \code{\link{lcms_read_samples}},
+  \code{\link{lcms_rearrange_datafiles_by_class}},
+  \code{\link{lcms_spectral_sig_features}},
+  \code{\link{lcms_to_mait}},
+  \code{\link{lcms_write_opt_params}},
+  \code{\link{lcms_write_parameter_table}},
+  \code{\link{phData}}
+}
+\concept{dataset_peak_table functions}
+\concept{import/export functions}
+\concept{metabolite identification functions}

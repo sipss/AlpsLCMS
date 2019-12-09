@@ -237,12 +237,12 @@ lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
 #' The function allows visulizing the parameter optimization results by `IPO` Package
 #' allows in the RStudio console. Also you can save this results in plain text files
 #' (i.e. a .CVS file).
-#' @param results_pp object from the `lcms_peakpicking_optimization`function. If NULL, the default parameters for xcms are loaded.
-#' @param results_rtcg object from the `lcms_corgroup_optimization`function
-#' @param opt_result_path A directory to save the parameters file
-#' @param csv if TRUE, it writes a file in csv format
-#' @param console if TRUE, it displays the params on the console
-#' @return A file with the params from the IPO optimization
+#' @param results_pp object from the `lcms_peakpicking_optimization` function. If NULL, the default parameters for xcms are loaded.
+#' @param results_rtcg object from the `lcms_corgroup_optimization` function.
+#' @param opt_result_path A directory to save the parameters file.
+#' @param csv if TRUE, it writes a file in csv format.
+#' @param console if TRUE, it displays the params on the console.
+#' @return A file with the params from the IPO optimization.
 #' @family optimization functions
 #' @family import/export functions
 #' @export

@@ -22,6 +22,7 @@ lcms_peak_table_pca(MAIT.object = NULL, treament_col, Log = FALSE,
 A MAIT.object. Additionaly: Three different PCA scoreplots are printed in three png files.
 One using PC1 vs PC2, another with PC1 vs PC3 and the last one with PC2 vs PC3.
 The files will be stored in the directory /PCA_Scoreplots.
+#' @family metabolite identification functions
 }
 \description{
 It performs PCA using on the annotated peak table obtained from a MAIT object.
@@ -38,3 +39,27 @@ lcms_peak_table_pca(peak_table,
                    Log = FALSE,
                    center = TRUE, scale = FALSE)
 }
+\seealso{
+Other dataset_peak_table functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_identify_metabolites}},
+  \code{\link{lcms_peak_annotation}},
+  \code{\link{lcms_peak_table_boxplots}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_raw_data}},
+  \code{\link{lcms_sig_peaks_table}},
+  \code{\link{lcms_spectral_sig_features}},
+  \code{\link{lcms_tics}}, \code{\link{lcms_to_mait}}
+
+Other statistical functions: \code{\link{lcms_peak_table_boxplots}}
+
+Other visualization functions: \code{\link{lcms_peak_table_boxplots}},
+  \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_plot_chrom}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_retcorgroup_optimization}},
+  \code{\link{lcms_retention_time_alignment_plot}},
+  \code{\link{lmcs_plot_chrom_peak_image}}
+}
+\concept{dataset_peak_table functions}
+\concept{statistical functions}
+\concept{visualization functions}

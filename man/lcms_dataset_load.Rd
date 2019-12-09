@@ -40,17 +40,32 @@ Other dataset functions: \code{\link{lcms_align_rtime}},
   \code{\link{lmcs_plot_chrom_peak_image}},
   \code{\link{phData}}
 
-Other dataset_peak_table functions: \code{\link{lcms_plot_tics}},
-  \code{\link{lcms_tics}}
+Other dataset_peak_table functions: \code{\link{lcms_identify_metabolites}},
+  \code{\link{lcms_peak_annotation}},
+  \code{\link{lcms_peak_table_boxplots}},
+  \code{\link{lcms_peak_table_pca}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_raw_data}},
+  \code{\link{lcms_sig_peaks_table}},
+  \code{\link{lcms_spectral_sig_features}},
+  \code{\link{lcms_tics}}, \code{\link{lcms_to_mait}}
 
 Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},
   \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_identify_metabolites}},
   \code{\link{lcms_meta_export}},
   \code{\link{lcms_meta_read}},
+  \code{\link{lcms_peak_annotation}},
+  \code{\link{lcms_raw_data}},
   \code{\link{lcms_read_ipo_to_xcms}},
   \code{\link{lcms_read_samples}},
   \code{\link{lcms_rearrange_datafiles_by_class}},
-  \code{\link{lcms_write_opt_params}}, \code{\link{phData}}
+  \code{\link{lcms_sig_peaks_table}},
+  \code{\link{lcms_spectral_sig_features}},
+  \code{\link{lcms_to_mait}},
+  \code{\link{lcms_write_opt_params}},
+  \code{\link{lcms_write_parameter_table}},
+  \code{\link{phData}}
 }
 \concept{dataset functions}
 \concept{dataset_peak_table functions}

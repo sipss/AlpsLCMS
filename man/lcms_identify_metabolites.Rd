@@ -31,7 +31,7 @@ Set to TRUE if an output table has to be produced. The table should be found in 
 \value{
 An output table is stored in the folder (working
 directory)/tables/SearchTable.csv if printCSVfile is set to TRUE. More info
-at metaboliteTable
+at metaboliteTable.
 }
 \description{
 Takes a MAIT object and performs the metabolite search for the significant
@@ -44,3 +44,42 @@ metabololite_table <- lcms_identify_metabolites(MAIT.object = peak_table,
                               peakTolerance = 0.005)
 
 }
+\seealso{
+Other metabolite identification functions: \code{\link{lcms_peak_annotation}},
+  \code{\link{lcms_peak_table_boxplots}},
+  \code{\link{lcms_raw_data}},
+  \code{\link{lcms_sig_peaks_table}},
+  \code{\link{lcms_spectral_sig_features}},
+  \code{\link{lcms_to_mait}},
+  \code{\link{lcms_write_parameter_table}}
+
+Other dataset_peak_table functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_peak_annotation}},
+  \code{\link{lcms_peak_table_boxplots}},
+  \code{\link{lcms_peak_table_pca}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_raw_data}},
+  \code{\link{lcms_sig_peaks_table}},
+  \code{\link{lcms_spectral_sig_features}},
+  \code{\link{lcms_tics}}, \code{\link{lcms_to_mait}}
+
+Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},
+  \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}},
+  \code{\link{lcms_peak_annotation}},
+  \code{\link{lcms_raw_data}},
+  \code{\link{lcms_read_ipo_to_xcms}},
+  \code{\link{lcms_read_samples}},
+  \code{\link{lcms_rearrange_datafiles_by_class}},
+  \code{\link{lcms_sig_peaks_table}},
+  \code{\link{lcms_spectral_sig_features}},
+  \code{\link{lcms_to_mait}},
+  \code{\link{lcms_write_opt_params}},
+  \code{\link{lcms_write_parameter_table}},
+  \code{\link{phData}}
+}
+\concept{dataset_peak_table functions}
+\concept{import/export functions}
+\concept{metabolite identification functions}

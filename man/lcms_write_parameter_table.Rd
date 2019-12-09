@@ -35,3 +35,30 @@ MAIT.object <- methods::new("MAIT")
 MAIT.object@RawData@parameters@sampleProcessing <- parameters
 lcms_write_parameter_table(MAIT::parameters(MAIT.object), folder = mait_params_path)
 }
+\seealso{
+Other metabolite identification functions: \code{\link{lcms_identify_metabolites}},
+  \code{\link{lcms_peak_annotation}},
+  \code{\link{lcms_peak_table_boxplots}},
+  \code{\link{lcms_raw_data}},
+  \code{\link{lcms_sig_peaks_table}},
+  \code{\link{lcms_spectral_sig_features}},
+  \code{\link{lcms_to_mait}}
+
+Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},
+  \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_identify_metabolites}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}},
+  \code{\link{lcms_peak_annotation}},
+  \code{\link{lcms_raw_data}},
+  \code{\link{lcms_read_ipo_to_xcms}},
+  \code{\link{lcms_read_samples}},
+  \code{\link{lcms_rearrange_datafiles_by_class}},
+  \code{\link{lcms_sig_peaks_table}},
+  \code{\link{lcms_spectral_sig_features}},
+  \code{\link{lcms_to_mait}},
+  \code{\link{lcms_write_opt_params}}, \code{\link{phData}}
+}
+\concept{import/export functions}
+\concept{metabolite identification functions}

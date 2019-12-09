@@ -68,7 +68,9 @@ Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
   \code{\link{lcms_read_ipo_to_xcms}},
   \code{\link{lcms_write_opt_params}}
 
-Other visualization functions: \code{\link{lcms_plot_chrom}},
+Other visualization functions: \code{\link{lcms_peak_table_boxplots}},
+  \code{\link{lcms_peak_table_pca}},
+  \code{\link{lcms_plot_chrom}},
   \code{\link{lcms_plot_tics}},
   \code{\link{lcms_retcorgroup_optimization}},
   \code{\link{lcms_retention_time_alignment_plot}},

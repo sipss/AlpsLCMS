@@ -8,18 +8,18 @@ lcms_write_opt_params(results_pp, results_rtcg, opt_result_path,
   csv = TRUE, console = TRUE)
 }
 \arguments{
-\item{results_pp}{object from the \code{lcms_peakpicking_optimization}function. If NULL, the default parameters for xcms are loaded.}
+\item{results_pp}{object from the \code{lcms_peakpicking_optimization} function. If NULL, the default parameters for xcms are loaded.}
 
-\item{results_rtcg}{object from the \code{lcms_corgroup_optimization}function}
+\item{results_rtcg}{object from the \code{lcms_corgroup_optimization} function.}
 
-\item{opt_result_path}{A directory to save the parameters file}
+\item{opt_result_path}{A directory to save the parameters file.}
 
-\item{csv}{if TRUE, it writes a file in csv format}
+\item{csv}{if TRUE, it writes a file in csv format.}
 
-\item{console}{if TRUE, it displays the params on the console}
+\item{console}{if TRUE, it displays the params on the console.}
 }
 \value{
-A file with the params from the IPO optimization
+A file with the params from the IPO optimization.
 }
 \description{
 The function allows visulizing the parameter optimization results by \code{IPO} Package
@@ -45,11 +45,18 @@ Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
 Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},
   \code{\link{lcms_dataset_load}},
   \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_identify_metabolites}},
   \code{\link{lcms_meta_export}},
   \code{\link{lcms_meta_read}},
+  \code{\link{lcms_peak_annotation}},
+  \code{\link{lcms_raw_data}},
   \code{\link{lcms_read_ipo_to_xcms}},
   \code{\link{lcms_read_samples}},
   \code{\link{lcms_rearrange_datafiles_by_class}},
+  \code{\link{lcms_sig_peaks_table}},
+  \code{\link{lcms_spectral_sig_features}},
+  \code{\link{lcms_to_mait}},
+  \code{\link{lcms_write_parameter_table}},
   \code{\link{phData}}
 }
 \concept{import/export functions}

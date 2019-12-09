@@ -3,6 +3,8 @@
 #' @param listParameters Parameters
 #' @param folder A directory to store a .csv file where the  parameter table is stored.
 #' @return A template with MAIT parameters.
+#' @family metabolite identification functions
+#' @family import/export functions
 #' @export
 #' @examples
 #' data_dir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
@@ -55,8 +57,10 @@ lcms_write_parameter_table <- function(listParameters, folder){
 #' @param project name of the
 #' @param preproc_params params from XCMS
 #' @param peak_table XCMS procesed LC-MS data
-#'
 #' @return A MAIT object
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family import/export functions
 #' @export
 #' @examples
 #' file_name <-  system.file("extdata", "peak_table_imputed.rds", package = "NIHSlcms")
@@ -174,6 +178,9 @@ lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, p
 #'
 #' @inheritParams MAIT::peakAnnotation
 #' @return A MAIT-class object with [xsAnnotate-class] in the rawData slot.
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family import/export functions
 #' @export
 #' @examples
 #' file_name <-  system.file("extdata","peak_table_mait.rds", package = "NIHSlcms")
@@ -301,8 +308,11 @@ lcms_peak_annotation <- function (MAIT.object = NULL,
 #' Raw data extractor from a MAIT object
 #'
 #' Function rawData extracts the raw data used to build the MAIT-class object
-#' @param MAIT.object A MAIT-class object
+#' @param MAIT.object A MAIT-class object.
 #' @return A list containing either a xcmsSet or a xsAnnotate object.
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family import/export functions
 #' @export
 #' @examples
 #' file_name <-  system.file("extdata", "peak_table_mait.rds", package = "NIHSlcms")
@@ -326,9 +336,11 @@ lcms_raw_data <- function (MAIT.object) {
 #' using ANOVA tests through function spectralAnova, or T-Student tests by using
 #' function spectralTStudent.
 #' @inheritParams MAIT::spectralSigFeatures
-#'
 #' @return A MAIT-class object containing the significant features of the scores
 #'   slot of MAIT-class object used as an input.
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family import/export functions
 #' @export
 #' @examples
 #' file_name <-  system.file("extdata", "peak_table_ann.rds", package = "NIHSlcms")
@@ -411,6 +423,8 @@ lcms_spectral_sig_features <- function(MAIT.object = NULL,
 #'
 #' @inheritParams MAIT::peakAggregation
 #' @return An MAIT-class object.
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
 #' @keywords internal
 #' @noRd
 
@@ -559,19 +573,12 @@ lcms_peak_aggregation<-function(MAIT.object=NULL,
 #' @inheritParams MAIT::sigPeaksTable
 #' @return A table containing:
 #' First column (mz): Peak mass
-#'
-#' Second column(mzmin): Minimum peak mass of the peak group.
-#'
-#' Third column(mzmax): Maximum peak mass of the peak group.
-#'
-#' Fourth column(rt): Peak retention time (in minutes).
-#'
-#' Fifth column(rtmin): Minimum peak retention time of the peak group.
-#'
-#' Sixth column(rtmax): Maximum peak retention time of the peak group.
-#'
-#' Seventh column(npeaks): Number of samples where the peak has been detected.
-#'
+#' Second column (mzmin): Minimum peak mass of the peak group.
+#' Third column (mzmax): Maximum peak mass of the peak group.
+#' Fourth column (rt): Peak retention time (in minutes).
+#' Fifth column (rtmin): Minimum peak retention time of the peak group.
+#' Sixth column (rtmax): Maximum peak retention time of the peak group.
+#' Seventh column (npeaks): Number of samples where the peak has been detected.
 #' The columns from the nineth to the column labeled "isotopes" contain number
 #' of class samples where the peak has been detected and the intensities of the
 #' peak among samples.
@@ -585,7 +592,6 @@ lcms_peak_aggregation<-function(MAIT.object=NULL,
 #'
 #' The P.adjust column contains the corrected peak p-value using post-hoc
 #' methods.
-#'
 #' The p column shows the peak p-value with no multiple test correction.
 #'
 #' The Fisher column shows the Fisher test results for the peak. Each of the
@@ -593,9 +599,11 @@ lcms_peak_aggregation<-function(MAIT.object=NULL,
 #' having the same letters are indistinguible whereas those having different
 #' letters are statistically different clases.
 #'
-#' The last columns contain the mean and median values for each feature
+#' The last columns contain the mean and median values for each feature.
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family import/export functions
 #' @export
-#'
 #' @examples
 #' file_name <-  system.file("extdata", "peak_table_sig_ann.rds", package = "NIHSlcms")
 #' peak_table <- base::readRDS(file_name)
@@ -826,10 +834,12 @@ lcms_sig_peaks_table<-function(
 #' features
 #'
 #' @inheritParams MAIT::identifyMetabolites
-#'
 #' @return An output table is stored in the folder (working
 #'   directory)/tables/SearchTable.csv if printCSVfile is set to TRUE. More info
-#'   at metaboliteTable
+#'   at metaboliteTable.
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family import/export functions
 #' @export
 #' @examples
 #' file_name <- system.file("extdata", "peak_table_sig_ann.rds", package = "NIHSlcms")
@@ -1052,6 +1062,7 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
 #' Function SearchCand looks up for a peak into a database
 #' @inheritParams MAIT::SearchCand
 #' @return A matrix containing all the possible hits for that peak candidateiteTable
+#' @family metabolite identification functions.
 #' @noRd
 
 
@@ -1091,6 +1102,9 @@ lcms_SearchCand <- function(candidate,
 #' given a p-value threshold when there only are two classes in the raw data.
 #' The parameters of the significant features can be printed to an output table (TRUE by default).
 #' @inheritParams MAIT::spectralTStudent
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family statistical functions
 #' @return A MAIT-class object containing the significant features of the scores slot of MAIT-class object used as an input.
 #' @keywords internal
 #' @noRd
@@ -1163,6 +1177,9 @@ lcms_spectral_tstudent <- function(MAIT.object=NULL,
 #' threshold following a Welch test. The parameters of the significant features can ve printed to an output table (TRUE by default).
 #' @inheritParams MAIT::spectralWelch
 #' @return A MAIT-class object containing the significant features of the scores slot of MAIT-class object used as an input.
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family statistical functions
 #' @keywords internal
 #' @noRd
 lcms_spectral_welch <- function(MAIT.object=NULL,
@@ -1240,6 +1257,9 @@ lcms_spectral_welch <- function(MAIT.object=NULL,
 #' The parameters of the significant features can ve printed to an output table (TRUE by default).
 #' @inheritParams MAIT::spectralWilcox
 #' @return A MAIT-class object containing the significant features of the scores slot of MAIT-class object used as an input.
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family statistical functions
 #' @keywords internal
 #' @noRd
 lcms_spectral_wilcox <- function(MAIT.object=NULL,
@@ -1319,6 +1339,9 @@ lcms_spectral_wilcox <- function(MAIT.object=NULL,
 #' The parameters of the significant features can ve printed to an output table (TRUE by default).
 #' @inheritParams MAIT::spectralAnova
 #' @return A MAIT-class object containing the significant features of the scores slot of MAIT-class object used as an input.
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family statistical functions
 #' @keywords internal
 #' @noRd
 lcms_spectral_anova <- function (pvalue=0.05,
@@ -1387,6 +1410,9 @@ lcms_spectral_anova <- function (pvalue=0.05,
 #' The parameters of the significant features can ve printed to an output table (TRUE by default).
 #' @inheritParams MAIT::spectralKruskal
 #' @return A MAIT-class object containing the significant features of the scores slot of MAIT-class object used as an input.
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family statistical functions
 #' @keywords internal
 #' @noRd
 lcms_spectral_kruskal <- function (pvalue=0.05,
@@ -1456,6 +1482,9 @@ lcms_spectral_kruskal <- function (pvalue=0.05,
 #'
 #' @inheritParams MAIT::spectralFUN
 #' @return A MAIT-class object containing the significant features of the scores slot of MAIT-class object used as an input.
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family statistical functions
 #' @keywords internal
 #' @noRd
 lcms_spectral_fun <- function (pvalue=0.05,
@@ -1535,6 +1564,10 @@ lcms_spectral_fun <- function (pvalue=0.05,
 #' @param MAIT.object MAIT object where it is found an annotated peak table
 #' @param treament_col Treatment for the samples.
 #' @return BoxPlots are stored in folders associated to their corresponding spectra. No explicit plot is produced by the device
+#' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family statistical functions
+#' @family visualization functions
 #' @export
 #' @examples
 #' file_name_1 <-  system.file("extdata","peak_table_sig_ann.rds", package = "NIHSlcms")
@@ -1600,10 +1633,13 @@ lcms_peak_table_boxplots <- function (MAIT.object = NULL, treatment_col) {
 #' @param Log Set to TRUE if the data should be plotted using the logarithm of the intensity.
 #' @param Set to TRUE if the data should be centered around its mean. See scale.
 #' @param scale Set to TRUE if the data should be scaled.
-
 #' @return A MAIT.object. Additionaly: Three different PCA scoreplots are printed in three png files.
 #' One using PC1 vs PC2, another with PC1 vs PC3 and the last one with PC2 vs PC3.
 #' The files will be stored in the directory /PCA_Scoreplots.
+#' #' @family metabolite identification functions
+#' @family dataset_peak_table functions
+#' @family statistical functions
+#' @family visualization functions
 #' @export
 #' @examples
 #' file_name_1 <-  system.file("extdata","peak_table_sig_ann.rds", package = "NIHSlcms")
