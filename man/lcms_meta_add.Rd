@@ -34,3 +34,13 @@ dataset_metadata <- lcms_meta_add(dataset,
                                by = "sampleNames")
 print(dataset_metadata)
 }
+\seealso{
+Other metadata functions: \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}}, \code{\link{phData}}
+
+Other dataset functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_meta_export}}, \code{\link{phData}}
+}
+\concept{dataset functions}
+\concept{metadata functions}

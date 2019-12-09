@@ -32,24 +32,18 @@ print(dataset_metadata)
 
 }
 \seealso{
-Other metadata functions: \code{\link{lcms_meta_read}}
+Other metadata functions: \code{\link{lcms_meta_add}},
+  \code{\link{lcms_meta_read}}, \code{\link{phData}}
 
-Other lcms_dataset functions: \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_filter_mz}},
-  \code{\link{lcms_filter_polarity}},
-  \code{\link{lcms_filter_rt_min}},
-  \code{\link{lcms_filter_sample_type}},
-  \code{\link{lcms_meta_read}},
-  \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
-
-Other lcms_dataset_peak_table functions: \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_meta_read}},
-  \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
+Other dataset functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_meta_add}}, \code{\link{phData}}
 
 Other import/export functions: \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_meta_read}}
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_meta_read}},
+  \code{\link{lcms_read_samples}}, \code{\link{phData}}
 }
+\concept{dataset functions}
 \concept{import/export functions}
-\concept{lcms_dataset functions}
-\concept{lcms_dataset_peak_table functions}
 \concept{metadata functions}

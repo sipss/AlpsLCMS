@@ -7,7 +7,10 @@
 phData(object)
 }
 \arguments{
-\item{object}{a \code{lcms_dataset}}
+\item{object}{Object, possibly derived from \code{\link{eSet-class}}
+    or \code{\linkS4class{AnnotatedDataFrame}}.}
+
+\item{An}{object from the \link{lcms_dataset_family}}
 }
 \value{
 phenoData returns an object containing information on
@@ -31,3 +34,22 @@ dataset_metadata <- lcms_meta_add(dataset, metadata, by = "sampleNames")
 
 head(phData(dataset_metadata))[1:4]
 }
+\seealso{
+Other metadata functions: \code{\link{lcms_meta_add}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}}
+
+Other dataset functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_meta_add}},
+  \code{\link{lcms_meta_export}}
+
+Other import/export functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}},
+  \code{\link{lcms_read_samples}}
+}
+\concept{dataset functions}
+\concept{import/export functions}
+\concept{metadata functions}

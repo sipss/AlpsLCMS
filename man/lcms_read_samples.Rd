@@ -55,3 +55,10 @@ dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
 
 print(dataset)
 }
+\seealso{
+Other import/export functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}}, \code{\link{phData}}
+}
+\concept{import/export functions}

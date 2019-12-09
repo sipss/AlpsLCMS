@@ -25,12 +25,9 @@ dataset_pos_mz <-lcms_filter_mz(dataset, mz = mz_range)
 print(dataset_pos_mz)
 }
 \seealso{
-Other lcms_dataset functions: \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_filter_polarity}},
+Other lcms_dataset functions: \code{\link{lcms_filter_polarity}},
   \code{\link{lcms_filter_rt_min}},
   \code{\link{lcms_filter_sample_type}},
-  \code{\link{lcms_meta_export}},
-  \code{\link{lcms_meta_read}},
   \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
 
 Other lcms_filtering functions: \code{\link{lcms_filter_polarity}},

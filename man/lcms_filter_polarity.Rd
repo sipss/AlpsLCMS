@@ -31,12 +31,9 @@ dataset_pos <- lcms_filter_polarity(dataset_2_polarities, polarity. = 1)
 print(dataset_pos)
 }
 \seealso{
-Other lcms_dataset functions: \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_filter_mz}},
+Other lcms_dataset functions: \code{\link{lcms_filter_mz}},
   \code{\link{lcms_filter_rt_min}},
   \code{\link{lcms_filter_sample_type}},
-  \code{\link{lcms_meta_export}},
-  \code{\link{lcms_meta_read}},
   \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
 
 Other lcms_filtering functions: \code{\link{lcms_filter_mz}},

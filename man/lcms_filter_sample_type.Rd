@@ -42,12 +42,9 @@ print(dataset_pos_rt_rs)
 print(dataset_pos_rt_qcs)
 }
 \seealso{
-Other lcms_dataset functions: \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_filter_mz}},
+Other lcms_dataset functions: \code{\link{lcms_filter_mz}},
   \code{\link{lcms_filter_polarity}},
   \code{\link{lcms_filter_rt_min}},
-  \code{\link{lcms_meta_export}},
-  \code{\link{lcms_meta_read}},
   \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
 
 Other lcms_filtering functions: \code{\link{lcms_filter_mz}},

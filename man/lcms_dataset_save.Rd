@@ -23,3 +23,15 @@ lcms_dataset_save(dataset, file_name)
 print(dataset)
 
 }
+\seealso{
+Other dataset functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_meta_add}},
+  \code{\link{lcms_meta_export}}, \code{\link{phData}}
+
+Other import/export functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}},
+  \code{\link{lcms_read_samples}}, \code{\link{phData}}
+}
+\concept{dataset functions}
+\concept{import/export functions}
