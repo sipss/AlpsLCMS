@@ -29,7 +29,9 @@ Other metadata functions: \code{\link{lcms_meta_add}},
 Other import/export functions: \code{\link{lcms_dataset_load}},
   \code{\link{lcms_dataset_save}},
   \code{\link{lcms_meta_export}},
-  \code{\link{lcms_read_samples}}, \code{\link{phData}}
+  \code{\link{lcms_read_samples}},
+  \code{\link{lcms_rearrange_datafiles_by_class}},
+  \code{\link{phData}}
 }
 \concept{import/export functions}
 \concept{metadata functions}

@@ -7,12 +7,12 @@
 lcms_find_chrom_peaks_cwp(dataset, params)
 }
 \arguments{
-\item{dataset}{An \link{lcms_dataset_family} object}
+\item{dataset}{A \link{lcms_dataset_family} object}
 
 \item{params}{A converted parameters template from IPO parameters.}
 }
 \value{
-A dataset with the detected peaks added
+A \link{lcms_dataset_family} object with the detected peaks added.
 }
 \description{
 The findChromPeaks_cwp function performs the chromatographic peak
@@ -42,3 +42,24 @@ peakdet <- lcms_find_chrom_peaks_cwp(dataset_meta, params = preproc_params)
 print(peakdet)
 }
 }
+\seealso{
+Other dataset functions: \code{\link{lcms_align_rtime}},
+  \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_fill_chrom_peaks}},
+  \code{\link{lcms_filter_mz}},
+  \code{\link{lcms_filter_polarity}},
+  \code{\link{lcms_filter_rt_min}},
+  \code{\link{lcms_filter_sample_type}},
+  \code{\link{lcms_group_peaks}},
+  \code{\link{lcms_meta_add}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_rearrange_datafiles_by_class}},
+  \code{\link{lcms_retention_time_alignment_plot}},
+  \code{\link{lcms_tics}},
+  \code{\link{lmcs_plot_chrom_peak_image}},
+  \code{\link{phData}}
+}
+\concept{dataset functions}
+\concept{peak detection functions}

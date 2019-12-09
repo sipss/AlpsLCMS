@@ -4,10 +4,10 @@
 \alias{lcms_tics}
 \title{Total Ion Count (TIC)}
 \usage{
-lcms_tics(lcms_dataset, treatment = treatment)
+lcms_tics(dataset, treatment = treatment)
 }
 \arguments{
-\item{lcms_dataset}{An \link{lcms_dataset_family} object}
+\item{dataset}{A \link{lcms_dataset_family} object}
 
 \item{treatment}{Class groups of the samples}
 }
@@ -29,13 +29,26 @@ tics <- lcms_tics(dataset)
 print(tics)
 }
 \seealso{
-Other lcms_dataset functions: \code{\link{lcms_filter_mz}},
+Other dataset functions: \code{\link{lcms_align_rtime}},
+  \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_fill_chrom_peaks}},
+  \code{\link{lcms_filter_mz}},
   \code{\link{lcms_filter_polarity}},
   \code{\link{lcms_filter_rt_min}},
   \code{\link{lcms_filter_sample_type}},
-  \code{\link{lcms_plot_tics}}
+  \code{\link{lcms_find_chrom_peaks_cwp}},
+  \code{\link{lcms_group_peaks}},
+  \code{\link{lcms_meta_add}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_rearrange_datafiles_by_class}},
+  \code{\link{lcms_retention_time_alignment_plot}},
+  \code{\link{lmcs_plot_chrom_peak_image}},
+  \code{\link{phData}}
 
-Other lcms_dataset_peak_table functions: \code{\link{lcms_plot_tics}}
+Other dataset_peak_table functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_plot_tics}}
 }
-\concept{lcms_dataset functions}
-\concept{lcms_dataset_peak_table functions}
+\concept{dataset functions}
+\concept{dataset_peak_table functions}

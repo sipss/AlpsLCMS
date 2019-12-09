@@ -11,8 +11,8 @@
 #'
 #' @param object An MSnExp object
 #' @param polarity. The polarity to keep
-#' @family lcms_dataset functions
-#' @family lcms_filtering functions
+#' @family dataset functions
+#' @family filtering functions
 #' @return A filtered [lcms_dataset_family] object with the selected polarity
 #' @export
 #' @examples
@@ -34,9 +34,9 @@ lcms_filter_polarity <- function(object, polarity.) {
 #' The function filters the dataset by m/z
 #' @param dataset An [lcms_dataset_family] object
 #' @param mz  The range of masses to filter
-#' @family lcms_dataset functions
-#' @family lcms_filtering functions
-#' @return A filtered [lcms_dataset_family] object with the selecter m/z range
+#' @family dataset functions
+#' @family filtering functions
+#' @return A filtered [lcms_dataset_family] object with the selected m/z range
 #' @export
 #' @examples
 
@@ -58,11 +58,9 @@ lcms_filter_mz <- function(dataset, mz){
 #' a range of the retention time in minutes.
 #' @param dataset An [lcms_dataset_family] object filtered by retention time
 #' @param rt Range of the retention time to keep in minutes
-#' @return A filtered dataset with the range of selected rt
-#' @export
-#' @family lcms_dataset functions
-#' @family lcms_filtering functions
-#'
+#' @return A filtered [lcms_dataset_family] object with the selected retention time range
+#' @family dataset functions
+#' @family filtering functions
 #' @export
 #' @examples
 #'
@@ -93,18 +91,16 @@ lcms_filter_rt_min <- function (dataset, rt = c(4, 14)){
 #' @param dataset An [lcms_dataset_family] object
 #' @param especial_samples A list with the especial samples names.
 #' Use `NULL` if there is not any especial sample in the dataset.
-#' @return A filtered dataset with the remained samples
+#' @return A list containing three [lcms_dataset_family] objects: one per sample type.
+#' @family dataset functions
+#' @family filtering functions
 #' @export
-#' @family lcms_dataset functions
-#' @family lcms_filtering functions
-#' @export
-#'
 #' @examples
 #' dataset <- lcms_dataset_load(system.file("extdata","dataset_pos_rt.rds",package = "NIHSlcms"))
-#' especial_samples <-list(QC = NULL, blank = NULL)
+#' especial_samples <- list(QC = NULL, blank = NULL)
 #' datasets_by_class_type <- lcms_filter_sample_type(dataset, especial_samples)
-#' dataset_pos_rt_rs <-datasets_by_class_type$regular_samples
-#' dataset_pos_rt_qcs <-datasets_by_class_type$QCs
+#' dataset_pos_rt_rs <- datasets_by_class_type$regular_samples
+#' dataset_pos_rt_qcs <- datasets_by_class_type$QCs
 #' print(dataset_pos_rt_rs)
 #'
 #' print(dataset_pos_rt_qcs)
@@ -155,8 +151,12 @@ lcms_filter_sample_type <- function(dataset,  especial_samples){
 #' (2) peak alignment (`lcms_align_rtime` function) and
 #' (3) peak correspondence (`lcms_group_peaks` function).
 #'
-#' @param dataset An [lcms_dataset_family] object
+#' @param dataset A [lcms_dataset_family] object
 #' @param params A converted parameters template from IPO parameters.
+#' @return A [lcms_dataset_family] object with the detected peaks added.
+#' @family dataset functions
+#' @family peak detection functions
+#' @export
 #' @examples
 #' \dontrun{
 #' file_path <- system.file("extdata", "rearrange_mait", package = "NIHSlcms")
@@ -173,9 +173,7 @@ lcms_filter_sample_type <- function(dataset,  especial_samples){
 #' print(peakdet)
 #' }
 #
-#' @return A dataset with the detected peaks added
-#' @export
-#'
+
 lcms_find_chrom_peaks_cwp <- function (dataset, params) {
   quiet <- function(x) {
     base::sink(base::tempfile())
@@ -218,9 +216,14 @@ lcms_find_chrom_peaks_cwp <- function (dataset, params) {
 #' (2) peak alignment (`lcms_align_rtime` function) and
 #' (3) peak correspondence (`lcms_group_peaks` function).
 #'
-#' @param peakdet A dataset with detected peaks from the
+#' @param peakdet A [lcms_dataset_family] object with detected peaks from the
 #' `lcms_find_chrom_peaks_cwp` function
 #' @param params A converted parameters template from IPO parameters.
+#' @return A [lcms_dataset_family] object with (1) detected (`lcms_find_chrom_peaks_cwp` function)
+#' and (2) aligned (`lcms_align_rtime` function) peaks
+#' @family dataset functions
+#' @family retention time correction functions
+#' @export
 #' @examples
 #' file_name <-  system.file("extdata", "peakdet.rds", package = "NIHSlcms")
 #' peakdet <- base::readRDS(file_name)
@@ -229,10 +232,8 @@ lcms_find_chrom_peaks_cwp <- function (dataset, params) {
 #'
 #' peakdet_align <- lcms_align_rtime(peakdet, params = preproc_params)
 #' print(peakdet_align)
-#'
-#' @return A dataset with (1) detected (`lcms_find_chrom_peaks_cwp` function)
-#' and (2) aligned (`lcms_align_rtime` function) peaks
-#' @export
+
+
 lcms_align_rtime <- function (peakdet, params) {
 
   quiet <- function(x) {
@@ -273,20 +274,20 @@ lcms_align_rtime <- function (peakdet, params) {
 #' grouping peaks on retention time axis with the purspose of associate
 #' them to spectra on the mass/chage axis.
 #' #' Note: signal processing generally  consists in three main steps:
-#' (1) peak detection (`lcmfindChromPeaks_cwp` function),
-#' (2) peak alignment (`align_Rtime` function) and
-#' (3) peak correspondence (`group_peaks` function).
+#' (1) peak detection (`lcms_find_chrom_peaks_cwp` function),
+#' (2) peak alignment (`lcms_align_rtime` function) and
+#' (3) peak correspondence (`lcms_group_peaks` function).
 #' After this stage the peak table is finally obtained.
 #'
-#' @param peakdet_align A lcms_dataset with (1) detected (`findChromPeaks_cwp`
-#' function) and (2) aligned (`align_Rtime` function) peaks
+#' @param peakdet_align A [lcms_dataset_family] object with (1) detected (`findChromPeaks_cwp`
+#' function) and (2) aligned (`lcms_align_rtime` function) peaks
 #' @param params A converted parameters template from IPO parameters.
-#'
-#' @return A lcms_dataset with (1) detected (`findChromPeaks_cwp` function),
-#' (2) aligned (`align_Rtime` function) and (3) grouped  (`group_peaks`
+#' @return A [lcms_dataset_family] object with (1) detected (`lcms_find_chrom_peaks_cwp` function),
+#' (2) aligned (`align_rtime` function) and (3) grouped  (`lcms_group_peaks`
 #' function) peaks.
+#' @family dataset functions
+#' @family peak correspondence functions
 #' @export
-#'
 #' @examples
 #' file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
 #' peakdet_align <- base::readRDS(file_name)
@@ -320,13 +321,15 @@ lcms_group_peaks <- function (peakdet_align, params) {
   return(peak_table)
 }
 
-#' Filling missing values in a peak tabe
+#' Filling missing values in a peak table
 #'
 #' In the imputation stage, we integrate the areas of the missing peaks of the peak table
 #' that were not detected in the previous steps of the signal preprocessing workflow.
 #'
 #' @param peak_table A table of peaks with (possibly) missing values.
 #' @return A peak table where the missing peaks have been filled
+#' @family dataset functions
+#' @family imputation functions
 #' @export
 #' @examples
 #' file_name <-  system.file("extdata", "peak_table.rds", package = "NIHSlcms")
@@ -358,12 +361,12 @@ lcms_fill_chrom_peaks <- function(peak_table){
 #' Function `lcms_tics` stores summarizes TIC information.
 #' NOTE: `lcms_tics` assumes that data is already filtered by polarity.
 #'
-#' @param lcms_dataset An [lcms_dataset_family] object
+#' @param dataset A [lcms_dataset_family] object
 #' @param treatment Class groups of the samples
 #' @return Total Ion Count (TIC) for the polarity samples.
+#' @family dataset functions
+#' @family dataset_peak_table functions
 #' @export
-#' @family lcms_dataset functions
-#' @family lcms_dataset_peak_table functions
 #' @examples
 #' dataset <- lcms_dataset_load(system.file
 #'                                   ("extdata","dataset_pos.rds",
@@ -372,19 +375,19 @@ lcms_fill_chrom_peaks <- function(peak_table){
 #'
 #'
 #' print(tics)
-lcms_tics <- function(lcms_dataset, treatment = treatment){
+lcms_tics <- function(dataset, treatment = treatment){
   tics <- tibble::tibble(
-    file = MSnbase::fromFile(lcms_dataset),
-    fileName = Biobase::pData(lcms_dataset)$sampleNames[file],
-    treatment = Biobase::pData(lcms_dataset)$treatment[file],
-    ret_time = MSnbase::rtime(lcms_dataset),
-    polarity = rep(unique(MSnbase::polarity(lcms_dataset),length(file))),
-    tic = MSnbase::tic(lcms_dataset)
+    file = MSnbase::fromFile(dataset),
+    fileName = Biobase::pData(dataset)$sampleNames[file],
+    treatment = Biobase::pData(dataset)$treatment[file],
+    ret_time = MSnbase::rtime(dataset),
+    polarity = rep(unique(MSnbase::polarity(dataset),length(file))),
+    tic = MSnbase::tic(dataset)
   )
   #Files sorted by treatment
   tics$fileName <- factor(tics$fileName,
                           levels = unique(tics$fileName)
-                          [base::order(lcms_dataset$treatment)])
+                          [base::order(dataset$treatment)])
   return(tics)
 }
 
@@ -397,9 +400,11 @@ lcms_tics <- function(lcms_dataset, treatment = treatment){
 #' @param rt Retention time
 #' @param plot_type The plot class, either boxplot or spectra
 #' @return Total Ion Count (TIC) for the polarity samples.
+#' @family dataset functions
+#' @family dataset_peak_table functions
+#' @family chromatogram functions
+#' @family visualization functions
 #' @export
-#' @family lcms_dataset functions
-#' @family lcms_dataset_peak_table functions
 #' @examples
 #' dataset <- lcms_dataset_load(system.file
 #'                                   ("extdata","dataset_pos.rds",
@@ -461,14 +466,18 @@ lcms_plot_tics <- function(tics, treatment = treatment, rt = NULL, plot_type = "
 #' It plots the retention time correction vs the original retention time for each of the samples
 #' coloured by sample class.
 #'
-#' @param data An aligned lcms_dataset
+#' @param data An aligned [lcms_dataset_family] object.
+#' @return The plot for the retention time correction
+#' @family dataset functions
+#' @family retention time correction functions
+#' @family visualization functions
+#' @export
 #' @examples
 #' file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
 #' data <- base::readRDS(file_name)
 #' rta_plot <- lcms_retention_time_alignment_plot(data)
 #' print(rta_plot)
-#' @return The plot for the retention time correction
-#' @export
+
 #'
 lcms_retention_time_alignment_plot <- function (data){
   min2sec <- 60
@@ -496,6 +505,8 @@ lcms_retention_time_alignment_plot <- function (data){
 #' @param treatment_col Color code by groups.
 #' @param rtlim retention time boundaries (e.g. c(4,8))
 #' @return A base peak chromatogram
+#' @family chromatogram functions
+#' @family visualization functions
 #' @export
 #' @examples
 #' file_name <- system.file("extdata",
@@ -534,15 +545,19 @@ lcms_plot_chrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
 #' It plots the an image of the chromatographic peaks for each sample. This function is useful if
 #' you are interested in knowing the effect of the retention time correction on the chromatographic axis.
 #'
-#' @param dataset An dataset
+#' @param dataset A [lcms_dataset_family] object
+#' @return An image with the detected chromatographic peak, for each sample
+#' @export
+#' @family dataset functions
+#' @family chromatogram functions
+#' @family visualization functions
 #' @examples
 #' file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
 #' dataset <- base::readRDS(file_name)
 #' chr_peak_image <- lmcs_plot_chrom_peak_image(dataset, binSize = 5, xlim = NULL, log = FALSE,
 #'                                                xlab = "retention time (min)", yaxt = par("yaxt"))
 #'                                                title(main ="Detected Peaks (Aligned)")
-#' @return An image with the detected chromatographic peak, for each sample
-#' @export
+
 
 
 
@@ -603,10 +618,12 @@ lmcs_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE
 #' needs a specific directory structure for data managing.
 #' Otherwise, it can't work properly.
 #'
-#' @param dataset An [lcms_dataset_family] object
+#' @param dataset A [lcms_dataset_family] object
 #' @param dataDir a directory in where LC-MS files are
 #' going to be saved
 #' @return LC-MS datafiles sorted by class treatment
+#' @family dataset functions
+#' @family import/export functions
 #' @export
 #' @examples
 #' file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "NIHSlcms")

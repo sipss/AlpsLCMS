@@ -7,7 +7,7 @@
 lcms_retention_time_alignment_plot(data)
 }
 \arguments{
-\item{data}{An aligned lcms_dataset}
+\item{data}{An aligned \link{lcms_dataset_family} object.}
 }
 \value{
 The plot for the retention time correction
@@ -21,4 +21,33 @@ file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
 data <- base::readRDS(file_name)
 rta_plot <- lcms_retention_time_alignment_plot(data)
 print(rta_plot)
+
 }
+\seealso{
+Other dataset functions: \code{\link{lcms_align_rtime}},
+  \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_fill_chrom_peaks}},
+  \code{\link{lcms_filter_mz}},
+  \code{\link{lcms_filter_polarity}},
+  \code{\link{lcms_filter_rt_min}},
+  \code{\link{lcms_filter_sample_type}},
+  \code{\link{lcms_find_chrom_peaks_cwp}},
+  \code{\link{lcms_group_peaks}},
+  \code{\link{lcms_meta_add}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_rearrange_datafiles_by_class}},
+  \code{\link{lcms_tics}},
+  \code{\link{lmcs_plot_chrom_peak_image}},
+  \code{\link{phData}}
+
+Other retention time correction functions: \code{\link{lcms_align_rtime}}
+
+Other visualization functions: \code{\link{lcms_plot_chrom}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lmcs_plot_chrom_peak_image}}
+}
+\concept{dataset functions}
+\concept{retention time correction functions}
+\concept{visualization functions}

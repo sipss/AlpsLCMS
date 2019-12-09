@@ -7,13 +7,13 @@
 lcms_align_rtime(peakdet, params)
 }
 \arguments{
-\item{peakdet}{A dataset with detected peaks from the
+\item{peakdet}{A \link{lcms_dataset_family} object with detected peaks from the
 \code{lcms_find_chrom_peaks_cwp} function}
 
 \item{params}{A converted parameters template from IPO parameters.}
 }
 \value{
-A dataset with (1) detected (\code{lcms_find_chrom_peaks_cwp} function)
+A \link{lcms_dataset_family} object with (1) detected (\code{lcms_find_chrom_peaks_cwp} function)
 and (2) aligned (\code{lcms_align_rtime} function) peaks
 }
 \description{
@@ -32,5 +32,27 @@ preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 
 peakdet_align <- lcms_align_rtime(peakdet, params = preproc_params)
 print(peakdet_align)
-
 }
+\seealso{
+Other dataset functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_fill_chrom_peaks}},
+  \code{\link{lcms_filter_mz}},
+  \code{\link{lcms_filter_polarity}},
+  \code{\link{lcms_filter_rt_min}},
+  \code{\link{lcms_filter_sample_type}},
+  \code{\link{lcms_find_chrom_peaks_cwp}},
+  \code{\link{lcms_group_peaks}},
+  \code{\link{lcms_meta_add}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_rearrange_datafiles_by_class}},
+  \code{\link{lcms_retention_time_alignment_plot}},
+  \code{\link{lcms_tics}},
+  \code{\link{lmcs_plot_chrom_peak_image}},
+  \code{\link{phData}}
+
+Other retention time correction functions: \code{\link{lcms_retention_time_alignment_plot}}
+}
+\concept{dataset functions}
+\concept{retention time correction functions}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/pre_processing.R
 \name{lcms_fill_chrom_peaks}
 \alias{lcms_fill_chrom_peaks}
-\title{Filling missing values in a peak tabe}
+\title{Filling missing values in a peak table}
 \usage{
 lcms_fill_chrom_peaks(peak_table)
 }
@@ -23,3 +23,24 @@ peak_table_imputed <- lcms_fill_chrom_peaks(peak_table)
 
 print(peak_table_imputed)
 }
+\seealso{
+Other dataset functions: \code{\link{lcms_align_rtime}},
+  \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_filter_mz}},
+  \code{\link{lcms_filter_polarity}},
+  \code{\link{lcms_filter_rt_min}},
+  \code{\link{lcms_filter_sample_type}},
+  \code{\link{lcms_find_chrom_peaks_cwp}},
+  \code{\link{lcms_group_peaks}},
+  \code{\link{lcms_meta_add}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_rearrange_datafiles_by_class}},
+  \code{\link{lcms_retention_time_alignment_plot}},
+  \code{\link{lcms_tics}},
+  \code{\link{lmcs_plot_chrom_peak_image}},
+  \code{\link{phData}}
+}
+\concept{dataset functions}
+\concept{imputation functions}

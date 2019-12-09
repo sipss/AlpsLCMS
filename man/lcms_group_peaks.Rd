@@ -7,14 +7,14 @@
 lcms_group_peaks(peakdet_align, params)
 }
 \arguments{
-\item{peakdet_align}{A lcms_dataset with (1) detected (\code{findChromPeaks_cwp}
-function) and (2) aligned (\code{align_Rtime} function) peaks}
+\item{peakdet_align}{A \link{lcms_dataset_family} object with (1) detected (\code{findChromPeaks_cwp}
+function) and (2) aligned (\code{lcms_align_rtime} function) peaks}
 
 \item{params}{A converted parameters template from IPO parameters.}
 }
 \value{
-A lcms_dataset with (1) detected (\code{findChromPeaks_cwp} function),
-(2) aligned (\code{align_Rtime} function) and (3) grouped  (\code{group_peaks}
+A \link{lcms_dataset_family} object with (1) detected (\code{lcms_find_chrom_peaks_cwp} function),
+(2) aligned (\code{align_rtime} function) and (3) grouped  (\code{lcms_group_peaks}
 function) peaks.
 }
 \description{
@@ -23,9 +23,9 @@ with parameters obtained form \code{IPO}. Peak Correspondece consist in
 grouping peaks on retention time axis with the purspose of associate
 them to spectra on the mass/chage axis.
 #' Note: signal processing generally  consists in three main steps:
-(1) peak detection (\code{lcmfindChromPeaks_cwp} function),
-(2) peak alignment (\code{align_Rtime} function) and
-(3) peak correspondence (\code{group_peaks} function).
+(1) peak detection (\code{lcms_find_chrom_peaks_cwp} function),
+(2) peak alignment (\code{lcms_align_rtime} function) and
+(3) peak correspondence (\code{lcms_group_peaks} function).
 After this stage the peak table is finally obtained.
 }
 \examples{
@@ -37,3 +37,24 @@ preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 peak_table <- lcms_group_peaks(peakdet_align, params = preproc_params)
 print(peak_table)
 }
+\seealso{
+Other dataset functions: \code{\link{lcms_align_rtime}},
+  \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_fill_chrom_peaks}},
+  \code{\link{lcms_filter_mz}},
+  \code{\link{lcms_filter_polarity}},
+  \code{\link{lcms_filter_rt_min}},
+  \code{\link{lcms_filter_sample_type}},
+  \code{\link{lcms_find_chrom_peaks_cwp}},
+  \code{\link{lcms_meta_add}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_rearrange_datafiles_by_class}},
+  \code{\link{lcms_retention_time_alignment_plot}},
+  \code{\link{lcms_tics}},
+  \code{\link{lmcs_plot_chrom_peak_image}},
+  \code{\link{phData}}
+}
+\concept{dataset functions}
+\concept{peak correspondence functions}

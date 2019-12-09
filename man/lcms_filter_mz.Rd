@@ -12,7 +12,7 @@ lcms_filter_mz(dataset, mz)
 \item{mz}{The range of masses to filter}
 }
 \value{
-A filtered \link{lcms_dataset_family} object with the selecter m/z range
+A filtered \link{lcms_dataset_family} object with the selected m/z range
 }
 \description{
 The function filters the dataset by m/z
@@ -25,14 +25,27 @@ dataset_pos_mz <-lcms_filter_mz(dataset, mz = mz_range)
 print(dataset_pos_mz)
 }
 \seealso{
-Other lcms_dataset functions: \code{\link{lcms_filter_polarity}},
+Other dataset functions: \code{\link{lcms_align_rtime}},
+  \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_fill_chrom_peaks}},
+  \code{\link{lcms_filter_polarity}},
   \code{\link{lcms_filter_rt_min}},
   \code{\link{lcms_filter_sample_type}},
-  \code{\link{lcms_plot_tics}}, \code{\link{lcms_tics}}
+  \code{\link{lcms_find_chrom_peaks_cwp}},
+  \code{\link{lcms_group_peaks}},
+  \code{\link{lcms_meta_add}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_rearrange_datafiles_by_class}},
+  \code{\link{lcms_retention_time_alignment_plot}},
+  \code{\link{lcms_tics}},
+  \code{\link{lmcs_plot_chrom_peak_image}},
+  \code{\link{phData}}
 
-Other lcms_filtering functions: \code{\link{lcms_filter_polarity}},
+Other filtering functions: \code{\link{lcms_filter_polarity}},
   \code{\link{lcms_filter_rt_min}},
   \code{\link{lcms_filter_sample_type}}
 }
-\concept{lcms_dataset functions}
-\concept{lcms_filtering functions}
+\concept{dataset functions}
+\concept{filtering functions}

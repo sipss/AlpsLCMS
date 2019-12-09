@@ -30,3 +30,13 @@ base_peaks <- xcms::chromatogram(dataset, aggregationFun = "max")
 lcms_plot_chrom(base_peaks, treatment_col, rtlim = c(4, 8))
 
 }
+\seealso{
+Other chromatogram functions: \code{\link{lcms_plot_tics}},
+  \code{\link{lmcs_plot_chrom_peak_image}}
+
+Other visualization functions: \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_retention_time_alignment_plot}},
+  \code{\link{lmcs_plot_chrom_peak_image}}
+}
+\concept{chromatogram functions}
+\concept{visualization functions}

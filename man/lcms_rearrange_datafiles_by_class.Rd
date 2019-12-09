@@ -7,7 +7,7 @@
 lcms_rearrange_datafiles_by_class(dataset, dataDir)
 }
 \arguments{
-\item{dataset}{An \link{lcms_dataset_family} object}
+\item{dataset}{A \link{lcms_dataset_family} object}
 
 \item{dataDir}{a directory in where LC-MS files are
 going to be saved}
@@ -36,3 +36,30 @@ fileList = list.files(path = paste(path, list.files(path = path),
                            sep = "/"), full.names = TRUE)
 print(fileList)
 }
+\seealso{
+Other dataset functions: \code{\link{lcms_align_rtime}},
+  \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_fill_chrom_peaks}},
+  \code{\link{lcms_filter_mz}},
+  \code{\link{lcms_filter_polarity}},
+  \code{\link{lcms_filter_rt_min}},
+  \code{\link{lcms_filter_sample_type}},
+  \code{\link{lcms_find_chrom_peaks_cwp}},
+  \code{\link{lcms_group_peaks}},
+  \code{\link{lcms_meta_add}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_retention_time_alignment_plot}},
+  \code{\link{lcms_tics}},
+  \code{\link{lmcs_plot_chrom_peak_image}},
+  \code{\link{phData}}
+
+Other import/export functions: \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}},
+  \code{\link{lcms_read_samples}}, \code{\link{phData}}
+}
+\concept{dataset functions}
+\concept{import/export functions}
