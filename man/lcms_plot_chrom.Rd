@@ -34,7 +34,9 @@ lcms_plot_chrom(base_peaks, treatment_col, rtlim = c(4, 8))
 Other chromatogram functions: \code{\link{lcms_plot_tics}},
   \code{\link{lmcs_plot_chrom_peak_image}}
 
-Other visualization functions: \code{\link{lcms_plot_tics}},
+Other visualization functions: \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_retcorgroup_optimization}},
   \code{\link{lcms_retention_time_alignment_plot}},
   \code{\link{lmcs_plot_chrom_peak_image}}
 }

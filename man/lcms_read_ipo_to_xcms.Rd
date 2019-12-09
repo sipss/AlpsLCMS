@@ -22,3 +22,21 @@ opt_result_path <-  system.file("extdata","ipo_opt", package = "NIHSlcms")
 preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 print(preproc_params)
 }
+\seealso{
+Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
+  \code{\link{lcms_default_peakpicking_params}},
+  \code{\link{lcms_default_retcorgroup_params}},
+  \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_write_opt_params}}
+
+Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},
+  \code{\link{lcms_dataset_load}},
+  \code{\link{lcms_dataset_save}},
+  \code{\link{lcms_meta_export}},
+  \code{\link{lcms_meta_read}},
+  \code{\link{lcms_read_samples}},
+  \code{\link{lcms_rearrange_datafiles_by_class}},
+  \code{\link{lcms_write_opt_params}}, \code{\link{phData}}
+}
+\concept{import/export functions}
+\concept{optimization functions}

@@ -18,9 +18,8 @@
 #' @param optimize by default is TRUE. If FALSE, the function does not initialze the parameters
 #' the parameters
 #' @return A parameters template for peak picking optimization
-#' @export
 #' @family optimization functions
-#'
+#' @export
 #' @examples
 #' default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
 #' print(default_peakpicking_params)
@@ -55,8 +54,10 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #' @param plots Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo" (default).
 #' @param subdir Folder where surface plots are saved. If NULL they are displayed by the graphical device.
 #' @return A peak picking list with the best setting
-#' @export
+#' @family dataset functions
 #' @family optimization functions
+#' @family visualization functions
+#' @export
 #' @examples
 #' \dontrun{
 #' opt_path <- system.file("extdata", "ipo_opt", package = "NIHSlcms")
@@ -142,8 +143,8 @@ lcms_peakpicking_optimization <- function (dataset, peakpickingParameters,
 #' @param optimize by default is TRUE. If FALSE, the function does not optimize
 #' the parameters
 #' @return A parameters template for retention time correction and grouping optimization
-#' @export
 #' @family optimization functions
+#' @export
 #' @examples
 #' default_retcorgroup_params <- lcms_default_retcorgroup_params(optimize = TRUE)
 #' print(default_retcorgroup_params)
@@ -174,8 +175,9 @@ lcms_default_retcorgroup_params <- function(profStep = 1, gapExtend = 2.7, optim
 #' subfolder called "plot_ipo"(default).
 #' @param subdir Folder where surface plots are save. If NULL they are displayed by the graphical device.
 #' @return a list with the optimization of parameters for retention time and grouping.
-#' @export
 #' @family optimization functions.
+#' @family visualization functions
+#' @export
 #' @examples
 #' \dontrun{
 #' file_name_pp <- system.file("extdata", "result_peakpicking.rds", package = "NIHSlcms")
@@ -240,10 +242,10 @@ lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
 #' @param opt_result_path A directory to save the parameters file
 #' @param csv if TRUE, it writes a file in csv format
 #' @param console if TRUE, it displays the params on the console
-#'
 #' @return A file with the params from the IPO optimization
-#' @export
 #' @family optimization functions
+#' @family import/export functions
+#' @export
 #' @examples
 #'  opt_result_path <-system.file("extdata", "ipo_opt", package = "NIHSlcms")
 #'  file_name_pp <- system.file("extdata", "result_peakpicking.rds", package = "NIHSlcms")
@@ -315,10 +317,10 @@ lcms_write_opt_params<- function(results_pp,
 #' to achieve compatibility between packages when reading these parameters from a .csv file.
 #'
 #' @param opt_result_path A directory where the parameters file is stored
-#'
 #' @return A display of the chosen parameters
+#' @family optimization functions
+#' @family import/export functions
 #' @export
-#'
 #' @examples
 #' opt_result_path <-  system.file("extdata","ipo_opt", package = "NIHSlcms")
 #' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
@@ -361,6 +363,8 @@ lcms_read_ipo_to_xcms <- function(opt_result_path){
 #' to achieve compatibility between packages when these parameters are stored in a list.
 #'
 #' @param params A list with the IPO parameters, generated with the `lcms_write_opt_params` function
+#' @family optimization functions
+#' @family import/export functions
 #' @return Parameters in XCMS format
 #' @export
 #' @examples

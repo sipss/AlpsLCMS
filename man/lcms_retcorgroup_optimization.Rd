@@ -43,4 +43,12 @@ result_retcorgroup <- lcms_retcorgroup_optimization(optimizedXcmsSetObject,
                                                    subdir = NULL)
 }
 }
+\seealso{
+Other visualization functions: \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_plot_chrom}},
+  \code{\link{lcms_plot_tics}},
+  \code{\link{lcms_retention_time_alignment_plot}},
+  \code{\link{lmcs_plot_chrom_peak_image}}
+}
 \concept{optimization functions.}
+\concept{visualization functions}

@@ -56,11 +56,13 @@ dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
 print(dataset)
 }
 \seealso{
-Other import/export functions: \code{\link{lcms_dataset_load}},
+Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},
+  \code{\link{lcms_dataset_load}},
   \code{\link{lcms_dataset_save}},
   \code{\link{lcms_meta_export}},
   \code{\link{lcms_meta_read}},
+  \code{\link{lcms_read_ipo_to_xcms}},
   \code{\link{lcms_rearrange_datafiles_by_class}},
-  \code{\link{phData}}
+  \code{\link{lcms_write_opt_params}}, \code{\link{phData}}
 }
 \concept{import/export functions}

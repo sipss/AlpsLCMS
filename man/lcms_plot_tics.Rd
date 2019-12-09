@@ -48,6 +48,7 @@ Other dataset functions: \code{\link{lcms_align_rtime}},
   \code{\link{lcms_group_peaks}},
   \code{\link{lcms_meta_add}},
   \code{\link{lcms_meta_export}},
+  \code{\link{lcms_peakpicking_optimization}},
   \code{\link{lcms_rearrange_datafiles_by_class}},
   \code{\link{lcms_retention_time_alignment_plot}},
   \code{\link{lcms_tics}},
@@ -60,7 +61,9 @@ Other dataset_peak_table functions: \code{\link{lcms_dataset_load}},
 Other chromatogram functions: \code{\link{lcms_plot_chrom}},
   \code{\link{lmcs_plot_chrom_peak_image}}
 
-Other visualization functions: \code{\link{lcms_plot_chrom}},
+Other visualization functions: \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_plot_chrom}},
+  \code{\link{lcms_retcorgroup_optimization}},
   \code{\link{lcms_retention_time_alignment_plot}},
   \code{\link{lmcs_plot_chrom_peak_image}}
 }

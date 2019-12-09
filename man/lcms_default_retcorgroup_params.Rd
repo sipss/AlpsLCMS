@@ -34,8 +34,10 @@ default_retcorgroup_params <- lcms_default_retcorgroup_params(optimize = TRUE)
 print(default_retcorgroup_params)
 }
 \seealso{
-Other optimization functions: \code{\link{lcms_default_peakpicking_params}},
+Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
+  \code{\link{lcms_default_peakpicking_params}},
   \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_read_ipo_to_xcms}},
   \code{\link{lcms_write_opt_params}}
 }
 \concept{optimization functions}
