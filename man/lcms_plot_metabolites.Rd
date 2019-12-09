@@ -40,3 +40,4 @@ plots$cloud
 
 plots$freq
 }
+\concept{data visualization functions}

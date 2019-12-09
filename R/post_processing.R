@@ -14,6 +14,7 @@
 #' @param  max_words  Maximum number of words allowed in the word cloud.
 #' @return Two plots: A word cloud with the potential identified metabolites
 #' and a bar plot with the number of potential cantidates by detected compound.
+#' @family data visualization functions
 #' @export
 #' @examples
 #' path_result <-  system.file("extdata","results_project","tables","metaboliteTable.csv", package = "NIHSlcms")

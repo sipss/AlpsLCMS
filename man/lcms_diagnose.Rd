@@ -5,12 +5,12 @@
 \alias{lcms_diagnose<-}
 \title{Set/Get diagnostic information}
 \usage{
-lcms_diagnose(lcms_dataset)
+lcms_diagnose(dataset)
 
-lcms_diagnose(lcms_dataset) <- value
+lcms_diagnose(dataset) <- value
 }
 \arguments{
-\item{lcms_dataset}{An \link{lcms_dataset_family} object}
+\item{dataset}{An \link{lcms_dataset_family} object}
 
 \item{value}{The diagnostic we want to set}
 }
