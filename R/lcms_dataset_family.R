@@ -7,6 +7,6 @@
 #'
 #' @name lcms_dataset_family
 #' @family NIHSnmr dataset objects
-#' @seealso [Functions to save and load these objects][load_and_save_functions]
+#' @seealso [sample_management][pre_processing]
 #NULL
 
