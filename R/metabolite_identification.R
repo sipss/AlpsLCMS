@@ -1,6 +1,8 @@
-#' Write Parameters Table for MAIT functionalities
+#' Write parameter table
 #'
-#' @param listParameters Parameters
+#' Write a parameter Table for MAIT functionalities.
+#'
+#' @param listParameters Parameters.
 #' @param folder A directory to store a .csv file where the  parameter table is stored.
 #' @return A template with MAIT parameters.
 #' @family metabolite identification functions
@@ -40,24 +42,18 @@ lcms_write_parameter_table <- function(listParameters, folder){
 
 #' to MAIT
 #'
-#' Function to create a MAIT object using data from xcms
+#' Function to create a MAIT object using data from xcms.
 #'
 #' `MAIT` Package allows to annotate the peaks of the peak table provided by `XCMS`.
-#' This is done in three different stages:
-#'
-#' * Annotation with `CAMERA`
-#' * Annotation using predefined biotransformation
-#' * Annotation using the Human Metabolome Database (HMDB)
-#'
 #' *Note: The dataset must be converted from an object of the XCMS Package
 #' to an object of the MAIT Package.
 #'
-#' @param data_dir directory with LC-MS datafiles
-#' @param project_dir path to the the project directory
-#' @param project name of the
-#' @param preproc_params params from XCMS
-#' @param peak_table XCMS procesed LC-MS data
-#' @return A MAIT object
+#' @param data_dir directory with LC-MS datafiles.
+#' @param project_dir path to the the project directory.
+#' @param project name of the.
+#' @param preproc_params params from XCMS.
+#' @param peak_table XCMS procesed LC-MS data.
+#' @return A MAIT object.
 #' @family metabolite identification functions
 #' @family dataset_peak_table functions
 #' @family import/export functions
@@ -169,9 +165,9 @@ lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, p
 #'
 #' The `MAIT` Package allows to annotate the peaks of the peak table provided by `XCMS`.
 #' This is done in three different stages:
-#' * Annotation with `CAMERA`
-#' * Annotation using predefined biotransformation
-#' * Annotation using the Human Metabolome Database (HMDB)
+#' * Annotation with `CAMERA`.
+#' * Annotation using predefined biotransformation.
+#' * Annotation using the Human Metabolome Database (HMDB).
 #'
 #' *Note: The dataset must be converted from an object of the XCMS Package
 #' to an object of the MAIT Package.
@@ -307,7 +303,8 @@ lcms_peak_annotation <- function (MAIT.object = NULL,
 
 #' Raw data extractor from a MAIT object
 #'
-#' Function rawData extracts the raw data used to build the MAIT-class object
+#' Function lcms_raw_data extracts the raw data used to build the MAIT-class object.
+#'
 #' @param MAIT.object A MAIT-class object.
 #' @return A list containing either a xcmsSet or a xsAnnotate object.
 #' @family metabolite identification functions
@@ -329,12 +326,12 @@ lcms_raw_data <- function (MAIT.object) {
 
 #' Extract significant features from a MAIT object
 #'
-#' Function spectralSigFeatures takes a MAIT-class object and obtains which of
+#' Function lcms_spectral_sig_features takes a MAIT-class object and obtains which of
 #' the variables are significant given a p-value threshold. The parameters of
 #' the significant features can ve printed to an output table (TRUE by default).
 #' Depending on the number of classes in the data, the function chooses between
-#' using ANOVA tests through function spectralAnova, or T-Student tests by using
-#' function spectralTStudent.
+#' using ANOVA test or T-Student test.
+#'
 #' @inheritParams MAIT::spectralSigFeatures
 #' @return A MAIT-class object containing the significant features of the scores
 #'   slot of MAIT-class object used as an input.
@@ -418,7 +415,8 @@ lcms_spectral_sig_features <- function(MAIT.object = NULL,
   return(out)
 }
 
-
+#' Peak aggregation
+#'
 #' lcms_peak_aggregation function applies a peak aggregation technique to the data of a MAIT-class object.
 #'
 #' @inheritParams MAIT::peakAggregation
@@ -562,10 +560,7 @@ lcms_peak_aggregation<-function(MAIT.object=NULL,
 
 }
 
-
-
-#' Build a table of the information related to the significant features
-#' contained in a MAIT object
+#' Significant feature information
 #'
 #' Function lcms_sig_peaks_table takes an MAIT-class object containing significant
 #' feature information and builds a table with the information related to these
@@ -828,7 +823,7 @@ lcms_sig_peaks_table<-function(
   return(sigPeaksTable)
 }
 
-#' Metabolite identifier
+#' Metabolite search
 #'
 #' Takes a MAIT object and performs the metabolite search for the significant
 #' features
@@ -1057,15 +1052,14 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
 }
 
 
-#' Metabolite identification
+#' Search metabolite candidetes
 #'
-#' Function SearchCand looks up for a peak into a database
+#' Function SearchCand looks up for a peak into a database.
+#'
 #' @inheritParams MAIT::SearchCand
 #' @return A matrix containing all the possible hits for that peak candidateiteTable
 #' @family metabolite identification functions.
 #' @noRd
-
-
 lcms_SearchCand <- function(candidate,
                             dataBase,
                             peakTolerance){
@@ -1095,10 +1089,9 @@ lcms_SearchCand <- function(candidate,
 }
 
 
-
 #' Extract Significant Features From A MAIT Object For Two Classes
 #'
-#' Function spectralTStudent takes a MAIT-class object and obtains which of the variables are significant
+#' Function slcms_spectral_tstudent takes a MAIT-class object and obtains which of the variables are significant
 #' given a p-value threshold when there only are two classes in the raw data.
 #' The parameters of the significant features can be printed to an output table (TRUE by default).
 #' @inheritParams MAIT::spectralTStudent
@@ -1173,7 +1166,7 @@ lcms_spectral_tstudent <- function(MAIT.object=NULL,
 
 #' Extract Significant Features From A MAIT Object For Two Classes
 #'
-#' Function spectralWelch takes an MAIT-class object and obtains which of the variables are significant given a p-value
+#' Function lcms_spectral_welch takes an MAIT-class object and obtains which of the variables are significant given a p-value
 #' threshold following a Welch test. The parameters of the significant features can ve printed to an output table (TRUE by default).
 #' @inheritParams MAIT::spectralWelch
 #' @return A MAIT-class object containing the significant features of the scores slot of MAIT-class object used as an input.
@@ -1252,7 +1245,7 @@ lcms_spectral_welch <- function(MAIT.object=NULL,
 
 #' Extract Significant Features From A MAIT Object For Two Classes
 #'
-#' Function spectralWilcox takes an MAIT-class object and obtains which of the variables are significant
+#' Function lcms_spectral_wilcox takes an MAIT-class object and obtains which of the variables are significant
 #' given a p-value threshold following a Mann-Witney-Wilcoxon test.
 #' The parameters of the significant features can ve printed to an output table (TRUE by default).
 #' @inheritParams MAIT::spectralWilcox
@@ -1335,7 +1328,7 @@ lcms_spectral_wilcox <- function(MAIT.object=NULL,
 
 #' Extract Significant Features From A MAIT Object
 #'
-#' Function spectralAnova takes an MAIT-class object and obtains which of the variables are significant given a p-value threshold.
+#' Function lcms_spectral_anova takes an MAIT-class object and obtains which of the variables are significant given a p-value threshold.
 #' The parameters of the significant features can ve printed to an output table (TRUE by default).
 #' @inheritParams MAIT::spectralAnova
 #' @return A MAIT-class object containing the significant features of the scores slot of MAIT-class object used as an input.
@@ -1405,7 +1398,7 @@ lcms_spectral_anova <- function (pvalue=0.05,
 
 #' Extract Significant Features From A MAIT Object using an user-defined test function
 #'
-#' Function spectralKruskal takes an MAIT-class object and obtains which of the variables are significant given a
+#' Function lcms_spectral_kruskal takes an MAIT-class object and obtains which of the variables are significant given a
 #' p-value threshold following a Kruskal-Wallis test.
 #' The parameters of the significant features can ve printed to an output table (TRUE by default).
 #' @inheritParams MAIT::spectralKruskal
@@ -1476,7 +1469,7 @@ lcms_spectral_kruskal <- function (pvalue=0.05,
 
 #' Extract Significant Features From A MAIT Object using an user-defined test function.
 #'
-#' Function spectralFUN takes an MAIT-class object and obtains which of the variables are significant given
+#' Function lcms_spectral_fun takes an MAIT-class object and obtains which of the variables are significant given
 #' a p-value threshold following a user-defined statistical test.
 #' The parameters of the significant features can ve printed to an output table (TRUE by default).
 #'
@@ -1556,14 +1549,14 @@ lcms_spectral_fun <- function (pvalue=0.05,
 }
 
 
-#' Boxplots for significant peak table features
+#' Boxplots for the significant peak table features
 #'
 #' It performs boxplots for any of significant features found in a peak table. All the
-#' boxplots are stored in a directory /Boxplots/Boxplot_spectra_
+#' boxplots are stored in a directory /Boxplots/Boxplot_spectra_.
 #'
-#' @param MAIT.object MAIT object where it is found an annotated peak table
+#' @param MAIT.object MAIT object where it is found an annotated peak table.
 #' @param treament_col Treatment for the samples.
-#' @return BoxPlots are stored in folders associated to their corresponding spectra. No explicit plot is produced by the device
+#' @return BoxPlots are stored in folders associated to their corresponding spectra. No explicit plot is produced by the device.
 #' @family metabolite identification functions
 #' @family dataset_peak_table functions
 #' @family statistical functions
@@ -1628,7 +1621,7 @@ lcms_peak_table_boxplots <- function (MAIT.object = NULL, treatment_col) {
 #'
 #' It performs PCA using on the annotated peak table obtained from a MAIT object.
 #'
-#' @param MAIT.object MAIT object where it is found an annotated peak table
+#' @param MAIT.object MAIT object where it is found an annotated peak table.
 #' @param treament_col Treatment for the samples.
 #' @param Log Set to TRUE if the data should be plotted using the logarithm of the intensity.
 #' @param Set to TRUE if the data should be centered around its mean. See scale.
