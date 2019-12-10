@@ -2,21 +2,21 @@
 % Please edit documentation in R/metabolite_identification.R
 \name{lcms_peak_table_boxplots}
 \alias{lcms_peak_table_boxplots}
-\title{Boxplots for significant peak table features}
+\title{Boxplots for the significant peak table features}
 \usage{
 lcms_peak_table_boxplots(MAIT.object = NULL, treatment_col)
 }
 \arguments{
-\item{MAIT.object}{MAIT object where it is found an annotated peak table}
+\item{MAIT.object}{MAIT object where it is found an annotated peak table.}
 
 \item{treament_col}{Treatment for the samples.}
 }
 \value{
-BoxPlots are stored in folders associated to their corresponding spectra. No explicit plot is produced by the device
+BoxPlots are stored in folders associated to their corresponding spectra. No explicit plot is produced by the device.
 }
 \description{
 It performs boxplots for any of significant features found in a peak table. All the
-boxplots are stored in a directory /Boxplots/Boxplot_spectra_
+boxplots are stored in a directory /Boxplots/Boxplot_spectra_.
 }
 \examples{
 file_name_1 <-  system.file("extdata","peak_table_sig_ann.rds", package = "NIHSlcms")

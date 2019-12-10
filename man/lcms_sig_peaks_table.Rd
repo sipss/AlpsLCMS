@@ -2,8 +2,7 @@
 % Please edit documentation in R/metabolite_identification.R
 \name{lcms_sig_peaks_table}
 \alias{lcms_sig_peaks_table}
-\title{Build a table of the information related to the significant features
-contained in a MAIT object}
+\title{Significant feature information}
 \usage{
 lcms_sig_peaks_table(MAIT.object = NULL, printCSVfile = FALSE,
   extendedTable = TRUE, printAnnotation = TRUE)

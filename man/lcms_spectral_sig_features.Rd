@@ -64,12 +64,11 @@ A MAIT-class object containing the significant features of the scores
 slot of MAIT-class object used as an input.
 }
 \description{
-Function spectralSigFeatures takes a MAIT-class object and obtains which of
+Function lcms_spectral_sig_features takes a MAIT-class object and obtains which of
 the variables are significant given a p-value threshold. The parameters of
 the significant features can ve printed to an output table (TRUE by default).
 Depending on the number of classes in the data, the function chooses between
-using ANOVA tests through function spectralAnova, or T-Student tests by using
-function spectralTStudent.
+using ANOVA test or T-Student test.
 }
 \examples{
 file_name <-  system.file("extdata", "peak_table_ann.rds", package = "NIHSlcms")

@@ -8,7 +8,7 @@ lcms_peak_table_pca(MAIT.object = NULL, treament_col, Log = FALSE,
   center = TRUE, scale = TRUE)
 }
 \arguments{
-\item{MAIT.object}{MAIT object where it is found an annotated peak table}
+\item{MAIT.object}{MAIT object where it is found an annotated peak table.}
 
 \item{treament_col}{Treatment for the samples.}
 

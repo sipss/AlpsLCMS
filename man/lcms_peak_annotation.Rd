@@ -69,9 +69,9 @@ A MAIT-class object with \linkS4class{xsAnnotate} in the rawData slot.
 The \code{MAIT} Package allows to annotate the peaks of the peak table provided by \code{XCMS}.
 This is done in three different stages:
 \itemize{
-\item Annotation with \code{CAMERA}
-\item Annotation using predefined biotransformation
-\item Annotation using the Human Metabolome Database (HMDB)
+\item Annotation with \code{CAMERA}.
+\item Annotation using predefined biotransformation.
+\item Annotation using the Human Metabolome Database (HMDB).
 }
 }
 \details{

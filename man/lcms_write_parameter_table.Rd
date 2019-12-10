@@ -2,12 +2,12 @@
 % Please edit documentation in R/metabolite_identification.R
 \name{lcms_write_parameter_table}
 \alias{lcms_write_parameter_table}
-\title{Write Parameters Table for MAIT functionalities}
+\title{Write parameter table}
 \usage{
 lcms_write_parameter_table(listParameters, folder)
 }
 \arguments{
-\item{listParameters}{Parameters}
+\item{listParameters}{Parameters.}
 
 \item{folder}{A directory to store a .csv file where the  parameter table is stored.}
 }
@@ -15,7 +15,7 @@ lcms_write_parameter_table(listParameters, folder)
 A template with MAIT parameters.
 }
 \description{
-Write Parameters Table for MAIT functionalities
+Write a parameter Table for MAIT functionalities.
 }
 \examples{
 data_dir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")

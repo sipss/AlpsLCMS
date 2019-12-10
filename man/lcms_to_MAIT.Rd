@@ -8,31 +8,24 @@ lcms_to_mait(data_dir = NULL, project_dir = NULL, project = NULL,
   preproc_params = NULL, peak_table = NULL)
 }
 \arguments{
-\item{data_dir}{directory with LC-MS datafiles}
+\item{data_dir}{directory with LC-MS datafiles.}
 
-\item{project_dir}{path to the the project directory}
+\item{project_dir}{path to the the project directory.}
 
-\item{project}{name of the}
+\item{project}{name of the.}
 
-\item{preproc_params}{params from XCMS}
+\item{preproc_params}{params from XCMS.}
 
-\item{peak_table}{XCMS procesed LC-MS data}
+\item{peak_table}{XCMS procesed LC-MS data.}
 }
 \value{
-A MAIT object
+A MAIT object.
 }
 \description{
-Function to create a MAIT object using data from xcms
+Function to create a MAIT object using data from xcms.
 }
 \details{
 \code{MAIT} Package allows to annotate the peaks of the peak table provided by \code{XCMS}.
-This is done in three different stages:
-\itemize{
-\item Annotation with \code{CAMERA}
-\item Annotation using predefined biotransformation
-\item Annotation using the Human Metabolome Database (HMDB)
-}
-
 *Note: The dataset must be converted from an object of the XCMS Package
 to an object of the MAIT Package.
 }

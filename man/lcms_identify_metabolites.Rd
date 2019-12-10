@@ -2,7 +2,7 @@
 % Please edit documentation in R/metabolite_identification.R
 \name{lcms_identify_metabolites}
 \alias{lcms_identify_metabolites}
-\title{Metabolite identifier}
+\title{Metabolite search}
 \usage{
 lcms_identify_metabolites(MAIT.object = NULL, peakTolerance = 0.005,
   database = NULL, polarity = "positive", printCSVfile = TRUE)

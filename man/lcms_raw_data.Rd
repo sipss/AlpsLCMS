@@ -13,7 +13,7 @@ lcms_raw_data(MAIT.object)
 A list containing either a xcmsSet or a xsAnnotate object.
 }
 \description{
-Function rawData extracts the raw data used to build the MAIT-class object
+Function lcms_raw_data extracts the raw data used to build the MAIT-class object.
 }
 \examples{
 file_name <-  system.file("extdata", "peak_table_mait.rds", package = "NIHSlcms")
