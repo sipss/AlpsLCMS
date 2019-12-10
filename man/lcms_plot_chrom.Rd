@@ -11,7 +11,7 @@ lcms_plot_chrom(chromatogram_object, treatment_col, rtlim = NULL)
 
 \item{treatment_col}{Color code by groups.}
 
-\item{rtlim}{retention time boundaries (e.g. c(4,8)).}
+\item{rtlim}{Retention time boundaries (e.g. c(4,8)).}
 }
 \value{
 A base peak chromatogram

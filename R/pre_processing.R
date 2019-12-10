@@ -514,8 +514,8 @@ lcms_retention_time_alignment_plot <- function (data){
 #'
 #' @param chromatogram_object  A XChromatograms object.
 #' @param treatment_col Color code by groups.
-#' @param rtlim retention time boundaries (e.g. c(4,8)).
-#' @return A base peak chromatogram
+#' @param rtlim Retention time boundaries (e.g. c(4,8)).
+#' @return A base peak chromatogram.
 #' @family chromatogram functions
 #' @family visualization functions
 #' @export
