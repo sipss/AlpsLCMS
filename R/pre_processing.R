@@ -409,9 +409,9 @@ lcms_tics <- function(dataset, treatment = treatment){
 #' The function performs a plot with the Total Ion Count (TIC).
 #'
 #' @param tics A Total Ion Count object generated with `lcms_tics`
-#' @param treatment Class groups of the samples
-#' @param rt Retention time
-#' @param plot_type The plot class, either boxplot or spectra
+#' @param treatment Class groups of the samples.
+#' @param rt Retention time boundaries.
+#' @param plot_type The plot class, either boxplot or spectra.
 #' @return Total Ion Count (TIC) for the polarity samples.
 #' @family dataset functions
 #' @family dataset_peak_table functions

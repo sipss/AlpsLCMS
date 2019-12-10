@@ -10,11 +10,11 @@ lcms_plot_tics(tics, treatment = treatment, rt = NULL,
 \arguments{
 \item{tics}{A Total Ion Count object generated with \code{lcms_tics}}
 
-\item{treatment}{Class groups of the samples}
+\item{treatment}{Class groups of the samples.}
 
-\item{rt}{Retention time}
+\item{rt}{Retention time boundaries.}
 
-\item{plot_type}{The plot class, either boxplot or spectra}
+\item{plot_type}{The plot class, either boxplot or spectra.}
 }
 \value{
 Total Ion Count (TIC) for the polarity samples.
