@@ -2,7 +2,7 @@
 % Please edit documentation in R/pre_processing.R
 \name{lcms_filter_sample_type}
 \alias{lcms_filter_sample_type}
-\title{Filter by sample treatment}
+\title{Filter by sample type}
 \usage{
 lcms_filter_sample_type(dataset, especial_samples)
 }
@@ -27,9 +27,9 @@ if there is not any especial sample in the dataset.
 \details{
 The function can distinguish and filter different samples types:
 \itemize{
-\item Regular samples.
-\item Blank samples.
-\item Quality Control samples.
+\item Regular samples (regular_samples).
+\item Blank samples (blanks).
+\item Quality Control samples (QCs).
 }
 }
 \examples{
@@ -38,9 +38,11 @@ especial_samples <- list(QC = NULL, blank = NULL)
 datasets_by_class_type <- lcms_filter_sample_type(dataset, especial_samples)
 dataset_pos_rt_rs <- datasets_by_class_type$regular_samples
 dataset_pos_rt_qcs <- datasets_by_class_type$QCs
-print(dataset_pos_rt_rs)
+dataset_pos_rt_bks <- datasets_by_class_type$blanks
 
+print(dataset_pos_rt_rs)
 print(dataset_pos_rt_qcs)
+print(dataset_pos_rt_bks)
 }
 \seealso{
 Other dataset functions: \code{\link{lcms_align_rtime}},

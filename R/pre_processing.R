@@ -77,7 +77,7 @@ lcms_filter_rt_min <- function (dataset, rt = c(4, 14)){
   dataset <- MSnbase::filterRt(dataset, rt = rt * min2sec)
 }
 
-#' Filter by sample treatment
+#' Filter by sample type
 #'
 #' In a dataset, there are different types of samples for
 #' checking purposes. For instance, quality control (QC) samples
@@ -87,9 +87,9 @@ lcms_filter_rt_min <- function (dataset, rt = c(4, 14)){
 #' if there is not any especial sample in the dataset.
 #'
 #' The function can distinguish and filter different samples types:
-#' * Regular samples.
-#' * Blank samples.
-#' * Quality Control samples.
+#' * Regular samples (regular_samples).
+#' * Blank samples (blanks).
+#' * Quality Control samples (QCs).
 #' @param dataset A lcms_dataset
 #' @param especial_samples A list with the especial samples names.
 #' Use `NULL` if there is not any especial sample in the dataset.
@@ -105,9 +105,11 @@ lcms_filter_rt_min <- function (dataset, rt = c(4, 14)){
 #' datasets_by_class_type <- lcms_filter_sample_type(dataset, especial_samples)
 #' dataset_pos_rt_rs <- datasets_by_class_type$regular_samples
 #' dataset_pos_rt_qcs <- datasets_by_class_type$QCs
-#' print(dataset_pos_rt_rs)
+#' dataset_pos_rt_bks <- datasets_by_class_type$blanks
 #'
+#' print(dataset_pos_rt_rs)
 #' print(dataset_pos_rt_qcs)
+#' print(dataset_pos_rt_bks)
 
 lcms_filter_sample_type <- function(dataset,  especial_samples){
 

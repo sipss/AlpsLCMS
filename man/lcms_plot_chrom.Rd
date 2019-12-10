@@ -14,7 +14,7 @@ lcms_plot_chrom(chromatogram_object, treatment_col, rtlim = NULL)
 \item{rtlim}{Retention time boundaries (e.g. c(4,8)).}
 }
 \value{
-A base peak chromatogram
+A base peak chromatogram.
 }
 \description{
 Base peak chromatograms with retention time axis in minutes.
