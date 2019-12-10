@@ -2,7 +2,7 @@
 % Please edit documentation in R/metabolite_identification.R
 \name{lcms_to_mait}
 \alias{lcms_to_mait}
-\title{to MAIT}
+\title{Convert xcms to MAIT}
 \usage{
 lcms_to_mait(data_dir = NULL, project_dir = NULL, project = NULL,
   preproc_params = NULL, peak_table = NULL)

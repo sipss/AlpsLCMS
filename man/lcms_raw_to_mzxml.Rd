@@ -2,18 +2,20 @@
 % Please edit documentation in R/raw_converter.R
 \name{lcms_raw_to_mzxml}
 \alias{lcms_raw_to_mzxml}
-\title{Convert RAW samples to mzxml samples}
+\title{Raw to mzxml}
 \usage{
 lcms_raw_to_mzxml(samples, options = c("--mzxml", "--select_mono_prec"),
   rawconverter = NULL)
 }
 \arguments{
-\item{samples}{ThermoFisher .raw files}
+\item{samples}{ThermoFisher .raw files.}
+
+\item{options}{Optios for the conversion.}
 
 \item{rawconverter}{The working directory given to \link{install_RawConverter}.}
 }
 \description{
-Convert RAW samples to mzxml samples
+Convert RAW samples to mzxml samples.
 }
 \section{RawConverter}{
 
