@@ -26,7 +26,7 @@ subfolder called "plot_ipo"(default).}
 a list with the optimization of parameters for retention time and grouping.
 }
 \description{
-The function optimize parameters considering a set of samples
+The function optimizes parameters considering a set of samples
 for the retention time correction and grouping using the IPO Package.
 }
 \examples{
@@ -44,6 +44,8 @@ result_retcorgroup <- lcms_retcorgroup_optimization(optimizedXcmsSetObject,
 }
 }
 \seealso{
+Other optimization functions.: \code{\link{lcms_default_retcorgroup_params}}
+
 Other visualization functions: \code{\link{lcms_peak_table_boxplots}},
   \code{\link{lcms_peak_table_pca}},
   \code{\link{lcms_peakpicking_optimization}},

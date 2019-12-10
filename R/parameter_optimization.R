@@ -3,17 +3,16 @@
 #' The function creates default parameters for optimizing
 #' peakpicking algorithms.We perform parameter optimization
 #' on the XCMS preprocessing algorithms using the IPO Package.
-#' This includes Peak Detection (‘Centwave’ and ‘Matched Filter’),
+#' This includes Peak Detection (‘Centwave’),
 #' Retention Time Correction (‘obiwarp’) and Peak Correspondence
-#' (‘Density’).
-#' Use this function to generate the template within the
+#' (‘Density’). Use this function to generate the template within the
 #' `lcms_peakpicking_optimization` function.
 #'
 #' @param noise numeric, minimum intensity needed to be included in the analysis.
 #' @param snthresh numeric, set the signal to noise ratio threshold to be included.
-#' @param min_peakwidth numeric(two values) with the expected minimal peak width in
+#' @param min_peakwidth numeric (two values) with the expected minimal peak width in
 #' chromatographic dimension. Set as a range (min, max) in seconds.
-#' @param max_peakwidth numeric(two values) with the expected maximum peak width in
+#' @param max_peakwidth numeric (two values) with the expected maximum peak width in
 #' chromatographic dimension. Set as a range (min, max) in seconds.
 #' @param optimize by default is TRUE. If FALSE, the function does not initialze the parameters
 #' the parameters
@@ -43,7 +42,7 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #'
 #' The function optimize parameters considering a set of samples
 #' for the peak picking algorithm using the IPO Package.
-#' This includes Peak Detection (‘Centwave’ and ‘Matched Filter’),
+#' This includes Peak Detection (‘Centwave),
 #' Retention Time Correction (‘obiwarp’) and Peak Correspondence
 #' (‘Density’).
 #'
@@ -53,7 +52,7 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #' @param nSlaves Number of slaves the optimization process should spawn.
 #' @param plots Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo" (default).
 #' @param subdir Folder where surface plots are saved. If NULL they are displayed by the graphical device.
-#' @return A peak picking list with the best setting
+#' @return A peak picking list with the best setting.
 #' @family dataset functions
 #' @family optimization functions
 #' @family visualization functions
@@ -141,9 +140,9 @@ lcms_peakpicking_optimization <- function (dataset, peakpickingParameters,
 #' and distFun = "cor_opt" it is 2.4, for distFun = "cov" 11.7, for distFun = "euc" 1.8
 #' and for distFun = "prd" 7.8.
 #' @param optimize by default is TRUE. If FALSE, the function does not optimize
-#' the parameters
+#' the parameters.
 #' @return A parameters template for retention time correction and grouping optimization
-#' @family optimization functions
+#' @family optimization functions.
 #' @export
 #' @examples
 #' default_retcorgroup_params <- lcms_default_retcorgroup_params(optimize = TRUE)
@@ -163,7 +162,7 @@ lcms_default_retcorgroup_params <- function(profStep = 1, gapExtend = 2.7, optim
 
 #' Optimization of retention time correction and grouping parameters.
 #'
-#' The function optimize parameters considering a set of samples
+#' The function optimizes parameters considering a set of samples
 #' for the retention time correction and grouping using the IPO Package.
 #'
 #' @param optimizedXcmsSetObject XCMS object conatining the `best_settings` parameters.
@@ -237,6 +236,7 @@ lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
 #' The function allows visulizing the parameter optimization results by `IPO` Package
 #' allows in the RStudio console. Also you can save this results in plain text files
 #' (i.e. a .CVS file).
+#'
 #' @param results_pp object from the `lcms_peakpicking_optimization` function. If NULL, the default parameters for xcms are loaded.
 #' @param results_rtcg object from the `lcms_corgroup_optimization` function.
 #' @param opt_result_path A directory to save the parameters file.
@@ -316,8 +316,8 @@ lcms_write_opt_params<- function(results_pp,
 #' presented some mismatches, thus we had to create a function called *lcms_read_ipo_to_xcms*
 #' to achieve compatibility between packages when reading these parameters from a .csv file.
 #'
-#' @param opt_result_path A directory where the parameters file is stored
-#' @return A display of the chosen parameters
+#' @param opt_result_path A directory where the parameters file is stored.
+#' @return A display of the chosen parameters.
 #' @family optimization functions
 #' @family import/export functions
 #' @export
@@ -362,10 +362,10 @@ lcms_read_ipo_to_xcms <- function(opt_result_path){
 #' presented some mismatches, thus we had to create a function called *lcms_convert_ipo_to_xcms*
 #' to achieve compatibility between packages when these parameters are stored in a list.
 #'
-#' @param params A list with the IPO parameters, generated with the `lcms_write_opt_params` function
+#' @param params A list with the IPO parameters, generated with the `lcms_write_opt_params` function.
+#' @return Parameters in XCMS format
 #' @family optimization functions
 #' @family import/export functions
-#' @return Parameters in XCMS format
 #' @export
 #' @examples
 #' \dontrun{

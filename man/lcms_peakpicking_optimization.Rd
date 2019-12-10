@@ -21,12 +21,12 @@ lcms_peakpicking_optimization(dataset, peakpickingParameters,
 \item{plots}{Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo" (default).}
 }
 \value{
-A peak picking list with the best setting
+A peak picking list with the best setting.
 }
 \description{
 The function optimize parameters considering a set of samples
 for the peak picking algorithm using the IPO Package.
-This includes Peak Detection (‘Centwave’ and ‘Matched Filter’),
+This includes Peak Detection (‘Centwave),
 Retention Time Correction (‘obiwarp’) and Peak Correspondence
 (‘Density’).
 }
@@ -64,7 +64,6 @@ Other dataset functions: \code{\link{lcms_align_rtime}},
 
 Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
   \code{\link{lcms_default_peakpicking_params}},
-  \code{\link{lcms_default_retcorgroup_params}},
   \code{\link{lcms_read_ipo_to_xcms}},
   \code{\link{lcms_write_opt_params}}
 

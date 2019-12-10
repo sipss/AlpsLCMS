@@ -17,7 +17,7 @@ and distFun = "cor_opt" it is 2.4, for distFun = "cov" 11.7, for distFun = "euc"
 and for distFun = "prd" 7.8.}
 
 \item{optimize}{by default is TRUE. If FALSE, the function does not optimize
-the parameters}
+the parameters.}
 }
 \value{
 A parameters template for retention time correction and grouping optimization
@@ -34,10 +34,6 @@ default_retcorgroup_params <- lcms_default_retcorgroup_params(optimize = TRUE)
 print(default_retcorgroup_params)
 }
 \seealso{
-Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
-  \code{\link{lcms_default_peakpicking_params}},
-  \code{\link{lcms_peakpicking_optimization}},
-  \code{\link{lcms_read_ipo_to_xcms}},
-  \code{\link{lcms_write_opt_params}}
+Other optimization functions.: \code{\link{lcms_retcorgroup_optimization}}
 }
-\concept{optimization functions}
+\concept{optimization functions.}

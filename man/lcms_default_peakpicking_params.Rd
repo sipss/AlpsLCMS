@@ -13,10 +13,10 @@ lcms_default_peakpicking_params(noise = 5000, snthresh = 10,
 
 \item{snthresh}{numeric, set the signal to noise ratio threshold to be included.}
 
-\item{min_peakwidth}{numeric(two values) with the expected minimal peak width in
+\item{min_peakwidth}{numeric (two values) with the expected minimal peak width in
 chromatographic dimension. Set as a range (min, max) in seconds.}
 
-\item{max_peakwidth}{numeric(two values) with the expected maximum peak width in
+\item{max_peakwidth}{numeric (two values) with the expected maximum peak width in
 chromatographic dimension. Set as a range (min, max) in seconds.}
 
 \item{optimize}{by default is TRUE. If FALSE, the function does not initialze the parameters
@@ -29,10 +29,9 @@ A parameters template for peak picking optimization
 The function creates default parameters for optimizing
 peakpicking algorithms.We perform parameter optimization
 on the XCMS preprocessing algorithms using the IPO Package.
-This includes Peak Detection (‘Centwave’ and ‘Matched Filter’),
+This includes Peak Detection (‘Centwave’),
 Retention Time Correction (‘obiwarp’) and Peak Correspondence
-(‘Density’).
-Use this function to generate the template within the
+(‘Density’). Use this function to generate the template within the
 \code{lcms_peakpicking_optimization} function.
 }
 \examples{
@@ -41,7 +40,6 @@ print(default_peakpicking_params)
 }
 \seealso{
 Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
-  \code{\link{lcms_default_retcorgroup_params}},
   \code{\link{lcms_peakpicking_optimization}},
   \code{\link{lcms_read_ipo_to_xcms}},
   \code{\link{lcms_write_opt_params}}

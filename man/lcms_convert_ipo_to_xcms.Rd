@@ -7,7 +7,7 @@
 lcms_convert_ipo_to_xcms(params)
 }
 \arguments{
-\item{params}{A list with the IPO parameters, generated with the \code{lcms_write_opt_params} function}
+\item{params}{A list with the IPO parameters, generated with the \code{lcms_write_opt_params} function.}
 }
 \value{
 Parameters in XCMS format
@@ -27,7 +27,6 @@ print(preproc_params)
 }
 \seealso{
 Other optimization functions: \code{\link{lcms_default_peakpicking_params}},
-  \code{\link{lcms_default_retcorgroup_params}},
   \code{\link{lcms_peakpicking_optimization}},
   \code{\link{lcms_read_ipo_to_xcms}},
   \code{\link{lcms_write_opt_params}}

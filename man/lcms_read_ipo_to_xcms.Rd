@@ -7,10 +7,10 @@
 lcms_read_ipo_to_xcms(opt_result_path)
 }
 \arguments{
-\item{opt_result_path}{A directory where the parameters file is stored}
+\item{opt_result_path}{A directory where the parameters file is stored.}
 }
 \value{
-A display of the chosen parameters
+A display of the chosen parameters.
 }
 \description{
 The function reads and converts from \code{IPO} to \code{XCMS} variable formats: The variable names in IPO and XCMS
@@ -25,7 +25,6 @@ print(preproc_params)
 \seealso{
 Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
   \code{\link{lcms_default_peakpicking_params}},
-  \code{\link{lcms_default_retcorgroup_params}},
   \code{\link{lcms_peakpicking_optimization}},
   \code{\link{lcms_write_opt_params}}
 
