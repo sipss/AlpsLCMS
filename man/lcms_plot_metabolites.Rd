@@ -10,7 +10,7 @@ lcms_plot_metabolites(path_result, biofluid_type = "Any",
 \arguments{
 \item{path_result}{The folder where the .csv file where the annotated table of metabolites is stored}
 
-\item{biofluid_type}{Filters the results by biofludid type. Options are:}
+\item{biofluid_type}{Filters the results by biofludid type.}
 
 \item{significance}{Filters the results by significance.}
 

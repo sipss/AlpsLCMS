@@ -10,9 +10,6 @@ lcms_meta_export(dataset, xlsx_file)
 \item{dataset}{A lcms_dataset.}
 
 \item{xlsx_file}{"The .xlsx excel file".}
-
-\item{groups}{A character vector. Use \code{"external"} for the external metadata or
-the default for a more generic solution.}
 }
 \value{
 The Excel file name.

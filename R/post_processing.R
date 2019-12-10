@@ -8,7 +8,7 @@
 #' Additionally we plot the a bar plot corresponding to the number of metabolites candidates associated to a single compound.
 #'
 #' @param path_result The folder where the .csv file where the annotated table of metabolites is stored
-#' @param biofluid_type Filters the results by biofludid type. Options are:
+#' @param biofluid_type Filters the results by biofludid type.
 #' @param significance Filters the results by significance.
 #' @param metabolite_rm Logical. Remove "Unknown" metabolites.
 #' @param  max_words  Maximum number of words allowed in the word cloud.

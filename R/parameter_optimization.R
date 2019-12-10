@@ -148,7 +148,9 @@ lcms_peakpicking_optimization <- function (dataset, peakpickingParameters,
 #' default_retcorgroup_params <- lcms_default_retcorgroup_params(optimize = TRUE)
 #' print(default_retcorgroup_params)
 #
-lcms_default_retcorgroup_params <- function(profStep = 1, gapExtend = 2.7, optimize = TRUE){
+lcms_default_retcorgroup_params <- function(profStep = 1,
+                                            gapExtend = 2.7,
+                                            optimize = TRUE){
 
   if (optimize == TRUE){
     retcorGroupParameters <- IPO::getDefaultRetGroupStartingParams()

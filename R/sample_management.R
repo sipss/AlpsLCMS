@@ -120,8 +120,6 @@ lcms_dataset_save <- function(dataset, file_name, ...) {
 #'
 #' @param dataset A lcms_dataset.
 #' @param xlsx_file "The .xlsx excel file".
-#' @param groups A character vector. Use `"external"` for the external metadata or
-#'  the default for a more generic solution.
 #' @return The Excel file name.
 #' @family metadata functions
 #' @family dataset functions
