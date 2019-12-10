@@ -9,10 +9,10 @@ lmcs_plot_chrom_peak_image(x, binSize = 30, xlim = NULL, log = FALSE,
   main = "Chromatographic peak counts", ...)
 }
 \arguments{
-\item{dataset}{A \link{lcms_dataset_family} object}
+\item{dataset}{A lcms_dataset.}
 }
 \value{
-An image with the detected chromatographic peak, for each sample
+An image with the detected chromatographic peak, for each sample.
 }
 \description{
 It plots the an image of the chromatographic peaks for each sample. This function is useful if

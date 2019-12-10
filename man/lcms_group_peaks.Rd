@@ -7,13 +7,13 @@
 lcms_group_peaks(peakdet_align, params)
 }
 \arguments{
-\item{peakdet_align}{A \link{lcms_dataset_family} object with (1) detected (\code{findChromPeaks_cwp}
-function) and (2) aligned (\code{lcms_align_rtime} function) peaks}
+\item{peakdet_align}{A lcms_dataset with (1) detected (\code{findChromPeaks_cwp}
+function) and (2) aligned (\code{lcms_align_rtime} function) peaks.}
 
 \item{params}{A converted parameters template from IPO parameters.}
 }
 \value{
-A \link{lcms_dataset_family} object with (1) detected (\code{lcms_find_chrom_peaks_cwp} function),
+A lcms_dataset with (1) detected (\code{lcms_find_chrom_peaks_cwp} function),
 (2) aligned (\code{align_rtime} function) and (3) grouped  (\code{lcms_group_peaks}
 function) peaks.
 }
@@ -22,10 +22,14 @@ Peak correspondence is carried out by the \emph{'lcms_groupChromPeaks'} method,
 with parameters obtained form \code{IPO}. Peak Correspondece consist in
 grouping peaks on retention time axis with the purspose of associate
 them to spectra on the mass/chage axis.
-#' Note: signal processing generally  consists in three main steps:
+}
+\details{
+Note: signal processing generally  consists in three main steps:
 (1) peak detection (\code{lcms_find_chrom_peaks_cwp} function),
 (2) peak alignment (\code{lcms_align_rtime} function) and
 (3) peak correspondence (\code{lcms_group_peaks} function).
+The optimized set of parameters for this signal preprocessing can be obatained from \code{IPO} Package.
+
 After this stage the peak table is finally obtained.
 }
 \examples{

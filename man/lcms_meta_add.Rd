@@ -2,23 +2,22 @@
 % Please edit documentation in R/sample_management.R
 \name{lcms_meta_add}
 \alias{lcms_meta_add}
-\title{Add metadata to MSnExp object}
+\title{Add metadata}
 \usage{
 lcms_meta_add(object, metadata, by = "sampleNames")
 }
 \arguments{
-\item{object}{Object, possibly derived from \code{\link{eSet-class}}
-    or \code{\linkS4class{AnnotatedDataFrame}}.}
+\item{object}{A lcms_dataset.}
 
-\item{metadata}{A data frame to be merged}
+\item{metadata}{A data frame to be merged.}
 
-\item{by}{A column present both in \code{metadata} and in \code{Biobase::pData(object)}}
+\item{by}{A column present both in \code{metadata} and in \code{Biobase::pData(object)}.}
 }
 \value{
-An object from the \link{lcms_dataset_family} with metadata added
+A lcms_dataset with the added metadata.
 }
 \description{
-Add metadata to MSnExp object
+Add metadata to MSnExp object.
 }
 \examples{
 dataset <- lcms_dataset_load(system.file

@@ -2,18 +2,18 @@
 % Please edit documentation in R/sample_management.R
 \name{lcms_dataset_load}
 \alias{lcms_dataset_load}
-\title{Function to load a lcms_dataset object}
+\title{Load lcms_datasets}
 \usage{
 lcms_dataset_load(file_name)
 }
 \arguments{
-\item{file_name}{The file name to load}
+\item{file_name}{The file name to load.}
 }
 \value{
-An object from the \link{lcms_dataset_family}
+A lcms_dataset.
 }
 \description{
-Function to load a lcms_dataset object
+Function to load a lcms_dataset object.
 }
 \examples{
 file_name <- system.file("extdata", "dataset.rds", package = "NIHSlcms")

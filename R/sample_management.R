@@ -1,8 +1,10 @@
-#' Read LCMS samples on mzXML format
+#' Read mzXML samples
+#'
+#' Read LCMS samples on mzXML format.
 #'
 #' @inheritDotParams MSnbase::readMSData
 #' @inherit MSnbase::readMSData return
-#' @return An object from the [lcms_dataset_family]
+#' @return A lcms_dataset.
 #' @family import/export functions
 #' @export
 #' @examples
@@ -22,13 +24,15 @@ lcms_read_samples <- function(...){
   dataset
 }
 
-#
-#' Add metadata to MSnExp object
+#' Add metadata
+#'
+#' Add metadata to MSnExp object.
 #'
 #' @inheritParams Biobase::pData
-#' @param metadata A data frame to be merged
-#' @param by A column present both in `metadata` and in `Biobase::pData(object)`
-#' @return An object from the [lcms_dataset_family] with metadata added
+#' @param object A lcms_dataset.
+#' @param metadata A data frame to be merged.
+#' @param by A column present both in `metadata` and in `Biobase::pData(object)`.
+#' @return A lcms_dataset with the added metadata.
 #' @family metadata functions
 #' @family dataset functions
 #' @export
@@ -67,10 +71,12 @@ lcms_meta_add <- function(object, metadata, by = "sampleNames") {
   object
 }
 
-#' Function to load a lcms_dataset object
+#' Load lcms_datasets
 #'
-#' @param file_name The file name to load
-#' @return An object from the [lcms_dataset_family]
+#' Function to load a lcms_dataset object.
+#'
+#' @param file_name The file name to load.
+#' @return A lcms_dataset.
 #' @family dataset functions
 #' @family dataset_peak_table functions
 #' @family import/export functions
@@ -86,10 +92,12 @@ lcms_dataset_load <- function(file_name) {
 }
 
 
-#' Function to save a lcms_dataset object
+#' Save lcms_datasets
 #'
-#' @param dataset An object from the [lcms_dataset_family]
-#' @param file_name The file name to save to
+#' Function to save a lcms_dataset object.
+#'
+#' @param dataset A lcms_dataset.
+#' @param file_name The file name to save to.
 #' @param ... Additional arguments passed to [saveRDS].
 #' @family dataset functions
 #' @family import/export functions
@@ -106,14 +114,15 @@ lcms_dataset_save <- function(dataset, file_name, ...) {
 }
 
 
-
-#' Export Metadata to an Excel file
+#' Export metadata
 #'
-#' @param dataset An [lcms_dataset_family] object
-#' @param xlsx_file "The .xlsx excel file"
+#' Export Metadata to an Excel file.
+#'
+#' @param dataset A lcms_dataset.
+#' @param xlsx_file "The .xlsx excel file".
 #' @param groups A character vector. Use `"external"` for the external metadata or
-#'  the default for a more generic solution
-#' @return The Excel file name
+#'  the default for a more generic solution.
+#' @return The Excel file name.
 #' @family metadata functions
 #' @family dataset functions
 #' @family import/export functions
@@ -134,10 +143,12 @@ lcms_meta_export <- function(dataset,
   writexl::write_xlsx(x = NIHSlcms::phData(dataset), path = xlsx_file)
 }
 
-#' Reads metadata from an Excel file
+#' Read metadata
 #'
-#' @param xlsx_file xlsx_file "The .xlsx excel file" with metadata
-#' @return A dataframe with the metadata
+#' Reads metadata from an Excel file.
+#'
+#' @param xlsx_file xlsx_file "The .xlsx excel file" with metadata.
+#' @return A dataframe with the metadata.
 #' @family metadata functions
 #' @family import/export functions
 #' @export
@@ -158,7 +169,7 @@ lcms_meta_read <- function(xlsx_file) {
 #' It uses [Biobase::pData] to access phenotypic data such as
 #' metadata, covariates, etc...
 #'
-#' @param An object from the [lcms_dataset_family]
+#' @param A lcms_dataset.
 #' @inheritParams Biobase::pData
 #' @return phenoData returns an object containing information on
 #' both variable values and variable meta-data. varLabels returns

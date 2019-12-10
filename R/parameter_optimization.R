@@ -47,7 +47,7 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #' Retention Time Correction (‘obiwarp’) and Peak Correspondence
 #' (‘Density’).
 #'
-#' @param dataset A [lcms_dataset_family] object
+#' @param dataset A lcms_dataset
 #' @param peakpickingParameters Parameters for peak picking
 #' @param opt_path Path where optimization samples are saved. Id subdir is
 #' @param nSlaves Number of slaves the optimization process should spawn.

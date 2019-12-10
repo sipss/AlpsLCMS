@@ -2,18 +2,18 @@
 % Please edit documentation in R/sample_management.R
 \name{lcms_meta_read}
 \alias{lcms_meta_read}
-\title{Reads metadata from an Excel file}
+\title{Read metadata}
 \usage{
 lcms_meta_read(xlsx_file)
 }
 \arguments{
-\item{xlsx_file}{xlsx_file "The .xlsx excel file" with metadata}
+\item{xlsx_file}{xlsx_file "The .xlsx excel file" with metadata.}
 }
 \value{
-A dataframe with the metadata
+A dataframe with the metadata.
 }
 \description{
-Reads metadata from an Excel file
+Reads metadata from an Excel file.
 }
 \examples{
 metadata <- lcms_meta_read(system.file("extdata",

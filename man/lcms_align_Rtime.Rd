@@ -7,22 +7,24 @@
 lcms_align_rtime(peakdet, params)
 }
 \arguments{
-\item{peakdet}{A \link{lcms_dataset_family} object with detected peaks from the
-\code{lcms_find_chrom_peaks_cwp} function}
+\item{peakdet}{A lcms_dataset with detected peaks obtained from the
+\code{lcms_find_chrom_peaks_cwp} function.}
 
 \item{params}{A converted parameters template from IPO parameters.}
 }
 \value{
-A \link{lcms_dataset_family} object with (1) detected (\code{lcms_find_chrom_peaks_cwp} function)
+A lcms_dataset with (1) detected (\code{lcms_find_chrom_peaks_cwp} function).
 and (2) aligned (\code{lcms_align_rtime} function) peaks
 }
 \description{
 Retention time correction is performed using \emph{'obiwarp'} method.
-Its optimum parameters are obtaine from \code{IPO} Package.
+}
+\details{
 Note: signal processing generally  consists in three main steps:
 (1) peak detection (\code{lcms_find_chrom_peaks_cwp} function),
 (2) peak alignment (\code{lcms_align_rtime} function) and
 (3) peak correspondence (\code{lcms_group_peaks} function).
+The optimized set of parameters for this signal preprocessing can be obatained from \code{IPO} Package.
 }
 \examples{
 file_name <-  system.file("extdata", "peakdet.rds", package = "NIHSlcms")

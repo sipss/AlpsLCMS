@@ -7,15 +7,15 @@
 lcms_filter_mz(dataset, mz)
 }
 \arguments{
-\item{dataset}{An \link{lcms_dataset_family} object}
+\item{dataset}{A lcms_dataset.}
 
-\item{mz}{The range of masses to filter}
+\item{mz}{The range of masses to filter.}
 }
 \value{
-A filtered \link{lcms_dataset_family} object with the selected m/z range
+A filtered lcms_dataset with the selected m/z range.
 }
 \description{
-The function filters the dataset by m/z
+The function filters the dataset by m/z.
 }
 \examples{
 mz_range = c(300, 400)

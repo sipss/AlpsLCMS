@@ -7,12 +7,12 @@
 lcms_filter_rt_min(dataset, rt = c(4, 14))
 }
 \arguments{
-\item{dataset}{An \link{lcms_dataset_family} object filtered by retention time}
+\item{dataset}{A lcms_dataset filtered by retention time.}
 
-\item{rt}{Range of the retention time to keep in minutes}
+\item{rt}{Range of the retention time to keep in minutes.}
 }
 \value{
-A filtered \link{lcms_dataset_family} object with the selected retention time range
+A filtered lcms_dataset with the selected retention time range.
 }
 \description{
 The function converts seconds into minutes to cut and keep

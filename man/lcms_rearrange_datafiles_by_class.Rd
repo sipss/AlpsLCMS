@@ -7,13 +7,13 @@
 lcms_rearrange_datafiles_by_class(dataset, dataDir)
 }
 \arguments{
-\item{dataset}{A \link{lcms_dataset_family} object}
+\item{dataset}{A lcms_dataset.}
 
-\item{dataDir}{a directory in where LC-MS files are
-going to be saved}
+\item{dataDir}{A directory in where LC-MS files are
+going to be saved.}
 }
 \value{
-LC-MS datafiles sorted by class treatment
+LC-MS datafiles sorted by class treatment.
 }
 \description{
 Although Data Preprocessing can be performed using any

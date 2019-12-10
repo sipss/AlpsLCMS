@@ -2,7 +2,7 @@
 % Please edit documentation in R/sample_management.R
 \name{lcms_read_samples}
 \alias{lcms_read_samples}
-\title{Read LCMS samples on mzXML format}
+\title{Read mzXML samples}
 \usage{
 lcms_read_samples(...)
 }
@@ -38,10 +38,10 @@ implications.}
 }}
 }
 \value{
-An object from the \link{lcms_dataset_family}
+A lcms_dataset.
 }
 \description{
-Read LCMS samples on mzXML format
+Read LCMS samples on mzXML format.
 }
 \examples{
 file_path <- system.file("extdata", package = "NIHSlcms")

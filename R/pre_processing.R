@@ -9,11 +9,11 @@
 #' remove this function.
 #'
 #'
-#' @param object An MSnExp object
-#' @param polarity. The polarity to keep
+#' @param object A MSnExp object.
+#' @param polarity. The polarity to keep.
 #' @family dataset functions
 #' @family filtering functions
-#' @return A filtered [lcms_dataset_family] object with the selected polarity
+#' @return A filtered lcms_dataset with the selected polarity.
 #' @export
 #' @examples
 #' dataset_2_polarities <- lcms_dataset_load(system.file("extdata","dataset_metadata.rds",package = "NIHSlcms"))
@@ -31,12 +31,13 @@ lcms_filter_polarity <- function(object, polarity.) {
 
 #' Filter by mass/charge
 #'
-#' The function filters the dataset by m/z
-#' @param dataset An [lcms_dataset_family] object
-#' @param mz  The range of masses to filter
+#' The function filters the dataset by m/z.
+#'
+#' @param dataset A lcms_dataset.
+#' @param mz  The range of masses to filter.
 #' @family dataset functions
 #' @family filtering functions
-#' @return A filtered [lcms_dataset_family] object with the selected m/z range
+#' @return A filtered lcms_dataset with the selected m/z range.
 #' @export
 #' @examples
 
@@ -56,9 +57,10 @@ lcms_filter_mz <- function(dataset, mz){
 #'
 #' The function converts seconds into minutes to cut and keep
 #' a range of the retention time in minutes.
-#' @param dataset An [lcms_dataset_family] object filtered by retention time
-#' @param rt Range of the retention time to keep in minutes
-#' @return A filtered [lcms_dataset_family] object with the selected retention time range
+#'
+#' @param dataset A lcms_dataset filtered by retention time.
+#' @param rt Range of the retention time to keep in minutes.
+#' @return A filtered lcms_dataset with the selected retention time range.
 #' @family dataset functions
 #' @family filtering functions
 #' @export
@@ -85,16 +87,18 @@ lcms_filter_rt_min <- function (dataset, rt = c(4, 14)){
 #' if there is not any especial sample in the dataset.
 #'
 #' The function can distinguish and filter different samples types:
-#' * Regular samples
-#' * Blank samples
-#' * Quality Control samples
-#' @param dataset An [lcms_dataset_family] object
+#' * Regular samples.
+#' * Blank samples.
+#' * Quality Control samples.
+#' @param dataset A lcms_dataset
 #' @param especial_samples A list with the especial samples names.
 #' Use `NULL` if there is not any especial sample in the dataset.
-#' @return A list containing three [lcms_dataset_family] objects: one per sample type.
+#' @return A list containing three lcms_datasets with different type: regular,
+#' quality control and blank samples.
 #' @family dataset functions
 #' @family filtering functions
 #' @export
+
 #' @examples
 #' dataset <- lcms_dataset_load(system.file("extdata","dataset_pos_rt.rds",package = "NIHSlcms"))
 #' especial_samples <- list(QC = NULL, blank = NULL)
@@ -142,18 +146,19 @@ lcms_filter_sample_type <- function(dataset,  especial_samples){
 #'
 #' The findChromPeaks_cwp function performs the chromatographic peak
 #' detection on LC/GC-MS data. The standard method for peak detection
-#' is *'CentWave'*. We must initialize its parameters according to the
-#' `IPO` Package optimization. Peak detection aims to detect important
+#' is *'CentWave'*. Peak detection aims to detect important
 #' features (peaks) on the chromatographic axis. This will be useful
 #' for a posterior peak alignment on the chormatophic axis.
+#'
 #' Note: signal processing generally  consists in three main steps:
 #' (1) peak detection (`lcms_find_chromp_peaks_cwp` function),
 #' (2) peak alignment (`lcms_align_rtime` function) and
 #' (3) peak correspondence (`lcms_group_peaks` function).
+#' The optimized set of parameters for this signal preprocessing can be obatained from `IPO` Package.
 #'
-#' @param dataset A [lcms_dataset_family] object
+#' @param dataset A lcms_dataset.
 #' @param params A converted parameters template from IPO parameters.
-#' @return A [lcms_dataset_family] object with the detected peaks added.
+#' @return A lcms_dataset with the detected peaks added.
 #' @family dataset functions
 #' @family peak detection functions
 #' @export
@@ -210,16 +215,17 @@ lcms_find_chrom_peaks_cwp <- function (dataset, params) {
 #' Retention Time Correction
 #'
 #' Retention time correction is performed using *'obiwarp'* method.
-#' Its optimum parameters are obtaine from `IPO` Package.
+#'
 #' Note: signal processing generally  consists in three main steps:
 #' (1) peak detection (`lcms_find_chrom_peaks_cwp` function),
 #' (2) peak alignment (`lcms_align_rtime` function) and
 #' (3) peak correspondence (`lcms_group_peaks` function).
+#' The optimized set of parameters for this signal preprocessing can be obatained from `IPO` Package.
 #'
-#' @param peakdet A [lcms_dataset_family] object with detected peaks from the
-#' `lcms_find_chrom_peaks_cwp` function
+#' @param peakdet A lcms_dataset with detected peaks obtained from the
+#' `lcms_find_chrom_peaks_cwp` function.
 #' @param params A converted parameters template from IPO parameters.
-#' @return A [lcms_dataset_family] object with (1) detected (`lcms_find_chrom_peaks_cwp` function)
+#' @return A lcms_dataset with (1) detected (`lcms_find_chrom_peaks_cwp` function).
 #' and (2) aligned (`lcms_align_rtime` function) peaks
 #' @family dataset functions
 #' @family retention time correction functions
@@ -273,16 +279,19 @@ lcms_align_rtime <- function (peakdet, params) {
 #' with parameters obtained form `IPO`. Peak Correspondece consist in
 #' grouping peaks on retention time axis with the purspose of associate
 #' them to spectra on the mass/chage axis.
-#' #' Note: signal processing generally  consists in three main steps:
+#'
+#' Note: signal processing generally  consists in three main steps:
 #' (1) peak detection (`lcms_find_chrom_peaks_cwp` function),
 #' (2) peak alignment (`lcms_align_rtime` function) and
 #' (3) peak correspondence (`lcms_group_peaks` function).
+#' The optimized set of parameters for this signal preprocessing can be obatained from `IPO` Package.
+#'
 #' After this stage the peak table is finally obtained.
 #'
-#' @param peakdet_align A [lcms_dataset_family] object with (1) detected (`findChromPeaks_cwp`
-#' function) and (2) aligned (`lcms_align_rtime` function) peaks
+#' @param peakdet_align A lcms_dataset with (1) detected (`findChromPeaks_cwp`
+#' function) and (2) aligned (`lcms_align_rtime` function) peaks.
 #' @param params A converted parameters template from IPO parameters.
-#' @return A [lcms_dataset_family] object with (1) detected (`lcms_find_chrom_peaks_cwp` function),
+#' @return A lcms_dataset with (1) detected (`lcms_find_chrom_peaks_cwp` function),
 #' (2) aligned (`align_rtime` function) and (3) grouped  (`lcms_group_peaks`
 #' function) peaks.
 #' @family dataset functions
@@ -327,7 +336,7 @@ lcms_group_peaks <- function (peakdet_align, params) {
 #' that were not detected in the previous steps of the signal preprocessing workflow.
 #'
 #' @param peak_table A table of peaks with (possibly) missing values.
-#' @return A peak table where the missing peaks have been filled
+#' @return A peak table where the missing peaks have been filled.
 #' @family dataset functions
 #' @family imputation functions
 #' @export
@@ -359,10 +368,11 @@ lcms_fill_chrom_peaks <- function(peak_table){
 #'
 #' The function performs the Total Ion Count (TIC) for the polarity samples.
 #' Function `lcms_tics` stores summarizes TIC information.
+#'
 #' NOTE: `lcms_tics` assumes that data is already filtered by polarity.
 #'
-#' @param dataset A [lcms_dataset_family] object
-#' @param treatment Class groups of the samples
+#' @param dataset A lcms_dataset.
+#' @param treatment Class groups of the samples.
 #' @return Total Ion Count (TIC) for the polarity samples.
 #' @family dataset functions
 #' @family dataset_peak_table functions
@@ -395,6 +405,7 @@ lcms_tics <- function(dataset, treatment = treatment){
 #' Total Ion Count (TIC) plot
 #'
 #' The function performs a plot with the Total Ion Count (TIC).
+#'
 #' @param tics A Total Ion Count object generated with `lcms_tics`
 #' @param treatment Class groups of the samples
 #' @param rt Retention time
@@ -466,8 +477,8 @@ lcms_plot_tics <- function(tics, treatment = treatment, rt = NULL, plot_type = "
 #' It plots the retention time correction vs the original retention time for each of the samples
 #' coloured by sample class.
 #'
-#' @param data An aligned [lcms_dataset_family] object.
-#' @return The plot for the retention time correction
+#' @param data An alignend lcms_dataset.
+#' @return The plot for the retention time correction.
 #' @family dataset functions
 #' @family retention time correction functions
 #' @family visualization functions
@@ -501,9 +512,9 @@ lcms_retention_time_alignment_plot <- function (data){
 #'
 #' Base peak chromatograms with retention time axis in minutes.
 #'
-#' @param chromatogram_object  A XChromatograms object
+#' @param chromatogram_object  A XChromatograms object.
 #' @param treatment_col Color code by groups.
-#' @param rtlim retention time boundaries (e.g. c(4,8))
+#' @param rtlim retention time boundaries (e.g. c(4,8)).
 #' @return A base peak chromatogram
 #' @family chromatogram functions
 #' @family visualization functions
@@ -545,8 +556,8 @@ lcms_plot_chrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
 #' It plots the an image of the chromatographic peaks for each sample. This function is useful if
 #' you are interested in knowing the effect of the retention time correction on the chromatographic axis.
 #'
-#' @param dataset A [lcms_dataset_family] object
-#' @return An image with the detected chromatographic peak, for each sample
+#' @param dataset A lcms_dataset.
+#' @return An image with the detected chromatographic peak, for each sample.
 #' @export
 #' @family dataset functions
 #' @family chromatogram functions
@@ -618,10 +629,10 @@ lmcs_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE
 #' needs a specific directory structure for data managing.
 #' Otherwise, it can't work properly.
 #'
-#' @param dataset A [lcms_dataset_family] object
-#' @param dataDir a directory in where LC-MS files are
-#' going to be saved
-#' @return LC-MS datafiles sorted by class treatment
+#' @param dataset A lcms_dataset.
+#' @param dataDir A directory in where LC-MS files are
+#' going to be saved.
+#' @return LC-MS datafiles sorted by class treatment.
 #' @family dataset functions
 #' @family import/export functions
 #' @export

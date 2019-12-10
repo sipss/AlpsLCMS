@@ -2,23 +2,23 @@
 % Please edit documentation in R/sample_management.R
 \name{lcms_meta_export}
 \alias{lcms_meta_export}
-\title{Export Metadata to an Excel file}
+\title{Export metadata}
 \usage{
 lcms_meta_export(dataset, xlsx_file)
 }
 \arguments{
-\item{dataset}{An \link{lcms_dataset_family} object}
+\item{dataset}{A lcms_dataset.}
 
-\item{xlsx_file}{"The .xlsx excel file"}
+\item{xlsx_file}{"The .xlsx excel file".}
 
 \item{groups}{A character vector. Use \code{"external"} for the external metadata or
-the default for a more generic solution}
+the default for a more generic solution.}
 }
 \value{
-The Excel file name
+The Excel file name.
 }
 \description{
-Export Metadata to an Excel file
+Export Metadata to an Excel file.
 }
 \examples{
 dataset_metadata <- lcms_dataset_load(system.file("extdata",

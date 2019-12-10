@@ -2,19 +2,19 @@
 % Please edit documentation in R/sample_management.R
 \name{lcms_dataset_save}
 \alias{lcms_dataset_save}
-\title{Function to save a lcms_dataset object}
+\title{Save lcms_datasets}
 \usage{
 lcms_dataset_save(dataset, file_name, ...)
 }
 \arguments{
-\item{dataset}{An object from the \link{lcms_dataset_family}}
+\item{dataset}{A lcms_dataset.}
 
-\item{file_name}{The file name to save to}
+\item{file_name}{The file name to save to.}
 
 \item{...}{Additional arguments passed to \link{saveRDS}.}
 }
 \description{
-Function to save a lcms_dataset object
+Function to save a lcms_dataset object.
 }
 \examples{
 dataset <- lcms_dataset_load(system.file("extdata", "dataset.rds", package = "NIHSlcms"))

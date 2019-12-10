@@ -8,7 +8,7 @@ lcms_peakpicking_optimization(dataset, peakpickingParameters,
   nSlaves = 1, opt_path, subdir = "plot_ipo", plots = TRUE)
 }
 \arguments{
-\item{dataset}{A \link{lcms_dataset_family} object}
+\item{dataset}{A lcms_dataset}
 
 \item{peakpickingParameters}{Parameters for peak picking}
 

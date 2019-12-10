@@ -7,12 +7,12 @@
 lcms_filter_polarity(object, polarity.)
 }
 \arguments{
-\item{object}{An MSnExp object}
+\item{object}{A MSnExp object.}
 
-\item{polarity.}{The polarity to keep}
+\item{polarity.}{The polarity to keep.}
 }
 \value{
-A filtered \link{lcms_dataset_family} object with the selected polarity
+A filtered lcms_dataset with the selected polarity.
 }
 \description{
 This function was merged in

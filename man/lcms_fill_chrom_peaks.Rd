@@ -10,7 +10,7 @@ lcms_fill_chrom_peaks(peak_table)
 \item{peak_table}{A table of peaks with (possibly) missing values.}
 }
 \value{
-A peak table where the missing peaks have been filled
+A peak table where the missing peaks have been filled.
 }
 \description{
 In the imputation stage, we integrate the areas of the missing peaks of the peak table

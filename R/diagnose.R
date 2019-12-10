@@ -2,8 +2,7 @@
 #'
 #' Set or get diagnostic information
 #'
-#' @param dataset An [lcms_dataset_family] object
-#'
+#' @param dataset A lcms_dataset
 #' @return Diagnostic information, usually a list with data or plots
 #' @export
 #'

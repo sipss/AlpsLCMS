@@ -7,13 +7,14 @@
 lcms_filter_sample_type(dataset, especial_samples)
 }
 \arguments{
-\item{dataset}{An \link{lcms_dataset_family} object}
+\item{dataset}{A lcms_dataset}
 
 \item{especial_samples}{A list with the especial samples names.
 Use \code{NULL} if there is not any especial sample in the dataset.}
 }
 \value{
-A list containing three \link{lcms_dataset_family} objects: one per sample type.
+A list containing three lcms_datasets with different type: regular,
+quality control and blank samples.
 }
 \description{
 In a dataset, there are different types of samples for
@@ -26,9 +27,9 @@ if there is not any especial sample in the dataset.
 \details{
 The function can distinguish and filter different samples types:
 \itemize{
-\item Regular samples
-\item Blank samples
-\item Quality Control samples
+\item Regular samples.
+\item Blank samples.
+\item Quality Control samples.
 }
 }
 \examples{

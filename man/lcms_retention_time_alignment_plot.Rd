@@ -7,10 +7,10 @@
 lcms_retention_time_alignment_plot(data)
 }
 \arguments{
-\item{data}{An aligned \link{lcms_dataset_family} object.}
+\item{data}{An alignend lcms_dataset.}
 }
 \value{
-The plot for the retention time correction
+The plot for the retention time correction.
 }
 \description{
 It plots the retention time correction vs the original retention time for each of the samples

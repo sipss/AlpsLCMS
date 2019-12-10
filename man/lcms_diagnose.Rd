@@ -10,7 +10,7 @@ lcms_diagnose(dataset)
 lcms_diagnose(dataset) <- value
 }
 \arguments{
-\item{dataset}{An \link{lcms_dataset_family} object}
+\item{dataset}{A lcms_dataset}
 
 \item{value}{The diagnostic we want to set}
 }
