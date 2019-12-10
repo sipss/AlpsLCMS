@@ -48,7 +48,7 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #'
 #' @param dataset A lcms_dataset
 #' @param peakpickingParameters Parameters for peak picking
-#' @param opt_path Path where optimization samples are saved. Id subdir is
+#' @param opt_path Path where optimization samples are saved.
 #' @param nSlaves Number of slaves the optimization process should spawn.
 #' @param plots Defines if plots should be generated (TRUE) or not (FALSE) in a subfolder called "plot_ipo" (default).
 #' @param subdir Folder where surface plots are saved. If NULL they are displayed by the graphical device.
@@ -172,9 +172,10 @@ lcms_default_retcorgroup_params <- function(profStep = 1,
 #' best_settings$xset (e.g. optimizedXcmsSetObject <- resultPeakpicking$best_settings$xset)
 #' @param retcorGroupParameters Parameters for retention time correction and optimization
 #' @param nSlaves Number of slaves the optimization process should spawn.
+#' @param opt_path Path where optimization samples are saved.
+#' @param subdir Folder where surface plots are save. If NULL they are displayed by the graphical device.
 #' @param plots Defines if plots should be generated (TRUE) or not (FALSE) in a
 #' subfolder called "plot_ipo"(default).
-#' @param subdir Folder where surface plots are save. If NULL they are displayed by the graphical device.
 #' @return a list with the optimization of parameters for retention time and grouping.
 #' @family optimization functions.
 #' @family visualization functions

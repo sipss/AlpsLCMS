@@ -17,6 +17,8 @@ best_settings$xset (e.g. optimizedXcmsSetObject <- resultPeakpicking$best_settin
 
 \item{nSlaves}{Number of slaves the optimization process should spawn.}
 
+\item{opt_path}{Path where optimization samples are saved.}
+
 \item{subdir}{Folder where surface plots are save. If NULL they are displayed by the graphical device.}
 
 \item{plots}{Defines if plots should be generated (TRUE) or not (FALSE) in a

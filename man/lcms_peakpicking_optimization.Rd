@@ -14,7 +14,7 @@ lcms_peakpicking_optimization(dataset, peakpickingParameters,
 
 \item{nSlaves}{Number of slaves the optimization process should spawn.}
 
-\item{opt_path}{Path where optimization samples are saved. Id subdir is}
+\item{opt_path}{Path where optimization samples are saved.}
 
 \item{subdir}{Folder where surface plots are saved. If NULL they are displayed by the graphical device.}
 
