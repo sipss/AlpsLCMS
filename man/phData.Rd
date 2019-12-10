@@ -9,8 +9,6 @@ phData(object)
 \arguments{
 \item{object}{Object, possibly derived from \code{\link{eSet-class}}
     or \code{\linkS4class{AnnotatedDataFrame}}.}
-
-\item{A}{lcms_dataset.}
 }
 \value{
 phenoData returns an object containing information on

@@ -167,7 +167,6 @@ lcms_meta_read <- function(xlsx_file) {
 #' It uses [Biobase::pData] to access phenotypic data such as
 #' metadata, covariates, etc...
 #'
-#' @param A lcms_dataset.
 #' @inheritParams Biobase::pData
 #' @return phenoData returns an object containing information on
 #' both variable values and variable meta-data. varLabels returns

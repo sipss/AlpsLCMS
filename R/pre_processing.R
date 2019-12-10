@@ -558,7 +558,13 @@ lcms_plot_chrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
 #' It plots the an image of the chromatographic peaks for each sample. This function is useful if
 #' you are interested in knowing the effect of the retention time correction on the chromatographic axis.
 #'
-#' @param dataset A lcms_dataset.
+#' @param x A lcms_dataset.
+#' @param binSize Bin size for the the reteincion time axis.
+#' @param xlim Retention time axis range. If Null, it uses the complete retention time range.
+#' @param log If TRUE, it performs a logarithmic transformation on the data.
+#' @param xlab Label for the retention time axis.
+#' @param yaxt Options for the y axis. Use the default value.
+#' @param ... Additional parameters for image function.
 #' @return An image with the detected chromatographic peak, for each sample.
 #' @export
 #' @family dataset functions

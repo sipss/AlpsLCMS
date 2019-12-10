@@ -9,7 +9,19 @@ lmcs_plot_chrom_peak_image(x, binSize = 30, xlim = NULL, log = FALSE,
   main = "Chromatographic peak counts", ...)
 }
 \arguments{
-\item{dataset}{A lcms_dataset.}
+\item{x}{A lcms_dataset.}
+
+\item{binSize}{Bin size for the the reteincion time axis.}
+
+\item{xlim}{Retention time axis range. If Null, it uses the complete retention time range.}
+
+\item{log}{If TRUE, it performs a logarithmic transformation on the data.}
+
+\item{xlab}{Label for the retention time axis.}
+
+\item{yaxt}{Options for the y axis. Use the default value.}
+
+\item{...}{Additional parameters for image function.}
 }
 \value{
 An image with the detected chromatographic peak, for each sample.
