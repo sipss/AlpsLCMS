@@ -173,10 +173,13 @@ install_RawConverter <- function(rawconverter, force = FALSE) {
   workdir
 }
 
-
-#' Convert RAW samples to mzxml samples
+#' Raw to mzxml
 #'
-#' @param samples ThermoFisher .raw files
+#' Convert RAW samples to mzxml samples.
+#'
+#' @param samples ThermoFisher .raw files.
+#'
+#' @param options Optios for the conversion.
 #'
 #' @param rawconverter The working directory given to [install_RawConverter].
 #'

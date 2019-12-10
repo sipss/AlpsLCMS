@@ -40,7 +40,7 @@ lcms_write_parameter_table <- function(listParameters, folder){
   return(outputTable)
 }
 
-#' to MAIT
+#' Convert xcms to MAIT
 #'
 #' Function to create a MAIT object using data from xcms.
 #'
