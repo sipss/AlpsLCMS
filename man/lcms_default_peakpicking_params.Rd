@@ -42,6 +42,7 @@ print(default_peakpicking_params)
 Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
   \code{\link{lcms_peakpicking_optimization}},
   \code{\link{lcms_read_ipo_to_xcms}},
+  \code{\link{lcms_retcorgroup_optimization}},
   \code{\link{lcms_write_opt_params}}
 }
 \concept{optimization functions}

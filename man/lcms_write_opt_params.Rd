@@ -39,7 +39,8 @@ allows in the RStudio console. Also you can save this results in plain text file
 Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
   \code{\link{lcms_default_peakpicking_params}},
   \code{\link{lcms_peakpicking_optimization}},
-  \code{\link{lcms_read_ipo_to_xcms}}
+  \code{\link{lcms_read_ipo_to_xcms}},
+  \code{\link{lcms_retcorgroup_optimization}}
 
 Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},
   \code{\link{lcms_dataset_load}},

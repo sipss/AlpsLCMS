@@ -26,6 +26,7 @@ print(preproc_params)
 Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
   \code{\link{lcms_default_peakpicking_params}},
   \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_retcorgroup_optimization}},
   \code{\link{lcms_write_opt_params}}
 
 Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},

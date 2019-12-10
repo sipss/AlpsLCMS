@@ -25,14 +25,13 @@ best_settings$xset (e.g. optimizedXcmsSetObject <- resultPeakpicking$best_settin
 subfolder called "plot_ipo"(default).}
 }
 \value{
-a list with the optimization of parameters for retention time and grouping.
+A list with the optimization of parameters for retention time and grouping.
 }
 \description{
 The function optimizes parameters considering a set of samples
 for the retention time correction and grouping using the IPO Package.
 }
 \examples{
-\dontrun{
 file_name_pp <- system.file("extdata", "result_peakpicking.rds", package = "NIHSlcms")
 optimizedXcmsSetObject <-base::readRDS(file_name_pp)$best_settings$xset
 file_name_rcg <- system.file("extdata", "default_retcorgroup_params.rds", package = "NIHSlcms")
@@ -44,9 +43,12 @@ result_retcorgroup <- lcms_retcorgroup_optimization(optimizedXcmsSetObject,
                                                    opt_path = opt_path,
                                                    subdir = NULL)
 }
-}
 \seealso{
-Other optimization functions.: \code{\link{lcms_default_retcorgroup_params}}
+Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
+  \code{\link{lcms_default_peakpicking_params}},
+  \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_read_ipo_to_xcms}},
+  \code{\link{lcms_write_opt_params}}
 
 Other visualization functions: \code{\link{lcms_peak_table_boxplots}},
   \code{\link{lcms_peak_table_pca}},
@@ -56,5 +58,5 @@ Other visualization functions: \code{\link{lcms_peak_table_boxplots}},
   \code{\link{lcms_retention_time_alignment_plot}},
   \code{\link{lmcs_plot_chrom_peak_image}}
 }
-\concept{optimization functions.}
+\concept{optimization functions}
 \concept{visualization functions}

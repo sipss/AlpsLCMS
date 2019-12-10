@@ -165,7 +165,6 @@ lcms_filter_sample_type <- function(dataset,  especial_samples){
 #' @family peak detection functions
 #' @export
 #' @examples
-#' \dontrun{
 #' file_path <- system.file("extdata", "rearrange_mait", package = "NIHSlcms")
 #' samples_mzxml <- list.files(file_path, recursive = TRUE, full.names = TRUE)
 #' meta_path <- system.file("extdata", "metadata.xlsx", package = "NIHSlcms")
@@ -178,7 +177,6 @@ lcms_filter_sample_type <- function(dataset,  especial_samples){
 #'
 #' peakdet <- lcms_find_chrom_peaks_cwp(dataset_meta, params = preproc_params)
 #' print(peakdet)
-#' }
 #
 
 lcms_find_chrom_peaks_cwp <- function (dataset, params) {

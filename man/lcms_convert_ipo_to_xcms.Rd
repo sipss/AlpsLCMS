@@ -18,17 +18,16 @@ presented some mismatches, thus we had to create a function called \emph{lcms_co
 to achieve compatibility between packages when these parameters are stored in a list.
 }
 \examples{
-\dontrun{
 opt_result_path <-  system.file("extdata","ipo_opt", "params.rds", package = "NIHSlcms")
 params <- base::readRDS(opt_result_path)
 preproc_params <- lcms_convert_ipo_to_xcms(params)
 print(preproc_params)
 }
-}
 \seealso{
 Other optimization functions: \code{\link{lcms_default_peakpicking_params}},
   \code{\link{lcms_peakpicking_optimization}},
   \code{\link{lcms_read_ipo_to_xcms}},
+  \code{\link{lcms_retcorgroup_optimization}},
   \code{\link{lcms_write_opt_params}}
 
 Other import/export functions: \code{\link{lcms_dataset_load}},

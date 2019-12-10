@@ -58,7 +58,6 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #' @family visualization functions
 #' @export
 #' @examples
-#' \dontrun{
 #' opt_path <- system.file("extdata", "ipo_opt", package = "NIHSlcms")
 #' file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "NIHSlcms")
 #' dataset <- lcms_dataset_load(file_name)
@@ -67,7 +66,6 @@ lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
 #'                                                    default_peakpicking_params,
 #'                                                    opt_path = opt_path,
 #'                                                    subdir = NULL)
-#' }
 
 lcms_peakpicking_optimization <- function (dataset, peakpickingParameters,
                                            nSlaves = 1, opt_path, subdir ="plot_ipo",
@@ -176,12 +174,11 @@ lcms_default_retcorgroup_params <- function(profStep = 1,
 #' @param subdir Folder where surface plots are save. If NULL they are displayed by the graphical device.
 #' @param plots Defines if plots should be generated (TRUE) or not (FALSE) in a
 #' subfolder called "plot_ipo"(default).
-#' @return a list with the optimization of parameters for retention time and grouping.
-#' @family optimization functions.
+#' @return A list with the optimization of parameters for retention time and grouping.
+#' @family optimization functions
 #' @family visualization functions
 #' @export
 #' @examples
-#' \dontrun{
 #' file_name_pp <- system.file("extdata", "result_peakpicking.rds", package = "NIHSlcms")
 #' optimizedXcmsSetObject <-base::readRDS(file_name_pp)$best_settings$xset
 #' file_name_rcg <- system.file("extdata", "default_retcorgroup_params.rds", package = "NIHSlcms")
@@ -192,7 +189,6 @@ lcms_default_retcorgroup_params <- function(profStep = 1,
 #'                                                    default_retcorgroup_params,
 #'                                                    opt_path = opt_path,
 #'                                                    subdir = NULL)
-#' }
 lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
                                         retcorGroupParameters,
                                         nSlaves = 1,
@@ -371,12 +367,10 @@ lcms_read_ipo_to_xcms <- function(opt_result_path){
 #' @family import/export functions
 #' @export
 #' @examples
-#' \dontrun{
 #' opt_result_path <-  system.file("extdata","ipo_opt", "params.rds", package = "NIHSlcms")
 #' params <- base::readRDS(opt_result_path)
 #' preproc_params <- lcms_convert_ipo_to_xcms(params)
 #' print(preproc_params)
-#' }
 
 lcms_convert_ipo_to_xcms <- function(params){
   preproc_params <- list(ppm = params$ppm,
