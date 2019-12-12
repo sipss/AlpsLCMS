@@ -576,6 +576,7 @@ lcms_plot_chrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
 #' @param log If TRUE, it performs a logarithmic transformation on the data.
 #' @param xlab Label for the retention time axis.
 #' @param yaxt Options for the y axis. Use the default value.
+#' @param main Plot title.
 #' @param ... Additional parameters for image function.
 #' @return An image with the detected chromatographic peak, for each sample.
 #' @export

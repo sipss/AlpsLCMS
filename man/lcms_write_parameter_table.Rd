@@ -33,9 +33,10 @@ quiet <- function(x) {
 quiet(getClassDef("MAIT","MAIT"))
 MAIT.object = signature(MAIT.Object = "MAIT")
 MAIT.object <- methods::new("MAIT")
-}
+
 MAIT.object@RawData@parameters@sampleProcessing <- parameters
 lcms_write_parameter_table(MAIT::parameters(MAIT.object), folder = mait_params_path)
+}
 }
 \seealso{
 Other metabolite identification functions: \code{\link{lcms_identify_metabolites}},

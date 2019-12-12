@@ -10,13 +10,13 @@ lcms_peak_table_pca(MAIT.object = NULL, treatment_col, Log = FALSE,
 \arguments{
 \item{MAIT.object}{MAIT object where it is found an annotated peak table.}
 
+\item{treatment_col}{Treatment for the samples.}
+
 \item{Log}{Set to TRUE if the data should be plotted using the logarithm of the intensity.}
 
+\item{center}{to TRUE if the data should be centered around its mean. See scale.}
+
 \item{scale}{Set to TRUE if the data should be scaled.}
-
-\item{treament_col}{Treatment for the samples.}
-
-\item{Set}{to TRUE if the data should be centered around its mean. See scale.}
 }
 \value{
 A MAIT.object. Additionaly: Three different PCA scoreplots are printed in three png files.

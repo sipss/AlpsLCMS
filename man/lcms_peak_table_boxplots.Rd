@@ -9,7 +9,7 @@ lcms_peak_table_boxplots(MAIT.object = NULL, treatment_col)
 \arguments{
 \item{MAIT.object}{MAIT object where it is found an annotated peak table.}
 
-\item{treament_col}{Treatment for the samples.}
+\item{treatment_col}{Treatment for the samples.}
 }
 \value{
 BoxPlots are stored in folders associated to their corresponding spectra. No explicit plot is produced by the device.

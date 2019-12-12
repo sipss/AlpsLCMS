@@ -24,9 +24,10 @@
 #' quiet(getClassDef("MAIT","MAIT"))
 #' MAIT.object = signature(MAIT.Object = "MAIT")
 #' MAIT.object <- methods::new("MAIT")
-#' }
+#'
 #' MAIT.object@RawData@parameters@sampleProcessing <- parameters
 #' lcms_write_parameter_table(MAIT::parameters(MAIT.object), folder = mait_params_path)
+#' }
 lcms_write_parameter_table <- function(listParameters, folder){
   outputTable <- as.matrix(c(unlist(listParameters@sampleProcessing),
                              unlist(listParameters@peakAnnotation),
@@ -1563,7 +1564,7 @@ lcms_spectral_fun <- function (pvalue=0.05,
 #' boxplots are stored in a directory /Boxplots/Boxplot_spectra_.
 #'
 #' @param MAIT.object MAIT object where it is found an annotated peak table.
-#' @param treament_col Treatment for the samples.
+#' @param treatment_col Treatment for the samples.
 #' @return BoxPlots are stored in folders associated to their corresponding spectra. No explicit plot is produced by the device.
 #' @family metabolite identification functions
 #' @family dataset_peak_table functions
@@ -1632,9 +1633,9 @@ lcms_peak_table_boxplots <- function (MAIT.object = NULL, treatment_col) {
 #' It performs PCA using on the annotated peak table obtained from a MAIT object.
 #'
 #' @param MAIT.object MAIT object where it is found an annotated peak table.
-#' @param treament_col Treatment for the samples.
+#' @param treatment_col Treatment for the samples.
 #' @param Log Set to TRUE if the data should be plotted using the logarithm of the intensity.
-#' @param Set to TRUE if the data should be centered around its mean. See scale.
+#' @param center to TRUE if the data should be centered around its mean. See scale.
 #' @param scale Set to TRUE if the data should be scaled.
 #' @return A MAIT.object. Additionaly: Three different PCA scoreplots are printed in three png files.
 #' One using PC1 vs PC2, another with PC1 vs PC3 and the last one with PC2 vs PC3.

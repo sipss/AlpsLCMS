@@ -21,6 +21,8 @@ lmcs_plot_chrom_peak_image(x, binSize = 30, xlim = NULL, log = FALSE,
 
 \item{yaxt}{Options for the y axis. Use the default value.}
 
+\item{main}{Plot title.}
+
 \item{...}{Additional parameters for image function.}
 }
 \value{
