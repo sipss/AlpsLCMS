@@ -1,14 +1,3 @@
-#' Sample conversion
-#'
-#' raw samples converted to mzxml samples.
-#'
-#' @param samples Raw samples to convert.
-#' @param options Conversion options.
-#' @param workdir The working directory.
-#' @return The samples converted.
-#' @export
-#' @noRd
-#'
 convert_samples <- function(samples, options, workdir = NULL) {
   if (is.null(workdir)) {
     stop("workdir must be the working directory where RawConverter was installed. See ?install_RawConverter")

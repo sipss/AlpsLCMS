@@ -57,7 +57,7 @@ lcms_meta_add <- function(object, metadata, by = "sampleNames") {
 
   #making robust the metadata (remove strange characters and separators and numbers as a first characters)
   #Done for treatment, but possibly useful for other variables (check again in the future)
-  pattern <- "[\\\"\\s/\\\\,;.:|#@$%&€¿?¡!*%+-=><^´¨`'(){}\\[\\]]+"
+  pattern <- "[\\\"\\s/\\\\,;.:|#@$%&?!*%+-=><^'(){}\\[\\]]+"
   aux_treatment <- stringr::str_replace_all(metadata$treatment,
                                             pattern =pattern,
                                             replacement ="_")
