@@ -77,7 +77,7 @@ Otherwise, it can't work properly." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -135,18 +135,54 @@ Otherwise, it can't work properly.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>An <a href='lcms_dataset_family.html'>lcms_dataset_family</a> object</p></td>
+      <td><p>A lcms_dataset.</p></td>
     </tr>
     <tr>
       <th>dataDir</th>
-      <td><p>a directory in where LC-MS files are
-going to be saved</p></td>
+      <td><p>A directory in where LC-MS files are
+going to be saved.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>LC-MS datafiles sorted by class treatment</p>
+    <p>LC-MS datafiles sorted by class treatment.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other dataset functions: <code><a href='lcms_align_rtime.html'>lcms_align_rtime</a></code>,
+  <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_dataset_save.html'>lcms_dataset_save</a></code>,
+  <code><a href='lcms_fill_chrom_peaks.html'>lcms_fill_chrom_peaks</a></code>,
+  <code><a href='lcms_filter_mz.html'>lcms_filter_mz</a></code>,
+  <code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a></code>,
+  <code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a></code>,
+  <code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a></code>,
+  <code><a href='lcms_find_chrom_peaks_cwp.html'>lcms_find_chrom_peaks_cwp</a></code>,
+  <code><a href='lcms_group_peaks.html'>lcms_group_peaks</a></code>,
+  <code><a href='lcms_meta_add.html'>lcms_meta_add</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>,
+  <code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a></code>,
+  <code><a href='lcms_tics.html'>lcms_tics</a></code>,
+  <code><a href='lmcs_plot_chrom_peak_image.html'>lmcs_plot_chrom_peak_image</a></code>,
+  <code><a href='phData.html'>phData</a></code></p>
+<p>Other import/export functions: <code><a href='lcms_convert_ipo_to_xcms.html'>lcms_convert_ipo_to_xcms</a></code>,
+  <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_dataset_save.html'>lcms_dataset_save</a></code>,
+  <code><a href='lcms_identify_metabolites.html'>lcms_identify_metabolites</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code>,
+  <code><a href='lcms_peak_annotation.html'>lcms_peak_annotation</a></code>,
+  <code><a href='lcms_raw_data.html'>lcms_raw_data</a></code>,
+  <code><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></code>,
+  <code><a href='lcms_read_samples.html'>lcms_read_samples</a></code>,
+  <code><a href='lcms_sig_peaks_table.html'>lcms_sig_peaks_table</a></code>,
+  <code><a href='lcms_spectral_sig_features.html'>lcms_spectral_sig_features</a></code>,
+  <code><a href='lcms_to_mait.html'>lcms_to_mait</a></code>,
+  <code><a href='lcms_write_opt_params.html'>lcms_write_opt_params</a></code>,
+  <code><a href='lcms_write_parameter_table.html'>lcms_write_parameter_table</a></code>,
+  <code><a href='phData.html'>phData</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>file_name</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"dataset_pos_rt_rs.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
@@ -155,20 +191,21 @@ going to be saved</p></td>
 <span class='fu'>lcms_rearrange_datafiles_by_class</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='no'>dataset</span>,
                             <span class='kw'>dataDir</span> <span class='kw'>=</span> <span class='no'>path</span>)</div><div class='output co'>#&gt; There are already directories / files in the folder. Not saving new ones.</div><div class='output co'>#&gt; NULL</div><div class='input'><span class='no'>fileList</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='no'>path</span>, <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='no'>path</span>),
                            <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"/"</span>), <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>fileList</span>)</div><div class='output co'>#&gt; [1] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C02.mzXML"            
-#&gt; [2] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C04.mzXML"            
-#&gt; [3] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C07.mzXML"            
-#&gt; [4] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C18.mzXML"            
-#&gt; [5] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C01.mzXML"
-#&gt; [6] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C05.mzXML"
-#&gt; [7] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C09.mzXML"
-#&gt; [8] "C:/Users/Biosignal/AppData/Local/Temp/RtmpO4id1w/temp_libpath2e9047ef5161/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C11.mzXML"</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>fileList</span>)</div><div class='output co'>#&gt; [1] "C:/Users/Biosignal/AppData/Local/Temp/Rtmp0WJzEk/temp_libpath15f83b1287c/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C02.mzXML"            
+#&gt; [2] "C:/Users/Biosignal/AppData/Local/Temp/Rtmp0WJzEk/temp_libpath15f83b1287c/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C04.mzXML"            
+#&gt; [3] "C:/Users/Biosignal/AppData/Local/Temp/Rtmp0WJzEk/temp_libpath15f83b1287c/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C07.mzXML"            
+#&gt; [4] "C:/Users/Biosignal/AppData/Local/Temp/Rtmp0WJzEk/temp_libpath15f83b1287c/NIHSlcms/extdata/rearrange_mait/plasma/MRC_Run1_10uL_C18.mzXML"            
+#&gt; [5] "C:/Users/Biosignal/AppData/Local/Temp/Rtmp0WJzEk/temp_libpath15f83b1287c/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C01.mzXML"
+#&gt; [6] "C:/Users/Biosignal/AppData/Local/Temp/Rtmp0WJzEk/temp_libpath15f83b1287c/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C05.mzXML"
+#&gt; [7] "C:/Users/Biosignal/AppData/Local/Temp/Rtmp0WJzEk/temp_libpath15f83b1287c/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C09.mzXML"
+#&gt; [8] "C:/Users/Biosignal/AppData/Local/Temp/Rtmp0WJzEk/temp_libpath15f83b1287c/NIHSlcms/extdata/rearrange_mait/plasma_ringer_palm/MRC_Run1_10uL_C11.mzXML"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

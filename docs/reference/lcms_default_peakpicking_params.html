@@ -39,10 +39,9 @@
 <meta property="og:description" content="The function creates default parameters for optimizing
 peakpicking algorithms.We perform parameter optimization
 on the XCMS preprocessing algorithms using the IPO Package.
-This includes Peak Detection (‘Centwave’ and ‘Matched Filter’),
+This includes Peak Detection (‘Centwave’),
 Retention Time Correction (‘obiwarp’) and Peak Correspondence
-(‘Density’).
-Use this function to generate the template within the
+(‘Density’). Use this function to generate the template within the
 lcms_peakpicking_optimization function." />
 <meta name="twitter:card" content="summary" />
 
@@ -76,7 +75,7 @@ lcms_peakpicking_optimization function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -119,10 +118,9 @@ lcms_peakpicking_optimization function." />
     <p>The function creates default parameters for optimizing
 peakpicking algorithms.We perform parameter optimization
 on the XCMS preprocessing algorithms using the IPO Package.
-This includes Peak Detection (‘Centwave’ and ‘Matched Filter’),
+This includes Peak Detection (‘Centwave’),
 Retention Time Correction (‘obiwarp’) and Peak Correspondence
-(‘Density’).
-Use this function to generate the template within the
+(‘Density’). Use this function to generate the template within the
 <code>lcms_peakpicking_optimization</code> function.</p>
     </div>
 
@@ -143,12 +141,12 @@ Use this function to generate the template within the
     </tr>
     <tr>
       <th>min_peakwidth</th>
-      <td><p>numeric(two values) with the expected minimal peak width in
+      <td><p>numeric (two values) with the expected minimal peak width in
 chromatographic dimension. Set as a range (min, max) in seconds.</p></td>
     </tr>
     <tr>
       <th>max_peakwidth</th>
-      <td><p>numeric(two values) with the expected maximum peak width in
+      <td><p>numeric (two values) with the expected maximum peak width in
 chromatographic dimension. Set as a range (min, max) in seconds.</p></td>
     </tr>
     <tr>
@@ -163,8 +161,10 @@ the parameters</p></td>
     <p>A parameters template for peak picking optimization</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other optimization functions: <code><a href='lcms_default_retcorgroup_params.html'>lcms_default_retcorgroup_params</a></code>,
+    <div class='dont-index'><p>Other optimization functions: <code><a href='lcms_convert_ipo_to_xcms.html'>lcms_convert_ipo_to_xcms</a></code>,
   <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></code>,
+  <code><a href='lcms_retcorgroup_optimization.html'>lcms_retcorgroup_optimization</a></code>,
   <code><a href='lcms_write_opt_params.html'>lcms_write_opt_params</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

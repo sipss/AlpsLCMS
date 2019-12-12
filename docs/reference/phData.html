@@ -70,7 +70,7 @@ metadata, covariates, etc..." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -121,7 +121,8 @@ metadata, covariates, etc...</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>a <code>lcms_dataset</code></p></td>
+      <td><p>Object, possibly derived from <code>eSet-class</code>
+    or <code>AnnotatedDataFrame</code>.</p></td>
     </tr>
     </table>
 
@@ -133,19 +134,75 @@ a character vector of measured variables. pData returns a data
 frame with samples as rows, variables as columns. varMetadata
 returns a data frame with variable names as rows, description
 tags (e.g., unit of measurement) as columns.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other metadata functions: <code><a href='lcms_meta_add.html'>lcms_meta_add</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code></p>
+<p>Other dataset functions: <code><a href='lcms_align_rtime.html'>lcms_align_rtime</a></code>,
+  <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_dataset_save.html'>lcms_dataset_save</a></code>,
+  <code><a href='lcms_fill_chrom_peaks.html'>lcms_fill_chrom_peaks</a></code>,
+  <code><a href='lcms_filter_mz.html'>lcms_filter_mz</a></code>,
+  <code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a></code>,
+  <code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a></code>,
+  <code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a></code>,
+  <code><a href='lcms_find_chrom_peaks_cwp.html'>lcms_find_chrom_peaks_cwp</a></code>,
+  <code><a href='lcms_group_peaks.html'>lcms_group_peaks</a></code>,
+  <code><a href='lcms_meta_add.html'>lcms_meta_add</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>,
+  <code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a></code>,
+  <code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a></code>,
+  <code><a href='lcms_tics.html'>lcms_tics</a></code>,
+  <code><a href='lmcs_plot_chrom_peak_image.html'>lmcs_plot_chrom_peak_image</a></code></p>
+<p>Other import/export functions: <code><a href='lcms_convert_ipo_to_xcms.html'>lcms_convert_ipo_to_xcms</a></code>,
+  <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_dataset_save.html'>lcms_dataset_save</a></code>,
+  <code><a href='lcms_identify_metabolites.html'>lcms_identify_metabolites</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code>,
+  <code><a href='lcms_peak_annotation.html'>lcms_peak_annotation</a></code>,
+  <code><a href='lcms_raw_data.html'>lcms_raw_data</a></code>,
+  <code><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></code>,
+  <code><a href='lcms_read_samples.html'>lcms_read_samples</a></code>,
+  <code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a></code>,
+  <code><a href='lcms_sig_peaks_table.html'>lcms_sig_peaks_table</a></code>,
+  <code><a href='lcms_spectral_sig_features.html'>lcms_spectral_sig_features</a></code>,
+  <code><a href='lcms_to_mait.html'>lcms_to_mait</a></code>,
+  <code><a href='lcms_write_opt_params.html'>lcms_write_opt_params</a></code>,
+  <code><a href='lcms_write_parameter_table.html'>lcms_write_parameter_table</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>metadata</span><span class='kw'>&lt;-</span> <span class='kw pkg'>readxl</span><span class='kw ns'>::</span><span class='fu'><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_excel</a></span>(<span class='st'>"D:/myFile.xlsx"</span>)
-<span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_meta_add.html'>lcms_meta_add</a></span>(<span class='no'>dataset</span>, <span class='no'>metadata</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"sampleNames"</span>)
-<span class='fu'>phData</span>(<span class='no'>dataset</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
+                                         <span class='st'>"dataset.rds"</span>,
+                                          <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
+<span class='no'>xlsx_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"exported_metadata.xlsx"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+<span class='no'>metadata</span><span class='kw'>&lt;-</span> <span class='kw pkg'>readxl</span><span class='kw ns'>::</span><span class='fu'><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_excel</a></span>(<span class='no'>xlsx_file</span>)
+<span class='no'>dataset_metadata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_meta_add.html'>lcms_meta_add</a></span>(<span class='no'>dataset</span>, <span class='no'>metadata</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"sampleNames"</span>)
+
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>phData</span>(<span class='no'>dataset_metadata</span>))[<span class='fl'>1</span>:<span class='fl'>4</span>]</div><div class='output co'>#&gt;               sampleNames       Sample Name Protocol REF...3
+#&gt; 1 MRC_Run1_10uL_C01.mzXML MRC_Run1_10uL_C01       Extraction
+#&gt; 2 MRC_Run1_10uL_C02.mzXML MRC_Run1_10uL_C02       Extraction
+#&gt; 3 MRC_Run1_10uL_C04.mzXML MRC_Run1_10uL_C04       Extraction
+#&gt; 4 MRC_Run1_10uL_C05.mzXML MRC_Run1_10uL_C05       Extraction
+#&gt; 5 MRC_Run1_10uL_C07.mzXML MRC_Run1_10uL_C07       Extraction
+#&gt; 6 MRC_Run1_10uL_C09.mzXML MRC_Run1_10uL_C09       Extraction
+#&gt;   Parameter Value[Post Extraction]
+#&gt; 1                              N/A
+#&gt; 2                              N/A
+#&gt; 3                              N/A
+#&gt; 4                              N/A
+#&gt; 5                              N/A
+#&gt; 6                              N/A</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

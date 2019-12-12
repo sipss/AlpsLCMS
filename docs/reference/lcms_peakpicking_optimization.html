@@ -38,7 +38,7 @@
 <meta property="og:title" content="Peak picking optimization — lcms_peakpicking_optimization" />
 <meta property="og:description" content="The function optimize parameters considering a set of samples
 for the peak picking algorithm using the IPO Package.
-This includes Peak Detection (‘Centwave’ and ‘Matched Filter’),
+This includes Peak Detection (‘Centwave),
 Retention Time Correction (‘obiwarp’) and Peak Correspondence
 (‘Density’)." />
 <meta name="twitter:card" content="summary" />
@@ -73,7 +73,7 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -115,7 +115,7 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
     <div class="ref-description">
     <p>The function optimize parameters considering a set of samples
 for the peak picking algorithm using the IPO Package.
-This includes Peak Detection (‘Centwave’ and ‘Matched Filter’),
+This includes Peak Detection (‘Centwave),
 Retention Time Correction (‘obiwarp’) and Peak Correspondence
 (‘Density’).</p>
     </div>
@@ -128,7 +128,7 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>A <a href='lcms_dataset_family.html'>lcms_dataset_family</a> object</p></td>
+      <td><p>A lcms_dataset</p></td>
     </tr>
     <tr>
       <th>peakpickingParameters</th>
@@ -140,11 +140,11 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
     </tr>
     <tr>
       <th>opt_path</th>
-      <td><p>Path where optimization samples are saved. Id subdir is</p></td>
+      <td><p>Path where optimization samples are saved.</p></td>
     </tr>
     <tr>
       <th>subdir</th>
-      <td><p>Folder where surface plots are save. If NULL they are displayed by the graphical device.</p></td>
+      <td><p>Folder where surface plots are saved. If NULL they are displayed by the graphical device.</p></td>
     </tr>
     <tr>
       <th>plots</th>
@@ -154,25 +154,55 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A peak picking list with the best setting</p>
+    <p>A peak picking list with the best setting.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other optimization functions: <code><a href='lcms_default_peakpicking_params.html'>lcms_default_peakpicking_params</a></code>,
-  <code><a href='lcms_default_retcorgroup_params.html'>lcms_default_retcorgroup_params</a></code>,
-  <code><a href='lcms_write_opt_params.html'>lcms_write_opt_params</a></code></p></div>
+    <div class='dont-index'><p>Other dataset functions: <code><a href='lcms_align_rtime.html'>lcms_align_rtime</a></code>,
+  <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_dataset_save.html'>lcms_dataset_save</a></code>,
+  <code><a href='lcms_fill_chrom_peaks.html'>lcms_fill_chrom_peaks</a></code>,
+  <code><a href='lcms_filter_mz.html'>lcms_filter_mz</a></code>,
+  <code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a></code>,
+  <code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a></code>,
+  <code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a></code>,
+  <code><a href='lcms_find_chrom_peaks_cwp.html'>lcms_find_chrom_peaks_cwp</a></code>,
+  <code><a href='lcms_group_peaks.html'>lcms_group_peaks</a></code>,
+  <code><a href='lcms_meta_add.html'>lcms_meta_add</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>,
+  <code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a></code>,
+  <code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a></code>,
+  <code><a href='lcms_tics.html'>lcms_tics</a></code>,
+  <code><a href='lmcs_plot_chrom_peak_image.html'>lmcs_plot_chrom_peak_image</a></code>,
+  <code><a href='phData.html'>phData</a></code></p>
+<p>Other optimization functions: <code><a href='lcms_convert_ipo_to_xcms.html'>lcms_convert_ipo_to_xcms</a></code>,
+  <code><a href='lcms_default_peakpicking_params.html'>lcms_default_peakpicking_params</a></code>,
+  <code><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></code>,
+  <code><a href='lcms_retcorgroup_optimization.html'>lcms_retcorgroup_optimization</a></code>,
+  <code><a href='lcms_write_opt_params.html'>lcms_write_opt_params</a></code></p>
+<p>Other visualization functions: <code><a href='lcms_peak_table_boxplots.html'>lcms_peak_table_boxplots</a></code>,
+  <code><a href='lcms_peak_table_pca.html'>lcms_peak_table_pca</a></code>,
+  <code><a href='lcms_plot_chrom.html'>lcms_plot_chrom</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>,
+  <code><a href='lcms_retcorgroup_optimization.html'>lcms_retcorgroup_optimization</a></code>,
+  <code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a></code>,
+  <code><a href='lmcs_plot_chrom_peak_image.html'>lmcs_plot_chrom_peak_image</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>opt_path</span> <span class='kw'>&lt;-</span> <span class='st'>"C:/Users/Biosignal/Desktop/LCMS_2019/NIHSlcms/inst/extdata/ipo_opt"</span>
-<span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/files2.html'>dir.create</a></span>(<span class='no'>opt_path</span>)
+    <pre class="examples"><div class='input'><span class='no'>opt_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"ipo_opt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>file_name</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"dataset_pos_rt_rs.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='no'>file_name</span>)
 <span class='no'>default_peakpicking_params</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_default_peakpicking_params.html'>lcms_default_peakpicking_params</a></span>(<span class='kw'>optimize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>resultPeakpicking</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_peakpicking_optimization</span>(<span class='no'>dataset</span>,
+<span class='no'>result_peakpicking</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_peakpicking_optimization</span>(<span class='no'>dataset</span>,
                                                    <span class='no'>default_peakpicking_params</span>,
                                                    <span class='kw'>opt_path</span> <span class='kw'>=</span> <span class='no'>opt_path</span>,
-                                                   <span class='kw'>subdir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-}</div></pre>
+                                                   <span class='kw'>subdir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; Be careful if you run twice the function using the same output directory. 
+#&gt; The algorithm will remove the files stored in it, and then write the new files. 
+#&gt; Samples used for optimization:
+#&gt; 	MRC_Run1_10uL_C01.mzXML MRC_Run1_10uL_C02.mzXML MRC_Run1_10uL_C04.mzXML MRC_Run1_10uL_C05.mzXML MRC_Run1_10uL_C07.mzXML MRC_Run1_10uL_C09.mzXML MRC_Run1_10uL_C11.mzXML MRC_Run1_10uL_C18.mzXML
+#&gt; Saving filtered chromatogram... 
+#&gt; Performing retention time and grouping
+#&gt;         parameter optimization. This will take some time... </div><div class='img'><img src='lcms_peakpicking_optimization-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='lcms_peakpicking_optimization-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='lcms_peakpicking_optimization-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

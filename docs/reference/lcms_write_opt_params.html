@@ -71,7 +71,7 @@ allows in the RStudio console. Also you can save this results in plain text file
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -124,45 +124,91 @@ allows in the RStudio console. Also you can save this results in plain text file
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>results_pp</th>
-      <td><p>object from the <code>lcms_peakpicking_optimization</code>function. If NULL, the default parameters for xcms are loaded.</p></td>
+      <td><p>object from the <code>lcms_peakpicking_optimization</code> function. If NULL, the default parameters for xcms are loaded.</p></td>
     </tr>
     <tr>
       <th>results_rtcg</th>
-      <td><p>object from the <code>lcms_corgroup_optimization</code>function</p></td>
+      <td><p>object from the <code>lcms_corgroup_optimization</code> function.</p></td>
     </tr>
     <tr>
       <th>opt_result_path</th>
-      <td><p>A directory to save the parameters file</p></td>
+      <td><p>A directory to save the parameters file.</p></td>
     </tr>
     <tr>
       <th>csv</th>
-      <td><p>if TRUE, it writes a file in csv format</p></td>
+      <td><p>if TRUE, it writes a file in csv format.</p></td>
     </tr>
     <tr>
       <th>console</th>
-      <td><p>if TRUE, it displays the params on the console</p></td>
+      <td><p>if TRUE, it displays the params on the console.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A file with the params from the IPO optimization</p>
+    <p>A file with the params from the IPO optimization.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other optimization functions: <code><a href='lcms_default_peakpicking_params.html'>lcms_default_peakpicking_params</a></code>,
-  <code><a href='lcms_default_retcorgroup_params.html'>lcms_default_retcorgroup_params</a></code>,
-  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code></p></div>
+    <div class='dont-index'><p>Other optimization functions: <code><a href='lcms_convert_ipo_to_xcms.html'>lcms_convert_ipo_to_xcms</a></code>,
+  <code><a href='lcms_default_peakpicking_params.html'>lcms_default_peakpicking_params</a></code>,
+  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></code>,
+  <code><a href='lcms_retcorgroup_optimization.html'>lcms_retcorgroup_optimization</a></code></p>
+<p>Other import/export functions: <code><a href='lcms_convert_ipo_to_xcms.html'>lcms_convert_ipo_to_xcms</a></code>,
+  <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_dataset_save.html'>lcms_dataset_save</a></code>,
+  <code><a href='lcms_identify_metabolites.html'>lcms_identify_metabolites</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code>,
+  <code><a href='lcms_peak_annotation.html'>lcms_peak_annotation</a></code>,
+  <code><a href='lcms_raw_data.html'>lcms_raw_data</a></code>,
+  <code><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></code>,
+  <code><a href='lcms_read_samples.html'>lcms_read_samples</a></code>,
+  <code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a></code>,
+  <code><a href='lcms_sig_peaks_table.html'>lcms_sig_peaks_table</a></code>,
+  <code><a href='lcms_spectral_sig_features.html'>lcms_spectral_sig_features</a></code>,
+  <code><a href='lcms_to_mait.html'>lcms_to_mait</a></code>,
+  <code><a href='lcms_write_parameter_table.html'>lcms_write_parameter_table</a></code>,
+  <code><a href='phData.html'>phData</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
- <span class='no'>opt_result_path</span> <span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"ipo_opt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
- <span class='no'>file_name_pp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"resultPeakpicking.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
- <span class='no'>file_name_rcg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"resultRetcorGroup.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
- <span class='no'>resultPeakpicking</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_pp</span>)
- <span class='no'>resultRetcorGroup</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_rcg</span>)
+    <pre class="examples"><div class='input'> <span class='no'>opt_result_path</span> <span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"ipo_opt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+ <span class='no'>file_name_pp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"result_peakpicking.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+ <span class='no'>file_name_rcg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"result_retcorgroup.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+ <span class='no'>result_peakpicking</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_pp</span>)
+ <span class='no'>result_retcorgroup</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_rcg</span>)
 
- <span class='fu'>lcms_write_opt_params</span>(<span class='no'>resultPeakpicking</span>, <span class='no'>resultRetcorGroup</span>, <span class='no'>opt_result_path</span>)
-}</div></pre>
+ <span class='fu'>lcms_write_opt_params</span>(<span class='no'>result_peakpicking</span>, <span class='no'>result_retcorgroup</span>, <span class='no'>opt_result_path</span>)</div><div class='output co'>#&gt; <span class='message'>library(xcms)</span></div><div class='output co'>#&gt; <span class='message'>library(Rmpi)</span></div><div class='output co'>#&gt; <span class='message'>xset &lt;- xcmsSet( </span>
+#&gt; <span class='message'>  method = "centWave",</span>
+#&gt; <span class='message'>  peakwidth       = c(10, 35),</span>
+#&gt; <span class='message'>  ppm             = 32,</span>
+#&gt; <span class='message'>  noise           = 5000,</span>
+#&gt; <span class='message'>  snthresh        = 10,</span>
+#&gt; <span class='message'>  mzdiff          = -0.001,</span>
+#&gt; <span class='message'>  prefilter       = c(3, 100),</span>
+#&gt; <span class='message'>  mzCenterFun     = "wMean",</span>
+#&gt; <span class='message'>  integrate       = 1,</span>
+#&gt; <span class='message'>  fitgauss        = FALSE,</span>
+#&gt; <span class='message'>  verbose.columns = FALSE)</span></div><div class='output co'>#&gt; <span class='message'>xset &lt;- retcor( </span>
+#&gt; <span class='message'>  xset,</span>
+#&gt; <span class='message'>  method         = "obiwarp",</span>
+#&gt; <span class='message'>  plottype       = "none",</span>
+#&gt; <span class='message'>  distFunc       = "cor_opt",</span>
+#&gt; <span class='message'>  profStep       = 1,</span>
+#&gt; <span class='message'>  center         = 2,</span>
+#&gt; <span class='message'>  response       = 1,</span>
+#&gt; <span class='message'>  gapInit        = 0.64,</span>
+#&gt; <span class='message'>  gapExtend      = 2.7,</span>
+#&gt; <span class='message'>  factorDiag     = 2,</span>
+#&gt; <span class='message'>  factorGap      = 1,</span>
+#&gt; <span class='message'>  localAlignment = 0)</span></div><div class='output co'>#&gt; <span class='message'>xset &lt;- group( </span>
+#&gt; <span class='message'>  xset,</span>
+#&gt; <span class='message'>  method  = "density",</span>
+#&gt; <span class='message'>  bw      = 12.4,</span>
+#&gt; <span class='message'>  mzwid   = 0.003,</span>
+#&gt; <span class='message'>  minfrac = 0.94,</span>
+#&gt; <span class='message'>  minsamp = 1,</span>
+#&gt; <span class='message'>  max     = 50)</span></div><div class='output co'>#&gt; <span class='message'>xset &lt;- fillPeaks(xset)</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

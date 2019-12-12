@@ -4,17 +4,17 @@
 \alias{lcms_peak_table_pca}
 \title{Principal Component Analysis (PCA)}
 \usage{
-lcms_peak_table_pca(MAIT.object = NULL, treament_col, Log = FALSE,
+lcms_peak_table_pca(MAIT.object = NULL, treatment_col, Log = FALSE,
   center = TRUE, scale = TRUE)
 }
 \arguments{
 \item{MAIT.object}{MAIT object where it is found an annotated peak table.}
 
-\item{treament_col}{Treatment for the samples.}
-
 \item{Log}{Set to TRUE if the data should be plotted using the logarithm of the intensity.}
 
 \item{scale}{Set to TRUE if the data should be scaled.}
+
+\item{treament_col}{Treatment for the samples.}
 
 \item{Set}{to TRUE if the data should be centered around its mean. See scale.}
 }
@@ -35,7 +35,7 @@ dataset <-  base::readRDS(file_name_2)
 treatment_col <- scales::hue_pal()(length(unique(dataset$treatment)))
 
 lcms_peak_table_pca(peak_table,
-                   treament_col = treatment_col,
+                   treatment_col = treatment_col,
                    Log = FALSE,
                    center = TRUE, scale = FALSE)
 }

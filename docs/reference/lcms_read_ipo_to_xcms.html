@@ -71,7 +71,7 @@ to achieve compatibility between packages when reading these parameters from a .
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -123,26 +123,122 @@ to achieve compatibility between packages when reading these parameters from a .
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>opt_result_path</th>
-      <td><p>A directory where the parameters file is stored</p></td>
+      <td><p>A directory where the parameters file is stored.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A display of the chosen parameters</p>
+    <p>A display of the chosen parameters.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other optimization functions: <code><a href='lcms_convert_ipo_to_xcms.html'>lcms_convert_ipo_to_xcms</a></code>,
+  <code><a href='lcms_default_peakpicking_params.html'>lcms_default_peakpicking_params</a></code>,
+  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_retcorgroup_optimization.html'>lcms_retcorgroup_optimization</a></code>,
+  <code><a href='lcms_write_opt_params.html'>lcms_write_opt_params</a></code></p>
+<p>Other import/export functions: <code><a href='lcms_convert_ipo_to_xcms.html'>lcms_convert_ipo_to_xcms</a></code>,
+  <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_dataset_save.html'>lcms_dataset_save</a></code>,
+  <code><a href='lcms_identify_metabolites.html'>lcms_identify_metabolites</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code>,
+  <code><a href='lcms_peak_annotation.html'>lcms_peak_annotation</a></code>,
+  <code><a href='lcms_raw_data.html'>lcms_raw_data</a></code>,
+  <code><a href='lcms_read_samples.html'>lcms_read_samples</a></code>,
+  <code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a></code>,
+  <code><a href='lcms_sig_peaks_table.html'>lcms_sig_peaks_table</a></code>,
+  <code><a href='lcms_spectral_sig_features.html'>lcms_spectral_sig_features</a></code>,
+  <code><a href='lcms_to_mait.html'>lcms_to_mait</a></code>,
+  <code><a href='lcms_write_opt_params.html'>lcms_write_opt_params</a></code>,
+  <code><a href='lcms_write_parameter_table.html'>lcms_write_parameter_table</a></code>,
+  <code><a href='phData.html'>phData</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>opt_result_path</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"ipo_opt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+    <pre class="examples"><div class='input'><span class='no'>opt_result_path</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"ipo_opt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>preproc_params</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_read_ipo_to_xcms</span>(<span class='no'>opt_result_path</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>preproc_params</span>)
-}</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>preproc_params</span>)</div><div class='output co'>#&gt; $ppm
+#&gt; [1] 32
+#&gt; 
+#&gt; $peakwidth
+#&gt; [1] 10 35
+#&gt; 
+#&gt; $snthresh
+#&gt; [1] 10
+#&gt; 
+#&gt; $prefilter
+#&gt; [1]   3 100
+#&gt; 
+#&gt; $mzCenterFun
+#&gt; [1] "wMean"
+#&gt; 
+#&gt; $integrate
+#&gt; [1] 1
+#&gt; 
+#&gt; $mzdiff
+#&gt; [1] -0.001
+#&gt; 
+#&gt; $fitgauss
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $noise
+#&gt; [1] 5000
+#&gt; 
+#&gt; $verbose.columns
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $profStep
+#&gt; [1] 1
+#&gt; 
+#&gt; $centerSample
+#&gt; [1] 2
+#&gt; 
+#&gt; $response
+#&gt; [1] 1
+#&gt; 
+#&gt; $distFun
+#&gt; [1] "cor_opt"
+#&gt; 
+#&gt; $gapInit
+#&gt; [1] 0.64
+#&gt; 
+#&gt; $gapExtend
+#&gt; [1] 2.7
+#&gt; 
+#&gt; $factorDiag
+#&gt; [1] 2
+#&gt; 
+#&gt; $factorGap
+#&gt; [1] 1
+#&gt; 
+#&gt; $localAlignment
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $initPenalty
+#&gt; [1] 0
+#&gt; 
+#&gt; $bw
+#&gt; [1] 12.4
+#&gt; 
+#&gt; $minFraction
+#&gt; [1] 0.94
+#&gt; 
+#&gt; $minSamples
+#&gt; [1] 1
+#&gt; 
+#&gt; $maxFeatures
+#&gt; [1] 50
+#&gt; 
+#&gt; $mzwid
+#&gt; [1] 0.003
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

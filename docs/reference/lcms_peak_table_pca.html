@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -120,7 +120,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>MAIT.object</th>
-      <td><p>MAIT object where it is found an annotated peak table</p></td>
+      <td><p>MAIT object where it is found an annotated peak table.</p></td>
     </tr>
     <tr>
       <th>treament_col</th>
@@ -144,27 +144,47 @@
 
     <p>A MAIT.object. Additionaly: Three different PCA scoreplots are printed in three png files.
 One using PC1 vs PC2, another with PC1 vs PC3 and the last one with PC2 vs PC3.
-The files will be stored in the directory /PCA_Scoreplots.</p>
+The files will be stored in the directory /PCA_Scoreplots.
+#' @family metabolite identification functions</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other dataset_peak_table functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_identify_metabolites.html'>lcms_identify_metabolites</a></code>,
+  <code><a href='lcms_peak_annotation.html'>lcms_peak_annotation</a></code>,
+  <code><a href='lcms_peak_table_boxplots.html'>lcms_peak_table_boxplots</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>,
+  <code><a href='lcms_raw_data.html'>lcms_raw_data</a></code>,
+  <code><a href='lcms_sig_peaks_table.html'>lcms_sig_peaks_table</a></code>,
+  <code><a href='lcms_spectral_sig_features.html'>lcms_spectral_sig_features</a></code>,
+  <code><a href='lcms_tics.html'>lcms_tics</a></code>, <code><a href='lcms_to_mait.html'>lcms_to_mait</a></code></p>
+<p>Other statistical functions: <code><a href='lcms_peak_table_boxplots.html'>lcms_peak_table_boxplots</a></code></p>
+<p>Other visualization functions: <code><a href='lcms_peak_table_boxplots.html'>lcms_peak_table_boxplots</a></code>,
+  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_plot_chrom.html'>lcms_plot_chrom</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>,
+  <code><a href='lcms_retcorgroup_optimization.html'>lcms_retcorgroup_optimization</a></code>,
+  <code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a></code>,
+  <code><a href='lmcs_plot_chrom_peak_image.html'>lmcs_plot_chrom_peak_image</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>file_name_1</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"peak_table_sig_ANN.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+    <pre class="examples"><div class='input'><span class='no'>file_name_1</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"peak_table_sig_ann.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>peak_table</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_1</span>)
-<span class='no'>file_name_2</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"lcms_dataset_pos_rt_rs.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
-<span class='no'>lcms_dataset</span> <span class='kw'>&lt;-</span>  <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_2</span>)
-<span class='no'>treatment_col</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/hue_pal.html'>hue_pal</a></span>()(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>lcms_dataset</span>$<span class='no'>treatment</span>)))
-<span class='no'>peak_table_pca</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_peak_table_pca</span>(<span class='no'>peak_table</span>,
-                                      <span class='kw'>treament_col</span> <span class='kw'>=</span> <span class='no'>treatment_col</span>,
-                                      <span class='kw'>Log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-                                      <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peak_table_pca</span>)
-}</div></pre>
+<span class='no'>file_name_2</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"dataset_pos_rt_rs.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+<span class='no'>dataset</span> <span class='kw'>&lt;-</span>  <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_2</span>)
+<span class='no'>treatment_col</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://scales.r-lib.org//reference/hue_pal.html'>hue_pal</a></span>()(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>dataset</span>$<span class='no'>treatment</span>)))
+
+<span class='fu'>lcms_peak_table_pca</span>(<span class='no'>peak_table</span>,
+                   <span class='kw'>treament_col</span> <span class='kw'>=</span> <span class='no'>treatment_col</span>,
+                   <span class='kw'>Log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+                   <span class='kw'>center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  
+#&gt; Warning: Folder C:/Users/Biosignal/Documents/R/win-library/3.6/NIHSlcms/extdata/results_project/pca_results already exists. Possible file overwritting.</div><div class='output co'>#&gt; <span class='error'>Error in ggplot2::scale_color_manual("Treatment", values = treatment_col): object 'treatment_col' not found</span></div><div class='img'><img src='lcms_peak_table_pca-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

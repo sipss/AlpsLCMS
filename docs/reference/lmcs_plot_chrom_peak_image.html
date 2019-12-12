@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Total Ion Count (TIC) plot — lcms_plot_tics • NIHSlcms</title>
+<title>Image of Chromatographic Peaks by sample — lmcs_plot_chrom_peak_image • NIHSlcms</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,9 @@
 
 
 
-<meta property="og:title" content="Total Ion Count (TIC) plot — lcms_plot_tics" />
-<meta property="og:description" content="The function performs a plot with the Total Ion Count (TIC)." />
+<meta property="og:title" content="Image of Chromatographic Peaks by sample — lmcs_plot_chrom_peak_image" />
+<meta property="og:description" content="It plots the an image of the chromatographic peaks for each sample. This function is useful if
+you are interested in knowing the effect of the retention time correction on the chromatographic axis." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,42 +104,56 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Total Ion Count (TIC) plot</h1>
+    <h1>Image of Chromatographic Peaks by sample</h1>
     
-    <div class="hidden name"><code>lcms_plot_tics.Rd</code></div>
+    <div class="hidden name"><code>lmcs_plot_chrom_peak_image.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function performs a plot with the Total Ion Count (TIC).</p>
+    <p>It plots the an image of the chromatographic peaks for each sample. This function is useful if
+you are interested in knowing the effect of the retention time correction on the chromatographic axis.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_plot_tics</span>(<span class='no'>tics</span>, <span class='kw'>treatment</span> <span class='kw'>=</span> <span class='no'>treatment</span>, <span class='kw'>rt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>plot_type</span> <span class='kw'>=</span> <span class='st'>"spec"</span>)</pre>
+    <pre class="usage"><span class='fu'>lmcs_plot_chrom_peak_image</span>(<span class='no'>x</span>, <span class='kw'>binSize</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"retention time"</span>, <span class='kw'>yaxt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"yaxt"</span>),
+  <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"Chromatographic peak counts"</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>tics</th>
-      <td><p>A Total Ion Count object generated with <code>lcms_tics</code>.</p></td>
+      <th>x</th>
+      <td><p>A lcms_dataset.</p></td>
     </tr>
     <tr>
-      <th>treatment</th>
-      <td><p>Class groups of the samples.</p></td>
+      <th>binSize</th>
+      <td><p>Bin size for the the reteincion time axis.</p></td>
     </tr>
     <tr>
-      <th>rt</th>
-      <td><p>Retention time boundaries.</p></td>
+      <th>xlim</th>
+      <td><p>Retention time axis range. If Null, it uses the complete retention time range.</p></td>
     </tr>
     <tr>
-      <th>plot_type</th>
-      <td><p>The plot class, either boxplot or spectra.</p></td>
+      <th>log</th>
+      <td><p>If TRUE, it performs a logarithmic transformation on the data.</p></td>
+    </tr>
+    <tr>
+      <th>xlab</th>
+      <td><p>Label for the retention time axis.</p></td>
+    </tr>
+    <tr>
+      <th>yaxt</th>
+      <td><p>Options for the y axis. Use the default value.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional parameters for image function.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Total Ion Count (TIC) for the polarity samples.</p>
+    <p>An image with the detected chromatographic peak, for each sample.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other dataset functions: <code><a href='lcms_align_rtime.html'>lcms_align_rtime</a></code>,
@@ -154,41 +169,25 @@
   <code><a href='lcms_meta_add.html'>lcms_meta_add</a></code>,
   <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
   <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>,
   <code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a></code>,
   <code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a></code>,
-  <code><a href='lcms_tics.html'>lcms_tics</a></code>,
-  <code><a href='lmcs_plot_chrom_peak_image.html'>lmcs_plot_chrom_peak_image</a></code>,
-  <code><a href='phData.html'>phData</a></code></p>
-<p>Other dataset_peak_table functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
-  <code><a href='lcms_identify_metabolites.html'>lcms_identify_metabolites</a></code>,
-  <code><a href='lcms_peak_annotation.html'>lcms_peak_annotation</a></code>,
-  <code><a href='lcms_peak_table_boxplots.html'>lcms_peak_table_boxplots</a></code>,
-  <code><a href='lcms_peak_table_pca.html'>lcms_peak_table_pca</a></code>,
-  <code><a href='lcms_raw_data.html'>lcms_raw_data</a></code>,
-  <code><a href='lcms_sig_peaks_table.html'>lcms_sig_peaks_table</a></code>,
-  <code><a href='lcms_spectral_sig_features.html'>lcms_spectral_sig_features</a></code>,
-  <code><a href='lcms_tics.html'>lcms_tics</a></code>, <code><a href='lcms_to_mait.html'>lcms_to_mait</a></code></p>
+  <code><a href='lcms_tics.html'>lcms_tics</a></code>, <code><a href='phData.html'>phData</a></code></p>
 <p>Other chromatogram functions: <code><a href='lcms_plot_chrom.html'>lcms_plot_chrom</a></code>,
-  <code><a href='lmcs_plot_chrom_peak_image.html'>lmcs_plot_chrom_peak_image</a></code></p>
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code></p>
 <p>Other visualization functions: <code><a href='lcms_peak_table_boxplots.html'>lcms_peak_table_boxplots</a></code>,
   <code><a href='lcms_peak_table_pca.html'>lcms_peak_table_pca</a></code>,
   <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
   <code><a href='lcms_plot_chrom.html'>lcms_plot_chrom</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>,
   <code><a href='lcms_retcorgroup_optimization.html'>lcms_retcorgroup_optimization</a></code>,
-  <code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a></code>,
-  <code><a href='lmcs_plot_chrom_peak_image.html'>lmcs_plot_chrom_peak_image</a></code></p></div>
+  <code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>
-                                  (<span class='st'>"extdata"</span>,<span class='st'>"dataset_pos.rds"</span>,
-                                    <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
-<span class='no'>tics</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_tics.html'>lcms_tics</a></span>(<span class='no'>dataset</span>)
-
-<span class='fu'>lcms_plot_tics</span>(<span class='no'>tics</span>, <span class='kw'>treatment</span> <span class='kw'>=</span> <span class='no'>treatment</span>,
-               <span class='kw'>rt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>8</span>),<span class='kw'>plot_type</span> <span class='kw'>=</span> <span class='st'>"spec"</span>)</div><div class='img'><img src='lcms_plot_tics-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'>lcms_plot_tics</span>(<span class='no'>tics</span>, <span class='kw'>treatment</span> <span class='kw'>=</span> <span class='no'>treatment</span>,
-               <span class='kw'>rt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>8</span>), <span class='kw'>plot_type</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>)</div><div class='img'><img src='lcms_plot_tics-2.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>file_name</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"peakdet_align.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+<span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name</span>)
+<span class='no'>chr_peak_image</span> <span class='kw'>&lt;-</span> <span class='fu'>lmcs_plot_chrom_peak_image</span>(<span class='no'>dataset</span>, <span class='kw'>binSize</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>log</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+                                               <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='st'>"retention time (min)"</span>, <span class='kw'>yaxt</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"yaxt"</span>))</div><div class='input'>                                               <span class='fu'><a href='https://rdrr.io/r/graphics/title.html'>title</a></span>(<span class='kw'>main</span> <span class='kw'>=</span><span class='st'>"Detected Peaks (Aligned)"</span>)</div><div class='img'><img src='lmcs_plot_chrom_peak_image-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

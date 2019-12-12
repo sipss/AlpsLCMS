@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read mzXML samples — lcms_read_samples • NIHSlcms</title>
+<title>Filling missing values in a peak table — lcms_fill_chrom_peaks • NIHSlcms</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,9 @@
 
 
 
-<meta property="og:title" content="Read mzXML samples — lcms_read_samples" />
-<meta property="og:description" content="Read LCMS samples on mzXML format." />
+<meta property="og:title" content="Filling missing values in a peak table — lcms_fill_chrom_peaks" />
+<meta property="og:description" content="In the imputation stage, we integrate the areas of the missing peaks of the peak table
+that were not detected in the previous steps of the signal preprocessing workflow." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,110 +104,93 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read mzXML samples</h1>
+    <h1>Filling missing values in a peak table</h1>
     
-    <div class="hidden name"><code>lcms_read_samples.Rd</code></div>
+    <div class="hidden name"><code>lcms_fill_chrom_peaks.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Read LCMS samples on mzXML format.</p>
+    <p>In the imputation stage, we integrate the areas of the missing peaks of the peak table
+that were not detected in the previous steps of the signal preprocessing workflow.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_read_samples</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>lcms_fill_chrom_peaks</span>(<span class='no'>peak_table</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Arguments passed on to <code><a href='https://rdrr.io/pkg/MSnbase/man/readMSData.html'>MSnbase::readMSData</a></code></p><dl class='dl-horizontal'>
-  <dt>files</dt><dd><p>A <code>character</code> with file names to be read and parsed.</p></dd>
-  <dt>pdata</dt><dd><p>An object of class AnnotatedDataFrame or
-<code>NULL</code> (default).</p></dd>
-  <dt>msLevel.</dt><dd><p>MS level spectra to be read. In <code>inMemory</code> mode,
-use <code>1</code> for MS1 spectra or any larger numeric for MSn
-spectra. Default is <code>2</code> for <code>InMemory</code> mode. <code>onDisk</code> mode
-supports multiple levels and will, by default, read all the
-data.</p></dd>
-  <dt>verbose</dt><dd><p>Verbosity flag. Default is to use
-<code>isMSnbaseVerbose()</code>.</p></dd>
-  <dt>centroided.</dt><dd><p>A <code>logical</code>, indicating whether spectra are
-centroided or not. Default is <code>NA</code> in which case the information
-is extracted from the raw file (for mzML or mzXML files). In
-<code>onDisk</code>, it can also be set for different MS levels by a
-vector of logicals, where the first element is for MS1, the
-second element is for MS2, ... See OnDiskMSnExp for
-an example.</p></dd>
-  <dt>smoothed.</dt><dd><p>A <code>logical</code> indicating whether spectra already
-smoothed or not. Default is <code>NA</code>.</p></dd>
-  <dt>cache.</dt><dd><p>Numeric indicating caching level. Default is 0 for
-MS1 and 1 MS2 (or higher). Only relevant for <code>inMemory</code> mode.</p></dd>
-  <dt>mode</dt><dd><p>On of <code>"inMemory"</code> (default) or <code>"onDisk"</code>. The former
-loads the raw data in memory, while the latter only generates
-the object and the raw data is accessed on disk when
-needed. See the <em>benchmarking</em> vignette for memory and speed
-implications.</p></dd>
-
-</dl></td>
+      <th>peak_table</th>
+      <td><p>A table of peaks with (possibly) missing values.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A lcms_dataset.</p>
+    <p>A peak table where the missing peaks have been filled.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other import/export functions: <code><a href='lcms_convert_ipo_to_xcms.html'>lcms_convert_ipo_to_xcms</a></code>,
+    <div class='dont-index'><p>Other dataset functions: <code><a href='lcms_align_rtime.html'>lcms_align_rtime</a></code>,
   <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
   <code><a href='lcms_dataset_save.html'>lcms_dataset_save</a></code>,
-  <code><a href='lcms_identify_metabolites.html'>lcms_identify_metabolites</a></code>,
+  <code><a href='lcms_filter_mz.html'>lcms_filter_mz</a></code>,
+  <code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a></code>,
+  <code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a></code>,
+  <code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a></code>,
+  <code><a href='lcms_find_chrom_peaks_cwp.html'>lcms_find_chrom_peaks_cwp</a></code>,
+  <code><a href='lcms_group_peaks.html'>lcms_group_peaks</a></code>,
+  <code><a href='lcms_meta_add.html'>lcms_meta_add</a></code>,
   <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
-  <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code>,
-  <code><a href='lcms_peak_annotation.html'>lcms_peak_annotation</a></code>,
-  <code><a href='lcms_raw_data.html'>lcms_raw_data</a></code>,
-  <code><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></code>,
+  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>,
   <code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a></code>,
-  <code><a href='lcms_sig_peaks_table.html'>lcms_sig_peaks_table</a></code>,
-  <code><a href='lcms_spectral_sig_features.html'>lcms_spectral_sig_features</a></code>,
-  <code><a href='lcms_to_mait.html'>lcms_to_mait</a></code>,
-  <code><a href='lcms_write_opt_params.html'>lcms_write_opt_params</a></code>,
-  <code><a href='lcms_write_parameter_table.html'>lcms_write_parameter_table</a></code>,
+  <code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a></code>,
+  <code><a href='lcms_tics.html'>lcms_tics</a></code>,
+  <code><a href='lmcs_plot_chrom_peak_image.html'>lmcs_plot_chrom_peak_image</a></code>,
   <code><a href='phData.html'>phData</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>file_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
-<span class='no'>rawconverter</span> <span class='kw'>&lt;-</span> <span class='kw'>NULL</span>
-<span class='no'>file_format</span> <span class='kw'>&lt;-</span> <span class='st'>"mzXML"</span>
-<span class='no'>samples_mzxml</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_list_mzxml_samples.html'>lcms_list_mzxml_samples</a></span>(<span class='no'>file_path</span>,
-                                        <span class='kw'>file_format</span> <span class='kw'>=</span> <span class='no'>file_format</span>,
-                                        <span class='kw'>rawconverter</span> <span class='kw'>=</span> <span class='no'>rawconverter</span>)
-<span class='no'>samples_mzxml</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span>(<span class='no'>samples_mzxml</span>)
-<span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings</a></span>(<span class='fu'>lcms_read_samples</span>(<span class='no'>samples_mzxml</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"onDisk"</span>))
-
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>dataset</span>)</div><div class='output co'>#&gt; MSn experiment data ("OnDiskMSnExp")
-#&gt; Object size in memory: 1.08 Mb
+    <pre class="examples"><div class='input'><span class='no'>file_name</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"peak_table.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+<span class='no'>peak_table</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name</span>)
+<span class='no'>peak_table_imputed</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_fill_chrom_peaks</span>(<span class='no'>peak_table</span>)</div><div class='output co'>#&gt; 
+#&gt;  Imputing missing peaks of the peak table. </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peak_table_imputed</span>)</div><div class='output co'>#&gt; MSn experiment data ("XCMSnExp")
+#&gt; Object size in memory: 0.88 Mb
 #&gt; - - - Spectra data - - -
 #&gt;  MS level(s): 1 
-#&gt;  Number of spectra: 4053 
-#&gt;  MSn retention times: 4:0 - 7:60 minutes
+#&gt;  Number of spectra: 3096 
+#&gt;  MSn retention times: 4:59 - 7:60 minutes
 #&gt; - - - Processing information - - -
-#&gt; Data loaded [Tue Dec 10 23:04:24 2019] 
+#&gt; Data loaded [Fri Dec 06 17:39:50 2019] 
 #&gt;  MSnbase version: 2.10.1 
 #&gt; - - - Meta data  - - -
 #&gt; phenoData
-#&gt;   rowNames: MRC_Run1_10uL_C01.mzXML MRC_Run1_10uL_C02.mzXML ...
-#&gt;     MRC_Run1_10uL_C18.mzXML (8 total)
-#&gt;   varLabels: sampleNames
+#&gt;   rowNames: 1 2 ... 8 (8 total)
+#&gt;   varLabels: sampleNames Sample Name ... Term Accession Number...42 (42
+#&gt;     total)
 #&gt;   varMetadata: labelDescription
 #&gt; Loaded from:
-#&gt;   [1] MRC_Run1_10uL_C01.mzXML...  [8] MRC_Run1_10uL_C18.mzXML
+#&gt;   [1] MRC_Run1_10uL_C02.mzXML...  [8] MRC_Run1_10uL_C11.mzXML
 #&gt;   Use 'fileNames(.)' to see all files.
 #&gt; protocolData: none
 #&gt; featureData
-#&gt;   featureNames: F1.S001 F1.S002 ... F8.S499 (4053 total)
+#&gt;   featureNames: F1.S001 F1.S002 ... F8.S388 (3096 total)
 #&gt;   fvarLabels: fileIdx spIdx ... spectrum (33 total)
 #&gt;   fvarMetadata: labelDescription
-#&gt; experimentData: use 'experimentData(object)'</div></pre>
+#&gt; experimentData: use 'experimentData(object)'
+#&gt; - - - xcms preprocessing - - -
+#&gt; Chromatographic peak detection:
+#&gt;  method: centWave 
+#&gt;  37153 peaks identified in 8 samples.
+#&gt;  On average 4644 chromatographic peaks per sample.
+#&gt; Alignment/retention time adjustment:
+#&gt;  method: obiwarp 
+#&gt; Correspondence:
+#&gt;  method: chromatographic peak density 
+#&gt;  1171 features identified.
+#&gt;  Median mz range of features: 0.0016128
+#&gt;  Median rt range of features: 1.8091
+#&gt;  848 filled peaks (on average 106 per sample).</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

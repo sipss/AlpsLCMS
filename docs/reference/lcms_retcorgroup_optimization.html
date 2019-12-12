@@ -36,7 +36,7 @@
 
 
 <meta property="og:title" content="Optimization of retention time correction and grouping parameters. — lcms_retcorgroup_optimization" />
-<meta property="og:description" content="The function optimize parameters considering a set of samples
+<meta property="og:description" content="The function optimizes parameters considering a set of samples
 for the retention time correction and grouping using the IPO Package." />
 <meta name="twitter:card" content="summary" />
 
@@ -70,7 +70,7 @@ for the retention time correction and grouping using the IPO Package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@ for the retention time correction and grouping using the IPO Package." />
     </div>
 
     <div class="ref-description">
-    <p>The function optimize parameters considering a set of samples
+    <p>The function optimizes parameters considering a set of samples
 for the retention time correction and grouping using the IPO Package.</p>
     </div>
 
@@ -136,6 +136,10 @@ best_settings$xset (e.g. optimizedXcmsSetObject &lt;- resultPeakpicking$best_set
       <td><p>Number of slaves the optimization process should spawn.</p></td>
     </tr>
     <tr>
+      <th>opt_path</th>
+      <td><p>Path where optimization samples are saved.</p></td>
+    </tr>
+    <tr>
       <th>subdir</th>
       <td><p>Folder where surface plots are save. If NULL they are displayed by the graphical device.</p></td>
     </tr>
@@ -148,28 +152,41 @@ subfolder called "plot_ipo"(default).</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list with the optimization of parameters for retention time and grouping.</p>
+    <p>A list with the optimization of parameters for retention time and grouping.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other optimization functions: <code><a href='lcms_convert_ipo_to_xcms.html'>lcms_convert_ipo_to_xcms</a></code>,
+  <code><a href='lcms_default_peakpicking_params.html'>lcms_default_peakpicking_params</a></code>,
+  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></code>,
+  <code><a href='lcms_write_opt_params.html'>lcms_write_opt_params</a></code></p>
+<p>Other visualization functions: <code><a href='lcms_peak_table_boxplots.html'>lcms_peak_table_boxplots</a></code>,
+  <code><a href='lcms_peak_table_pca.html'>lcms_peak_table_pca</a></code>,
+  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_plot_chrom.html'>lcms_plot_chrom</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>,
+  <code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a></code>,
+  <code><a href='lmcs_plot_chrom_peak_image.html'>lmcs_plot_chrom_peak_image</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>file_name_pp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"resultPeakpicking.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+    <pre class="examples"><div class='input'><span class='no'>file_name_pp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"result_peakpicking.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>optimizedXcmsSetObject</span> <span class='kw'>&lt;-</span><span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_pp</span>)$<span class='no'>best_settings</span>$<span class='no'>xset</span>
 <span class='no'>file_name_rcg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"default_retcorgroup_params.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>default_retcorgroup_params</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_rcg</span>)
 <span class='no'>opt_path</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 
-<span class='no'>resultRetcorGroup</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_retcorgroup_optimization</span>(<span class='no'>optimizedXcmsSetObject</span>,
+<span class='no'>result_retcorgroup</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_retcorgroup_optimization</span>(<span class='no'>optimizedXcmsSetObject</span>,
                                                    <span class='no'>default_retcorgroup_params</span>,
                                                    <span class='kw'>opt_path</span> <span class='kw'>=</span> <span class='no'>opt_path</span>,
-                                                   <span class='kw'>subdir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-}</div></pre>
+                                                   <span class='kw'>subdir</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</div><div class='output co'>#&gt; Performing retention time and grouping
+#&gt;         parameter optimization. This will take some time... </div><div class='img'><img src='lcms_retcorgroup_optimization-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='lcms_retcorgroup_optimization-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='lcms_retcorgroup_optimization-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

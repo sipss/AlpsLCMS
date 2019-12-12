@@ -38,14 +38,9 @@
 <meta property="og:title" content="Chromatographic peak detection (CentWave) — lcms_find_chrom_peaks_cwp" />
 <meta property="og:description" content="The findChromPeaks_cwp function performs the chromatographic peak
 detection on LC/GC-MS data. The standard method for peak detection
-is 'CentWave'. We must initialize its parameters according to the
-IPO Package optimization. Peak detection aims to detect important
+is 'CentWave'. Peak detection aims to detect important
 features (peaks) on the chromatographic axis. This will be useful
-for a posterior peak alignment on the chormatophic axis.
-Note: signal processing generally  consists in three main steps:
-(1) peak detection (lcms_find_chromp_peaks_cwp function),
-(2) peak alignment (lcms_align_rtime function) and
-(3) peak correspondence (lcms_group_peaks function)." />
+for a posterior peak alignment on the chormatophic axis." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -78,7 +73,7 @@ Note: signal processing generally  consists in three main steps:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -120,14 +115,9 @@ Note: signal processing generally  consists in three main steps:
     <div class="ref-description">
     <p>The findChromPeaks_cwp function performs the chromatographic peak
 detection on LC/GC-MS data. The standard method for peak detection
-is <em>'CentWave'</em>. We must initialize its parameters according to the
-<code>IPO</code> Package optimization. Peak detection aims to detect important
+is <em>'CentWave'</em>. Peak detection aims to detect important
 features (peaks) on the chromatographic axis. This will be useful
-for a posterior peak alignment on the chormatophic axis.
-Note: signal processing generally  consists in three main steps:
-(1) peak detection (<code>lcms_find_chromp_peaks_cwp</code> function),
-(2) peak alignment (<code>lcms_align_rtime</code> function) and
-(3) peak correspondence (<code>lcms_group_peaks</code> function).</p>
+for a posterior peak alignment on the chormatophic axis.</p>
     </div>
 
     <pre class="usage"><span class='fu'>lcms_find_chrom_peaks_cwp</span>(<span class='no'>dataset</span>, <span class='no'>params</span>)</pre>
@@ -137,7 +127,7 @@ Note: signal processing generally  consists in three main steps:
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>An <a href='lcms_dataset_family.html'>lcms_dataset_family</a> object</p></td>
+      <td><p>A lcms_dataset.</p></td>
     </tr>
     <tr>
       <th>params</th>
@@ -147,29 +137,89 @@ Note: signal processing generally  consists in three main steps:
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dataset with the detected peaks added</p>
+    <p>A lcms_dataset with the detected peaks added.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Note: signal processing generally  consists in three main steps:
+(1) peak detection (<code>lcms_find_chromp_peaks_cwp</code> function),
+(2) peak alignment (<code>lcms_align_rtime</code> function) and
+(3) peak correspondence (<code>lcms_group_peaks</code> function).
+The optimized set of parameters for this signal preprocessing can be obatained from <code>IPO</code> Package.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other dataset functions: <code><a href='lcms_align_rtime.html'>lcms_align_rtime</a></code>,
+  <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_dataset_save.html'>lcms_dataset_save</a></code>,
+  <code><a href='lcms_fill_chrom_peaks.html'>lcms_fill_chrom_peaks</a></code>,
+  <code><a href='lcms_filter_mz.html'>lcms_filter_mz</a></code>,
+  <code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a></code>,
+  <code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a></code>,
+  <code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a></code>,
+  <code><a href='lcms_group_peaks.html'>lcms_group_peaks</a></code>,
+  <code><a href='lcms_meta_add.html'>lcms_meta_add</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>,
+  <code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a></code>,
+  <code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a></code>,
+  <code><a href='lcms_tics.html'>lcms_tics</a></code>,
+  <code><a href='lmcs_plot_chrom_peak_image.html'>lmcs_plot_chrom_peak_image</a></code>,
+  <code><a href='phData.html'>phData</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>file_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"rearrange_mait"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+    <pre class="examples"><div class='input'><span class='no'>file_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"rearrange_mait"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>samples_mzxml</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.files.html'>list.files</a></span>(<span class='no'>file_path</span>, <span class='kw'>recursive</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>full.names</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>meta_path</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"metadata.xlsx"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>opt_result_path</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>preproc_params</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></span>(<span class='no'>opt_result_path</span>)
 
 <span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/warning.html'>suppressWarnings</a></span>(<span class='fu'><a href='lcms_read_samples.html'>lcms_read_samples</a></span>(<span class='no'>samples_mzxml</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"onDisk"</span>))
-<span class='no'>metadata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_meta_read.html'>lcms_meta_read</a></span>(<span class='no'>meta_path</span>)
-<span class='no'>dataset_meta</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_meta_add.html'>lcms_meta_add</a></span>(<span class='no'>dataset</span>, <span class='no'>metadata</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"sampleNames"</span>)
+<span class='no'>metadata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_meta_read.html'>lcms_meta_read</a></span>(<span class='no'>meta_path</span>)</div><div class='output co'>#&gt; <span class='message'>New names:</span>
+#&gt; <span class='message'>* `Protocol REF` -&gt; `Protocol REF...3`</span>
+#&gt; <span class='message'>* `Protocol REF` -&gt; `Protocol REF...7`</span>
+#&gt; <span class='message'>* `Term Source REF` -&gt; `Term Source REF...9`</span>
+#&gt; <span class='message'>* `Term Accession Number` -&gt; `Term Accession Number...10`</span>
+#&gt; <span class='message'>* `Term Source REF` -&gt; `Term Source REF...15`</span>
+#&gt; <span class='message'>* ... and 14 more problems</span></div><div class='input'><span class='no'>dataset_meta</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_meta_add.html'>lcms_meta_add</a></span>(<span class='no'>dataset</span>, <span class='no'>metadata</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"sampleNames"</span>)
 
-<span class='no'>peakdet</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_find_chrom_peaks_cwp</span>(<span class='no'>dataset_meta</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>preproc_params</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peakdet</span>)
-}</div></pre>
+<span class='no'>peakdet</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_find_chrom_peaks_cwp</span>(<span class='no'>dataset_meta</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>preproc_params</span>)</div><div class='output co'>#&gt; 
+#&gt;  Finding chromatographic peaks using the optimized set of parameters obtained from IPO package. </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peakdet</span>)</div><div class='output co'>#&gt; MSn experiment data ("XCMSnExp")
+#&gt; Object size in memory: 0.86 Mb
+#&gt; - - - Spectra data - - -
+#&gt;  MS level(s): 1 
+#&gt;  Number of spectra: 3096 
+#&gt;  MSn retention times: 5:0 - 7:60 minutes
+#&gt; - - - Processing information - - -
+#&gt; Data loaded [Tue Dec 10 21:11:18 2019] 
+#&gt;  MSnbase version: 2.10.1 
+#&gt; - - - Meta data  - - -
+#&gt; phenoData
+#&gt;   rowNames: 1 2 ... 8 (8 total)
+#&gt;   varLabels: sampleNames Sample Name ... Term Accession Number...42 (42
+#&gt;     total)
+#&gt;   varMetadata: labelDescription
+#&gt; Loaded from:
+#&gt;   [1] MRC_Run1_10uL_C02.mzXML...  [8] MRC_Run1_10uL_C11.mzXML
+#&gt;   Use 'fileNames(.)' to see all files.
+#&gt; protocolData: none
+#&gt; featureData
+#&gt;   featureNames: F1.S001 F1.S002 ... F8.S388 (3096 total)
+#&gt;   fvarLabels: fileIdx spIdx ... spectrum (33 total)
+#&gt;   fvarMetadata: labelDescription
+#&gt; experimentData: use 'experimentData(object)'
+#&gt; - - - xcms preprocessing - - -
+#&gt; Chromatographic peak detection:
+#&gt;  method: centWave 
+#&gt;  36305 peaks identified in 8 samples.
+#&gt;  On average 4538 chromatographic peaks per sample.</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

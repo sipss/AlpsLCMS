@@ -74,7 +74,7 @@ Additionally we plot the a bar plot corresponding to the number of metabolites c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -134,7 +134,7 @@ Additionally we plot the a bar plot corresponding to the number of metabolites c
     </tr>
     <tr>
       <th>biofluid_type</th>
-      <td><p>Filters the results by biofludid type. Options are:</p></td>
+      <td><p>Filters the results by biofludid type.</p></td>
     </tr>
     <tr>
       <th>significance</th>
@@ -156,16 +156,13 @@ Additionally we plot the a bar plot corresponding to the number of metabolites c
 and a bar plot with the number of potential cantidates by detected compound.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>path_result</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"Results_project"</span>,<span class='st'>"Tables"</span>,<span class='st'>"metaboliteTable.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+    <pre class="examples"><div class='input'><span class='no'>path_result</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"results_project"</span>,<span class='st'>"tables"</span>,<span class='st'>"metaboliteTable.csv"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
 <span class='no'>plots</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_plot_metabolites</span>(<span class='no'>path_result</span>, <span class='kw'>biofluid_type</span> <span class='kw'>=</span> <span class='st'>"Any"</span>,
                                    <span class='kw'>significance</span> <span class='kw'>=</span> <span class='fl'>0.05</span>,
                                    <span class='kw'>metabolite_rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
                                    <span class='kw'>max_words</span> <span class='kw'>=</span> <span class='fl'>250</span>)
-<span class='no'>plots</span>$<span class='no'>cloud</span>
-
-<span class='no'>plots</span>$<span class='no'>freq</span>
-}</div></pre>
+<span class='no'>plots</span>$<span class='no'>cloud</span></div><div class='img'><img src='lcms_plot_metabolites-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>plots</span>$<span class='no'>freq</span></div><div class='img'><img src='lcms_plot_metabolites-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

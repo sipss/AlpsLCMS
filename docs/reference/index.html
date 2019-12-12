@@ -67,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -140,21 +140,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="lcms_dataset_family.html">lcms_dataset_family</a></code> </p>
-        </td>
-        <td><p>lcms_dataset like objects (S3 classes)</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="lcms_dataset_load.html">lcms_dataset_load()</a></code> </p>
         </td>
-        <td><p>Function to load a lcms_dataset object</p></td>
+        <td><p>Load lcms_datasets</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="lcms_dataset_save.html">lcms_dataset_save()</a></code> </p>
         </td>
-        <td><p>Function to save a lcms_dataset object</p></td>
+        <td><p>Save lcms_datasets</p></td>
       </tr><tr>
         
         <td>
@@ -176,9 +170,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="lcms_fillChromPeaks.html">lcms_fillChromPeaks()</a></code> </p>
+          <p><code><a href="lcms_fill_chrom_peaks.html">lcms_fill_chrom_peaks()</a></code> </p>
         </td>
-        <td><p>Filling missing values in a peak tabe</p></td>
+        <td><p>Filling missing values in a peak table</p></td>
       </tr><tr>
         
         <td>
@@ -202,7 +196,7 @@
         <td>
           <p><code><a href="lcms_filter_sample_type.html">lcms_filter_sample_type()</a></code> </p>
         </td>
-        <td><p>Filter by sample treatment</p></td>
+        <td><p>Filter by sample type</p></td>
       </tr><tr>
         
         <td>
@@ -220,7 +214,7 @@
         <td>
           <p><code><a href="lcms_identify_metabolites.html">lcms_identify_metabolites()</a></code> </p>
         </td>
-        <td><p>Metabolite identifier</p></td>
+        <td><p>Metabolite search</p></td>
       </tr><tr>
         
         <td>
@@ -232,19 +226,19 @@
         <td>
           <p><code><a href="lcms_meta_add.html">lcms_meta_add()</a></code> </p>
         </td>
-        <td><p>Add metadata to MSnExp object</p></td>
+        <td><p>Add metadata</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="lcms_meta_export.html">lcms_meta_export()</a></code> </p>
         </td>
-        <td><p>Export Metadata to an Excel file</p></td>
+        <td><p>Export metadata</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="lcms_meta_read.html">lcms_meta_read()</a></code> </p>
         </td>
-        <td><p>Reads metadata from an Excel file</p></td>
+        <td><p>Read metadata</p></td>
       </tr><tr>
         
         <td>
@@ -262,7 +256,7 @@
         <td>
           <p><code><a href="lcms_peak_table_boxplots.html">lcms_peak_table_boxplots()</a></code> </p>
         </td>
-        <td><p>Boxplots for significant peak table features</p></td>
+        <td><p>Boxplots for the significant peak table features</p></td>
       </tr><tr>
         
         <td>
@@ -298,7 +292,7 @@
         <td>
           <p><code><a href="lcms_raw_to_mzxml.html">lcms_raw_to_mzxml()</a></code> </p>
         </td>
-        <td><p>Convert RAW samples to mzxml samples</p></td>
+        <td><p>Raw to mzxml</p></td>
       </tr><tr>
         
         <td>
@@ -310,7 +304,7 @@
         <td>
           <p><code><a href="lcms_read_samples.html">lcms_read_samples()</a></code> </p>
         </td>
-        <td><p>Read LCMS samples on mzXML format</p></td>
+        <td><p>Read mzXML samples</p></td>
       </tr><tr>
         
         <td>
@@ -334,8 +328,7 @@
         <td>
           <p><code><a href="lcms_sig_peaks_table.html">lcms_sig_peaks_table()</a></code> </p>
         </td>
-        <td><p>Build a table of the information related to the significant features
-contained in a MAIT object</p></td>
+        <td><p>Significant feature information</p></td>
       </tr><tr>
         
         <td>
@@ -351,15 +344,9 @@ contained in a MAIT object</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="lcms_to_MAIT.html">lcms_to_MAIT()</a></code> </p>
+          <p><code><a href="lcms_to_mait.html">lcms_to_mait()</a></code> </p>
         </td>
-        <td><p>to MAIT</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="lcms_writeParameterTable.html">lcms_writeParameterTable()</a></code> </p>
-        </td>
-        <td><p>Write Parameters Table for MAIT functionalities</p></td>
+        <td><p>Convert xcms to MAIT</p></td>
       </tr><tr>
         
         <td>
@@ -369,7 +356,13 @@ contained in a MAIT object</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="lmcs_plotChromPeakImageRTmin.html">lmcs_plotChromPeakImageRTmin()</a></code> </p>
+          <p><code><a href="lcms_write_parameter_table.html">lcms_write_parameter_table()</a></code> </p>
+        </td>
+        <td><p>Write parameter table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="lmcs_plot_chrom_peak_image.html">lmcs_plot_chrom_peak_image()</a></code> </p>
         </td>
         <td><p>Image of Chromatographic Peaks by sample</p></td>
       </tr><tr>

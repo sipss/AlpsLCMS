@@ -1642,13 +1642,13 @@ lcms_peak_table_boxplots <- function (MAIT.object = NULL, treatment_col) {
 #' treatment_col <- scales::hue_pal()(length(unique(dataset$treatment)))
 #'
 #' lcms_peak_table_pca(peak_table,
-#'                    treament_col = treatment_col,
+#'                    treatment_col = treatment_col,
 #'                    Log = FALSE,
 #'                    center = TRUE, scale = FALSE)
 
 
 
-lcms_peak_table_pca <- function (MAIT.object = NULL,treament_col, Log = FALSE, center = TRUE, scale = TRUE)
+lcms_peak_table_pca <- function (MAIT.object = NULL,treatment_col, Log = FALSE, center = TRUE, scale = TRUE)
 {
   if (is.null(MAIT.object)) {
     stop("No input MAIT object file was given")

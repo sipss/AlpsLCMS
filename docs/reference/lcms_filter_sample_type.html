@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter by sample treatment — lcms_filter_sample_type • NIHSlcms</title>
+<title>Filter by sample type — lcms_filter_sample_type • NIHSlcms</title>
 
 
 <!-- jquery -->
@@ -35,7 +35,7 @@
 
 
 
-<meta property="og:title" content="Filter by sample treatment — lcms_filter_sample_type" />
+<meta property="og:title" content="Filter by sample type — lcms_filter_sample_type" />
 <meta property="og:description" content="In a dataset, there are different types of samples for
 checking purposes. For instance, quality control (QC) samples
 may be pools of all samples, and blank samples may be composed
@@ -74,7 +74,7 @@ if there is not any especial sample in the dataset." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -108,7 +108,7 @@ if there is not any especial sample in the dataset." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filter by sample treatment</h1>
+    <h1>Filter by sample type</h1>
     
     <div class="hidden name"><code>lcms_filter_sample_type.Rd</code></div>
     </div>
@@ -129,7 +129,7 @@ if there is not any especial sample in the dataset.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dataset</th>
-      <td><p>An <a href='lcms_dataset_family.html'>lcms_dataset_family</a> object</p></td>
+      <td><p>A lcms_dataset</p></td>
     </tr>
     <tr>
       <th>especial_samples</th>
@@ -140,34 +140,48 @@ Use <code>NULL</code> if there is not any especial sample in the dataset.</p></t
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A filtered dataset with the remained samples</p>
+    <p>A list containing three lcms_datasets with different type: regular,
+quality control and blank samples.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function can distinguish and filter different samples types:</p><ul>
-<li><p>Regular samples</p></li>
-<li><p>Blank samples</p></li>
-<li><p>Quality Control samples</p></li>
+<li><p>Regular samples (regular_samples).</p></li>
+<li><p>Blank samples (blanks).</p></li>
+<li><p>Quality Control samples (QCs).</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other lcms_dataset functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+    <div class='dont-index'><p>Other dataset functions: <code><a href='lcms_align_rtime.html'>lcms_align_rtime</a></code>,
+  <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_dataset_save.html'>lcms_dataset_save</a></code>,
+  <code><a href='lcms_fill_chrom_peaks.html'>lcms_fill_chrom_peaks</a></code>,
   <code><a href='lcms_filter_mz.html'>lcms_filter_mz</a></code>,
   <code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a></code>,
   <code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a></code>,
+  <code><a href='lcms_find_chrom_peaks_cwp.html'>lcms_find_chrom_peaks_cwp</a></code>,
+  <code><a href='lcms_group_peaks.html'>lcms_group_peaks</a></code>,
+  <code><a href='lcms_meta_add.html'>lcms_meta_add</a></code>,
   <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
-  <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code>,
-  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>, <code><a href='lcms_tics.html'>lcms_tics</a></code></p>
-<p>Other lcms_filtering functions: <code><a href='lcms_filter_mz.html'>lcms_filter_mz</a></code>,
+  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>,
+  <code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a></code>,
+  <code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a></code>,
+  <code><a href='lcms_tics.html'>lcms_tics</a></code>,
+  <code><a href='lmcs_plot_chrom_peak_image.html'>lmcs_plot_chrom_peak_image</a></code>,
+  <code><a href='phData.html'>phData</a></code></p>
+<p>Other filtering functions: <code><a href='lcms_filter_mz.html'>lcms_filter_mz</a></code>,
   <code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a></code>,
   <code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,<span class='st'>"dataset_pos_rt.rds"</span>,<span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
-<span class='no'>especial_samples</span> <span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>QC</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>blank</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='no'>especial_samples</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>QC</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>blank</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 <span class='no'>datasets_by_class_type</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_filter_sample_type</span>(<span class='no'>dataset</span>, <span class='no'>especial_samples</span>)
-<span class='no'>dataset_pos_rt_rs</span> <span class='kw'>&lt;-</span><span class='no'>datasets_by_class_type</span>$<span class='no'>regular_samples</span>
-<span class='no'>dataset_pos_rt_qcs</span> <span class='kw'>&lt;-</span><span class='no'>datasets_by_class_type</span>$<span class='no'>QCs</span>
+<span class='no'>dataset_pos_rt_rs</span> <span class='kw'>&lt;-</span> <span class='no'>datasets_by_class_type</span>$<span class='no'>regular_samples</span>
+<span class='no'>dataset_pos_rt_qcs</span> <span class='kw'>&lt;-</span> <span class='no'>datasets_by_class_type</span>$<span class='no'>QCs</span>
+<span class='no'>dataset_pos_rt_bks</span> <span class='kw'>&lt;-</span> <span class='no'>datasets_by_class_type</span>$<span class='no'>blanks</span>
+
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>dataset_pos_rt_rs</span>)</div><div class='output co'>#&gt; MSn experiment data ("OnDiskMSnExp")
 #&gt; Object size in memory: 0.85 Mb
 #&gt; - - - Spectra data - - -
@@ -177,7 +191,7 @@ Use <code>NULL</code> if there is not any especial sample in the dataset.</p></t
 #&gt; - - - Processing information - - -
 #&gt; Data loaded [Wed Dec 04 13:00:29 2019] 
 #&gt; Filter: select retention time [300-600] and MS level(s), 1 [Wed Dec 04 17:12:47 2019] 
-#&gt; Filter: select file(s) 1, 2, 3, 4, 5, 6, 7, 8. [Thu Dec 05 23:49:27 2019] 
+#&gt; Filter: select file(s) 1, 2, 3, 4, 5, 6, 7, 8. [Tue Dec 10 21:11:12 2019] 
 #&gt;  MSnbase version: 2.10.1 
 #&gt; - - - Meta data  - - -
 #&gt; phenoData
@@ -193,8 +207,7 @@ Use <code>NULL</code> if there is not any especial sample in the dataset.</p></t
 #&gt;   featureNames: F1.S119 F1.S120 ... F8.S499 (3096 total)
 #&gt;   fvarLabels: fileIdx spIdx ... spectrum (33 total)
 #&gt;   fvarMetadata: labelDescription
-#&gt; experimentData: use 'experimentData(object)'</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>dataset_pos_rt_qcs</span>)</div><div class='output co'>#&gt; NULL</div></pre>
+#&gt; experimentData: use 'experimentData(object)'</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>dataset_pos_rt_qcs</span>)</div><div class='output co'>#&gt; NULL</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>dataset_pos_rt_bks</span>)</div><div class='output co'>#&gt; NULL</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

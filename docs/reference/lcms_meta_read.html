@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Reads metadata from an Excel file — lcms_meta_read • NIHSlcms</title>
+<title>Read metadata — lcms_meta_read • NIHSlcms</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Reads metadata from an Excel file — lcms_meta_read" />
-<meta property="og:description" content="Reads metadata from an Excel file" />
+<meta property="og:title" content="Read metadata — lcms_meta_read" />
+<meta property="og:description" content="Reads metadata from an Excel file." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -103,13 +103,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Reads metadata from an Excel file</h1>
+    <h1>Read metadata</h1>
     
     <div class="hidden name"><code>lcms_meta_read.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Reads metadata from an Excel file</p>
+    <p>Reads metadata from an Excel file.</p>
     </div>
 
     <pre class="usage"><span class='fu'>lcms_meta_read</span>(<span class='no'>xlsx_file</span>)</pre>
@@ -119,28 +119,33 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>xlsx_file</th>
-      <td><p>xlsx_file "The .xlsx excel file" with metadata</p></td>
+      <td><p>xlsx_file "The .xlsx excel file" with metadata.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A dataframe with the metadata</p>
+    <p>A dataframe with the metadata.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other metadata functions: <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code></p>
-<p>Other lcms_dataset functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
-  <code><a href='lcms_filter_mz.html'>lcms_filter_mz</a></code>,
-  <code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a></code>,
-  <code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a></code>,
-  <code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a></code>,
+    <div class='dont-index'><p>Other metadata functions: <code><a href='lcms_meta_add.html'>lcms_meta_add</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>, <code><a href='phData.html'>phData</a></code></p>
+<p>Other import/export functions: <code><a href='lcms_convert_ipo_to_xcms.html'>lcms_convert_ipo_to_xcms</a></code>,
+  <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_dataset_save.html'>lcms_dataset_save</a></code>,
+  <code><a href='lcms_identify_metabolites.html'>lcms_identify_metabolites</a></code>,
   <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
-  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>, <code><a href='lcms_tics.html'>lcms_tics</a></code></p>
-<p>Other lcms_dataset_peak_table functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
-  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
-  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>, <code><a href='lcms_tics.html'>lcms_tics</a></code></p>
-<p>Other import/export functions: <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
-  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code></p></div>
+  <code><a href='lcms_peak_annotation.html'>lcms_peak_annotation</a></code>,
+  <code><a href='lcms_raw_data.html'>lcms_raw_data</a></code>,
+  <code><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a></code>,
+  <code><a href='lcms_read_samples.html'>lcms_read_samples</a></code>,
+  <code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a></code>,
+  <code><a href='lcms_sig_peaks_table.html'>lcms_sig_peaks_table</a></code>,
+  <code><a href='lcms_spectral_sig_features.html'>lcms_spectral_sig_features</a></code>,
+  <code><a href='lcms_to_mait.html'>lcms_to_mait</a></code>,
+  <code><a href='lcms_write_opt_params.html'>lcms_write_opt_params</a></code>,
+  <code><a href='lcms_write_parameter_table.html'>lcms_write_parameter_table</a></code>,
+  <code><a href='phData.html'>phData</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>metadata</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_meta_read</span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,

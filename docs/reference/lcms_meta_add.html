@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add metadata to MSnExp object — lcms_meta_add • NIHSlcms</title>
+<title>Add metadata — lcms_meta_add • NIHSlcms</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Add metadata to MSnExp object — lcms_meta_add" />
-<meta property="og:description" content="Add metadata to MSnExp object" />
+<meta property="og:title" content="Add metadata — lcms_meta_add" />
+<meta property="og:description" content="Add metadata to MSnExp object." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9002</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
       </span>
     </div>
 
@@ -103,13 +103,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add metadata to MSnExp object</h1>
+    <h1>Add metadata</h1>
     
     <div class="hidden name"><code>lcms_meta_add.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Add metadata to MSnExp object</p>
+    <p>Add metadata to MSnExp object.</p>
     </div>
 
     <pre class="usage"><span class='fu'>lcms_meta_add</span>(<span class='no'>object</span>, <span class='no'>metadata</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"sampleNames"</span>)</pre>
@@ -119,22 +119,43 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>Object, possibly derived from <code>eSet-class</code>
-    or <code>AnnotatedDataFrame</code>.</p></td>
+      <td><p>A lcms_dataset.</p></td>
     </tr>
     <tr>
       <th>metadata</th>
-      <td><p>A data frame to be merged</p></td>
+      <td><p>A data frame to be merged.</p></td>
     </tr>
     <tr>
       <th>by</th>
-      <td><p>A column present both in <code>metadata</code> and in <code><a href='https://rdrr.io/pkg/Biobase/man/phenoData.html'>Biobase::pData(object)</a></code></p></td>
+      <td><p>A column present both in <code>metadata</code> and in <code><a href='https://rdrr.io/pkg/Biobase/man/phenoData.html'>Biobase::pData(object)</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An object from the <a href='lcms_dataset_family.html'>lcms_dataset_family</a> with metadata added</p>
+    <p>A lcms_dataset with the added metadata.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other metadata functions: <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_meta_read.html'>lcms_meta_read</a></code>, <code><a href='phData.html'>phData</a></code></p>
+<p>Other dataset functions: <code><a href='lcms_align_rtime.html'>lcms_align_rtime</a></code>,
+  <code><a href='lcms_dataset_load.html'>lcms_dataset_load</a></code>,
+  <code><a href='lcms_dataset_save.html'>lcms_dataset_save</a></code>,
+  <code><a href='lcms_fill_chrom_peaks.html'>lcms_fill_chrom_peaks</a></code>,
+  <code><a href='lcms_filter_mz.html'>lcms_filter_mz</a></code>,
+  <code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a></code>,
+  <code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a></code>,
+  <code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a></code>,
+  <code><a href='lcms_find_chrom_peaks_cwp.html'>lcms_find_chrom_peaks_cwp</a></code>,
+  <code><a href='lcms_group_peaks.html'>lcms_group_peaks</a></code>,
+  <code><a href='lcms_meta_export.html'>lcms_meta_export</a></code>,
+  <code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a></code>,
+  <code><a href='lcms_plot_tics.html'>lcms_plot_tics</a></code>,
+  <code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a></code>,
+  <code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a></code>,
+  <code><a href='lcms_tics.html'>lcms_tics</a></code>,
+  <code><a href='lmcs_plot_chrom_peak_image.html'>lmcs_plot_chrom_peak_image</a></code>,
+  <code><a href='phData.html'>phData</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>
@@ -183,6 +204,7 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
