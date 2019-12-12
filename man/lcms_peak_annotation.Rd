@@ -63,7 +63,7 @@ If it is set to TRUE, the function will perform an adduct annotation stage.
 }
 }
 \value{
-A MAIT-class object with \linkS4class{xsAnnotate} in the rawData slot.
+A MAIT-class object with xsAnnotate-class in the rawData slot.
 }
 \description{
 The \code{MAIT} Package allows to annotate the peaks of the peak table provided by \code{XCMS}.

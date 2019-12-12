@@ -177,7 +177,7 @@ lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, p
 #' to an object of the MAIT Package.
 #'
 #' @inheritParams MAIT::peakAnnotation
-#' @return A MAIT-class object with [xsAnnotate-class] in the rawData slot.
+#' @return A MAIT-class object with xsAnnotate-class in the rawData slot.
 #' @family metabolite identification functions
 #' @family dataset_peak_table functions
 #' @family import/export functions
