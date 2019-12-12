@@ -65,7 +65,7 @@ if (!is.character(biofluid_type)){
 } else if (!(biofluid_type %in% Biofluid_names)){
     if (biofluid_type != "Any"){
       stop(paste0("Your selected Biofluid is not among the following:",
-                  "\n",strgr::str_c(Biofluid_names, collapse = ", "), "."))
+                  "\n",stringr::str_c(Biofluid_names, collapse = ", "), "."))
     }
 
 }
