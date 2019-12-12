@@ -146,9 +146,8 @@ setup_RawConverter <- function(rawconverterx86_dir, rawconverterx86_zip, force =
 #'
 #' On non-windows systems, this function requires wine and winetricks to be installed
 #'
-#' @param rawconverter Working directory to install RawConverter
-#' @param force logical. Set to `TRUE` to install even if RawConverter already exists
-#'
+#' @param rawconverter Working directory to install RawConverter.
+#' @param force logical. Set to `TRUE` to install even if RawConverter already exists.
 #' @return the working directory
 #' @export
 #'
@@ -220,16 +219,15 @@ lcms_raw_to_mzxml <- function(samples, options = c("--mzxml", "--select_mono_pre
 #' @param sample_path Directory in which the samples are.
 #' @param file_format Format of the LC-MS files (e.g. file_format = "raw").
 #' @param rawconverter_path Directory in where the RawConverter application is located.
-#'
 #' @return A list of the LC-MS files in a readable format to create the `lcms_dataset`.
 #' @export
-#'
 #' @examples
+#' \dontrun{
 #' sample_path <- system.file("extdata", package = "NIHSlcms")
 #' samples_mzxml <- lcms_list_mzxml_samples(sample_path,
 #'                                     file_format = "mzXML")
 #' print(samples_mzxml)
-#'
+#' }
 lcms_list_mzxml_samples <- function(sample_path,
                                     file_format = "mzXML",
                                     rawconverter_path = NULL){

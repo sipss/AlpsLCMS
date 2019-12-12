@@ -3,7 +3,6 @@
 #' @importFrom magrittr %>%
 #' @export
 magrittr::`%>%`
-
 #' Convert a list of lists to a tibble
 #'
 #' Each element of \code{ls} corresponds to 1 row of the output tibble. This

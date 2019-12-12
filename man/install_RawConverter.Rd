@@ -7,9 +7,9 @@
 install_RawConverter(rawconverter, force = FALSE)
 }
 \arguments{
-\item{rawconverter}{Working directory to install RawConverter}
+\item{rawconverter}{Working directory to install RawConverter.}
 
-\item{force}{logical. Set to \code{TRUE} to install even if RawConverter already exists}
+\item{force}{logical. Set to \code{TRUE} to install even if RawConverter already exists.}
 }
 \value{
 the working directory

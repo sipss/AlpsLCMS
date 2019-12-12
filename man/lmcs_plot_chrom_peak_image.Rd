@@ -31,11 +31,13 @@ It plots the an image of the chromatographic peaks for each sample. This functio
 you are interested in knowing the effect of the retention time correction on the chromatographic axis.
 }
 \examples{
+\dontrun{
 file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
 dataset <- base::readRDS(file_name)
 chr_peak_image <- lmcs_plot_chrom_peak_image(dataset, binSize = 5, xlim = NULL, log = FALSE,
                                                xlab = "retention time (min)", yaxt = par("yaxt"))
                                                title(main ="Detected Peaks (Aligned)")
+}
 }
 \seealso{
 Other dataset functions: \code{\link{lcms_align_rtime}},

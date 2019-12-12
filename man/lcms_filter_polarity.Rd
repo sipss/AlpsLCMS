@@ -25,10 +25,12 @@ Once MSnbase is released (Bioconductor 3.9, maybe once R 3.6 is out),
 remove this function.
 }
 \examples{
+\dontrun{
 dataset_2_polarities <- lcms_dataset_load(system.file("extdata","dataset_metadata.rds",package = "NIHSlcms"))
 dataset_pos <- lcms_filter_polarity(dataset_2_polarities, polarity. = 1)
 
 print(dataset_pos)
+}
 }
 \seealso{
 Other dataset functions: \code{\link{lcms_align_rtime}},

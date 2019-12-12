@@ -22,13 +22,14 @@ Function \code{lcms_tics} stores summarizes TIC information.
 NOTE: \code{lcms_tics} assumes that data is already filtered by polarity.
 }
 \examples{
+\dontrun{
 dataset <- lcms_dataset_load(system.file
                                   ("extdata","dataset_pos.rds",
                                     package = "NIHSlcms"))
 tics <- lcms_tics(dataset)
 
-
 print(tics)
+}
 }
 \seealso{
 Other dataset functions: \code{\link{lcms_align_rtime}},

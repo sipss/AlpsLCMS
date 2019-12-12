@@ -18,6 +18,7 @@ A template with MAIT parameters.
 Write a parameter Table for MAIT functionalities.
 }
 \examples{
+\dontrun{
 data_dir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
 mait_params_path <- system.file("extdata", "results_project", package = "NIHSlcms")
 opt_result_path <-  system.file("extdata", package = "NIHSlcms")
@@ -32,6 +33,7 @@ quiet <- function(x) {
 quiet(getClassDef("MAIT","MAIT"))
 MAIT.object = signature(MAIT.Object = "MAIT")
 MAIT.object <- methods::new("MAIT")
+}
 MAIT.object@RawData@parameters@sampleProcessing <- parameters
 lcms_write_parameter_table(MAIT::parameters(MAIT.object), folder = mait_params_path)
 }

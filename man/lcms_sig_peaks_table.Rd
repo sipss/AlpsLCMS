@@ -61,11 +61,12 @@ feature information and builds a table with the information related to these
 features.
 }
 \examples{
+\dontrun{
 file_name <-  system.file("extdata", "peak_table_sig_ann.rds", package = "NIHSlcms")
 peak_table <- base::readRDS(file_name)
 sig_table <- lcms_sig_peaks_table(peak_table,  printCSVfile=FALSE)
 str(sig_table)
-
+}
 }
 \seealso{
 Other metabolite identification functions: \code{\link{lcms_identify_metabolites}},

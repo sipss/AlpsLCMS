@@ -28,6 +28,7 @@ The files will be stored in the directory /PCA_Scoreplots.
 It performs PCA using on the annotated peak table obtained from a MAIT object.
 }
 \examples{
+\dontrun{
 file_name_1 <-  system.file("extdata","peak_table_sig_ann.rds", package = "NIHSlcms")
 peak_table <- base::readRDS(file_name_1)
 file_name_2 <-  system.file("extdata","dataset_pos_rt_rs.rds", package = "NIHSlcms")
@@ -38,6 +39,7 @@ lcms_peak_table_pca(peak_table,
                    treatment_col = treatment_col,
                    Log = FALSE,
                    center = TRUE, scale = FALSE)
+}
 }
 \seealso{
 Other dataset_peak_table functions: \code{\link{lcms_dataset_load}},

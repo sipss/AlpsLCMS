@@ -23,6 +23,7 @@ It uses \link[Biobase:pData]{Biobase::pData} to access phenotypic data such as
 metadata, covariates, etc...
 }
 \examples{
+\dontrun{
 dataset <- lcms_dataset_load(system.file("extdata",
                                          "dataset.rds",
                                           package = "NIHSlcms"))
@@ -31,6 +32,7 @@ metadata<- readxl::read_excel(xlsx_file)
 dataset_metadata <- lcms_meta_add(dataset, metadata, by = "sampleNames")
 
 head(phData(dataset_metadata))[1:4]
+}
 }
 \seealso{
 Other metadata functions: \code{\link{lcms_meta_add}},

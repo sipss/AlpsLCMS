@@ -20,6 +20,7 @@ A lcms_dataset with the added metadata.
 Add metadata to MSnExp object.
 }
 \examples{
+\dontrun{
 dataset <- lcms_dataset_load(system.file
                                   ("extdata","dataset.rds",
                                   package = "NIHSlcms"))
@@ -32,6 +33,7 @@ dataset_metadata <- lcms_meta_add(dataset,
                                metadata,
                                by = "sampleNames")
 print(dataset_metadata)
+}
 }
 \seealso{
 Other metadata functions: \code{\link{lcms_meta_export}},

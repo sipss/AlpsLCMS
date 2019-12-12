@@ -38,11 +38,12 @@ Takes a MAIT object and performs the metabolite search for the significant
 features
 }
 \examples{
+\dontrun{
 file_name <- system.file("extdata", "peak_table_sig_ann.rds", package = "NIHSlcms")
 peak_table <- readRDS(file_name)
 metabololite_table <- lcms_identify_metabolites(MAIT.object = peak_table,
                               peakTolerance = 0.005)
-
+}
 }
 \seealso{
 Other metabolite identification functions: \code{\link{lcms_peak_annotation}},
