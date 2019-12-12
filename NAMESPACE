@@ -3,6 +3,7 @@
 export("%>%")
 export("lcms_diagnose<-")
 export(cluster)
+export(convert_samples)
 export(install_RawConverter)
 export(lcms_align_rtime)
 export(lcms_convert_ipo_to_xcms)
