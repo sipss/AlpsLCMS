@@ -134,7 +134,7 @@ lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, p
       cat("There are already directories / files in the folder. Not saving new ones.")
       cat("\n")
     }else{
-      dir.create(resultsPath)
+      base::dir.create(resultsPath)
       peak_table <- base::suppressMessages(as(peak_table, "xcmsSet"))
       peak_table <-  base::suppressMessages(
         base::suppressWarnings(quiet(xcms::fillPeaks(peak_table))
@@ -143,7 +143,7 @@ lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, p
     }
   }else{
     resultsPath <- "results"
-    dir.create(resultsPath)
+    base::dir.create(resultsPath)
   }
 
   lcms_write_parameter_table(base::suppressMessages(base::suppressWarnings(
@@ -861,21 +861,21 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
     stop("No input MAIT object file was given")
   }
 
-  if(length(featureSigID(MAIT.object))==0){
+  if(length(MAIT::featureSigID(MAIT.object))==0){
     stop("No significant features found in the MAIT object. Make sure that functions peakAnnotation and spectralSignFeatures were launched")
   }
-  if(length(MAIT.object@FeatureData@masses)==0 & length(rawData(MAIT.object))==0){
+  if(length(MAIT.object@FeatureData@masses)==0 & length(MAIT::rawData(MAIT.object))==0){
     stop("No peak masses found in the MAIT object")
   }
 
   if (is.null(database)) {
     identMetEnv<-new.env()
-    data(MAITtables,envir=identMetEnv)
+    utils::data(MAITtables,envir=identMetEnv)
     Database<-get("Database",envir=identMetEnv)
     dataBase <- Database
     cat("WARNING: No input database table was given. Selecting default MAIT database...",fill=TRUE)
   }else{
-    dataBase<-read.csv(paste(database,".csv",sep=""),sep=",",header=TRUE)
+    dataBase<-utils::read.csv(paste(database,".csv",sep=""),sep=",",header=TRUE)
     dataBase <- as.matrix(dataBase[order(dataBase[,1]),])
   }
   parameters <- list(peakTolerance,
@@ -888,11 +888,11 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
   MAIT.object@RawData@parameters@identifyMetabolites <- parameters
   lcms_write_parameter_table(parameters(MAIT.object),folder= MAIT.object@PhenoData@resultsPath)
 
-  signSpectra <-featureSigID(MAIT.object)
+  signSpectra <-MAIT::featureSigID(MAIT.object)
   sigPeaksTable <- sigPeaksTable(MAIT.object,printCSVfile=FALSE)
   resultsPath <- MAIT.object@PhenoData@resultsPath
 
-  if(length(rawData(MAIT.object))==0){
+  if(length(MAIT::rawData(MAIT.object))==0){
     Search <- matrix(nrow=1,ncol=8)
     colnames(Search) <- c("Query Mass","Database Mass (neutral mass)","rt","Adduct","Name","spectra","Biofluid","ENTRY")
   }else{
@@ -901,7 +901,7 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
   }
   H.mass <- 1.00794
 
-  temp <- getScoresTable(MAIT.object,getExtendedTable=TRUE)
+  temp <- MAIT::getScoresTable(MAIT.object,getExtendedTable=TRUE)
   peakList <- temp$extendedTable
   spec <- temp$spectraID
 
@@ -910,15 +910,15 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
   aux <- signPeaklist[c(-grep("[M+1]",signPeaklist$isotope,fixed=TRUE),-grep("[M+2]",signPeaklist$isotope,fixed=TRUE)),]
   aux <- aux[-which(aux$isotope==""),]
 
-  if(length(rawData(MAIT.object))==0){
+  if(length(MAIT::rawData(MAIT.object))==0){
 
-    peaksIsTP <- matrix(nrow=1,ncol=dim(aux)[2]+2*length(classes(MAIT.object)))
-    colnames(peaksIsTP) <- c(colnames(aux)[3:(dim(aux)[2]-1)],"p.adj","p",colnames(sigPeaksTable)[dim(sigPeaksTable)[2]-1-length(classes(MAIT.object))*2],colnames(sigPeaksTable)[(dim(sigPeaksTable)[2]-2*length(classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
+    peaksIsTP <- matrix(nrow=1,ncol=dim(aux)[2]+2*length(MAIT::classes(MAIT.object)))
+    colnames(peaksIsTP) <- c(colnames(aux)[3:(dim(aux)[2]-1)],"p.adj","p",colnames(sigPeaksTable)[dim(sigPeaksTable)[2]-1-length(MAIT::classes(MAIT.object))*2],colnames(sigPeaksTable)[(dim(sigPeaksTable)[2]-2*length(MAIT::classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
 
   }else{
 
-    peaksIsTP <- matrix(nrow=1,ncol=dim(aux)[2]-7+2*length(classes(MAIT.object)))
-    colnames(peaksIsTP) <- c(colnames(aux)[8:(dim(aux)[2]-3)],"p.adj","p",colnames(sigPeaksTable)[dim(sigPeaksTable)[2]-length(classes(MAIT.object))*2],colnames(sigPeaksTable)[(dim(sigPeaksTable)[2]-2*length(classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
+    peaksIsTP <- matrix(nrow=1,ncol=dim(aux)[2]-7+2*length(MAIT::classes(MAIT.object)))
+    colnames(peaksIsTP) <- c(colnames(aux)[8:(dim(aux)[2]-3)],"p.adj","p",colnames(sigPeaksTable)[dim(sigPeaksTable)[2]-length(MAIT::classes(MAIT.object))*2],colnames(sigPeaksTable)[(dim(sigPeaksTable)[2]-2*length(MAIT::classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
   }
   auxAd <- signPeaklist[which(signPeaklist$adduct!=""),]
   auxAd <- auxAd[order(as.numeric(auxAd$pcgroup)),]
@@ -948,15 +948,15 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
       }
       for (k in c(1:ref)){
 
-        if(length(rawData(MAIT.object))==0){
+        if(length(MAIT::rawData(MAIT.object))==0){
 
           Search <- rbind(Search,cbind(round(sigPeaksTable$mz[index],5),as.numeric(SearchPeak$SearchCand[k,4]),round(sigPeaksTable$rt[index],2),sigPeaksTable$adduct[index],as.character(SearchPeak$SearchCand[k,2]),spectra,as.character(SearchPeak$SearchCand[k,5]),as.character(SearchPeak$SearchCand[k,1])))
 
-          if(length(classes(MAIT.object))>=2){
+          if(length(MAIT::classes(MAIT.object))>=2){
 
-            added <- cbind(sigPeaksTable[index,3:(dim(sigPeaksTable)[2]-5-length(classes(MAIT.object))*2)],sigPeaksTable$P.adjust[index],sigPeaksTable$p[index],sigPeaksTable[index,grep("Fisher.",colnames(sigPeaksTable))],sigPeaksTable[index,(dim(sigPeaksTable)[2]-2*length(classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
+            added <- cbind(sigPeaksTable[index,3:(dim(sigPeaksTable)[2]-5-length(MAIT::classes(MAIT.object))*2)],sigPeaksTable$P.adjust[index],sigPeaksTable$p[index],sigPeaksTable[index,grep("Fisher.",colnames(sigPeaksTable))],sigPeaksTable[index,(dim(sigPeaksTable)[2]-2*length(MAIT::classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
           }else{
-            added <- cbind(sigPeaksTable[index,3:(dim(sigPeaksTable)[2]-5-length(classes(MAIT.object))*2)],sigPeaksTable$P.adjust[index],sigPeaksTable$p[index],sigPeaksTable$Fisher.Test[index],sigPeaksTable[index,(dim(sigPeaksTable)[2]-2*length(classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
+            added <- cbind(sigPeaksTable[index,3:(dim(sigPeaksTable)[2]-5-length(MAIT::classes(MAIT.object))*2)],sigPeaksTable$P.adjust[index],sigPeaksTable$p[index],sigPeaksTable$Fisher.Test[index],sigPeaksTable[index,(dim(sigPeaksTable)[2]-2*length(MAIT::classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
 
           }
           colnames(added) <- colnames(peaksIsTP)
@@ -964,7 +964,7 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
 
         }else{
           Search <- rbind(Search,cbind(round(sigPeaksTable$mz[index],5),as.numeric(SearchPeak$SearchCand[k,4]),round(sigPeaksTable$rt[index],2),sigPeaksTable$isotopes[index],sigPeaksTable$adduct[index],as.character(SearchPeak$SearchCand[k,2]),spectra,as.character(SearchPeak$SearchCand[k,5]),as.character(SearchPeak$SearchCand[k,1])))
-          added <- cbind(sigPeaksTable[index,8:(dim(sigPeaksTable)[2]-6-length(classes(MAIT.object))*2)],sigPeaksTable$P.adjust[index],sigPeaksTable$p[index],sigPeaksTable[index,dim(sigPeaksTable)[2]-length(classes(MAIT.object))*2],sigPeaksTable[index,(dim(sigPeaksTable)[2]-2*length(classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
+          added <- cbind(sigPeaksTable[index,8:(dim(sigPeaksTable)[2]-6-length(MAIT::classes(MAIT.object))*2)],sigPeaksTable$P.adjust[index],sigPeaksTable$p[index],sigPeaksTable[index,dim(sigPeaksTable)[2]-length(MAIT::classes(MAIT.object))*2],sigPeaksTable[index,(dim(sigPeaksTable)[2]-2*length(MAIT::classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
           colnames(added) <- colnames(peaksIsTP)
           peaksIsTP <- rbind(peaksIsTP,added)
         }
@@ -972,11 +972,11 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
 
     }else{
       ref <- 1
-      if(length(rawData(MAIT.object))==0){
+      if(length(MAIT::rawData(MAIT.object))==0){
 
         Search <- rbind(Search,cbind(round(sigPeaksTable$mz[index],5),"Unknown",round(sigPeaksTable$rt[index],2),sigPeaksTable$adduct[index],"Unknown",spectra,as.character(SearchPeak$SearchCand[5]),as.character(SearchPeak$SearchCand[1])))
         #			added <- cbind(round(sigPeaksTable[index,3:(dim(sigPeaksTable)[2]-5-length(classes(MAIT.object))*2)],0),sigPeaksTable$P.adjust[index],sigPeaksTable$p[index],sigPeaksTable[index,dim(sigPeaksTable)[2]-1-length(classes(MAIT.object))*2],sigPeaksTable[index,(dim(sigPeaksTable)[2]-2*length(classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
-        added <- cbind(sigPeaksTable[index,3:(dim(sigPeaksTable)[2]-5-length(classes(MAIT.object))*2)],sigPeaksTable$P.adjust[index],sigPeaksTable$p[index],sigPeaksTable[index,grep("Fisher.",colnames(sigPeaksTable))],sigPeaksTable[index,(dim(sigPeaksTable)[2]-2*length(classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
+        added <- cbind(sigPeaksTable[index,3:(dim(sigPeaksTable)[2]-5-length(MAIT::classes(MAIT.object))*2)],sigPeaksTable$P.adjust[index],sigPeaksTable$p[index],sigPeaksTable[index,grep("Fisher.",colnames(sigPeaksTable))],sigPeaksTable[index,(dim(sigPeaksTable)[2]-2*length(MAIT::classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
         colnames(added) <- colnames(peaksIsTP)
         peaksIsTP <- rbind(peaksIsTP,added)
 
@@ -985,12 +985,12 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
 
         Search <- rbind(Search,cbind(round(sigPeaksTable$mz[index],5),"Unknown",round(sigPeaksTable$rt[index],2),sigPeaksTable$isotopes[index],sigPeaksTable$adduct[index],"Unknown",spectra,as.character(SearchPeak$SearchCand[5]),as.character(SearchPeak$SearchCand[1])))
 
-        if(length(classes(MAIT.object))>=2){
+        if(length(MAIT::classes(MAIT.object))>=2){
 
-          added <- cbind(sigPeaksTable[index,8:(dim(sigPeaksTable)[2]-6-length(classes(MAIT.object))*2)],sigPeaksTable$P.adjust[index],sigPeaksTable$p[index],sigPeaksTable[index,grep("Fisher.",colnames(sigPeaksTable))],sigPeaksTable[index,(dim(sigPeaksTable)[2]-2*length(classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
+          added <- cbind(sigPeaksTable[index,8:(dim(sigPeaksTable)[2]-6-length(MAIT::classes(MAIT.object))*2)],sigPeaksTable$P.adjust[index],sigPeaksTable$p[index],sigPeaksTable[index,grep("Fisher.",colnames(sigPeaksTable))],sigPeaksTable[index,(dim(sigPeaksTable)[2]-2*length(MAIT::classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
 
         }else{
-          added <- cbind(sigPeaksTable[index,8:(dim(sigPeaksTable)[2]-6-length(classes(MAIT.object))*2)],sigPeaksTable$P.adjust[index],sigPeaksTable$p[index],sigPeaksTable$Fisher.Test[index],sigPeaksTable[index,(dim(sigPeaksTable)[2]-2*length(classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
+          added <- cbind(sigPeaksTable[index,8:(dim(sigPeaksTable)[2]-6-length(MAIT::classes(MAIT.object))*2)],sigPeaksTable$P.adjust[index],sigPeaksTable$p[index],sigPeaksTable$Fisher.Test[index],sigPeaksTable[index,(dim(sigPeaksTable)[2]-2*length(MAIT::classes(MAIT.object))+1):dim(sigPeaksTable)[2]])
         }
         colnames(added) <- colnames(peaksIsTP)
         peaksIsTP <- rbind(peaksIsTP,added)
@@ -1018,10 +1018,10 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
   rownames(peaksIsTP) <- rep("",dim(peaksIsTP)[1])
   metaboliteTable <- merge(Search.df,peaksIsTP.df,by="row.names")[,-1]
   metaboliteTable[,1] <- round(as.numeric(as.character(metaboliteTable[,1])),4)
-  if(length(rawData(MAIT.object))==0){
+  if(length(MAIT::rawData(MAIT.object))==0){
 
-    ind1 <- 9:(dim(metaboliteTable)[2]-2*length(classes(MAIT.object))-3)
-    ind2<-(dim(metaboliteTable)[2]-2*length(classes(MAIT.object))-2):dim(metaboliteTable)[2]
+    ind1 <- 9:(dim(metaboliteTable)[2]-2*length(MAIT::classes(MAIT.object))-3)
+    ind2<-(dim(metaboliteTable)[2]-2*length(MAIT::classes(MAIT.object))-2):dim(metaboliteTable)[2]
     tem<-metaboliteTable[,ind2]
     metaboliteTable[,(dim(metaboliteTable)[2]+1-length(ind1)):dim(metaboliteTable)[2]] <- metaboliteTable[,ind1]
     colnames(metaboliteTable)[(dim(metaboliteTable)[2]+1-length(ind1)):dim(metaboliteTable)[2]] <- colnames(metaboliteTable)[ind1]
@@ -1030,8 +1030,8 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
 
   }else{
 
-    ind1 <- 10:(dim(metaboliteTable)[2]-2*length(classes(MAIT.object))-3)
-    ind2<-(dim(metaboliteTable)[2]-2*length(classes(MAIT.object))-2):dim(metaboliteTable)[2]
+    ind1 <- 10:(dim(metaboliteTable)[2]-2*length(MAIT::classes(MAIT.object))-3)
+    ind2<-(dim(metaboliteTable)[2]-2*length(MAIT::classes(MAIT.object))-2):dim(metaboliteTable)[2]
     tem<-metaboliteTable[,ind2]
     metaboliteTable[,(dim(metaboliteTable)[2]+1-length(ind1)):dim(metaboliteTable)[2]] <- metaboliteTable[,ind1]
     colnames(metaboliteTable)[(dim(metaboliteTable)[2]+1-length(ind1)):dim(metaboliteTable)[2]] <- colnames(metaboliteTable)[ind1]
@@ -1043,14 +1043,14 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
 
     if(!file.exists(paste(resultsPath,"tables",sep="/"))){
       dir.create(paste(resultsPath,"tables",sep="/"))
-      write.table(metaboliteTable,paste(paste( MAIT.object@PhenoData@resultsPath,"tables","metaboliteTable",sep="/"),".csv",sep=""),col.names=NA,row.names=TRUE,sep=",")
+      utils::write.table(metaboliteTable,paste(paste( MAIT.object@PhenoData@resultsPath,"tables","metaboliteTable",sep="/"),".csv",sep=""),col.names=NA,row.names=TRUE,sep=",")
 
     }else{
 
       cat(" " ,fill=TRUE)
       cat(paste("Warning: Folder",paste(resultsPath,"tables",sep="/"),"already exists. Possible file overwritting.",sep=" "),fill=TRUE)
       #warning(paste("Folder",paste(resultsPath,"tables",sep="/"),"already exists. Possible file overwritting.",sep=" "))
-      write.table(metaboliteTable,paste(paste( MAIT.object@PhenoData@resultsPath,"tables","metaboliteTable",sep="/"),".csv",sep=""),col.names=NA,row.names=TRUE,sep=",")
+      utils::write.table(metaboliteTable,paste(paste( MAIT.object@PhenoData@resultsPath,"tables","metaboliteTable",sep="/"),".csv",sep=""),col.names=NA,row.names=TRUE,sep=",")
 
     }
   }

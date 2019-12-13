@@ -33,7 +33,7 @@ convert_samples <- function(samples, options, workdir = NULL) {
     if (number_of_errors > 10) {
       print_only <- 5
       samp <- glue::glue("- ",
-                         glue::glue_collapse(head(samples[retcode != 0], n = print_only),
+                         glue::glue_collapse(utils::head(samples[retcode != 0], n = print_only),
                                              sep = "\n - ", last = "\n -"),
                          "- ... [ and ", number_of_errors - print_only, " more samples]")
     } else {
