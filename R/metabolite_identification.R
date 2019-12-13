@@ -1661,10 +1661,11 @@ lcms_peak_table_boxplots <- function (MAIT.object = NULL, treatment_col) {
 
 lcms_peak_table_pca <- function (MAIT.object = NULL,treatment_col, Log = FALSE, center = TRUE, scale = TRUE)
 {
+  prcomp <- NULL
   if (is.null(MAIT.object)) {
     stop("No input MAIT object file was given")
   }
-  if (is.null(treament_col)) {
+  if (is.null(treatment_col)) {
     stop("No input treatment column was given")
   }
   if (length(featureSigID(MAIT.object)) == 0) {
