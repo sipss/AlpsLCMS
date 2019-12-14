@@ -32,6 +32,18 @@ lcms_plot_metabolites <- function(path_result, biofluid_type = "Any",
                                       significance = 0.05,
                                       metabolite_rm = TRUE,
                                       max_words = 250){
+spectra <- NULL
+rt <- NULL
+Name <- NULL
+p.adj <- NULL
+Metabolite <- NULL
+Biofluid <- NULL
+Retention_Time <- NULL
+Pvalue_Adj <- NULL
+Angle <- NULL
+Spectra <- NULL
+Selected_Biofluid <- NULL
+n <- NULL
 
 #Load Measured Data
 suppressWarnings(Measured <- readr::read_csv(file = path_result,

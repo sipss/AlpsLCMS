@@ -202,7 +202,7 @@ lcms_peak_annotation <- function (MAIT.object = NULL,
                                   calcCaS = TRUE,
                                   graphMethod = "hcs",
                                   annotateAdducts = TRUE){
-
+MAITtables <- NULL
   quiet <- function(x) {
     base::sink(base::tempfile())
     base::on.exit(base::sink())
@@ -619,6 +619,7 @@ lcms_sig_peaks_table<-function(
   extendedTable=TRUE,
   printAnnotation=TRUE){
 
+  median = NULL
   if (is.null(MAIT.object)) {
     stop("No MAIT object was given")
   }
@@ -1584,7 +1585,10 @@ lcms_spectral_fun <- function (pvalue=0.05,
 
 
 lcms_peak_table_boxplots <- function (MAIT.object = NULL, treatment_col) {
-  if (is.null(treatment_col)) {
+ treatment <- NULL
+ peaks <- NULL
+
+   if (is.null(treatment_col)) {
     stop("No input treatment column was given")
   }
   if (is.null(MAIT.object)) {
@@ -1661,7 +1665,17 @@ lcms_peak_table_boxplots <- function (MAIT.object = NULL, treatment_col) {
 
 lcms_peak_table_pca <- function (MAIT.object = NULL,treatment_col, Log = FALSE, center = TRUE, scale = TRUE)
 {
+
   prcomp <- NULL
+  pc <- NULL
+  PC1 <- NULL
+  PC2 <- NULL
+  PC3 <- NULL
+  treatment <- NULL
+  feature <- NULL
+  loadings <- NULL
+  PC <- NULL
+
   if (is.null(MAIT.object)) {
     stop("No input MAIT object file was given")
   }

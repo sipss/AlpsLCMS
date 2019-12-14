@@ -442,6 +442,9 @@ lcms_tics <- function(dataset, treatment = treatment){
 #'                rt = c(4, 8), plot_type = "boxplot")
 #' }
 lcms_plot_tics <- function(tics, treatment = treatment, rt = NULL, plot_type = "spec"){
+  ret_time <- NULL
+  tic <- NULL
+  fileName <- NULL
   min2sec <- 60
   treatment_col <- scales::hue_pal()(length(unique(tics$treatment)))
   names(treatment_col) <- unique(tics$treatment)
@@ -504,6 +507,10 @@ lcms_plot_tics <- function(tics, treatment = treatment, rt = NULL, plot_type = "
 #' print(rta_plot)
 #' }
 lcms_retention_time_alignment_plot <- function (data){
+  fileIdx <- NULL
+  ret_time_orig <- NULL
+  ret_time_adj <- NULL
+  treatment <- NULL
   min2sec <- 60
   rtc_df <-  tibble::tibble(
     fileIdx = Biobase::fData(data)$fileIdx,
@@ -544,6 +551,8 @@ lcms_retention_time_alignment_plot <- function (data){
 #' lcms_plot_chrom(base_peaks, treatment_col, rtlim = c(4, 8))
 #' }
 lcms_plot_chrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
+  rtime <- NULL
+  intensity  <- NULL
   min2sec <- 60
   message("Make sure that the column that contains the group class is called `treatment`")
 
@@ -668,6 +677,7 @@ lmcs_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE
 #' print(fileList)
 #' }
 lcms_rearrange_datafiles_by_class <- function(dataset, dataDir) {
+  Treatment <- NULL
   files <- Biobase::pData(dataset)$sampleNames
   files_treatment <- Biobase::pData(dataset)$treatment
 
