@@ -39,7 +39,7 @@ lcms_write_parameter_table <- function(listParameters, folder){
                              unlist(listParameters@plotPCA),
                              unlist(listParameters@plotHeatmap)))
   colnames(outputTable) <- c("Value")
-  write.csv(file=paste(folder,"MAITparameters.csv", sep="/"), outputTable)
+  utils::write.csv(file=paste(folder,"MAITparameters.csv", sep="/"), outputTable)
   return(outputTable)
 }
 
@@ -89,8 +89,8 @@ lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, p
 
   cat("Building a MAIT object from xcms data.","\n")
   parameters <- c(dataDir = data_dir, preproc_params)
-  getClassDef("MAIT","MAIT")
-  MAIT.object = signature(MAIT.Object = "MAIT")
+  methods::getClassDef("MAIT","MAIT")
+  MAIT.object = methods::signature(MAIT.Object = "MAIT")
   MAIT.object <- methods::new("MAIT")
 
 
@@ -135,7 +135,7 @@ lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, p
       cat("\n")
     }else{
       base::dir.create(resultsPath)
-      peak_table <- base::suppressMessages(as(peak_table, "xcmsSet"))
+      peak_table <- base::suppressMessages(methods::as(peak_table, "xcmsSet"))
       peak_table <-  base::suppressMessages(
         base::suppressWarnings(quiet(xcms::fillPeaks(peak_table))
         )
@@ -150,7 +150,7 @@ lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, p
     quiet(MAIT::parameters(MAIT.object)))),
     folder = resultsPath)
 
-  peak_table <- base::suppressMessages(as(peak_table, "xcmsSet"))
+  peak_table <- base::suppressMessages(methods::as(peak_table, "xcmsSet"))
   peak_table <-  base::suppressMessages(
     base::suppressWarnings(quiet(xcms::fillPeaks(peak_table))
     )
@@ -211,7 +211,7 @@ MAITtables <- NULL
 
 
   writeExcelTable <- function(file,file.name){
-    write.csv(file,paste(file.name,".csv",sep=""))
+    utils::write.csv(file,paste(file.name,".csv",sep=""))
   }
 
   if (is.null(MAIT.object)) {
@@ -234,7 +234,7 @@ MAITtables <- NULL
     cat("Set adductTable equal to negAdducts to use the default MAIT table for negative polarity",
         fill = TRUE)
     peakAnnEnv <- new.env()
-    data(MAITtables, envir = peakAnnEnv)
+    utils::data(MAITtables, envir = peakAnnEnv)
     adducts <- get(x = "posAdducts", envir = peakAnnEnv)
   }
   else {
@@ -242,16 +242,16 @@ MAITtables <- NULL
       cat("adductTable has been set to negAdducts. The default MAIT adducts table for negative polarization is selected...",
           fill = TRUE)
       peakAnnEnv <- new.env()
-      data(MAITtables, envir = peakAnnEnv)
+      utils::data(MAITtables, envir = peakAnnEnv)
       adducts <- get(x = "negAdducts", envir = peakAnnEnv)
     }
     else {
-      adducts <- read.csv2(paste(adductTable, ".csv",
+      adducts <- utils::read.csv2(paste(adductTable, ".csv",
                                  sep = ""), dec = ".", header = TRUE, sep = ",")
     }
   }
   resultsPath <- MAIT.object@PhenoData@resultsPath
-  quiet(xsa <- xsAnnotate(rawData(MAIT.object)$xcmsSet))
+  quiet(xsa <- xsAnnotate(MAIT::rawData(MAIT.object)$xcmsSet))
   quiet(xsaF <- groupFWHM(xsa, perfwhm = perfwhm, sigma = sigma))
   cat("Spectrum build after retention time done", fill = TRUE)
   quiet(xsaFA <- findIsotopes(xsaF))
@@ -369,17 +369,17 @@ lcms_spectral_sig_features <- function(MAIT.object = NULL,
                                        namefun = NULL){
 
 
-  if (length(classes(MAIT.object)) == 1) {
-    if (is.na(classes(MAIT.object)) == TRUE) {
+  if (length(MAIT::classes(MAIT.object)) == 1) {
+    if (is.na(MAIT::classes(MAIT.object)) == TRUE) {
       stop("No class information saved in the MAIT object.")
     }
   }
-  if (method(MAIT.object) == "") {
+  if (MAIT::method(MAIT.object) == "") {
     cat("Skipping peak aggregation step...")
     MAIT.object <- lcms_peak_aggregation(MAIT.object, scale = scale)
   }
   if (is.null(test.fun)) {
-    if (length(classes(MAIT.object)) == 2) {
+    if (length(MAIT::classes(MAIT.object)) == 2) {
       if (parametric == TRUE) {
         if (var.equal == TRUE) {
           out <- lcms_spectral_tstudent(pvalue = pvalue, p.adj = p.adj,
@@ -413,7 +413,7 @@ lcms_spectral_sig_features <- function(MAIT.object = NULL,
                              printCSVfile = printCSVfile, test.fun = test.fun,
                              namefun = namefun)
   }
-  if (length(featureSigID(out)) == 0) {
+  if (length(MAIT::featureSigID(out)) == 0) {
     warning("No significative features found with the selected parameters.")
   }
   else {
@@ -471,14 +471,14 @@ lcms_peak_aggregation<-function(MAIT.object=NULL,
                          "peakAggregation RemoveOnePeakSpectra")
   MAIT.object@RawData@parameters@peakAggregation <- parameters
   lcms_write_parameter_table(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
-  classes <- classes(MAIT.object)
+  classes <- MAIT::classes(MAIT.object)
   classNum <- classNum(MAIT.object)
   resultsPath <- MAIT.object@PhenoData@resultsPath#resultsPath(MAIT.object)
 
   MAIT.object@FeatureInfo@peakAgMethod <- method
 
 
-  aux <- getScoresTable(MAIT.object=MAIT.object,getSpectra=TRUE,getExtendedTable=FALSE)
+  aux <- MAIT::getScoresTable(MAIT.object=MAIT.object,getSpectra=TRUE,getExtendedTable=FALSE)
   data <- aux$scores
   if(scale==TRUE && method!="Single"){
 
@@ -489,7 +489,7 @@ lcms_peak_aggregation<-function(MAIT.object=NULL,
   idGroup <- aux$spectraID
 
   if(RemoveOnePeakSpectra==TRUE){
-    dataWithNoOnePeakSpectra <- removeOnePeakSpectra(data=data,
+    dataWithNoOnePeakSpectra <- MAIT::removeOnePeakSpectra(data=data,
                                                      idGroup=idGroup)
     data <- dataWithNoOnePeakSpectra$spectra
     idGroup <- dataWithNoOnePeakSpectra$idGroup
@@ -542,17 +542,17 @@ lcms_peak_aggregation<-function(MAIT.object=NULL,
       #         warning(paste("Folder",paste(resultsPath,"tables",sep="/"),"already exists. Possible file overwritting.",sep=" "),fill=TRUE)
     }
 
-    tabl <- scores(MAIT.object)
-    if(length(rawData(MAIT.object))!=0){
+    tabl <- MAIT::scores(MAIT.object)
+    if(length(MAIT::rawData(MAIT.object))!=0){
       if(is.null(samples)){
-        colnames(tabl) <- sampnames(rawData(MAIT.object)[[1]]@xcmsSet)
+        colnames(tabl) <- xcms::sampnames(MAIT::rawData(MAIT.object)[[1]]@xcmsSet)
 
       }else{
-        colnames(tabl) <- sampnames(rawData(MAIT.object)[[1]]@xcmsSet)[samples]
+        colnames(tabl) <- xcms::sampnames(MAIT::rawData(MAIT.object)[[1]]@xcmsSet)[samples]
       }
 
     }else{
-      colnames(tabl) <- colnames(scores(MAIT.object))
+      colnames(tabl) <- colnames(MAIT::scores(MAIT.object))
     }
     rownames(tabl) <- paste("S",1:dim(tabl)[1],sep="")
     if (scale==TRUE){
@@ -560,7 +560,7 @@ lcms_peak_aggregation<-function(MAIT.object=NULL,
     }else{
       norm <- "notScaled"
     }
-    write.table(file=paste(resultsPath,paste("tables/dataSet_",norm,".csv",sep=""),sep="/"),x=tabl,row.names=TRUE,col.names=NA,sep=",")
+    utils::write.table(file=paste(resultsPath,paste("tables/dataSet_",norm,".csv",sep=""),sep="/"),x=tabl,row.names=TRUE,col.names=NA,sep=",")
   }
 
   return(MAIT.object)
@@ -624,11 +624,11 @@ lcms_sig_peaks_table<-function(
     stop("No MAIT object was given")
   }
 
-  if(length(featureSigID(MAIT.object))==0){
+  if(length(MAIT::featureSigID(MAIT.object))==0){
     stop("No significant features found in the MAIT object. Make sure that functions peakAnnotation and spectralSigFeatures were launched")
   }
 
-  dat <- getScoresTable(MAIT.object,getSpectra=TRUE,getExtendedTable=TRUE)
+  dat <- MAIT::getScoresTable(MAIT.object,getSpectra=TRUE,getExtendedTable=TRUE)
 
   if(printAnnotation==TRUE){extendedTable<-TRUE}
 
@@ -639,19 +639,19 @@ lcms_sig_peaks_table<-function(
   }
   spectraID <- dat$spectraID
 
-  data <- scores(MAIT.object)
-  index <- featureSigID(MAIT.object)
-  classes <- classes(MAIT.object)
+  data <- MAIT::scores(MAIT.object)
+  index <- MAIT::featureSigID(MAIT.object)
+  classes <- MAIT::classes(MAIT.object)
   classNum <- classNum(MAIT.object)
   resultsPath <- MAIT.object@PhenoData@resultsPath#resultsPath(MAIT.object)
-  Fisher <- LSDResults(MAIT.object)
-  TTs <- pvalues(MAIT.object)
+  Fisher <- MAIT::LSDResults(MAIT.object)
+  TTs <- MAIT::pvalues(MAIT.object)
 
   sigPeaksTable <- matrix(nrow=1,ncol=ncol(peakList))
   colnames(sigPeaksTable) <- colnames(peakList)
 
   if (length(index)!=0){
-    if (method(MAIT.object)!="None"){
+    if (MAIT::method(MAIT.object)!="None"){
       sigPeaksTable <- peakList[spectraID%in%index,]
     }else{
       sigPeaksTable <- peakList[spectraID%in%unique(spectraID[index]),]
@@ -660,8 +660,8 @@ lcms_sig_peaks_table<-function(
 
     p <- matrix(nrow=1,ncol=dim(sigPeaksTable)[1])
     fisher <- matrix(nrow=1,ncol=dim(sigPeaksTable)[1])
-    if(class(classes(MAIT.object))!="logical"|class(classNum(MAIT.object))!="logical"){
-      if(length(classes(MAIT.object))>2){
+    if(class(MAIT::classes(MAIT.object))!="logical"|class(classNum(MAIT.object))!="logical"){
+      if(length(MAIT::classes(MAIT.object))>2){
         for(i in c(1:dim(sigPeaksTable)[1])){
           fisher[i] <- Fisher[as.numeric(sigPeaksTable[i,dim(sigPeaksTable)[2]])]
         }
@@ -680,18 +680,18 @@ lcms_sig_peaks_table<-function(
       }
     }
 
-    p<-pvalues(MAIT.object)
+    p<-MAIT::pvalues(MAIT.object)
     p <- p[spectraID%in%unique(spectraID[index])]
 
     p <- matrix(p,ncol=1)
     if(MAIT.object@FeatureData@pvaluesCorrection==""){MAIT.object@FeatureData@pvaluesCorrection<-"none"}
-    P.adjust <- p.adjust(p,MAIT.object@FeatureData@pvaluesCorrection)
+    P.adjust <- stats::p.adjust(p,MAIT.object@FeatureData@pvaluesCorrection)
 
     pAux <- matrix(ncol=1,nrow=dim(sigPeaksTable)[1])
     pAux.adjust <- matrix(ncol=1,nrow=dim(sigPeaksTable)[1])
 
 
-    if (method(MAIT.object)!="None"){
+    if (MAIT::method(MAIT.object)!="None"){
       for (i in c(1:dim(sigPeaksTable)[1])){
         if(sum(sigPeaksTable$pcgroup==index)==length(index)){
           pAux[i,] <- unique(p[which(index%in%index[i])])
@@ -710,7 +710,7 @@ lcms_sig_peaks_table<-function(
     sigPeaksTable <- cbind(sigPeaksTable,pAux.adjust,pAux)
 
     sigPeaksTable <- cbind(sigPeaksTable,matrix(fisher,ncol=1))
-    if(length(classes(MAIT.object))>2){
+    if(length(MAIT::classes(MAIT.object))>2){
       colnames(sigPeaksTable)[dim(sigPeaksTable)[2]] <- NamesFisher
     }else{
       colnames(sigPeaksTable)[dim(sigPeaksTable)[2]] <- "Fisher.Test"
@@ -719,7 +719,7 @@ lcms_sig_peaks_table<-function(
     colnames(sigPeaksTable)[dim(sigPeaksTable)[2]-1] <- "p"
 
 
-    if(length(rawData(MAIT.object))==0&is.null(sigPeaksTable$adduct)==TRUE){
+    if(length(MAIT::rawData(MAIT.object))==0&is.null(sigPeaksTable$adduct)==TRUE){
       adduct <- character(length=dim(peakList)[1])
       peakList <- data.frame(peakList,adduct)
       adduct <- character(length=dim(sigPeaksTable)[1])
@@ -748,20 +748,20 @@ lcms_sig_peaks_table<-function(
     means <- vector("list",length=length(index))
     medians <- vector("list",length=length(index))
 
-    if(class(classes(MAIT.object))!="logical"|class(classNum(MAIT.object))!="logical"){
-      Fgroups <- as.factor(rep(classes(MAIT.object),classNum(MAIT.object)))
+    if(class(MAIT::classes(MAIT.object))!="logical"|class(classNum(MAIT.object))!="logical"){
+      Fgroups <- as.factor(rep(MAIT::classes(MAIT.object),classNum(MAIT.object)))
       for(i in c(1:dim(sigPeaksTable)[1])){
-        if(length(rawData(MAIT.object))==0){
+        if(length(MAIT::rawData(MAIT.object))==0){
           ind <- c(3:(dim(sigPeaksTable)[2]-5))
         }else{
-          ind <- c((8+length(classes(MAIT.object))):(dim(sigPeaksTable)[2]-6))
+          ind <- c((8+length(MAIT::classes(MAIT.object))):(dim(sigPeaksTable)[2]-6))
         }
-        means[[i]] <- aggregate(as.numeric(sigPeaksTable[i,ind])~Fgroups,FUN=mean)
-        medians[[i]] <- aggregate(as.numeric(sigPeaksTable[i,ind])~Fgroups,FUN=median)
+        means[[i]] <- stats::aggregate(as.numeric(sigPeaksTable[i,ind])~Fgroups,FUN=mean)
+        medians[[i]] <- stats::aggregate(as.numeric(sigPeaksTable[i,ind])~Fgroups,FUN=median)
       }
 
       allMeans <- merge(means[[1]],means[[2]],by="Fgroups")
-      if(length(rawData(MAIT.object))!=0){
+      if(length(MAIT::rawData(MAIT.object))!=0){
         colnames(allMeans)[2:dim(allMeans)[2]] <- rownames(dat$scores[spectraID%in%unique(spectraID[index]),])[c(1,2)]
       }else{
         colnames(allMeans)[2:dim(allMeans)[2]] <- 1:(dim(allMeans)[2]-1)
@@ -769,7 +769,7 @@ lcms_sig_peaks_table<-function(
       if(length(index)>2){
         for(i in c(3:length(means))){
           allMeans <- merge(allMeans,means[[i]],by="Fgroups")
-          if(length(rawData(MAIT.object))!=0){
+          if(length(MAIT::rawData(MAIT.object))!=0){
             colnames(allMeans)[i+1] <-  rownames(dat$scores[spectraID%in%unique(spectraID[index]),])[i]
           }else{
             colnames(allMeans)[i+1]  <- as.numeric(colnames(allMeans)[i])+1
@@ -779,13 +779,13 @@ lcms_sig_peaks_table<-function(
       rownames(allMeans)<-paste("Mean Class",allMeans[,1])
 
       temp<-as.data.frame(t(allMeans[,-1]))
-      for(i in c(1:length(classes(MAIT.object)))){
+      for(i in c(1:length(MAIT::classes(MAIT.object)))){
         temp[,i]<-as.numeric(as.character(temp[,i]))
       }
 
-      if(length(rawData(MAIT.object))!=0){rownames(temp)<-NULL}
+      if(length(MAIT::rawData(MAIT.object))!=0){rownames(temp)<-NULL}
       allMedians <- merge(medians[[1]],medians[[2]],by="Fgroups")
-      if(length(rawData(MAIT.object))!=0){
+      if(length(MAIT::rawData(MAIT.object))!=0){
         colnames(allMedians)[2:dim(allMedians)[2]] <- rownames(dat$scores[spectraID%in%unique(spectraID[index]),])[c(1,2)]
       }else{
         colnames(allMedians)[2:dim(allMedians)[2]] <- 1:(dim(allMedians)[2]-1)
@@ -793,7 +793,7 @@ lcms_sig_peaks_table<-function(
       if(length(index)>3){
         for(i in c(3:length(medians))){
           allMedians <- merge(allMedians,medians[[i]],by="Fgroups")
-          if(length(rawData(MAIT.object))!=0){
+          if(length(MAIT::rawData(MAIT.object))!=0){
             colnames(allMedians)[i+1] <-  rownames(dat$scores[spectraID%in%unique(spectraID[index]),])[i]
           }else{
             colnames(allMedians)[i+1]  <- as.numeric(colnames(allMedians)[i])+1
@@ -804,11 +804,11 @@ lcms_sig_peaks_table<-function(
       rownames(allMedians)<-paste("Median Class",allMedians[,1])
 
       tempMed<-as.data.frame(t(allMedians[,-1]))
-      for(i in c(1:length(classes(MAIT.object)))){
+      for(i in c(1:length(MAIT::classes(MAIT.object)))){
         tempMed[,i]<-as.numeric(as.character(tempMed[,i]))
       }
       sigPeaksTable <- cbind(sigPeaksTable,temp,tempMed)
-      if(length(rawData(MAIT.object))!=0){rownames(tempMed)<-NULL}
+      if(length(MAIT::rawData(MAIT.object))!=0){rownames(tempMed)<-NULL}
     }else{
       temp <- matrix(rep(NA,dim(sigPeaksTable)[1]),ncol=1)
       tempMed <- matrix(rep(NA,dim(sigPeaksTable)[1]),ncol=1)
@@ -823,7 +823,7 @@ lcms_sig_peaks_table<-function(
         cat(" " ,fill=TRUE)
         warning(paste("Folder",paste(resultsPath,"tables",sep="/"),"already exists. Possible file overwritting.",sep=" "))
       }
-      write.csv(x=sigPeaksTable,file=paste(resultsPath,"tables/significantFeatures.csv",sep="/"),row.names=FALSE)
+      utils::write.csv(x=sigPeaksTable,file=paste(resultsPath,"tables/significantFeatures.csv",sep="/"),row.names=FALSE)
     }
 
   }else{
@@ -857,6 +857,7 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
                                       database=NULL,
                                       polarity="positive",
                                       printCSVfile=TRUE){
+  MAITtables <- NULL
 
   if (is.null(MAIT.object)) {
     stop("No input MAIT object file was given")
@@ -1127,13 +1128,13 @@ lcms_spectral_tstudent <- function(MAIT.object=NULL,
   MAIT.object@RawData@parameters@sigFeatures <- parameters
   lcms_write_parameter_table(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
 
-  data <- scores(MAIT.object)
-  clases <- classes(MAIT.object)
+  data <- MAIT::scores(MAIT.object)
+  clases <- MAIT::classes(MAIT.object)
   classNum <- classNum(MAIT.object)
   #xsaFA <- rawData(MAIT.object)
   resultsPath <- MAIT.object@PhenoData@resultsPath#resultsPath(MAIT.object)
 
-  auxs<-getScoresTable(MAIT.object=MAIT.object,getExtendedTable=TRUE)
+  auxs<-MAIT::getScoresTable(MAIT.object=MAIT.object,getExtendedTable=TRUE)
   peakList <- auxs$extendedTable
   spec <- auxs$spectraID
 
@@ -1150,9 +1151,9 @@ lcms_spectral_tstudent <- function(MAIT.object=NULL,
     numbers <- classNum
     names(numbers) <- clases
     lmdata <- as.vector(t(data[i,]))
-    model <- lm(lmdata~group)
+    model <- stats::lm(lmdata~group)
     if (length(which(diff(data)!=0))){
-      ttest <- t.test(as.vector(t(data[i,]))~group,var.equal=TRUE)
+      ttest <- stats::t.test(as.vector(t(data[i,]))~group,var.equal=TRUE)
       TTs[i] <- ttest$p.value
       Tresults[i] <- ttest$statistic
     }else{
@@ -1160,7 +1161,7 @@ lcms_spectral_tstudent <- function(MAIT.object=NULL,
     }
   }
   MAIT.object@FeatureData@pvalues <- TTs
-  p.corr <- p.adjust(TTs,method=p.adj)
+  p.corr <- stats::p.adjust(TTs,method=p.adj)
   if (p.adj!="none"){
     index <- which(p.corr<=pvalue)
 
@@ -1203,15 +1204,15 @@ lcms_spectral_welch <- function(MAIT.object=NULL,
   lcms_write_parameter_table(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
 
 
-  data <- scores(MAIT.object)
-  clases <- classes(MAIT.object)
+  data <- MAIT::scores(MAIT.object)
+  clases <- MAIT::classes(MAIT.object)
   classNum <- classNum(MAIT.object)
   #xsaFA <- rawData(MAIT.object)
   resultsPath <- MAIT.object@PhenoData@resultsPath
   #	peakList <- getPeaklist(MAIT.object)
   #	peakList <- peakList[order(as.numeric(peakList$pcgroup)),]
 
-  auxs<-getScoresTable(MAIT.object=MAIT.object,getExtendedTable=TRUE)
+  auxs<-MAIT::getScoresTable(MAIT.object=MAIT.object,getExtendedTable=TRUE)
   peakList <- auxs$extendedTable
   spec <- auxs$spectraID
 
@@ -1229,9 +1230,9 @@ lcms_spectral_welch <- function(MAIT.object=NULL,
     numbers <- classNum
     names(numbers) <- clases
     lmdata <- as.vector(t(data[i,]))
-    model <- lm(lmdata~group)
+    model <- stats::lm(lmdata~group)
     if (length(which(diff(data)!=0))){
-      ttest <- t.test(as.vector(t(data[i,]))~group,var.equal=FALSE)
+      ttest <- stats::t.test(as.vector(t(data[i,]))~group,var.equal=FALSE)
       TTs[i] <- ttest$p.value
       Tresults[i] <- ttest$statistic
     }else{
@@ -1240,7 +1241,7 @@ lcms_spectral_welch <- function(MAIT.object=NULL,
   }
 
   MAIT.object@FeatureData@pvalues <- TTs
-  p.corr <- p.adjust(TTs,method=p.adj)
+  p.corr <- stats::p.adjust(TTs,method=p.adj)
 
   if (p.adj!="none"){
     index <- which(p.corr<=pvalue)
@@ -1283,14 +1284,14 @@ lcms_spectral_wilcox <- function(MAIT.object=NULL,
   MAIT.object@RawData@parameters@sigFeatures <- parameters
   lcms_write_parameter_table(parameters(MAIT.object),folder = MAIT.object@PhenoData@resultsPath)
 
-  data <- scores(MAIT.object)
-  clases <- classes(MAIT.object)
+  data <- MAIT::scores(MAIT.object)
+  clases <- MAIT::classes(MAIT.object)
   classNum <- classNum(MAIT.object)
   #xsaFA <- rawData(MAIT.object)
   resultsPath <- MAIT.object@PhenoData@resultsPath#resultsPath(MAIT.object)
 
 
-  auxs<-getScoresTable(MAIT.object=MAIT.object,getExtendedTable=TRUE)
+  auxs<-MAIT::getScoresTable(MAIT.object=MAIT.object,getExtendedTable=TRUE)
   peakList <- auxs$extendedTable
   spec <- auxs$spectraID
 
@@ -1307,12 +1308,12 @@ lcms_spectral_wilcox <- function(MAIT.object=NULL,
     numbers <- classNum
     names(numbers) <- clases
     lmdata <- as.vector(t(data[i,]))
-    model <- lm(lmdata~group)
+    model <- stats::lm(lmdata~group)
     if (length(which(diff(data)!=0))){
       if(jitter==TRUE){
-        test<-wilcox.test(jitter(data[i,],factor = jitter.factor, amount = jitter.amount)~group)
+        test<-stats::wilcox.test(jitter(data[i,],factor = jitter.factor, amount = jitter.amount)~group)
       }else{
-        test<-wilcox.test(data[i,]~group)
+        test<-stats::wilcox.test(data[i,]~group)
       }
       TTs[i] <- test$p.value
     }else{
@@ -1320,7 +1321,7 @@ lcms_spectral_wilcox <- function(MAIT.object=NULL,
     }
   }
   MAIT.object@FeatureData@pvalues <- TTs
-  p.corr <- p.adjust(TTs,method=p.adj)
+  p.corr <- stats::p.adjust(TTs,method=p.adj)
 
   if (p.adj!="none"){
 
@@ -1364,11 +1365,11 @@ lcms_spectral_anova <- function (pvalue=0.05,
   MAIT.object@RawData@parameters@sigFeatures <- parameters
   lcms_write_parameter_table(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
 
-  data <- scores(MAIT.object)
-  clases <- classes(MAIT.object)
+  data <- MAIT::scores(MAIT.object)
+  clases <- MAIT::classes(MAIT.object)
   classNum <- classNum(MAIT.object)
   resultsPath <- MAIT.object@PhenoData@resultsPath#resultsPath(MAIT.object)
-  auxs<-getScoresTable(MAIT.object=MAIT.object,getExtendedTable=TRUE)
+  auxs<-MAIT::getScoresTable(MAIT.object=MAIT.object,getExtendedTable=TRUE)
   peakList <- auxs$extendedTable
 
   Fgroups <- matrix(nrow=1)
@@ -1385,15 +1386,15 @@ lcms_spectral_anova <- function (pvalue=0.05,
     lmdata <- as.vector(t(data[i,]))
     numbers <- classNum
     names(numbers) <- clases
-    model <- lm(lmdata~Fgroups)
-    an <- anova(model)
-    Fisher[i] <- FisherLSD(data=data,DFerror=an$Df[2],MSerror=an$Mean[2],index=i,classes=Fgroups,numClasses=length(classNum))[[2]]
+    model <- stats::lm(lmdata~Fgroups)
+    an <- stats::anova(model)
+    Fisher[i] <- MAIT::FisherLSD(data=data,DFerror=an$Df[2],MSerror=an$Mean[2],index=i,classes=Fgroups,numClasses=length(classNum))[[2]]
     TTs[i] <- an$Pr[1]
   }
   MAIT.object@FeatureData@pvalues <- TTs
   MAIT.object@FeatureData@LSDResults <- Fisher
 
-  p.corr <- p.adjust(TTs,method=p.adj)
+  p.corr <- stats::p.adjust(TTs,method=p.adj)
 
   if (p.adj!="none"){
     index <- which(p.corr<=pvalue)
@@ -1435,11 +1436,11 @@ lcms_spectral_kruskal <- function (pvalue=0.05,
   MAIT.object@RawData@parameters@sigFeatures <- parameters
   lcms_write_parameter_table(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
 
-  data <- scores(MAIT.object)
-  clases <- classes(MAIT.object)
+  data <- MAIT::scores(MAIT.object)
+  clases <- MAIT::classes(MAIT.object)
   classNum <- classNum(MAIT.object)
   resultsPath <- MAIT.object@PhenoData@resultsPath #resultsPath(MAIT.object)
-  auxs<-getScoresTable(MAIT.object=MAIT.object,getExtendedTable=TRUE)
+  auxs<-MAIT::getScoresTable(MAIT.object=MAIT.object,getExtendedTable=TRUE)
   peakList <- auxs$extendedTable
 
   Fgroups <- matrix(nrow=1)
@@ -1457,13 +1458,13 @@ lcms_spectral_kruskal <- function (pvalue=0.05,
     numbers <- classNum
     names(numbers) <- clases
     #	   model <- lm(lmdata~Fgroups)
-    an <- kruskal.test(x=lmdata,g=Fgroups)
+    an <- stats::kruskal.test(x=lmdata,g=Fgroups)
     TTs[i] <- an$p.value
   }
 
   MAIT.object@FeatureData@pvalues <- TTs
   #    MAIT.object@FeatureData@LSDResults <- Fisher
-  p.corr <- p.adjust(TTs,method=p.adj)
+  p.corr <- stats::p.adjust(TTs,method=p.adj)
 
   if (p.adj!="none"){
     index <- which(p.corr<=pvalue)
@@ -1522,12 +1523,12 @@ lcms_spectral_fun <- function (pvalue=0.05,
   MAIT.object@RawData@parameters@sigFeatures <- parameters
   lcms_write_parameter_table(parameters(MAIT.object),folder=MAIT.object@PhenoData@resultsPath)
 
-  data <- scores(MAIT.object)
-  clases <- classes(MAIT.object)
+  data <- MAIT::scores(MAIT.object)
+  clases <- MAIT::classes(MAIT.object)
   classNum <- classNum(MAIT.object)
   xsaFA <- MAIT.object@RawData@data
   resultsPath <-MAIT.object@PhenoData@resultsPath
-  peakList <- getPeaklist(MAIT.object)
+  peakList <- MAIT::getPeaklist(MAIT.object)
 
   Fgroups <- matrix(nrow=1)
   Fgroups <- rep(clases,classNum)
@@ -1544,7 +1545,7 @@ lcms_spectral_fun <- function (pvalue=0.05,
   #	}
 
   MAIT.object@FeatureData@pvalues <- TTs
-  p.corr <- p.adjust(TTs,method=p.adj)
+  p.corr <- stats::p.adjust(TTs,method=p.adj)
 
   if (p.adj!="none"){
     index <- which(p.corr<=pvalue)
@@ -1594,12 +1595,12 @@ lcms_peak_table_boxplots <- function (MAIT.object = NULL, treatment_col) {
   if (is.null(MAIT.object)) {
     stop("No input MAIT object file was given")
   }
-  if (length(featureSigID(MAIT.object)) == 0) {
+  if (length(MAIT::featureSigID(MAIT.object)) == 0) {
     stop("No significant features found in the MAIT object. Make sure that functions peakAnnotation and peakAggregation were launched")
   }
-  data <- scores(MAIT.object)
-  index <- featureSigID(MAIT.object)
-  class <- classes(MAIT.object)
+  data <- MAIT::scores(MAIT.object)
+  index <- MAIT::featureSigID(MAIT.object)
+  class <- MAIT::classes(MAIT.object)
   classNum <- classNum(MAIT.object)
   resultsPath <- MAIT.object@PhenoData@resultsPath
   clases <- matrix(nrow = 1)
@@ -1682,7 +1683,7 @@ lcms_peak_table_pca <- function (MAIT.object = NULL,treatment_col, Log = FALSE, 
   if (is.null(treatment_col)) {
     stop("No input treatment column was given")
   }
-  if (length(featureSigID(MAIT.object)) == 0) {
+  if (length(MAIT::featureSigID(MAIT.object)) == 0) {
     stop("No significant features found in the MAIT object. Make sure that functions peakAnnotation and peakAggregation were launched")
   }
   parameters <- list(Log, center, scale)
@@ -1690,12 +1691,12 @@ lcms_peak_table_pca <- function (MAIT.object = NULL,treatment_col, Log = FALSE, 
                          "PCA data scaled")
   MAIT.object@RawData@parameters@plotPCA <- parameters
   lcms_write_parameter_table(parameters(MAIT.object), folder = MAIT.object@PhenoData@resultsPath)
-  data <- scores(MAIT.object)
-  clases <- classes(MAIT.object)
+  data <- MAIT::scores(MAIT.object)
+  clases <- MAIT::classes(MAIT.object)
   classNum <- classNum(MAIT.object)
   xsaFA <- MAIT.object@RawData@data
   resultsPath <- MAIT.object@PhenoData@resultsPath
-  index <- featureSigID(MAIT.object)
+  index <- MAIT::featureSigID(MAIT.object)
   cols <- matrix(nrow = 1)
   textCols <- matrix(nrow = 1)
   for (i in 1:length(clases)) {

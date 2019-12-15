@@ -560,17 +560,17 @@ lcms_plot_chrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
   ret_times <- lapply(chromatogram_object, FUN = rtime)
   intensities <- lapply(chromatogram_object, FUN = intensity)
 
-  plot(ret_times[[1]] / min2sec, intensities[[1]], type = "l",
+  graphics::plot(ret_times[[1]] / min2sec, intensities[[1]], type = "l",
        col = treatment_col[chromatogram_object$treatment][1], lwd = 1,
        xlab = "Retention time (min)", ylab = "Intensity  (A.U.)",
        xlim = rtlim,
        main = "Base Peak Chromatogram")
 
   for (i in 2:length(ret_times)){ # we need to modify the sequence using seq_along
-    points(ret_times[[i]] / min2sec, intensities[[i]], lwd = 1,
+    graphics::points(ret_times[[i]] / min2sec, intensities[[i]], lwd = 1,
            xlim = rtlim,
            type= "l", col = treatment_col[chromatogram_object$treatment][i])
-    legend("topright", legend = names(treatment_col), fill = treatment_col)
+    graphics::legend("topright", legend = names(treatment_col), fill = treatment_col)
   }
 }
 
@@ -602,15 +602,15 @@ lcms_plot_chrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
 #' }
 
 lmcs_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE, xlab = "retention time",
-                                       yaxt = par("yaxt"), main = "Chromatographic peak counts",
+                                       yaxt = graphics::par("yaxt"), main = "Chromatographic peak counts",
                                        ...)
 {
   min2sec <- 60
-  if (!is(x, "XCMSnExp"))
+  if (!methods::is(x, "XCMSnExp"))
     stop("'x' is supposed to be an 'XCMSnExp' object, but I got a ",
          class(x))
   if (is.null(xlim))
-    xlim <- c(floor(min(rtime(x))), ceiling(max(rtime(x))))
+    xlim <- c(floor(min(MSnbase::rtime(x))), ceiling(max(MSnbase::rtime(x))))
   brks <- seq(xlim[1], xlim[2], by = binSize)
   if (brks[length(brks)] < xlim[2])
     brks <- c(brks, brks[length(brks)] + binSize)
@@ -618,10 +618,10 @@ lmcs_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE
   if (nrow(pks)) {
     rts <- split(pks[, "rt"], pks[, "sample"])
     cnts <- lapply(rts, function(z) {
-      hst <- hist(z, breaks = brks, plot = FALSE)
+      hst <- graphics::hist(z, breaks = brks, plot = FALSE)
       hst$counts
     })
-    n_samples <- length(fileNames(x))
+    n_samples <- length(MSnbase::fileNames(x))
     sample_idxs <- 1:n_samples
     sample_idxs <- sample_idxs[!(as.character(sample_idxs) %in%
                                    names(rts))]
@@ -635,12 +635,12 @@ lmcs_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE
     cnts <- t(do.call(rbind, cnts))
     if (log)
       cnts <- log2(cnts)
-    image(z = cnts, x = (brks - (brks[2] - brks[1])/2) / min2sec, xaxs = "r",
+    graphics::image(z = cnts, x = (brks - (brks[2] - brks[1])/2) / min2sec, xaxs = "r",
           xlab = xlab, yaxt = "n", ...)
-    sample_labels <- stringr::str_extract(basename(fileNames(x)), "\\w+")
-    axis(side = 2, at = seq(0, 1, length.out = n_samples),
+    sample_labels <- stringr::str_extract(basename(MSnbase::fileNames(x)), "\\w+")
+    graphics::axis(side = 2, at = seq(0, 1, length.out = n_samples),
          labels = FALSE)
-    text(y = seq(0, 1, length.out = n_samples), par("usr")[1],
+    graphics::text(y = seq(0, 1, length.out = n_samples), graphics::par("usr")[1],
          cex = 0.6, labels = sample_labels,
          srt = 60, pos = 2, xpd = TRUE)
   }

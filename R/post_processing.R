@@ -121,7 +121,7 @@ if(biofluid_type == "Any"){
 
 } else{
   Measured <- Measured %>%
-                dplyr::filter_at(vars(Biofluid), all_vars(str_detect(Biofluid, biofluid_type))) %>%
+                dplyr::filter_at(dplyr::vars(Biofluid), dplyr::all_vars(stringr::str_detect(Biofluid, biofluid_type))) %>%
                 dplyr::mutate(Selected_Biofluid = biofluid_type)
 
   max_area_wordcloud <- 20#11

@@ -5,7 +5,7 @@
 \title{Image of Chromatographic Peaks by sample}
 \usage{
 lmcs_plot_chrom_peak_image(x, binSize = 30, xlim = NULL, log = FALSE,
-  xlab = "retention time", yaxt = par("yaxt"),
+  xlab = "retention time", yaxt = graphics::par("yaxt"),
   main = "Chromatographic peak counts", ...)
 }
 \arguments{
