@@ -34,7 +34,7 @@ Description: Reads RAW and mzXML LC-MS data directories.
  through the Human Metabolome Database (HMDB) and perform univariate statistics.
 License: file LICENSE
 LazyData: TRUE
-Depends: R (>= 3.6), MSnbase (>= 2.10.1), MAIT (>= 1.18.0)
+Depends: R (>= 3.6), MSnbase (>= 2.10.1), MAIT (>= 1.18.0), CAMERA (>= 1.40.0)
 Imports: 
  Biobase (>= 2.44.0), 
  future (>= 1.14.0), 

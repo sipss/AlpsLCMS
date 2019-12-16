@@ -251,21 +251,21 @@ MAITtables <- NULL
     }
   }
   resultsPath <- MAIT.object@PhenoData@resultsPath
-  quiet(xsa <- xsAnnotate(MAIT::rawData(MAIT.object)$xcmsSet))
-  quiet(xsaF <- groupFWHM(xsa, perfwhm = perfwhm, sigma = sigma))
+  quiet(xsa <- CAMERA::xsAnnotate(MAIT::rawData(MAIT.object)$xcmsSet))
+  quiet(xsaF <- CAMERA::groupFWHM(xsa, perfwhm = perfwhm, sigma = sigma))
   cat("Spectrum build after retention time done", fill = TRUE)
-  quiet(xsaFA <- findIsotopes(xsaF))
+  quiet(xsaFA <- CAMERA::findIsotopes(xsaF))
   cat("Isotope annotation done", fill = TRUE)
-  quiet(xsaFA <- groupCorr(xsaFA, cor_eic_th = corrWithSamp, cor_exp_th = corrBetSamp,
+  quiet(xsaFA <- CAMERA::groupCorr(xsaFA, cor_eic_th = corrWithSamp, cor_exp_th = corrBetSamp,
                            calcIso = calcIso, calcCiS = calcCiS, calcCaS = calcCaS,
                            pval = pval, graphMethod = graphMethod))
   cat("Spectrum number increased after correlation done",
       fill = TRUE)
   if (annotateAdducts == TRUE) {
-    quiet(xsaFA <- findAdducts(xsaFA, rules = adducts, polarity = "positive"))
+    quiet(xsaFA <- CAMERA::findAdducts(xsaFA, rules = adducts, polarity = "positive"))
     cat("Adduct/fragment annotation done", fill = TRUE)
   }
-  peakList <- getPeaklist(xsaFA)
+  peakList <- CAMERA::getPeaklist(xsaFA)
   peakList <- peakList[order(as.numeric(peakList$pcgroup)),
                        ]
   peakList[, 4] <- peakList[, 4]/60
@@ -624,7 +624,7 @@ lcms_sig_peaks_table<-function(
     stop("No MAIT object was given")
   }
 
-  if(length(featureSigID(MAIT.object))==0){
+  if(length(MAIT::featureSigID(MAIT.object))==0){
     stop("No significant features found in the MAIT object. Make sure that functions peakAnnotation and spectralSigFeatures were launched")
   }
 
@@ -653,7 +653,7 @@ lcms_sig_peaks_table<-function(
 
 
   if (length(index)!=0){
-    if (method(MAIT.object)!="None"){
+    if (MAIT::method(MAIT.object)!="None"){
       sigPeaksTable <- peakList[spectraID%in%index,]
     }else{
       sigPeaksTable <- peakList[spectraID%in%unique(spectraID[index]),]
@@ -688,7 +688,7 @@ lcms_sig_peaks_table<-function(
 
     p <- matrix(p,ncol=1)
     if(MAIT.object@FeatureData@pvaluesCorrection==""){MAIT.object@FeatureData@pvaluesCorrection<-"none"}
-    P.adjust <- p.adjust(p,MAIT.object@FeatureData@pvaluesCorrection)
+    P.adjust <- stats::p.adjust(p,MAIT.object@FeatureData@pvaluesCorrection)
 
     pAux <- matrix(ncol=1,nrow=dim(sigPeaksTable)[1])
     pAux.adjust <- matrix(ncol=1,nrow=dim(sigPeaksTable)[1])
@@ -765,7 +765,7 @@ lcms_sig_peaks_table<-function(
       }
 
       allMeans <- merge(means[[1]],means[[2]],by="Fgroups")
-      if(length(rawData(MAIT.object))!=0){
+      if(length(MAIT::rawData(MAIT.object))!=0){
         colnames(allMeans)[2:dim(allMeans)[2]] <- rownames(dat$scores[spectraID%in%unique(spectraID[index]),])[c(1,2)]
       }else{
         colnames(allMeans)[2:dim(allMeans)[2]] <- 1:(dim(allMeans)[2]-1)
@@ -1532,7 +1532,7 @@ lcms_spectral_fun <- function (pvalue=0.05,
   classNum <- classNum(MAIT.object)
   xsaFA <- MAIT.object@RawData@data
   resultsPath <-MAIT.object@PhenoData@resultsPath
-  peakList <- MAIT::getPeaklist(MAIT.object)
+  peakList <- CAMERA::getPeaklist(MAIT.object)
 
   Fgroups <- matrix(nrow=1)
   Fgroups <- rep(clases,classNum)
