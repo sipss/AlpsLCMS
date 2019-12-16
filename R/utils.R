@@ -1,5 +1,4 @@
-# This script has utilities not related to LC-MS.
-
+#' @import MAIT
 #' @importFrom magrittr %>%
 #' @export
 magrittr::`%>%`
