@@ -640,13 +640,13 @@ lcms_sig_peaks_table<-function(
   spectraID <- dat$spectraID
 
 
-  data <- scores(MAIT.object)
-  index <- featureSigID(MAIT.object)
-  classes <- classes(MAIT.object)
-  classNum <- classNum(MAIT.object)
+  data <- MAIT::scores(MAIT.object)
+  index <- MAIT::featureSigID(MAIT.object)
+  classes <- MAIT::classes(MAIT.object)
+  classNum <- MAIT::classNum(MAIT.object)
   resultsPath <- MAIT.object@PhenoData@resultsPath#resultsPath(MAIT.object)
-  Fisher <- LSDResults(MAIT.object)
-  TTs <- pvalues(MAIT.object)
+  Fisher <- MAIT::LSDResults(MAIT.object)
+  TTs <- MAIT::pvalues(MAIT.object)
 
   sigPeaksTable <- matrix(nrow=1,ncol=ncol(peakList))
   colnames(sigPeaksTable) <- colnames(peakList)
@@ -662,8 +662,8 @@ lcms_sig_peaks_table<-function(
 
     p <- matrix(nrow=1,ncol=dim(sigPeaksTable)[1])
     fisher <- matrix(nrow=1,ncol=dim(sigPeaksTable)[1])
-    if(class(classes(MAIT.object))!="logical"|class(classNum(MAIT.object))!="logical"){
-      if(length(classes(MAIT.object))>2){
+    if(class(MAIT::classes(MAIT.object))!="logical"|class(MAIT::classNum(MAIT.object))!="logical"){
+      if(length(MAIT::classes(MAIT.object))>2){
         for(i in c(1:dim(sigPeaksTable)[1])){
           fisher[i] <- Fisher[as.numeric(sigPeaksTable[i,dim(sigPeaksTable)[2]])]
         }
@@ -683,7 +683,7 @@ lcms_sig_peaks_table<-function(
     }
 
 
-    p<-pvalues(MAIT.object)
+    p<-MAIT::pvalues(MAIT.object)
     p <- p[spectraID%in%unique(spectraID[index])]
 
     p <- matrix(p,ncol=1)
@@ -694,7 +694,7 @@ lcms_sig_peaks_table<-function(
     pAux.adjust <- matrix(ncol=1,nrow=dim(sigPeaksTable)[1])
 
 
-    if (method(MAIT.object)!="None"){
+    if (MAIT::method(MAIT.object)!="None"){
       for (i in c(1:dim(sigPeaksTable)[1])){
         if(sum(sigPeaksTable$pcgroup==index)==length(index)){
           pAux[i,] <- unique(p[which(index%in%index[i])])
@@ -713,7 +713,7 @@ lcms_sig_peaks_table<-function(
     sigPeaksTable <- cbind(sigPeaksTable,pAux.adjust,pAux)
 
     sigPeaksTable <- cbind(sigPeaksTable,matrix(fisher,ncol=1))
-    if(length(classes(MAIT.object))>2){
+    if(length(MAIT::classes(MAIT.object))>2){
       colnames(sigPeaksTable)[dim(sigPeaksTable)[2]] <- NamesFisher
     }else{
       colnames(sigPeaksTable)[dim(sigPeaksTable)[2]] <- "Fisher.Test"
@@ -723,7 +723,7 @@ lcms_sig_peaks_table<-function(
 
 
 
-    if(length(rawData(MAIT.object))==0&is.null(sigPeaksTable$adduct)==TRUE){
+    if(length(MAIT::rawData(MAIT.object))==0&is.null(sigPeaksTable$adduct)==TRUE){
       adduct <- character(length=dim(peakList)[1])
       peakList <- data.frame(peakList,adduct)
       adduct <- character(length=dim(sigPeaksTable)[1])
@@ -752,13 +752,13 @@ lcms_sig_peaks_table<-function(
     means <- vector("list",length=length(index))
     medians <- vector("list",length=length(index))
 
-    if(class(classes(MAIT.object))!="logical"|class(classNum(MAIT.object))!="logical"){
-      Fgroups <- as.factor(rep(classes(MAIT.object),classNum(MAIT.object)))
+    if(class(MAIT::classes(MAIT.object))!="logical"|class(MAIT::classNum(MAIT.object))!="logical"){
+      Fgroups <- as.factor(rep(MAIT::classes(MAIT.object),MAIT::classNum(MAIT.object)))
       for(i in c(1:dim(sigPeaksTable)[1])){
-        if(length(rawData(MAIT.object))==0){
+        if(length(MAIT::rawData(MAIT.object))==0){
           ind <- c(3:(dim(sigPeaksTable)[2]-5))
         }else{
-          ind <- c((8+length(classes(MAIT.object))):(dim(sigPeaksTable)[2]-6))
+          ind <- c((8+length(MAIT::classes(MAIT.object))):(dim(sigPeaksTable)[2]-6))
         }
         means[[i]] <- stats::aggregate(as.numeric(sigPeaksTable[i,ind])~Fgroups,FUN=base::mean)
         medians[[i]] <- stats::aggregate(as.numeric(sigPeaksTable[i,ind])~Fgroups,FUN=stats::median)
@@ -773,7 +773,7 @@ lcms_sig_peaks_table<-function(
       if(length(index)>2){
         for(i in c(3:length(means))){
           allMeans <- merge(allMeans,means[[i]],by="Fgroups")
-          if(length(rawData(MAIT.object))!=0){
+          if(length(MAIT::rawData(MAIT.object))!=0){
             colnames(allMeans)[i+1] <-  rownames(dat$scores[spectraID%in%unique(spectraID[index]),])[i]
           }else{
             colnames(allMeans)[i+1]  <- as.numeric(colnames(allMeans)[i])+1
@@ -783,13 +783,13 @@ lcms_sig_peaks_table<-function(
       rownames(allMeans)<-paste("Mean Class",allMeans[,1])
 
       temp<-as.data.frame(t(allMeans[,-1]))
-      for(i in c(1:length(classes(MAIT.object)))){
+      for(i in c(1:length(MAIT::classes(MAIT.object)))){
         temp[,i]<-as.numeric(as.character(temp[,i]))
       }
 
-      if(length(rawData(MAIT.object))!=0){rownames(temp)<-NULL}
+      if(length(MAIT::rawData(MAIT.object))!=0){rownames(temp)<-NULL}
       allMedians <- merge(medians[[1]],medians[[2]],by="Fgroups")
-      if(length(rawData(MAIT.object))!=0){
+      if(length(MAIT::rawData(MAIT.object))!=0){
         colnames(allMedians)[2:dim(allMedians)[2]] <- rownames(dat$scores[spectraID%in%unique(spectraID[index]),])[c(1,2)]
       }else{
         colnames(allMedians)[2:dim(allMedians)[2]] <- 1:(dim(allMedians)[2]-1)
@@ -797,7 +797,7 @@ lcms_sig_peaks_table<-function(
       if(length(index)>3){
         for(i in c(3:length(medians))){
           allMedians <- merge(allMedians,medians[[i]],by="Fgroups")
-          if(length(rawData(MAIT.object))!=0){
+          if(length(MAIT::rawData(MAIT.object))!=0){
             colnames(allMedians)[i+1] <-  rownames(dat$scores[spectraID%in%unique(spectraID[index]),])[i]
           }else{
             colnames(allMedians)[i+1]  <- as.numeric(colnames(allMedians)[i])+1
@@ -808,11 +808,11 @@ lcms_sig_peaks_table<-function(
       rownames(allMedians)<-paste("Median Class",allMedians[,1])
 
       tempMed<-as.data.frame(t(allMedians[,-1]))
-      for(i in c(1:length(classes(MAIT.object)))){
+      for(i in c(1:length(MAIT::classes(MAIT.object)))){
         tempMed[,i]<-as.numeric(as.character(tempMed[,i]))
       }
       sigPeaksTable <- cbind(sigPeaksTable,temp,tempMed)
-      if(length(rawData(MAIT.object))!=0){rownames(tempMed)<-NULL}
+      if(length(MAIT::rawData(MAIT.object))!=0){rownames(tempMed)<-NULL}
     }else{
       temp <- matrix(rep(NA,dim(sigPeaksTable)[1]),ncol=1)
       tempMed <- matrix(rep(NA,dim(sigPeaksTable)[1]),ncol=1)
