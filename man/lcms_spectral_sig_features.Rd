@@ -85,6 +85,7 @@ print(peak_table_sig_ann)
 Other metabolite identification functions: \code{\link{lcms_identify_metabolites}},
   \code{\link{lcms_peak_annotation}},
   \code{\link{lcms_peak_table_boxplots}},
+  \code{\link{lcms_peak_table_pca}},
   \code{\link{lcms_raw_data}},
   \code{\link{lcms_sig_peaks_table}},
   \code{\link{lcms_to_mait}},
