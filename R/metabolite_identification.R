@@ -488,8 +488,34 @@ lcms_peak_aggregation<-function(MAIT.object=NULL,
   }
   idGroup <- aux$spectraID
 
+  removeOnePeakSpectra <- function(data,
+                                   idGroup){
+    data <- as.data.frame(data)
+    index<-idGroup[which(diff(idGroup)!=0)]
+    spectra <- matrix(nrow=1,ncol=ncol(data))
+    peaks <- vector(length=1)
+
+    if(idGroup[length(idGroup)]!=idGroup[length(idGroup)-1]){
+      index<-c(index,idGroup[length(idGroup)])
+    }
+
+    for (i in c(1:length(index))){
+      spec <- as.matrix(data[which(index[i]==idGroup),])
+      if(dim(spec)[1]>1){
+        spectra <- rbind(spectra,spec)
+        peaks <- c(peaks,rep(index[i],length(which(index[i]==idGroup))))
+      }
+    }
+    spectra <- spectra[-1,]
+    peaks <- peaks[-1]
+    out <- list(spectra,peaks)
+    names(out) <- c("spectra","idGroup")
+    return(out)
+  }
+
+
   if(RemoveOnePeakSpectra==TRUE){
-    dataWithNoOnePeakSpectra <- MAIT::removeOnePeakSpectra(data=data,
+    dataWithNoOnePeakSpectra <- removeOnePeakSpectra(data=data,
                                                      idGroup=idGroup)
     data <- dataWithNoOnePeakSpectra$spectra
     idGroup <- dataWithNoOnePeakSpectra$idGroup
@@ -1386,13 +1412,29 @@ lcms_spectral_anova <- function (pvalue=0.05,
 
   Tresults <- matrix(ncol=1,nrow=as.numeric(peakList$pcgroup[dim(peakList)[1]]))
 
+
+  FisherLSD <- function(data,classes,index,DFerror,MSerror,numClasses){
+    LSD <- agricolae::LSD.test(y=data[index,],trt=classes,DFerror=DFerror,MSerror=MSerror);
+    LSD$groups$trt<- rownames(LSD$groups)
+    LSD$groups$M<- LSD$groups$groups
+    LSD <- LSD$groups[order(LSD$groups$trt),]
+    groups <- paste(LSD$M[1],LSD$M[2],sep=" ")
+    for (i in c(3:(numClasses))){
+      groups <- paste(groups,LSD$M[i],sep=" ")
+    }
+    out <- list(LSD$trt,groups,LSD$means)
+    names(out) <- c("trt","group","means")
+    return(out)
+  }
+
+
   for (i in c(1:dim(data)[1])){
     lmdata <- as.vector(t(data[i,]))
     numbers <- classNum
     names(numbers) <- clases
     model <- stats::lm(lmdata~Fgroups)
     an <- stats::anova(model)
-    Fisher[i] <- MAIT::FisherLSD(data=data,DFerror=an$Df[2],MSerror=an$Mean[2],index=i,classes=Fgroups,numClasses=length(classNum))[[2]]
+    Fisher[i] <- FisherLSD(data=data,DFerror=an$Df[2],MSerror=an$Mean[2],index=i,classes=Fgroups,numClasses=length(classNum))[[2]]
     TTs[i] <- an$Pr[1]
   }
   MAIT.object@FeatureData@pvalues <- TTs
