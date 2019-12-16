@@ -619,7 +619,7 @@ lcms_sig_peaks_table<-function(
   extendedTable=TRUE,
   printAnnotation=TRUE){
 
-  median = NULL
+  #median = NULL
   if (is.null(MAIT.object)) {
     stop("No MAIT object was given")
   }
@@ -628,7 +628,7 @@ lcms_sig_peaks_table<-function(
     stop("No significant features found in the MAIT object. Make sure that functions peakAnnotation and spectralSigFeatures were launched")
   }
 
-  dat <- getScoresTable(MAIT.object,getSpectra=TRUE,getExtendedTable=TRUE)
+  dat <- MAIT::getScoresTable(MAIT.object,getSpectra=TRUE,getExtendedTable=TRUE)
 
   if(printAnnotation==TRUE){extendedTable<-TRUE}
 
