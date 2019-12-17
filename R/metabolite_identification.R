@@ -131,7 +131,7 @@ lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, p
   if (!is.null(project_dir)) {
     resultsPath <- paste(project_dir, paste("results", project, sep = "_"), sep ="/")
     if (any(base::dir.exists(resultsPath))) {
-      cat("There are already directories / files in the folder. Not saving new ones.")
+      #cat("There are already directories / files in the folder. Not saving new ones.")
       cat("\n")
     }else{
       base::dir.create(resultsPath)
@@ -287,8 +287,8 @@ MAITtables <- NULL
     }
     else {
       cat(" ", fill = TRUE)
-      warning(paste("Warning: Folder", paste(resultsPath,
-                                             "tables", sep = "/"), "already exists. Possible file overwritting."))
+      #warning(paste("Warning: Folder", paste(resultsPath,
+      #                                       "tables", sep = "/"), "already exists. Possible file overwritting."))
     }
     if (resultsPath == "") {
       writeExcelTable(file = tab, file.name = "tables/spectra")
@@ -851,7 +851,7 @@ lcms_sig_peaks_table<-function(
         dir.create(paste(resultsPath,"tables",sep="/"))
       }else{
         cat(" " ,fill=TRUE)
-        warning(paste("Folder",paste(resultsPath,"tables",sep="/"),"already exists. Possible file overwritting.",sep=" "))
+        #warning(paste("Folder",paste(resultsPath,"tables",sep="/"),"already exists. Possible file overwritting.",sep=" "))
       }
       utils::write.csv(x=sigPeaksTable,file=paste(resultsPath,"tables/significantFeatures.csv",sep="/"),row.names=FALSE)
     }
@@ -1080,7 +1080,7 @@ lcms_identify_metabolites <- function(MAIT.object=NULL,
     }else{
 
       cat(" " ,fill=TRUE)
-      cat(paste("Warning: Folder",paste(resultsPath,"tables",sep="/"),"already exists. Possible file overwritting.",sep=" "),fill=TRUE)
+      #cat(paste("Warning: Folder",paste(resultsPath,"tables",sep="/"),"already exists. Possible file overwritting.",sep=" "),fill=TRUE)
       #warning(paste("Folder",paste(resultsPath,"tables",sep="/"),"already exists. Possible file overwritting.",sep=" "))
       utils::write.table(metaboliteTable,paste(paste( MAIT.object@PhenoData@resultsPath,"tables","metaboliteTable",sep="/"),".csv",sep=""),col.names=NA,row.names=TRUE,sep=",")
 
@@ -1660,9 +1660,9 @@ lcms_peak_table_boxplots <- function (MAIT.object = NULL, treatment_col) {
     dir.create(paste(resultsPath, "Boxplots", sep = "/"))
   }else {
     cat(" ", fill = TRUE)
-    cat(paste("Warning: Folder", paste(resultsPath, "Boxplots",
-                                       sep = "/"), "already exists. Possible file overwritting.",
-              sep = " "), fill = TRUE)
+    #cat(paste("Warning: Folder", paste(resultsPath, "Boxplots",
+    #                                   sep = "/"), "already exists. Possible file overwritting.",
+    #          sep = " "), fill = TRUE)
   }
   for (i in c(1:length(index))) {
     peaks_df <- data.frame(peaks = aux[,i],
@@ -1760,9 +1760,9 @@ lcms_peak_table_pca <- function (MAIT.object = NULL,treatment_col, Log = FALSE, 
     dir.create(paste(resultsPath, "PCA", sep = "/"))
   }else {
     cat(" ", fill = TRUE)
-    cat(paste("Warning: Folder", paste(resultsPath, "pca_results",
-                                       sep = "/"), "already exists. Possible file overwritting.",
-              sep = " "), fill = TRUE)
+    #cat(paste("Warning: Folder", paste(resultsPath, "pca_results",
+    #                                   sep = "/"), "already exists. Possible file overwritting.",
+    #         sep = " "), fill = TRUE)
   }
 
 

@@ -702,8 +702,8 @@ lcms_rearrange_datafiles_by_class <- function(dataset, dataDir) {
     foldname <-names(filetreat_info)[i]
     treatDir <- paste0(dataDir, "/", foldname, "/")
     if (length(dir(treatDir)) > 0) {
-      cat("There are already directories / files in the folder. Not saving new ones.")
-      cat("\n")
+      #cat("There are already directories / files in the folder. Not saving new ones.")
+      #cat("\n")
       return()
     }else{
       dir.create(treatDir)
