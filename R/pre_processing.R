@@ -557,8 +557,8 @@ lcms_plot_chrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
   message("Make sure that the column that contains the group class is called `treatment`")
 
   #we need to modify this in order to be more flexible (treatment_col)
-  ret_times <- lapply(chromatogram_object, FUN = rtime)
-  intensities <- lapply(chromatogram_object, FUN = intensity)
+  ret_times <- lapply(chromatogram_object, FUN = MSnbase::rtime)
+  intensities <- lapply(chromatogram_object, FUN = MSnbase::intensity)
 
   graphics::plot(ret_times[[1]] / min2sec, intensities[[1]], type = "l",
        col = treatment_col[chromatogram_object$treatment][1], lwd = 1,
