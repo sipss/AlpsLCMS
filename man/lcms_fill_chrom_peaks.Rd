@@ -17,13 +17,11 @@ In the imputation stage, we integrate the areas of the missing peaks of the peak
 that were not detected in the previous steps of the signal preprocessing workflow.
 }
 \examples{
-\dontrun{
 file_name <-  system.file("extdata", "peak_table.rds", package = "NIHSlcms")
 peak_table <- base::readRDS(file_name)
 peak_table_imputed <- lcms_fill_chrom_peaks(peak_table)
 
 print(peak_table_imputed)
-}
 }
 \seealso{
 Other dataset functions: \code{\link{lcms_align_rtime}},

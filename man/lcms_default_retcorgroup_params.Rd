@@ -30,9 +30,7 @@ algorithms using the IPO Package.
 Use this function to create the template within \code{lcms_corgroup_optimization} function.
 }
 \examples{
-\dontrun{
 default_retcorgroup_params <- lcms_default_retcorgroup_params(optimize = TRUE)
 print(default_retcorgroup_params)
-}
 }
 \concept{optimization functions.}

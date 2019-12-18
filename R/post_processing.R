@@ -17,7 +17,6 @@
 #' @family data visualization functions
 #' @export
 #' @examples
-#' \dontrun{
 #' path_result <-  system.file("extdata","results_project","tables","metaboliteTable.csv", package = "NIHSlcms")
 #' plots <- lcms_plot_metabolites(path_result, biofluid_type = "Any",
 #'                                    significance = 0.05,
@@ -26,7 +25,6 @@
 #' plots$cloud
 #'
 #' plots$freq
-#' }
 
 lcms_plot_metabolites <- function(path_result, biofluid_type = "Any",
                                       significance = 0.05,

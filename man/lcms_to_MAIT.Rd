@@ -30,7 +30,6 @@ Function to create a MAIT object using data from xcms.
 to an object of the MAIT Package.
 }
 \examples{
-\dontrun{
 file_name <-  system.file("extdata", "peak_table_imputed.rds", package = "NIHSlcms")
 peak_table <- base::readRDS(file_name)
 opt_result_path <-  system.file("extdata", package = "NIHSlcms")
@@ -46,7 +45,6 @@ peak_table_mait <- lcms_to_mait(data_dir = data_dir,
                                 preproc_params = preproc_params,
                                 peak_table = peak_table)
 print(peak_table_mait)
-}
 }
 \seealso{
 Other metabolite identification functions: \code{\link{lcms_identify_metabolites}},

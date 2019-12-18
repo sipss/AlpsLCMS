@@ -19,13 +19,11 @@ The function converts seconds into minutes to cut and keep
 a range of the retention time in minutes.
 }
 \examples{
-\dontrun{
 rtime_range = c(5,10)
 dataset <- lcms_dataset_load(system.file("extdata","dataset_pos.rds",package = "NIHSlcms"))
 dataset_pos_rt <-lcms_filter_rt_min(dataset, rt = rtime_range)
 
 print(dataset_pos_rt)
-}
 }
 \seealso{
 Other dataset functions: \code{\link{lcms_align_rtime}},

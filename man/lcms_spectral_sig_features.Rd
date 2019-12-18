@@ -71,7 +71,6 @@ Depending on the number of classes in the data, the function chooses between
 using ANOVA test or T-Student test.
 }
 \examples{
-\dontrun{
 file_name <-  system.file("extdata", "peak_table_ann.rds", package = "NIHSlcms")
 peak_table <- base::readRDS(file_name)
 peak_table_sig_ann <- lcms_spectral_sig_features(MAIT.object = peak_table,
@@ -79,7 +78,6 @@ peak_table_sig_ann <- lcms_spectral_sig_features(MAIT.object = peak_table,
                                           p.adj="none",
                                           scale=FALSE)
 print(peak_table_sig_ann)
-}
 }
 \seealso{
 Other metabolite identification functions: \code{\link{lcms_identify_metabolites}},

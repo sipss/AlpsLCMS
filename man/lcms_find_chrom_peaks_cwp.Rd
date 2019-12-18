@@ -29,7 +29,6 @@ Note: signal processing generally  consists in three main steps:
 The optimized set of parameters for this signal preprocessing can be obatained from \code{IPO} Package.
 }
 \examples{
-\dontrun{
 file_path <- system.file("extdata", "rearrange_mait", package = "NIHSlcms")
 samples_mzxml <- list.files(file_path, recursive = TRUE, full.names = TRUE)
 meta_path <- system.file("extdata", "metadata.xlsx", package = "NIHSlcms")
@@ -42,7 +41,6 @@ dataset_meta <- lcms_meta_add(dataset, metadata, by = "sampleNames")
 
 peakdet <- lcms_find_chrom_peaks_cwp(dataset_meta, params = preproc_params)
 print(peakdet)
-}
 }
 \seealso{
 Other dataset functions: \code{\link{lcms_align_rtime}},

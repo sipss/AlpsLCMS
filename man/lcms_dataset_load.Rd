@@ -16,11 +16,9 @@ A lcms_dataset.
 Function to load a lcms_dataset object.
 }
 \examples{
-\dontrun{
 file_name <- system.file("extdata", "dataset.rds", package = "NIHSlcms")
 dataset <- lcms_dataset_load(file_name)
 print(dataset)
-}
 }
 \seealso{
 Other dataset functions: \code{\link{lcms_align_rtime}},

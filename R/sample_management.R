@@ -8,7 +8,6 @@
 #' @family import/export functions
 #' @export
 #' @examples
-#' \dontrun{
 #' file_path <- system.file("extdata", package = "NIHSlcms")
 #' rawconverter <- NULL
 #' file_format <- "mzXML"
@@ -19,7 +18,6 @@
 #' dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
 #'
 #' print(dataset)
-#' }
 
 lcms_read_samples <- function(...){
   dataset <- MSnbase::readMSData(...)
@@ -39,7 +37,6 @@ lcms_read_samples <- function(...){
 #' @family dataset functions
 #' @export
 #' @examples
-#' \dontrun{
 #' dataset <- lcms_dataset_load(system.file
 #'                                   ("extdata","dataset.rds",
 #'                                   package = "NIHSlcms"))
@@ -52,7 +49,6 @@ lcms_read_samples <- function(...){
 #'                                metadata,
 #'                                by = "sampleNames")
 #' print(dataset_metadata)
-#' }
 lcms_meta_add <- function(object, metadata, by = "sampleNames") {
 
   #making robust the metadata (remove strange characters and separators and numbers as a first characters)
@@ -86,11 +82,9 @@ lcms_meta_add <- function(object, metadata, by = "sampleNames") {
 #' @family import/export functions
 #' @export
 #' @examples
-#' \dontrun{
 #' file_name <- system.file("extdata", "dataset.rds", package = "NIHSlcms")
 #' dataset <- lcms_dataset_load(file_name)
 #' print(dataset)
-#' }
 
 lcms_dataset_load <- function(file_name) {
   dataset <-base::readRDS(file_name)
@@ -109,12 +103,10 @@ lcms_dataset_load <- function(file_name) {
 #' @family import/export functions
 #' @export
 #' @examples
-#' \dontrun{
 #' dataset <- lcms_dataset_load(system.file("extdata", "dataset.rds", package = "NIHSlcms"))
 #' file_name <- "dataset.rds"
 #' lcms_dataset_save(dataset, file_name)
 #' print(dataset)
-#' }
 lcms_dataset_save <- function(dataset, file_name, ...) {
   lcms_diagnose(dataset) <- NULL
   saveRDS(dataset, file_name)
@@ -133,7 +125,6 @@ lcms_dataset_save <- function(dataset, file_name, ...) {
 #' @family import/export functions
 #' @export
 #' @examples
-#' \dontrun{
 #' dataset_metadata <- lcms_dataset_load(system.file("extdata",
 #'                                              "dataset_metadata.rds",
 #'                                               package = "NIHSlcms"))
@@ -142,7 +133,6 @@ lcms_dataset_save <- function(dataset, file_name, ...) {
 #'
 #' lcms_meta_export(dataset_metadata, xlsx_file)
 #' print(dataset_metadata)
-#' }
 lcms_meta_export <- function(dataset,
                              xlsx_file) {
   groups_present <- phData(dataset)
@@ -159,12 +149,10 @@ lcms_meta_export <- function(dataset,
 #' @family import/export functions
 #' @export
 #' @examples
-#' \dontrun{
 #' metadata <- lcms_meta_read(system.file("extdata",
 #'                                              "metadata.xlsx",
 #'                                               package = "NIHSlcms"))
 #' print(metadata[1:6])
-#' }
 lcms_meta_read <- function(xlsx_file) {
   meta <- readxl::read_excel(xlsx_file)
   meta
@@ -187,7 +175,6 @@ lcms_meta_read <- function(xlsx_file) {
 #' @family import/export functions
 #' @export
 #' @examples
-#' \dontrun{
 #' dataset <- lcms_dataset_load(system.file("extdata",
 #'                                          "dataset.rds",
 #'                                           package = "NIHSlcms"))
@@ -196,7 +183,6 @@ lcms_meta_read <- function(xlsx_file) {
 #' dataset_metadata <- lcms_meta_add(dataset, metadata, by = "sampleNames")
 #'
 #' head(phData(dataset_metadata))[1:4]
-#' }
 phData <- function (object) {
   Biobase::pData(object)
 }
