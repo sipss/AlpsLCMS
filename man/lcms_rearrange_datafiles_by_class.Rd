@@ -20,8 +20,8 @@ Although Data Preprocessing can be performed using any
 filepath with the \code{XCMS} Package, it is convenient to
 rearrange data files by sample class (that is, all the
 samples belonging to the same sample class are included
-in the same folder). We do this because, after the
-Preprocessing stage, the \code{MAIT} Package takes care
+in the same folder). This is done because, after the
+preprocessing stage, \code{MAIT} Package takes care
 of Data Annotation and Metabolite Identification. \code{MAIT}
 needs a specific directory structure for data managing.
 Otherwise, it can't work properly.

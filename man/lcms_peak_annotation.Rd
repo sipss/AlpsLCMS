@@ -66,12 +66,11 @@ If it is set to TRUE, the function will perform an adduct annotation stage.
 A MAIT-class object with xsAnnotate-class in the rawData slot.
 }
 \description{
-The \code{MAIT} Package allows to annotate the peaks of the peak table provided by \code{XCMS}.
-This is done in three different stages:
+The \code{NIHSlcms} Package allows to annotate the peaks of the peak table provided by \code{XCMS}.
+This is done in two different stages:
 \itemize{
 \item Annotation with \code{CAMERA}.
 \item Annotation using predefined biotransformation.
-\item Annotation using the Human Metabolome Database (HMDB).
 }
 }
 \details{

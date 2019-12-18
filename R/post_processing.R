@@ -5,7 +5,7 @@
 #' Unknown metabolites can be removed.
 #' After that, the results the results are plotted using a word cloud. The lower the p-value, the higher the font size
 #' of the metabolite.
-#' Additionally we plot the a bar plot corresponding to the number of metabolites candidates associated to a single compound.
+#' Additionally, we plot the a bar plot corresponding to the number of metabolites candidates associated to a single compound.
 #'
 #' @param path_result The folder where the .csv file where the annotated table of metabolites is stored
 #' @param biofluid_type Filters the results by biofludid type.

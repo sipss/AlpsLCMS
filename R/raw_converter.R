@@ -193,8 +193,8 @@ install_RawConverter <- function(rawconverter, force = FALSE) {
 #' RawConverter uses the ThermoFisher tool MSFileReader that takes care of the
 #' decryption.
 #'
-#' Installing that tool may not be straightforward on all OS, so we provide some
-#' helpers.
+#' Installing that tool may not be straightforward on all OS, so some
+#' helpers are provided to the user.
 #'
 #' On non-Windows systems:
 #'   You will need wine and winetricks installed. Then call `install_RawConverter("/your/installation/directory")`

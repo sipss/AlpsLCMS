@@ -15,7 +15,7 @@ lcms_filter_rt_min(dataset, rt = c(4, 14))
 A filtered lcms_dataset with the selected retention time range.
 }
 \description{
-The function converts seconds into minutes to cut and keep
+This function converts seconds into minutes to cut and keep
 a range of the retention time in minutes.
 }
 \examples{

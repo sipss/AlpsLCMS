@@ -163,11 +163,10 @@ lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, p
 
 #' Peak Annotation
 #'
-#' The `MAIT` Package allows to annotate the peaks of the peak table provided by `XCMS`.
-#' This is done in three different stages:
+#' The `NIHSlcms` Package allows to annotate the peaks of the peak table provided by `XCMS`.
+#' This is done in two different stages:
 #' * Annotation with `CAMERA`.
 #' * Annotation using predefined biotransformation.
-#' * Annotation using the Human Metabolome Database (HMDB).
 #'
 #' *Note: The dataset must be converted from an object of the XCMS Package
 #' to an object of the MAIT Package.

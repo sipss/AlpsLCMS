@@ -1,8 +1,8 @@
 #' Default parameters for peak picking optimization
 #'
 #' The function creates default parameters for optimizing
-#' peakpicking algorithms.We perform parameter optimization
-#' on the XCMS preprocessing algorithms using the IPO Package.
+#' peakpicking algorithms.Parameter optimization
+#' on the XCMS preprocessing algorithms was performed using the IPO Package.
 #' This includes Peak Detection (‘Centwave’),
 #' Retention Time Correction (‘obiwarp’) and Peak Correspondence
 #' (‘Density’). Use this function to generate the template within the
@@ -126,8 +126,8 @@ lcms_peakpicking_optimization <- function (dataset, peakpickingParameters,
 #'
 #' The function creates default parameters for optimizing
 #' retention time correction and grouping algorithms.
-#' We perform parameter optimization on the XCMS preprocessing
-#' algorithms using the IPO Package.
+#' Parameter optimization on the XCMS preprocessing
+#' algorithms is performed using the IPO Package.
 #' Use this function to create the template within `lcms_corgroup_optimization` function.
 #'
 #' @param profStep set the m/z step for generating profile (matrix) data from raw mass spectral data.
@@ -310,7 +310,7 @@ lcms_write_opt_params<- function(results_pp,
 #' Read IPO parameters to XCMS format
 #'
 #' The function reads and converts from `IPO` to `XCMS` variable formats: The variable names in IPO and XCMS
-#' presented some mismatches, thus we had to create a function called *lcms_read_ipo_to_xcms*
+#' presented some mismatches, the function *lcms_read_ipo_to_xcms* was created
 #' to achieve compatibility between packages when reading these parameters from a .csv file.
 #'
 #' @param opt_result_path A directory where the parameters file is stored.
@@ -356,7 +356,7 @@ lcms_read_ipo_to_xcms <- function(opt_result_path){
 #' Converts IPO parameters to XCMS format
 #'
 #' The function converts from `IPO` to `XCMS` variable formats: The variable names in IPO and XCMS
-#' presented some mismatches, thus we had to create a function called *lcms_convert_ipo_to_xcms*
+#' presented some mismatches, thus the function *lcms_convert_ipo_to_xcms* was created
 #' to achieve compatibility between packages when these parameters are stored in a list.
 #'
 #' @param params A list with the IPO parameters, generated with the `lcms_write_opt_params` function.

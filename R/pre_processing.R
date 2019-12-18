@@ -54,7 +54,7 @@ lcms_filter_mz <- function(dataset, mz){
 
 #' Filter by retention time
 #'
-#' The function converts seconds into minutes to cut and keep
+#' This function converts seconds into minutes to cut and keep
 #' a range of the retention time in minutes.
 #'
 #' @param dataset A lcms_dataset filtered by retention time.
@@ -327,8 +327,8 @@ lcms_group_peaks <- function (peakdet_align, params) {
 
 #' Filling missing values in a peak table
 #'
-#' In the imputation stage, we integrate the areas of the missing peaks of the peak table
-#' that were not detected in the previous steps of the signal preprocessing workflow.
+#' In the imputation stage, the areas of the missing peaks of the peak table
+#' that were not detected in the previous steps of the signal preprocessing workflow were integrated.
 #'
 #' @param peak_table A table of peaks with (possibly) missing values.
 #' @return A peak table where the missing peaks have been filled.
@@ -626,8 +626,8 @@ lmcs_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE
 #' filepath with the `XCMS` Package, it is convenient to
 #' rearrange data files by sample class (that is, all the
 #' samples belonging to the same sample class are included
-#' in the same folder). We do this because, after the
-#' Preprocessing stage, the `MAIT` Package takes care
+#' in the same folder). This is done because, after the
+#' preprocessing stage, `MAIT` Package takes care
 #' of Data Annotation and Metabolite Identification. `MAIT`
 #' needs a specific directory structure for data managing.
 #' Otherwise, it can't work properly.

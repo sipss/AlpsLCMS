@@ -13,8 +13,8 @@ lcms_fill_chrom_peaks(peak_table)
 A peak table where the missing peaks have been filled.
 }
 \description{
-In the imputation stage, we integrate the areas of the missing peaks of the peak table
-that were not detected in the previous steps of the signal preprocessing workflow.
+In the imputation stage, the areas of the missing peaks of the peak table
+that were not detected in the previous steps of the signal preprocessing workflow were integrated.
 }
 \examples{
 file_name <-  system.file("extdata", "peak_table.rds", package = "NIHSlcms")

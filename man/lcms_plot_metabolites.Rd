@@ -28,7 +28,7 @@ These metabolites can be filtered by biofluid and are sorted by p-value in ascen
 Unknown metabolites can be removed.
 After that, the results the results are plotted using a word cloud. The lower the p-value, the higher the font size
 of the metabolite.
-Additionally we plot the a bar plot corresponding to the number of metabolites candidates associated to a single compound.
+Additionally, we plot the a bar plot corresponding to the number of metabolites candidates associated to a single compound.
 }
 \examples{
 path_result <-  system.file("extdata","results_project","tables","metaboliteTable.csv", package = "NIHSlcms")

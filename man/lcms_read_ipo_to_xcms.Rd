@@ -14,7 +14,7 @@ A display of the chosen parameters.
 }
 \description{
 The function reads and converts from \code{IPO} to \code{XCMS} variable formats: The variable names in IPO and XCMS
-presented some mismatches, thus we had to create a function called \emph{lcms_read_ipo_to_xcms}
+presented some mismatches, the function \emph{lcms_read_ipo_to_xcms} was created
 to achieve compatibility between packages when reading these parameters from a .csv file.
 }
 \examples{

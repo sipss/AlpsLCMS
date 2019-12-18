@@ -14,7 +14,7 @@ Parameters in XCMS format
 }
 \description{
 The function converts from \code{IPO} to \code{XCMS} variable formats: The variable names in IPO and XCMS
-presented some mismatches, thus we had to create a function called \emph{lcms_convert_ipo_to_xcms}
+presented some mismatches, thus the function \emph{lcms_convert_ipo_to_xcms} was created
 to achieve compatibility between packages when these parameters are stored in a list.
 }
 \examples{

@@ -25,8 +25,8 @@ A parameters template for retention time correction and grouping optimization
 \description{
 The function creates default parameters for optimizing
 retention time correction and grouping algorithms.
-We perform parameter optimization on the XCMS preprocessing
-algorithms using the IPO Package.
+Parameter optimization on the XCMS preprocessing
+algorithms is performed using the IPO Package.
 Use this function to create the template within \code{lcms_corgroup_optimization} function.
 }
 \examples{

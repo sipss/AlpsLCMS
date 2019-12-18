@@ -27,8 +27,8 @@ A parameters template for peak picking optimization
 }
 \description{
 The function creates default parameters for optimizing
-peakpicking algorithms.We perform parameter optimization
-on the XCMS preprocessing algorithms using the IPO Package.
+peakpicking algorithms.Parameter optimization
+on the XCMS preprocessing algorithms was performed using the IPO Package.
 This includes Peak Detection (‘Centwave’),
 Retention Time Correction (‘obiwarp’) and Peak Correspondence
 (‘Density’). Use this function to generate the template within the
