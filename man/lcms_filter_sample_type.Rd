@@ -33,6 +33,7 @@ The function can distinguish and filter different samples types:
 }
 }
 \examples{
+\dontrun{
 dataset <- lcms_dataset_load(system.file("extdata","dataset_pos_rt.rds",package = "NIHSlcms"))
 especial_samples <- list(QC = NULL, blank = NULL)
 datasets_by_class_type <- lcms_filter_sample_type(dataset, especial_samples)
@@ -43,6 +44,7 @@ dataset_pos_rt_bks <- datasets_by_class_type$blanks
 print(dataset_pos_rt_rs)
 print(dataset_pos_rt_qcs)
 print(dataset_pos_rt_bks)
+}
 }
 \seealso{
 Other dataset functions: \code{\link{lcms_align_rtime}},

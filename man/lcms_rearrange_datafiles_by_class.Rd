@@ -27,6 +27,7 @@ needs a specific directory structure for data managing.
 Otherwise, it can't work properly.
 }
 \examples{
+\dontrun{
 file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "NIHSlcms")
 dataset <- lcms_dataset_load(file_name)
 path <- system.file("extdata","rearrange_mait", package = "NIHSlcms")
@@ -35,6 +36,7 @@ lcms_rearrange_datafiles_by_class(dataset = dataset,
 fileList = list.files(path = paste(path, list.files(path = path),
                            sep = "/"), full.names = TRUE)
 print(fileList)
+}
 }
 \seealso{
 Other dataset functions: \code{\link{lcms_align_rtime}},

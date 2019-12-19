@@ -18,6 +18,7 @@ The Excel file name.
 Export Metadata to an Excel file.
 }
 \examples{
+\dontrun{
 dataset_metadata <- lcms_dataset_load(system.file("extdata",
                                              "dataset_metadata.rds",
                                               package = "NIHSlcms"))
@@ -26,6 +27,7 @@ xlsx_file <- paste0(system.file("extdata",package = "NIHSlcms"),
 
 lcms_meta_export(dataset_metadata, xlsx_file)
 print(dataset_metadata)
+}
 }
 \seealso{
 Other metadata functions: \code{\link{lcms_meta_add}},

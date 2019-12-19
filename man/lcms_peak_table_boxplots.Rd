@@ -19,6 +19,7 @@ It performs boxplots for any of significant features found in a peak table. All 
 boxplots are stored in a directory /Boxplots/Boxplot_spectra_.
 }
 \examples{
+\dontrun{
 file_name_1 <-  system.file("extdata","peak_table_sig_ann.rds", package = "NIHSlcms")
 peak_table <- base::readRDS(file_name_1)
 file_name_2 <-  system.file("extdata","dataset_pos_rt_rs.rds", package = "NIHSlcms")
@@ -26,7 +27,7 @@ dataset <-  base::readRDS(file_name_2)
 treatment_col <- scales::hue_pal()(length(unique(dataset$treatment)))
 lcms_peak_table_boxplots(peak_table,
                          treatment_col = treatment_col)
-
+}
 }
 \seealso{
 Other metabolite identification functions: \code{\link{lcms_identify_metabolites}},

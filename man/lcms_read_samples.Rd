@@ -44,6 +44,7 @@ A lcms_dataset.
 Read LCMS samples on mzXML format.
 }
 \examples{
+\dontrun{
 file_path <- system.file("extdata", package = "NIHSlcms")
 rawconverter <- NULL
 file_format <- "mzXML"
@@ -54,6 +55,7 @@ samples_mzxml <- as.character(samples_mzxml)
 dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
 
 print(dataset)
+}
 }
 \seealso{
 Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},

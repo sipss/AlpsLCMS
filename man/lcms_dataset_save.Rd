@@ -17,10 +17,12 @@ lcms_dataset_save(dataset, file_name, ...)
 Function to save a lcms_dataset object.
 }
 \examples{
+\dontrun{
 dataset <- lcms_dataset_load(system.file("extdata", "dataset.rds", package = "NIHSlcms"))
 file_name <- "dataset.rds"
 lcms_dataset_save(dataset, file_name)
 print(dataset)
+}
 }
 \seealso{
 Other dataset functions: \code{\link{lcms_align_rtime}},

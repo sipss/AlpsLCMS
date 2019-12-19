@@ -16,10 +16,12 @@ A dataframe with the metadata.
 Reads metadata from an Excel file.
 }
 \examples{
+\dontrun{
 metadata <- lcms_meta_read(system.file("extdata",
                                              "metadata.xlsx",
                                               package = "NIHSlcms"))
 print(metadata[1:6])
+}
 }
 \seealso{
 Other metadata functions: \code{\link{lcms_meta_add}},

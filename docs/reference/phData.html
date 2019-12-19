@@ -70,7 +70,7 @@ metadata, covariates, etc..." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
       </span>
     </div>
 
@@ -179,7 +179,7 @@ tags (e.g., unit of measurement) as columns.</p>
                                          <span class='st'>"dataset.rds"</span>,
                                           <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
 <span class='no'>xlsx_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"exported_metadata.xlsx"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
-<span class='no'>metadata</span><span class='kw'>&lt;-</span> <span class='kw pkg'>readxl</span><span class='kw ns'>::</span><span class='fu'><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_excel</a></span>(<span class='no'>xlsx_file</span>)
+<span class='no'>metadata</span><span class='kw'>&lt;-</span> <span class='kw pkg'>readxl</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/readxl/man/read_excel.html'>read_excel</a></span>(<span class='no'>xlsx_file</span>)
 <span class='no'>dataset_metadata</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_meta_add.html'>lcms_meta_add</a></span>(<span class='no'>dataset</span>, <span class='no'>metadata</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"sampleNames"</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>phData</span>(<span class='no'>dataset_metadata</span>))[<span class='fl'>1</span>:<span class='fl'>4</span>]</div><div class='output co'>#&gt;               sampleNames       Sample Name Protocol REF...3

@@ -23,6 +23,7 @@ Total Ion Count (TIC) for the polarity samples.
 The function performs a plot with the Total Ion Count (TIC).
 }
 \examples{
+\dontrun{
 dataset <- lcms_dataset_load(system.file
                                   ("extdata","dataset_pos.rds",
                                     package = "NIHSlcms"))
@@ -33,6 +34,7 @@ lcms_plot_tics(tics, treatment = treatment,
 
 lcms_plot_tics(tics, treatment = treatment,
                rt = c(4, 8), plot_type = "boxplot")
+}
 }
 \seealso{
 Other dataset functions: \code{\link{lcms_align_rtime}},
