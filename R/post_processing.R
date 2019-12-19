@@ -115,14 +115,14 @@ if(biofluid_type == "Any"){
   Measured <- Measured %>%
                 dplyr::mutate(Selected_Biofluid = "Any")
 
-  max_area_wordcloud <- 15#6
+  max_area_wordcloud <- 6
 
 } else{
   Measured <- Measured %>%
                 dplyr::filter_at(dplyr::vars(Biofluid), dplyr::all_vars(stringr::str_detect(Biofluid, biofluid_type))) %>%
                 dplyr::mutate(Selected_Biofluid = biofluid_type)
 
-  max_area_wordcloud <- 20#11
+  max_area_wordcloud <- 11
 }
 
 # Select and arrange the data
