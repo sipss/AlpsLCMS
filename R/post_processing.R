@@ -115,7 +115,7 @@ if(biofluid_type == "Any"){
   Measured <- Measured %>%
                 dplyr::mutate(Selected_Biofluid = "Any")
 
-  max_area_wordcloud <- 6
+  max_area_wordcloud <- 11
 
 } else{
   Measured <- Measured %>%
