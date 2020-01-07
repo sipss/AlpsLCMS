@@ -1,4 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.Rproj\.user\shared$
+^\.Rproj\.user\EB43BD27$
 ^data-raw$
