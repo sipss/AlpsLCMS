@@ -24,8 +24,9 @@
 #' default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
 #' print(default_peakpicking_params)
 #' }
-lcms_default_peakpicking_params <- function(noise = 5000, snthresh = 10,
-                                            min_peakwidth = c(10, 30),
+lcms_default_peakpicking_params <- function(noise = c(10e+4,10e+5),
+                                            snthresh = c(3,10),
+                                            min_peakwidth = c(9, 20),
                                             max_peakwidth = c(35, 120),
                                             optimize = TRUE){
   if (optimize == TRUE){
@@ -150,8 +151,8 @@ lcms_peakpicking_optimization <- function (dataset, peakpickingParameters,
 #' default_retcorgroup_params <- lcms_default_retcorgroup_params(optimize = TRUE)
 #' print(default_retcorgroup_params)
 #' }
-lcms_default_retcorgroup_params <- function(profStep = 1,
-                                            gapExtend = 2.7,
+lcms_default_retcorgroup_params <- function(profStep = c(0.7,1),
+                                            gapExtend = c(2.1,2.7),
                                             optimize = TRUE){
 
   if (optimize == TRUE){
@@ -268,13 +269,13 @@ lcms_write_opt_params<- function(results_pp,
                             console = TRUE){
   if (is.null(results_pp) | is.null(results_rtcg)){
     paramsPP <- list()
-    paramsPP$min_peakwidth <- 20
+    paramsPP$min_peakwidth <- 10
     paramsPP$max_peakwidth <- 50
     paramsPP$ppm <- 25
     paramsPP$mzdiff <- -0.001
-    paramsPP$snthresh <- 10
-    paramsPP$noise <- 0
-    paramsPP$prefilter <- 3
+    paramsPP$snthresh <- 5
+    paramsPP$noise <- 500
+    paramsPP$prefilter <- c(3)
     paramsPP$value_of_prefilter <- 100
     paramsPP$mzCenterFun <-"wMean"
     paramsPP$integrate <- 1
@@ -296,7 +297,7 @@ lcms_write_opt_params<- function(results_pp,
     paramsRTCGroup$initPenalty <- 0
 
     paramsRTCGroup$bw <- 30
-    paramsRTCGroup$minfrac <- 0.5
+    paramsRTCGroup$minfrac <- c(0.3)
     paramsRTCGroup$minsamp <- 1
     paramsRTCGroup$max <- 50
     paramsRTCGroup$mzwid <- 0.25

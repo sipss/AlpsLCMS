@@ -1,31 +1,37 @@
 #' Metabolite Candidates
 #'
 #' Post processing after obtaining the list of potential metabolite candidates.
-#' These metabolites can be filtered by biofluid and are sorted by p-value in ascending order.
-#' Unknown metabolites can be removed.
-#' After that, the results the results are plotted using a word cloud. The lower the p-value, the higher the font size
-#' of the metabolite.
-#' Additionally, we plot the a bar plot corresponding to the number of metabolites candidates associated to a single compound.
+#' These metabolites can be filtered by biofluid and are sorted by p-value in
+#' ascending order. Unknown metabolites can be removed. After that, the results
+#' the results are plotted using a word cloud. The lower the p-value, the higher
+#' the font size of the metabolite. Additionally, we plot the a bar plot
+#' corresponding to the number of metabolites candidates associated to a single
+#' compound.
 #'
-#' @param path_result The folder where the .csv file where the annotated table of metabolites is stored
+#' @param path_result The folder where the .csv file where the annotated table
+#'   of metabolites is stored
 #' @param biofluid_type Filters the results by biofludid type.
 #' @param significance Filters the results by significance.
 #' @param metabolite_rm Logical. Remove "Unknown" metabolites.
 #' @param  max_words  Maximum number of words allowed in the word cloud.
-#' @return Two plots: A word cloud with the potential identified metabolites
-#' and a bar plot with the number of potential cantidates by detected compound.
+#' @return Two plots: A word cloud with the potential identified metabolites and
+#'   a bar plot with the number of potential cantidates by detected compound.
 #' @family data visualization functions
 #' @export
 #' @examples
 #' \dontrun{
-#' path_result <-  system.file("extdata","results_project","tables","metaboliteTable.csv", package = "NIHSlcms")
+#' path_result <-  system.file("extdata",
+#'                             "results_project",
+#'                             "tables",
+#'                             "metaboliteTable.csv",
+#'                             package = "NIHSlcms")
 #' plots <- lcms_plot_metabolites(path_result, biofluid_type = "Any",
 #'                                    significance = 0.05,
 #'                                    metabolite_rm = FALSE,
 #'                                    max_words = 250)
 #' plots$cloud
 #'
-#' plots$freqç
+#' plots$freq
 #' }
 
 lcms_plot_metabolites <- function(path_result, biofluid_type = "Any",
@@ -165,7 +171,7 @@ cloud <- ggplot2::ggplot(
     angle = Angle
   )
 ) +
-ggwordcloud::geom_text_wordcloud_area() +
+  ggwordcloud::geom_text_wordcloud_area() +
   ggplot2::scale_size_area(max_size = max_area_wordcloud) +#8 guay export, 4 plot
   ggplot2::theme_minimal() +
   ggplot2::scale_colour_continuous(type = "viridis") +

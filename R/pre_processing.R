@@ -17,7 +17,9 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' dataset_2_polarities <- lcms_dataset_load(system.file("extdata","dataset_metadata.rds",package = "NIHSlcms"))
+#' dataset_2_polarities <- lcms_dataset_load(system.file("extdata",
+#'                                                      "dataset_metadata.rds",
+#'                                                      package = "NIHSlcms"))
 #' dataset_pos <- lcms_filter_polarity(dataset_2_polarities, polarity. = 1)
 #'
 #' print(dataset_pos)
@@ -44,7 +46,9 @@ lcms_filter_polarity <- function(object, polarity.) {
 #' @examples
 #' \dontrun{
 #' mz_range = c(300, 400)
-#' dataset <- lcms_dataset_load(system.file("extdata","dataset_pos.rds",package = "NIHSlcms"))
+#' dataset <- lcms_dataset_load(system.file("extdata",
+#'                                        "dataset_pos.rds",
+#'                                        package = "NIHSlcms"))
 #' dataset_pos_mz <-lcms_filter_mz(dataset, mz = mz_range)
 #'
 #' print(dataset_pos_mz)
@@ -70,7 +74,9 @@ lcms_filter_mz <- function(dataset, mz){
 #' @examples
 #' \dontrun{
 #' rtime_range = c(5,10)
-#' dataset <- lcms_dataset_load(system.file("extdata","dataset_pos.rds",package = "NIHSlcms"))
+#' dataset <- lcms_dataset_load(system.file("extdata",
+#'                                          "dataset_pos.rds",
+#'                                          package = "NIHSlcms"))
 #' dataset_pos_rt <-lcms_filter_rt_min(dataset, rt = rtime_range)
 #'
 #' print(dataset_pos_rt)
@@ -103,7 +109,9 @@ lcms_filter_rt_min <- function (dataset, rt = c(4, 14)){
 #' @export
 #' @examples
 #' \dontrun{
-#' dataset <- lcms_dataset_load(system.file("extdata","dataset_pos_rt.rds",package = "NIHSlcms"))
+#' dataset <- lcms_dataset_load(system.file("extdata",
+#'                                         "dataset_pos_rt.rds",
+#'                                         package = "NIHSlcms"))
 #' especial_samples <- list(QC = NULL, blank = NULL)
 #' datasets_by_class_type <- lcms_filter_sample_type(dataset, especial_samples)
 #' dataset_pos_rt_rs <- datasets_by_class_type$regular_samples
@@ -156,11 +164,11 @@ lcms_filter_sample_type <- function(dataset,  especial_samples){
 #' features (peaks) on the chromatographic axis. This will be useful
 #' for a posterior peak alignment on the chormatophic axis.
 #'
-#' Note: signal processing generally  consists in three main steps:
-#' (1) peak detection (`lcms_find_chromp_peaks_cwp` function),
-#' (2) peak alignment (`lcms_align_rtime` function) and
-#' (3) peak correspondence (`lcms_group_peaks` function).
-#' The optimized set of parameters for this signal preprocessing can be obatained from `IPO` Package.
+#' Note: signal processing generally  consists in three main steps: (1) peak
+#' detection (`lcms_find_chromp_peaks_cwp` function), (2) peak alignment
+#' (`lcms_align_rtime` function) and (3) peak correspondence (`lcms_group_peaks`
+#' function). The optimized set of parameters for this signal preprocessing can
+#' be obatained from `IPO` Package.
 #'
 #' @param dataset A lcms_dataset.
 #' @param params A converted parameters template from IPO parameters.
@@ -577,12 +585,14 @@ lcms_plot_chrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
 
 #' Image of Chromatographic Peaks by sample
 #'
-#' It plots the an image of the chromatographic peaks for each sample. This function is useful if
-#' you are interested in knowing the effect of the retention time correction on the chromatographic axis.
+#' It plots the an image of the chromatographic peaks for each sample. This
+#' function is useful if you are interested in knowing the effect of the
+#' retention time correction on the chromatographic axis.
 #'
 #' @param x A lcms_dataset.
 #' @param binSize Bin size for the the reteincion time axis.
-#' @param xlim Retention time axis range. If Null, it uses the complete retention time range.
+#' @param xlim Retention time axis range. If Null, it uses the complete
+#'   retention time range.
 #' @param log If TRUE, it performs a logarithmic transformation on the data.
 #' @param xlab Label for the retention time axis.
 #' @param yaxt Options for the y axis. Use the default value.
@@ -597,12 +607,12 @@ lcms_plot_chrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
 #' \dontrun{
 #' file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
 #' dataset <- base::readRDS(file_name)
-#' chr_peak_image <- lmcs_plot_chrom_peak_image(dataset, binSize = 5, xlim = NULL, log = FALSE,
+#' chr_peak_image <- lcms_plot_chrom_peak_image(dataset, binSize = 5, xlim = NULL, log = FALSE,
 #'                                                xlab = "retention time (min)", yaxt = par("yaxt"))
 #'                                                title(main ="Detected Peaks (Aligned)")
 #' }
 
-lmcs_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE, xlab = "retention time",
+lcms_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE, xlab = "retention time",
                                        yaxt = graphics::par("yaxt"), main = "Chromatographic peak counts",
                                        ...)
 {
@@ -645,6 +655,7 @@ lmcs_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE
          cex = 0.6, labels = sample_labels,
          srt = 60, pos = 2, xpd = TRUE)
   }
+  title(main = main)
 }
 
 #' Rearrange datafiles by class
@@ -703,7 +714,7 @@ lcms_rearrange_datafiles_by_class <- function(dataset, dataDir) {
     foldname <-names(filetreat_info)[i]
     treatDir <- paste0(dataDir, "/", foldname, "/")
     if (length(dir(treatDir)) > 0) {
-      #cat("There are already directories / files in the folder. Not saving new ones.")
+      cat("There are already directories / files in the folder. Not saving new ones. ")
       #cat("\n")
       return()
     }else{

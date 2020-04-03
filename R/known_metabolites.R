@@ -13,8 +13,10 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' FT <- known_metabolites(feature_table_complete, metabolites)
 #' head(FT)
+#' }
 #'
 known_metabolites <- function(feature_table_complete, metabolites){
 
