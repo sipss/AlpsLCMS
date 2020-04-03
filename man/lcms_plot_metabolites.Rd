@@ -8,7 +8,8 @@ lcms_plot_metabolites(path_result, biofluid_type = "Any",
   significance = 0.05, metabolite_rm = TRUE, max_words = 250)
 }
 \arguments{
-\item{path_result}{The folder where the .csv file where the annotated table of metabolites is stored}
+\item{path_result}{The folder where the .csv file where the annotated table
+of metabolites is stored}
 
 \item{biofluid_type}{Filters the results by biofludid type.}
 
@@ -19,27 +20,32 @@ lcms_plot_metabolites(path_result, biofluid_type = "Any",
 \item{max_words}{Maximum number of words allowed in the word cloud.}
 }
 \value{
-Two plots: A word cloud with the potential identified metabolites
-and a bar plot with the number of potential cantidates by detected compound.
+Two plots: A word cloud with the potential identified metabolites and
+a bar plot with the number of potential cantidates by detected compound.
 }
 \description{
 Post processing after obtaining the list of potential metabolite candidates.
-These metabolites can be filtered by biofluid and are sorted by p-value in ascending order.
-Unknown metabolites can be removed.
-After that, the results the results are plotted using a word cloud. The lower the p-value, the higher the font size
-of the metabolite.
-Additionally, we plot the a bar plot corresponding to the number of metabolites candidates associated to a single compound.
+These metabolites can be filtered by biofluid and are sorted by p-value in
+ascending order. Unknown metabolites can be removed. After that, the results
+the results are plotted using a word cloud. The lower the p-value, the higher
+the font size of the metabolite. Additionally, we plot the a bar plot
+corresponding to the number of metabolites candidates associated to a single
+compound.
 }
 \examples{
 \dontrun{
-path_result <-  system.file("extdata","results_project","tables","metaboliteTable.csv", package = "NIHSlcms")
+path_result <-  system.file("extdata",
+                            "results_project",
+                            "tables",
+                            "metaboliteTable.csv",
+                            package = "NIHSlcms")
 plots <- lcms_plot_metabolites(path_result, biofluid_type = "Any",
                                    significance = 0.05,
                                    metabolite_rm = FALSE,
                                    max_words = 250)
 plots$cloud
 
-plots$freqÃ§
+plots$freq
 }
 }
 \concept{data visualization functions}

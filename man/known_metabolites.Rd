@@ -22,7 +22,9 @@ The function compares retention time and mass of metabolites contained in a
 given template with features in the feature table.
 }
 \examples{
+\dontrun{
 FT <- known_metabolites(feature_table_complete, metabolites)
 head(FT)
+}
 
 }

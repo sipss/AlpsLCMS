@@ -64,11 +64,11 @@ Other statistical functions: \code{\link{lcms_peak_table_boxplots}}
 
 Other visualization functions: \code{\link{lcms_peak_table_boxplots}},
   \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_plot_chrom_peak_image}},
   \code{\link{lcms_plot_chrom}},
   \code{\link{lcms_plot_tics}},
   \code{\link{lcms_retcorgroup_optimization}},
-  \code{\link{lcms_retention_time_alignment_plot}},
-  \code{\link{lmcs_plot_chrom_peak_image}}
+  \code{\link{lcms_retention_time_alignment_plot}}
 }
 \concept{dataset_peak_table functions}
 \concept{metabolite identification functions}

@@ -26,7 +26,9 @@ remove this function.
 }
 \examples{
 \dontrun{
-dataset_2_polarities <- lcms_dataset_load(system.file("extdata","dataset_metadata.rds",package = "NIHSlcms"))
+dataset_2_polarities <- lcms_dataset_load(system.file("extdata",
+                                                     "dataset_metadata.rds",
+                                                     package = "NIHSlcms"))
 dataset_pos <- lcms_filter_polarity(dataset_2_polarities, polarity. = 1)
 
 print(dataset_pos)
@@ -45,12 +47,11 @@ Other dataset functions: \code{\link{lcms_align_rtime}},
   \code{\link{lcms_meta_add}},
   \code{\link{lcms_meta_export}},
   \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_plot_chrom_peak_image}},
   \code{\link{lcms_plot_tics}},
   \code{\link{lcms_rearrange_datafiles_by_class}},
   \code{\link{lcms_retention_time_alignment_plot}},
-  \code{\link{lcms_tics}},
-  \code{\link{lmcs_plot_chrom_peak_image}},
-  \code{\link{phData}}
+  \code{\link{lcms_tics}}, \code{\link{phData}}
 
 Other filtering functions: \code{\link{lcms_filter_mz}},
   \code{\link{lcms_filter_rt_min}},

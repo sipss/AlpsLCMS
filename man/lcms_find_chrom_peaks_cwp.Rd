@@ -22,11 +22,11 @@ features (peaks) on the chromatographic axis. This will be useful
 for a posterior peak alignment on the chormatophic axis.
 }
 \details{
-Note: signal processing generally  consists in three main steps:
-(1) peak detection (\code{lcms_find_chromp_peaks_cwp} function),
-(2) peak alignment (\code{lcms_align_rtime} function) and
-(3) peak correspondence (\code{lcms_group_peaks} function).
-The optimized set of parameters for this signal preprocessing can be obatained from \code{IPO} Package.
+Note: signal processing generally  consists in three main steps: (1) peak
+detection (\code{lcms_find_chromp_peaks_cwp} function), (2) peak alignment
+(\code{lcms_align_rtime} function) and (3) peak correspondence (\code{lcms_group_peaks}
+function). The optimized set of parameters for this signal preprocessing can
+be obatained from \code{IPO} Package.
 }
 \examples{
 \dontrun{
@@ -57,12 +57,11 @@ Other dataset functions: \code{\link{lcms_align_rtime}},
   \code{\link{lcms_meta_add}},
   \code{\link{lcms_meta_export}},
   \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_plot_chrom_peak_image}},
   \code{\link{lcms_plot_tics}},
   \code{\link{lcms_rearrange_datafiles_by_class}},
   \code{\link{lcms_retention_time_alignment_plot}},
-  \code{\link{lcms_tics}},
-  \code{\link{lmcs_plot_chrom_peak_image}},
-  \code{\link{phData}}
+  \code{\link{lcms_tics}}, \code{\link{phData}}
 }
 \concept{dataset functions}
 \concept{peak detection functions}

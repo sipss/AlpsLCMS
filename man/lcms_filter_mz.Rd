@@ -20,7 +20,9 @@ The function filters the dataset by m/z.
 \examples{
 \dontrun{
 mz_range = c(300, 400)
-dataset <- lcms_dataset_load(system.file("extdata","dataset_pos.rds",package = "NIHSlcms"))
+dataset <- lcms_dataset_load(system.file("extdata",
+                                       "dataset_pos.rds",
+                                       package = "NIHSlcms"))
 dataset_pos_mz <-lcms_filter_mz(dataset, mz = mz_range)
 
 print(dataset_pos_mz)
@@ -39,12 +41,11 @@ Other dataset functions: \code{\link{lcms_align_rtime}},
   \code{\link{lcms_meta_add}},
   \code{\link{lcms_meta_export}},
   \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_plot_chrom_peak_image}},
   \code{\link{lcms_plot_tics}},
   \code{\link{lcms_rearrange_datafiles_by_class}},
   \code{\link{lcms_retention_time_alignment_plot}},
-  \code{\link{lcms_tics}},
-  \code{\link{lmcs_plot_chrom_peak_image}},
-  \code{\link{phData}}
+  \code{\link{lcms_tics}}, \code{\link{phData}}
 
 Other filtering functions: \code{\link{lcms_filter_polarity}},
   \code{\link{lcms_filter_rt_min}},

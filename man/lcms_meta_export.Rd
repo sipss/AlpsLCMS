@@ -45,12 +45,11 @@ Other dataset functions: \code{\link{lcms_align_rtime}},
   \code{\link{lcms_group_peaks}},
   \code{\link{lcms_meta_add}},
   \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_plot_chrom_peak_image}},
   \code{\link{lcms_plot_tics}},
   \code{\link{lcms_rearrange_datafiles_by_class}},
   \code{\link{lcms_retention_time_alignment_plot}},
-  \code{\link{lcms_tics}},
-  \code{\link{lmcs_plot_chrom_peak_image}},
-  \code{\link{phData}}
+  \code{\link{lcms_tics}}, \code{\link{phData}}
 
 Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},
   \code{\link{lcms_dataset_load}},

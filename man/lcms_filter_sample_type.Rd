@@ -34,7 +34,9 @@ The function can distinguish and filter different samples types:
 }
 \examples{
 \dontrun{
-dataset <- lcms_dataset_load(system.file("extdata","dataset_pos_rt.rds",package = "NIHSlcms"))
+dataset <- lcms_dataset_load(system.file("extdata",
+                                        "dataset_pos_rt.rds",
+                                        package = "NIHSlcms"))
 especial_samples <- list(QC = NULL, blank = NULL)
 datasets_by_class_type <- lcms_filter_sample_type(dataset, especial_samples)
 dataset_pos_rt_rs <- datasets_by_class_type$regular_samples
@@ -59,12 +61,11 @@ Other dataset functions: \code{\link{lcms_align_rtime}},
   \code{\link{lcms_meta_add}},
   \code{\link{lcms_meta_export}},
   \code{\link{lcms_peakpicking_optimization}},
+  \code{\link{lcms_plot_chrom_peak_image}},
   \code{\link{lcms_plot_tics}},
   \code{\link{lcms_rearrange_datafiles_by_class}},
   \code{\link{lcms_retention_time_alignment_plot}},
-  \code{\link{lcms_tics}},
-  \code{\link{lmcs_plot_chrom_peak_image}},
-  \code{\link{phData}}
+  \code{\link{lcms_tics}}, \code{\link{phData}}
 
 Other filtering functions: \code{\link{lcms_filter_mz}},
   \code{\link{lcms_filter_polarity}},

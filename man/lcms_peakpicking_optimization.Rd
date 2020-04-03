@@ -55,12 +55,11 @@ Other dataset functions: \code{\link{lcms_align_rtime}},
   \code{\link{lcms_group_peaks}},
   \code{\link{lcms_meta_add}},
   \code{\link{lcms_meta_export}},
+  \code{\link{lcms_plot_chrom_peak_image}},
   \code{\link{lcms_plot_tics}},
   \code{\link{lcms_rearrange_datafiles_by_class}},
   \code{\link{lcms_retention_time_alignment_plot}},
-  \code{\link{lcms_tics}},
-  \code{\link{lmcs_plot_chrom_peak_image}},
-  \code{\link{phData}}
+  \code{\link{lcms_tics}}, \code{\link{phData}}
 
 Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
   \code{\link{lcms_default_peakpicking_params}},
@@ -70,11 +69,11 @@ Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
 
 Other visualization functions: \code{\link{lcms_peak_table_boxplots}},
   \code{\link{lcms_peak_table_pca}},
+  \code{\link{lcms_plot_chrom_peak_image}},
   \code{\link{lcms_plot_chrom}},
   \code{\link{lcms_plot_tics}},
   \code{\link{lcms_retcorgroup_optimization}},
-  \code{\link{lcms_retention_time_alignment_plot}},
-  \code{\link{lmcs_plot_chrom_peak_image}}
+  \code{\link{lcms_retention_time_alignment_plot}}
 }
 \concept{dataset functions}
 \concept{optimization functions}
