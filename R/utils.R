@@ -1,3 +1,4 @@
+#' @importFrom graphics title
 #' @import MAIT
 #' @importFrom magrittr %>%
 #' @export
