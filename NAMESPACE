@@ -2,6 +2,8 @@
 
 export("%>%")
 export("lcms_diagnose<-")
+export(assignation_neg_HMDB)
+export(assignation_pos_HMDB)
 export(cluster)
 export(install_RawConverter)
 export(known_metabolites)
