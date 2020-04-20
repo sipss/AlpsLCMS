@@ -4,8 +4,11 @@
 \alias{lcms_raw_to_mzxml}
 \title{Raw to mzxml}
 \usage{
-lcms_raw_to_mzxml(samples, options = c("--mzxml", "--select_mono_prec"),
-  rawconverter = NULL)
+lcms_raw_to_mzxml(
+  samples,
+  options = c("--mzxml", "--select_mono_prec"),
+  rawconverter = NULL
+)
 }
 \arguments{
 \item{samples}{ThermoFisher .raw files.}

@@ -4,8 +4,14 @@
 \alias{lcms_peakpicking_optimization}
 \title{Peak picking optimization}
 \usage{
-lcms_peakpicking_optimization(dataset, peakpickingParameters,
-  nSlaves = 1, opt_path, subdir = "plot_ipo", plots = TRUE)
+lcms_peakpicking_optimization(
+  dataset,
+  peakpickingParameters,
+  nSlaves = 1,
+  opt_path,
+  subdir = "plot_ipo",
+  plots = TRUE
+)
 }
 \arguments{
 \item{dataset}{A lcms_dataset}
@@ -43,37 +49,41 @@ result_peakpicking <- lcms_peakpicking_optimization(dataset,
 }
 }
 \seealso{
-Other dataset functions: \code{\link{lcms_align_rtime}},
-  \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_dataset_save}},
-  \code{\link{lcms_fill_chrom_peaks}},
-  \code{\link{lcms_filter_mz}},
-  \code{\link{lcms_filter_polarity}},
-  \code{\link{lcms_filter_rt_min}},
-  \code{\link{lcms_filter_sample_type}},
-  \code{\link{lcms_find_chrom_peaks_cwp}},
-  \code{\link{lcms_group_peaks}},
-  \code{\link{lcms_meta_add}},
-  \code{\link{lcms_meta_export}},
-  \code{\link{lcms_plot_chrom_peak_image}},
-  \code{\link{lcms_plot_tics}},
-  \code{\link{lcms_rearrange_datafiles_by_class}},
-  \code{\link{lcms_retention_time_alignment_plot}},
-  \code{\link{lcms_tics}}, \code{\link{phData}}
+Other dataset functions: 
+\code{\link{lcms_align_rtime}()},
+\code{\link{lcms_dataset_load}()},
+\code{\link{lcms_dataset_save}()},
+\code{\link{lcms_fill_chrom_peaks}()},
+\code{\link{lcms_filter_mz}()},
+\code{\link{lcms_filter_polarity}()},
+\code{\link{lcms_filter_rt_min}()},
+\code{\link{lcms_filter_sample_type}()},
+\code{\link{lcms_find_chrom_peaks_cwp}()},
+\code{\link{lcms_group_peaks}()},
+\code{\link{lcms_meta_add}()},
+\code{\link{lcms_meta_export}()},
+\code{\link{lcms_plot_chrom_peak_image}()},
+\code{\link{lcms_plot_tics}()},
+\code{\link{lcms_rearrange_datafiles_by_class}()},
+\code{\link{lcms_retention_time_alignment_plot}()},
+\code{\link{lcms_tics}()},
+\code{\link{phData}()}
 
-Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
-  \code{\link{lcms_default_peakpicking_params}},
-  \code{\link{lcms_read_ipo_to_xcms}},
-  \code{\link{lcms_retcorgroup_optimization}},
-  \code{\link{lcms_write_opt_params}}
+Other optimization functions: 
+\code{\link{lcms_convert_ipo_to_xcms}()},
+\code{\link{lcms_default_peakpicking_params}()},
+\code{\link{lcms_read_ipo_to_xcms}()},
+\code{\link{lcms_retcorgroup_optimization}()},
+\code{\link{lcms_write_opt_params}()}
 
-Other visualization functions: \code{\link{lcms_peak_table_boxplots}},
-  \code{\link{lcms_peak_table_pca}},
-  \code{\link{lcms_plot_chrom_peak_image}},
-  \code{\link{lcms_plot_chrom}},
-  \code{\link{lcms_plot_tics}},
-  \code{\link{lcms_retcorgroup_optimization}},
-  \code{\link{lcms_retention_time_alignment_plot}}
+Other visualization functions: 
+\code{\link{lcms_peak_table_boxplots}()},
+\code{\link{lcms_peak_table_pca}()},
+\code{\link{lcms_plot_chrom_peak_image}()},
+\code{\link{lcms_plot_chrom}()},
+\code{\link{lcms_plot_tics}()},
+\code{\link{lcms_retcorgroup_optimization}()},
+\code{\link{lcms_retention_time_alignment_plot}()}
 }
 \concept{dataset functions}
 \concept{optimization functions}

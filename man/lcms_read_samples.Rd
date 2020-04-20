@@ -7,35 +7,36 @@
 lcms_read_samples(...)
 }
 \arguments{
-\item{...}{Arguments passed on to \code{MSnbase::readMSData}
-\describe{
-  \item{files}{A \code{character} with file names to be read and parsed.}
-  \item{pdata}{An object of class \linkS4class{AnnotatedDataFrame} or
+\item{...}{
+  Arguments passed on to \code{\link[MSnbase:readMSData]{MSnbase::readMSData}}
+  \describe{
+    \item{\code{files}}{A \code{character} with file names to be read and parsed.}
+    \item{\code{pdata}}{An object of class \linkS4class{AnnotatedDataFrame} or
 \code{NULL} (default).}
-  \item{msLevel.}{MS level spectra to be read. In \code{inMemory} mode,
+    \item{\code{msLevel.}}{MS level spectra to be read. In \code{inMemory} mode,
 use \code{1} for MS1 spectra or any larger numeric for MSn
 spectra. Default is \code{2} for \code{InMemory} mode. \code{onDisk} mode
 supports multiple levels and will, by default, read all the
 data.}
-  \item{verbose}{Verbosity flag. Default is to use
-\code{\link[=isMSnbaseVerbose]{isMSnbaseVerbose()}}.}
-  \item{centroided.}{A \code{logical}, indicating whether spectra are
+    \item{\code{verbose}}{Verbosity flag. Default is to use
+\code{\link[MSnbase:isMSnbaseVerbose]{isMSnbaseVerbose()}}.}
+    \item{\code{centroided.}}{A \code{logical}, indicating whether spectra are
 centroided or not. Default is \code{NA} in which case the information
 is extracted from the raw file (for mzML or mzXML files). In
 \code{onDisk}, it can also be set for different MS levels by a
 vector of logicals, where the first element is for MS1, the
 second element is for MS2, ... See \linkS4class{OnDiskMSnExp} for
 an example.}
-  \item{smoothed.}{A \code{logical} indicating whether spectra already
+    \item{\code{smoothed.}}{A \code{logical} indicating whether spectra already
 smoothed or not. Default is \code{NA}.}
-  \item{cache.}{Numeric indicating caching level. Default is 0 for
+    \item{\code{cache.}}{Numeric indicating caching level. Default is 0 for
 MS1 and 1 MS2 (or higher). Only relevant for \code{inMemory} mode.}
-  \item{mode}{On of \code{"inMemory"} (default) or \code{"onDisk"}. The former
+    \item{\code{mode}}{On of \code{"inMemory"} (default) or \code{"onDisk"}. The former
 loads the raw data in memory, while the latter only generates
 the object and the raw data is accessed on disk when
 needed. See the \emph{benchmarking} vignette for memory and speed
 implications.}
-}}
+  }}
 }
 \value{
 A lcms_dataset.
@@ -58,21 +59,22 @@ print(dataset)
 }
 }
 \seealso{
-Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},
-  \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_dataset_save}},
-  \code{\link{lcms_identify_metabolites}},
-  \code{\link{lcms_meta_export}},
-  \code{\link{lcms_meta_read}},
-  \code{\link{lcms_peak_annotation}},
-  \code{\link{lcms_raw_data}},
-  \code{\link{lcms_read_ipo_to_xcms}},
-  \code{\link{lcms_rearrange_datafiles_by_class}},
-  \code{\link{lcms_sig_peaks_table}},
-  \code{\link{lcms_spectral_sig_features}},
-  \code{\link{lcms_to_mait}},
-  \code{\link{lcms_write_opt_params}},
-  \code{\link{lcms_write_parameter_table}},
-  \code{\link{phData}}
+Other import/export functions: 
+\code{\link{lcms_convert_ipo_to_xcms}()},
+\code{\link{lcms_dataset_load}()},
+\code{\link{lcms_dataset_save}()},
+\code{\link{lcms_identify_metabolites}()},
+\code{\link{lcms_meta_export}()},
+\code{\link{lcms_meta_read}()},
+\code{\link{lcms_peak_annotation}()},
+\code{\link{lcms_raw_data}()},
+\code{\link{lcms_read_ipo_to_xcms}()},
+\code{\link{lcms_rearrange_datafiles_by_class}()},
+\code{\link{lcms_sig_peaks_table}()},
+\code{\link{lcms_spectral_sig_features}()},
+\code{\link{lcms_to_mait}()},
+\code{\link{lcms_write_opt_params}()},
+\code{\link{lcms_write_parameter_table}()},
+\code{\link{phData}()}
 }
 \concept{import/export functions}

@@ -4,15 +4,25 @@
 \alias{lcms_peak_annotation}
 \title{Peak Annotation}
 \usage{
-lcms_peak_annotation(MAIT.object = NULL, corrWithSamp = 0.7,
-  perfwhm = 0.6, sigma = 6, adductTable = NULL,
-  printSpectraTable = TRUE, corrBetSamp = 0.75, pval = 0.05,
-  calcIso = TRUE, calcCiS = TRUE, calcCaS = TRUE,
-  graphMethod = "hcs", annotateAdducts = TRUE)
+lcms_peak_annotation(
+  MAIT.object = NULL,
+  corrWithSamp = 0.7,
+  perfwhm = 0.6,
+  sigma = 6,
+  adductTable = NULL,
+  printSpectraTable = TRUE,
+  corrBetSamp = 0.75,
+  pval = 0.05,
+  calcIso = TRUE,
+  calcCiS = TRUE,
+  calcCaS = TRUE,
+  graphMethod = "hcs",
+  annotateAdducts = TRUE
+)
 }
 \arguments{
 \item{MAIT.object}{
-A \link{MAIT-class} object where function \link{sampleProcessing} has already been applied. The output of the function is going to be an update of the same \link{MAIT-class} object.
+A \link[MAIT]{MAIT-class} object where function \link[MAIT]{sampleProcessing} has already been applied. The output of the function is going to be an update of the same \link[MAIT]{MAIT-class} object.
 }
 
 \item{corrWithSamp}{
@@ -86,41 +96,45 @@ lcms_raw_data(peak_table_ann)
 }
 }
 \seealso{
-Other metabolite identification functions: \code{\link{lcms_identify_metabolites}},
-  \code{\link{lcms_peak_table_boxplots}},
-  \code{\link{lcms_peak_table_pca}},
-  \code{\link{lcms_raw_data}},
-  \code{\link{lcms_sig_peaks_table}},
-  \code{\link{lcms_spectral_sig_features}},
-  \code{\link{lcms_to_mait}},
-  \code{\link{lcms_write_parameter_table}}
+Other metabolite identification functions: 
+\code{\link{lcms_identify_metabolites}()},
+\code{\link{lcms_peak_table_boxplots}()},
+\code{\link{lcms_peak_table_pca}()},
+\code{\link{lcms_raw_data}()},
+\code{\link{lcms_sig_peaks_table}()},
+\code{\link{lcms_spectral_sig_features}()},
+\code{\link{lcms_to_mait}()},
+\code{\link{lcms_write_parameter_table}()}
 
-Other dataset_peak_table functions: \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_identify_metabolites}},
-  \code{\link{lcms_peak_table_boxplots}},
-  \code{\link{lcms_peak_table_pca}},
-  \code{\link{lcms_plot_tics}},
-  \code{\link{lcms_raw_data}},
-  \code{\link{lcms_sig_peaks_table}},
-  \code{\link{lcms_spectral_sig_features}},
-  \code{\link{lcms_tics}}, \code{\link{lcms_to_mait}}
+Other dataset_peak_table functions: 
+\code{\link{lcms_dataset_load}()},
+\code{\link{lcms_identify_metabolites}()},
+\code{\link{lcms_peak_table_boxplots}()},
+\code{\link{lcms_peak_table_pca}()},
+\code{\link{lcms_plot_tics}()},
+\code{\link{lcms_raw_data}()},
+\code{\link{lcms_sig_peaks_table}()},
+\code{\link{lcms_spectral_sig_features}()},
+\code{\link{lcms_tics}()},
+\code{\link{lcms_to_mait}()}
 
-Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},
-  \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_dataset_save}},
-  \code{\link{lcms_identify_metabolites}},
-  \code{\link{lcms_meta_export}},
-  \code{\link{lcms_meta_read}},
-  \code{\link{lcms_raw_data}},
-  \code{\link{lcms_read_ipo_to_xcms}},
-  \code{\link{lcms_read_samples}},
-  \code{\link{lcms_rearrange_datafiles_by_class}},
-  \code{\link{lcms_sig_peaks_table}},
-  \code{\link{lcms_spectral_sig_features}},
-  \code{\link{lcms_to_mait}},
-  \code{\link{lcms_write_opt_params}},
-  \code{\link{lcms_write_parameter_table}},
-  \code{\link{phData}}
+Other import/export functions: 
+\code{\link{lcms_convert_ipo_to_xcms}()},
+\code{\link{lcms_dataset_load}()},
+\code{\link{lcms_dataset_save}()},
+\code{\link{lcms_identify_metabolites}()},
+\code{\link{lcms_meta_export}()},
+\code{\link{lcms_meta_read}()},
+\code{\link{lcms_raw_data}()},
+\code{\link{lcms_read_ipo_to_xcms}()},
+\code{\link{lcms_read_samples}()},
+\code{\link{lcms_rearrange_datafiles_by_class}()},
+\code{\link{lcms_sig_peaks_table}()},
+\code{\link{lcms_spectral_sig_features}()},
+\code{\link{lcms_to_mait}()},
+\code{\link{lcms_write_opt_params}()},
+\code{\link{lcms_write_parameter_table}()},
+\code{\link{phData}()}
 }
 \concept{dataset_peak_table functions}
 \concept{import/export functions}

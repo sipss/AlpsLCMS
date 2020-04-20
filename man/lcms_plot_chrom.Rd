@@ -32,16 +32,18 @@ lcms_plot_chrom(base_peaks, treatment_col, rtlim = c(4, 8))
 }
 }
 \seealso{
-Other chromatogram functions: \code{\link{lcms_plot_chrom_peak_image}},
-  \code{\link{lcms_plot_tics}}
+Other chromatogram functions: 
+\code{\link{lcms_plot_chrom_peak_image}()},
+\code{\link{lcms_plot_tics}()}
 
-Other visualization functions: \code{\link{lcms_peak_table_boxplots}},
-  \code{\link{lcms_peak_table_pca}},
-  \code{\link{lcms_peakpicking_optimization}},
-  \code{\link{lcms_plot_chrom_peak_image}},
-  \code{\link{lcms_plot_tics}},
-  \code{\link{lcms_retcorgroup_optimization}},
-  \code{\link{lcms_retention_time_alignment_plot}}
+Other visualization functions: 
+\code{\link{lcms_peak_table_boxplots}()},
+\code{\link{lcms_peak_table_pca}()},
+\code{\link{lcms_peakpicking_optimization}()},
+\code{\link{lcms_plot_chrom_peak_image}()},
+\code{\link{lcms_plot_tics}()},
+\code{\link{lcms_retcorgroup_optimization}()},
+\code{\link{lcms_retention_time_alignment_plot}()}
 }
 \concept{chromatogram functions}
 \concept{visualization functions}

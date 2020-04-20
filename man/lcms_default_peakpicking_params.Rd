@@ -4,9 +4,13 @@
 \alias{lcms_default_peakpicking_params}
 \title{Default parameters for peak picking optimization}
 \usage{
-lcms_default_peakpicking_params(noise = c(1e+05, 1e+06),
-  snthresh = c(3, 10), min_peakwidth = c(9, 20),
-  max_peakwidth = c(35, 120), optimize = TRUE)
+lcms_default_peakpicking_params(
+  noise = c(1e+05, 1e+06),
+  snthresh = c(3, 10),
+  min_peakwidth = c(9, 20),
+  max_peakwidth = c(35, 120),
+  optimize = TRUE
+)
 }
 \arguments{
 \item{noise}{numeric, minimum intensity needed to be included in the analysis.}
@@ -41,10 +45,11 @@ print(default_peakpicking_params)
 }
 }
 \seealso{
-Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
-  \code{\link{lcms_peakpicking_optimization}},
-  \code{\link{lcms_read_ipo_to_xcms}},
-  \code{\link{lcms_retcorgroup_optimization}},
-  \code{\link{lcms_write_opt_params}}
+Other optimization functions: 
+\code{\link{lcms_convert_ipo_to_xcms}()},
+\code{\link{lcms_peakpicking_optimization}()},
+\code{\link{lcms_read_ipo_to_xcms}()},
+\code{\link{lcms_retcorgroup_optimization}()},
+\code{\link{lcms_write_opt_params}()}
 }
 \concept{optimization functions}

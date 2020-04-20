@@ -26,28 +26,30 @@ print(preproc_params)
 }
 }
 \seealso{
-Other optimization functions: \code{\link{lcms_default_peakpicking_params}},
-  \code{\link{lcms_peakpicking_optimization}},
-  \code{\link{lcms_read_ipo_to_xcms}},
-  \code{\link{lcms_retcorgroup_optimization}},
-  \code{\link{lcms_write_opt_params}}
+Other optimization functions: 
+\code{\link{lcms_default_peakpicking_params}()},
+\code{\link{lcms_peakpicking_optimization}()},
+\code{\link{lcms_read_ipo_to_xcms}()},
+\code{\link{lcms_retcorgroup_optimization}()},
+\code{\link{lcms_write_opt_params}()}
 
-Other import/export functions: \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_dataset_save}},
-  \code{\link{lcms_identify_metabolites}},
-  \code{\link{lcms_meta_export}},
-  \code{\link{lcms_meta_read}},
-  \code{\link{lcms_peak_annotation}},
-  \code{\link{lcms_raw_data}},
-  \code{\link{lcms_read_ipo_to_xcms}},
-  \code{\link{lcms_read_samples}},
-  \code{\link{lcms_rearrange_datafiles_by_class}},
-  \code{\link{lcms_sig_peaks_table}},
-  \code{\link{lcms_spectral_sig_features}},
-  \code{\link{lcms_to_mait}},
-  \code{\link{lcms_write_opt_params}},
-  \code{\link{lcms_write_parameter_table}},
-  \code{\link{phData}}
+Other import/export functions: 
+\code{\link{lcms_dataset_load}()},
+\code{\link{lcms_dataset_save}()},
+\code{\link{lcms_identify_metabolites}()},
+\code{\link{lcms_meta_export}()},
+\code{\link{lcms_meta_read}()},
+\code{\link{lcms_peak_annotation}()},
+\code{\link{lcms_raw_data}()},
+\code{\link{lcms_read_ipo_to_xcms}()},
+\code{\link{lcms_read_samples}()},
+\code{\link{lcms_rearrange_datafiles_by_class}()},
+\code{\link{lcms_sig_peaks_table}()},
+\code{\link{lcms_spectral_sig_features}()},
+\code{\link{lcms_to_mait}()},
+\code{\link{lcms_write_opt_params}()},
+\code{\link{lcms_write_parameter_table}()},
+\code{\link{phData}()}
 }
 \concept{import/export functions}
 \concept{optimization functions}

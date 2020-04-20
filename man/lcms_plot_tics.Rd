@@ -4,8 +4,7 @@
 \alias{lcms_plot_tics}
 \title{Total Ion Count (TIC) plot}
 \usage{
-lcms_plot_tics(tics, treatment = treatment, rt = NULL,
-  plot_type = "spec")
+lcms_plot_tics(tics, treatment = treatment, rt = NULL, plot_type = "spec")
 }
 \arguments{
 \item{tics}{A Total Ion Count object generated with \code{lcms_tics}.}
@@ -37,44 +36,50 @@ lcms_plot_tics(tics, treatment = treatment,
 }
 }
 \seealso{
-Other dataset functions: \code{\link{lcms_align_rtime}},
-  \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_dataset_save}},
-  \code{\link{lcms_fill_chrom_peaks}},
-  \code{\link{lcms_filter_mz}},
-  \code{\link{lcms_filter_polarity}},
-  \code{\link{lcms_filter_rt_min}},
-  \code{\link{lcms_filter_sample_type}},
-  \code{\link{lcms_find_chrom_peaks_cwp}},
-  \code{\link{lcms_group_peaks}},
-  \code{\link{lcms_meta_add}},
-  \code{\link{lcms_meta_export}},
-  \code{\link{lcms_peakpicking_optimization}},
-  \code{\link{lcms_plot_chrom_peak_image}},
-  \code{\link{lcms_rearrange_datafiles_by_class}},
-  \code{\link{lcms_retention_time_alignment_plot}},
-  \code{\link{lcms_tics}}, \code{\link{phData}}
+Other dataset functions: 
+\code{\link{lcms_align_rtime}()},
+\code{\link{lcms_dataset_load}()},
+\code{\link{lcms_dataset_save}()},
+\code{\link{lcms_fill_chrom_peaks}()},
+\code{\link{lcms_filter_mz}()},
+\code{\link{lcms_filter_polarity}()},
+\code{\link{lcms_filter_rt_min}()},
+\code{\link{lcms_filter_sample_type}()},
+\code{\link{lcms_find_chrom_peaks_cwp}()},
+\code{\link{lcms_group_peaks}()},
+\code{\link{lcms_meta_add}()},
+\code{\link{lcms_meta_export}()},
+\code{\link{lcms_peakpicking_optimization}()},
+\code{\link{lcms_plot_chrom_peak_image}()},
+\code{\link{lcms_rearrange_datafiles_by_class}()},
+\code{\link{lcms_retention_time_alignment_plot}()},
+\code{\link{lcms_tics}()},
+\code{\link{phData}()}
 
-Other dataset_peak_table functions: \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_identify_metabolites}},
-  \code{\link{lcms_peak_annotation}},
-  \code{\link{lcms_peak_table_boxplots}},
-  \code{\link{lcms_peak_table_pca}},
-  \code{\link{lcms_raw_data}},
-  \code{\link{lcms_sig_peaks_table}},
-  \code{\link{lcms_spectral_sig_features}},
-  \code{\link{lcms_tics}}, \code{\link{lcms_to_mait}}
+Other dataset_peak_table functions: 
+\code{\link{lcms_dataset_load}()},
+\code{\link{lcms_identify_metabolites}()},
+\code{\link{lcms_peak_annotation}()},
+\code{\link{lcms_peak_table_boxplots}()},
+\code{\link{lcms_peak_table_pca}()},
+\code{\link{lcms_raw_data}()},
+\code{\link{lcms_sig_peaks_table}()},
+\code{\link{lcms_spectral_sig_features}()},
+\code{\link{lcms_tics}()},
+\code{\link{lcms_to_mait}()}
 
-Other chromatogram functions: \code{\link{lcms_plot_chrom_peak_image}},
-  \code{\link{lcms_plot_chrom}}
+Other chromatogram functions: 
+\code{\link{lcms_plot_chrom_peak_image}()},
+\code{\link{lcms_plot_chrom}()}
 
-Other visualization functions: \code{\link{lcms_peak_table_boxplots}},
-  \code{\link{lcms_peak_table_pca}},
-  \code{\link{lcms_peakpicking_optimization}},
-  \code{\link{lcms_plot_chrom_peak_image}},
-  \code{\link{lcms_plot_chrom}},
-  \code{\link{lcms_retcorgroup_optimization}},
-  \code{\link{lcms_retention_time_alignment_plot}}
+Other visualization functions: 
+\code{\link{lcms_peak_table_boxplots}()},
+\code{\link{lcms_peak_table_pca}()},
+\code{\link{lcms_peakpicking_optimization}()},
+\code{\link{lcms_plot_chrom_peak_image}()},
+\code{\link{lcms_plot_chrom}()},
+\code{\link{lcms_retcorgroup_optimization}()},
+\code{\link{lcms_retention_time_alignment_plot}()}
 }
 \concept{chromatogram functions}
 \concept{dataset functions}

@@ -4,8 +4,11 @@
 \alias{lcms_default_retcorgroup_params}
 \title{Default parameters for optimization of retention time correction and grouping parameters}
 \usage{
-lcms_default_retcorgroup_params(profStep = c(0.7, 1),
-  gapExtend = c(2.1, 2.7), optimize = TRUE)
+lcms_default_retcorgroup_params(
+  profStep = c(0.7, 1),
+  gapExtend = c(2.1, 2.7),
+  optimize = TRUE
+)
 }
 \arguments{
 \item{profStep}{set the m/z step for generating profile (matrix) data from raw mass spectral data.

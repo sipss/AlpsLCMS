@@ -4,8 +4,13 @@
 \alias{lcms_write_opt_params}
 \title{Displaying and Storing optimized settings}
 \usage{
-lcms_write_opt_params(results_pp, results_rtcg, opt_result_path,
-  csv = TRUE, console = TRUE)
+lcms_write_opt_params(
+  results_pp,
+  results_rtcg,
+  opt_result_path,
+  csv = TRUE,
+  console = TRUE
+)
 }
 \arguments{
 \item{results_pp}{object from the \code{lcms_peakpicking_optimization} function. If NULL, the default parameters for xcms are loaded.}
@@ -38,28 +43,30 @@ allows in the RStudio console. Also you can save this results in plain text file
  }
 }
 \seealso{
-Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
-  \code{\link{lcms_default_peakpicking_params}},
-  \code{\link{lcms_peakpicking_optimization}},
-  \code{\link{lcms_read_ipo_to_xcms}},
-  \code{\link{lcms_retcorgroup_optimization}}
+Other optimization functions: 
+\code{\link{lcms_convert_ipo_to_xcms}()},
+\code{\link{lcms_default_peakpicking_params}()},
+\code{\link{lcms_peakpicking_optimization}()},
+\code{\link{lcms_read_ipo_to_xcms}()},
+\code{\link{lcms_retcorgroup_optimization}()}
 
-Other import/export functions: \code{\link{lcms_convert_ipo_to_xcms}},
-  \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_dataset_save}},
-  \code{\link{lcms_identify_metabolites}},
-  \code{\link{lcms_meta_export}},
-  \code{\link{lcms_meta_read}},
-  \code{\link{lcms_peak_annotation}},
-  \code{\link{lcms_raw_data}},
-  \code{\link{lcms_read_ipo_to_xcms}},
-  \code{\link{lcms_read_samples}},
-  \code{\link{lcms_rearrange_datafiles_by_class}},
-  \code{\link{lcms_sig_peaks_table}},
-  \code{\link{lcms_spectral_sig_features}},
-  \code{\link{lcms_to_mait}},
-  \code{\link{lcms_write_parameter_table}},
-  \code{\link{phData}}
+Other import/export functions: 
+\code{\link{lcms_convert_ipo_to_xcms}()},
+\code{\link{lcms_dataset_load}()},
+\code{\link{lcms_dataset_save}()},
+\code{\link{lcms_identify_metabolites}()},
+\code{\link{lcms_meta_export}()},
+\code{\link{lcms_meta_read}()},
+\code{\link{lcms_peak_annotation}()},
+\code{\link{lcms_raw_data}()},
+\code{\link{lcms_read_ipo_to_xcms}()},
+\code{\link{lcms_read_samples}()},
+\code{\link{lcms_rearrange_datafiles_by_class}()},
+\code{\link{lcms_sig_peaks_table}()},
+\code{\link{lcms_spectral_sig_features}()},
+\code{\link{lcms_to_mait}()},
+\code{\link{lcms_write_parameter_table}()},
+\code{\link{phData}()}
 }
 \concept{import/export functions}
 \concept{optimization functions}

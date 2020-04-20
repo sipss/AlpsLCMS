@@ -4,8 +4,11 @@
 \alias{lcms_list_mzxml_samples}
 \title{RAW converter}
 \usage{
-lcms_list_mzxml_samples(sample_path, file_format = "mzXML",
-  rawconverter_path = NULL)
+lcms_list_mzxml_samples(
+  sample_path,
+  file_format = "mzXML",
+  rawconverter_path = NULL
+)
 }
 \arguments{
 \item{sample_path}{Directory in which the samples are.}

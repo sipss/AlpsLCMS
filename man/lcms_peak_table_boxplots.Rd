@@ -30,34 +30,39 @@ lcms_peak_table_boxplots(peak_table,
 }
 }
 \seealso{
-Other metabolite identification functions: \code{\link{lcms_identify_metabolites}},
-  \code{\link{lcms_peak_annotation}},
-  \code{\link{lcms_peak_table_pca}},
-  \code{\link{lcms_raw_data}},
-  \code{\link{lcms_sig_peaks_table}},
-  \code{\link{lcms_spectral_sig_features}},
-  \code{\link{lcms_to_mait}},
-  \code{\link{lcms_write_parameter_table}}
+Other metabolite identification functions: 
+\code{\link{lcms_identify_metabolites}()},
+\code{\link{lcms_peak_annotation}()},
+\code{\link{lcms_peak_table_pca}()},
+\code{\link{lcms_raw_data}()},
+\code{\link{lcms_sig_peaks_table}()},
+\code{\link{lcms_spectral_sig_features}()},
+\code{\link{lcms_to_mait}()},
+\code{\link{lcms_write_parameter_table}()}
 
-Other dataset_peak_table functions: \code{\link{lcms_dataset_load}},
-  \code{\link{lcms_identify_metabolites}},
-  \code{\link{lcms_peak_annotation}},
-  \code{\link{lcms_peak_table_pca}},
-  \code{\link{lcms_plot_tics}},
-  \code{\link{lcms_raw_data}},
-  \code{\link{lcms_sig_peaks_table}},
-  \code{\link{lcms_spectral_sig_features}},
-  \code{\link{lcms_tics}}, \code{\link{lcms_to_mait}}
+Other dataset_peak_table functions: 
+\code{\link{lcms_dataset_load}()},
+\code{\link{lcms_identify_metabolites}()},
+\code{\link{lcms_peak_annotation}()},
+\code{\link{lcms_peak_table_pca}()},
+\code{\link{lcms_plot_tics}()},
+\code{\link{lcms_raw_data}()},
+\code{\link{lcms_sig_peaks_table}()},
+\code{\link{lcms_spectral_sig_features}()},
+\code{\link{lcms_tics}()},
+\code{\link{lcms_to_mait}()}
 
-Other statistical functions: \code{\link{lcms_peak_table_pca}}
+Other statistical functions: 
+\code{\link{lcms_peak_table_pca}()}
 
-Other visualization functions: \code{\link{lcms_peak_table_pca}},
-  \code{\link{lcms_peakpicking_optimization}},
-  \code{\link{lcms_plot_chrom_peak_image}},
-  \code{\link{lcms_plot_chrom}},
-  \code{\link{lcms_plot_tics}},
-  \code{\link{lcms_retcorgroup_optimization}},
-  \code{\link{lcms_retention_time_alignment_plot}}
+Other visualization functions: 
+\code{\link{lcms_peak_table_pca}()},
+\code{\link{lcms_peakpicking_optimization}()},
+\code{\link{lcms_plot_chrom_peak_image}()},
+\code{\link{lcms_plot_chrom}()},
+\code{\link{lcms_plot_tics}()},
+\code{\link{lcms_retcorgroup_optimization}()},
+\code{\link{lcms_retention_time_alignment_plot}()}
 }
 \concept{dataset_peak_table functions}
 \concept{metabolite identification functions}

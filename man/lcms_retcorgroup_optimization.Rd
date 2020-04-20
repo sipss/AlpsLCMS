@@ -4,9 +4,14 @@
 \alias{lcms_retcorgroup_optimization}
 \title{Optimization of retention time correction and grouping parameters.}
 \usage{
-lcms_retcorgroup_optimization(optimizedXcmsSetObject,
-  retcorGroupParameters, nSlaves = 1, opt_path, subdir = "plot_ipo",
-  plots = TRUE)
+lcms_retcorgroup_optimization(
+  optimizedXcmsSetObject,
+  retcorGroupParameters,
+  nSlaves = 1,
+  opt_path,
+  subdir = "plot_ipo",
+  plots = TRUE
+)
 }
 \arguments{
 \item{optimizedXcmsSetObject}{XCMS object conatining the \code{best_settings} parameters.
@@ -46,19 +51,21 @@ result_retcorgroup <- lcms_retcorgroup_optimization(optimizedXcmsSetObject,
 }
 }
 \seealso{
-Other optimization functions: \code{\link{lcms_convert_ipo_to_xcms}},
-  \code{\link{lcms_default_peakpicking_params}},
-  \code{\link{lcms_peakpicking_optimization}},
-  \code{\link{lcms_read_ipo_to_xcms}},
-  \code{\link{lcms_write_opt_params}}
+Other optimization functions: 
+\code{\link{lcms_convert_ipo_to_xcms}()},
+\code{\link{lcms_default_peakpicking_params}()},
+\code{\link{lcms_peakpicking_optimization}()},
+\code{\link{lcms_read_ipo_to_xcms}()},
+\code{\link{lcms_write_opt_params}()}
 
-Other visualization functions: \code{\link{lcms_peak_table_boxplots}},
-  \code{\link{lcms_peak_table_pca}},
-  \code{\link{lcms_peakpicking_optimization}},
-  \code{\link{lcms_plot_chrom_peak_image}},
-  \code{\link{lcms_plot_chrom}},
-  \code{\link{lcms_plot_tics}},
-  \code{\link{lcms_retention_time_alignment_plot}}
+Other visualization functions: 
+\code{\link{lcms_peak_table_boxplots}()},
+\code{\link{lcms_peak_table_pca}()},
+\code{\link{lcms_peakpicking_optimization}()},
+\code{\link{lcms_plot_chrom_peak_image}()},
+\code{\link{lcms_plot_chrom}()},
+\code{\link{lcms_plot_tics}()},
+\code{\link{lcms_retention_time_alignment_plot}()}
 }
 \concept{optimization functions}
 \concept{visualization functions}

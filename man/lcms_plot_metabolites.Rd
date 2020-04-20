@@ -4,8 +4,13 @@
 \alias{lcms_plot_metabolites}
 \title{Metabolite Candidates}
 \usage{
-lcms_plot_metabolites(path_result, biofluid_type = "Any",
-  significance = 0.05, metabolite_rm = TRUE, max_words = 250)
+lcms_plot_metabolites(
+  path_result,
+  biofluid_type = "Any",
+  significance = 0.05,
+  metabolite_rm = TRUE,
+  max_words = 250
+)
 }
 \arguments{
 \item{path_result}{The folder where the .csv file where the annotated table
