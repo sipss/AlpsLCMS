@@ -9,3 +9,5 @@
 *.pper
 .Rproj.user/EB43BD27/sources/prop/INDEX
 .Rproj.user/shared/notebooks/paths
+.Rproj.user/EB43BD27/cpp-definition-cache
+.Rproj.user/EB43BD27/pcs/debug-breakpoints.pper
