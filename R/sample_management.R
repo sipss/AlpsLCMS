@@ -30,7 +30,6 @@ lcms_read_samples <- function(...){
 #'
 #' Add metadata to MSnExp object.
 #'
-#' @inheritParams Biobase::pData
 #' @param object A lcms_dataset.
 #' @param metadata A data frame to be merged.
 #' @param by A column present both in `metadata` and in `Biobase::pData(object)`.
