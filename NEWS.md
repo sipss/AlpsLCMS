@@ -1,3 +1,16 @@
+# NIHSnmr 0.0.0.9005
+
+- Bug correction in functions related to IPO and XCMS dependencies
+- Add the HMDB template
+- Add functions for naive annotation based on the HMDB
+- Add function for detection of known metabolites as M+H and M-H
+- Add function for manual inspection of a known metabolite (it requires knowledge of the RT and MS)
+- Add documentation of functions for annotation
+- Remove of large example datasets
+- Enhance of the manual setting of parameters in XCMS-related functions
+
+
+
 # NIHSnmr 0.0.0.9004
 
 - Bug correction in functions lcms_peak_table_pca and lcms_convert_ipo_to_xcms
