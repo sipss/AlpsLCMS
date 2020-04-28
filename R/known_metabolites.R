@@ -26,8 +26,8 @@ known_metabolites <- function(feature_table_complete, metabolites){
   FT$Assignation <- NA
 
   for (i in 1: nrow(feature_table_complete)) {
-    k = feature_table_complete[i, 2]
-    j = feature_table_complete[i, 3]
+    k = feature_table_complete[i, "MZ"]
+    j = feature_table_complete[i, "RT"]
     lower_mz_edge <- k - 0.002
     higher_mz_edge <- k + 0.002
     lower_rt_edge <- j - 0.4
