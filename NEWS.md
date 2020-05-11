@@ -1,3 +1,8 @@
+# NIHSnmr 0.0.0.9006
+
+- Modifications in functions for assignation (`known_metabolites` and `assignation_pos_HMDB`)
+
+
 # NIHSnmr 0.0.0.9005
 
 - Bug correction in functions related to IPO and XCMS dependencies

@@ -11,8 +11,8 @@ known_metabolites(feature_table_complete, metabolites)
 samples in columns. First, second and third columns need to be the feature
 ID, mass and retention time (min). column needs}
 
-\item{metabolites}{A dataframe with metabolites containing a "MZ" (mass) and
-"RT" (retention time in min) columns.}
+\item{metabolites}{A dataframe with metabolites containing a "mz" (mass) and
+"rt" (retention time in min) columns.}
 }
 \value{
 The same feature table with an extra column with matched metabolites

@@ -85,7 +85,7 @@ assignation_neg_HMDB <- function(feature_table){
   FT$Assignation <- NA
 
   for (i in 1: nrow(feature_table)) {
-    k = feature_table[i, 2]
+    k = feature_table[i, "mz"]
     lower_mz_edge <- k - 0.002
     higher_mz_edge <- k + 0.002
 

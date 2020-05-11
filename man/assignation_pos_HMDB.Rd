@@ -8,7 +8,7 @@ assignation_pos_HMDB(feature_table)
 }
 \arguments{
 \item{feature_table}{A dataframe containing feature in rows and samples in
-columns. First and second columns need to be the feature ID and mass.}
+columns. A column called "mz" is required with the correspoinding mass of each feature.}
 }
 \value{
 The same feature table with an extra column with matched metabolites
