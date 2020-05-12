@@ -182,6 +182,8 @@ install_RawConverter <- function(rawconverter, force = FALSE) {
 #'
 #' @param rawconverter The working directory given to [install_RawConverter].
 #'
+#' @return null
+#' 
 #' @section RawConverter:
 #'
 #' Raw samples from ThermoFisher are not easily parsed. All implementations go
@@ -222,12 +224,11 @@ lcms_raw_to_mzxml <- function(samples, options = c("--mzxml", "--select_mono_pre
 #' @return A list of the LC-MS files in a readable format to create the `lcms_dataset`.
 #' @export
 #' @examples
-#' \dontrun{
 #' sample_path <- system.file("extdata", package = "NIHSlcms")
 #' samples_mzxml <- lcms_list_mzxml_samples(sample_path,
 #'                                     file_format = "mzXML")
 #' print(samples_mzxml)
-#' }
+
 lcms_list_mzxml_samples <- function(sample_path,
                                     file_format = "mzXML",
                                     rawconverter_path = NULL){

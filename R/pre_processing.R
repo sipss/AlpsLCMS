@@ -24,6 +24,7 @@
 #'
 #' print(dataset_pos)
 #' }
+
 lcms_filter_polarity <- function(object, polarity.) {
   if (missing(polarity.)) return(object)
   polarity. <- as.numeric(polarity.)
@@ -44,7 +45,6 @@ lcms_filter_polarity <- function(object, polarity.) {
 #' @return A filtered lcms_dataset with the selected m/z range.
 #' @export
 #' @examples
-#' \dontrun{
 #' mz_range = c(300, 400)
 #' dataset <- lcms_dataset_load(system.file("extdata",
 #'                                        "dataset_pos.rds",
@@ -52,7 +52,7 @@ lcms_filter_polarity <- function(object, polarity.) {
 #' dataset_pos_mz <-lcms_filter_mz(dataset, mz = mz_range)
 #'
 #' print(dataset_pos_mz)
-#' }
+
 
 lcms_filter_mz <- function(dataset, mz){
   dataset <- MSnbase::filterMz(dataset, mz)
@@ -81,6 +81,7 @@ lcms_filter_mz <- function(dataset, mz){
 #'
 #' print(dataset_pos_rt)
 #' }
+
 lcms_filter_rt_min <- function (dataset, rt = c(4, 14)){
   min2sec <- 60
   dataset <- MSnbase::filterRt(dataset, rt = rt * min2sec)
@@ -323,6 +324,7 @@ lcms_align_rtime <- function (peakdet, params) {
 #' peak_table <- lcms_group_peaks(peakdet_align, params = preproc_params)
 #' print(peak_table)
 #' }
+
 lcms_group_peaks <- function (peakdet_align, params) {
   quiet <- function(x) {
     base::sink(base::tempfile())
@@ -366,6 +368,7 @@ lcms_group_peaks <- function (peakdet_align, params) {
 #'
 #' print(peak_table_imputed)
 #' }
+
 lcms_fill_chrom_peaks <- function(peak_table){
   quiet <- function(x) {
     base::sink(base::tempfile())
@@ -398,14 +401,13 @@ lcms_fill_chrom_peaks <- function(peak_table){
 #' @family dataset_peak_table functions
 #' @export
 #' @examples
-#' \dontrun{
 #' dataset <- lcms_dataset_load(system.file
 #'                                   ("extdata","dataset_pos.rds",
 #'                                     package = "NIHSlcms"))
 #' tics <- lcms_tics(dataset)
 #'
 #' print(tics)
-#' }
+
 lcms_tics <- function(dataset, treatment = treatment){
   tics <- tibble::tibble(
     file = MSnbase::fromFile(dataset),
@@ -450,6 +452,7 @@ lcms_tics <- function(dataset, treatment = treatment){
 #' lcms_plot_tics(tics, treatment = treatment,
 #'                rt = c(4, 8), plot_type = "boxplot")
 #' }
+
 lcms_plot_tics <- function(tics, treatment = treatment, rt = NULL, plot_type = "spec"){
   ret_time <- NULL
   tic <- NULL
@@ -515,6 +518,7 @@ lcms_plot_tics <- function(tics, treatment = treatment, rt = NULL, plot_type = "
 #' rta_plot <- lcms_retention_time_alignment_plot(data)
 #' print(rta_plot)
 #' }
+
 lcms_retention_time_alignment_plot <- function (data){
   fileIdx <- NULL
   ret_time_orig <- NULL
@@ -559,6 +563,7 @@ lcms_retention_time_alignment_plot <- function (data){
 #' base_peaks <- xcms::chromatogram(dataset, aggregationFun = "max")
 #' lcms_plot_chrom(base_peaks, treatment_col, rtlim = c(4, 8))
 #' }
+
 lcms_plot_chrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
   rtime <- NULL
   intensity  <- NULL
@@ -688,6 +693,7 @@ lcms_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE
 #'                            sep = "/"), full.names = TRUE)
 #' print(fileList)
 #' }
+
 lcms_rearrange_datafiles_by_class <- function(dataset, dataDir) {
   Treatment <- NULL
   files <- Biobase::pData(dataset)$sampleNames

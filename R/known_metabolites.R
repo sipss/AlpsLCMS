@@ -6,8 +6,8 @@
 #' @param feature_table_complete A dataframe containing feature in rows and
 #'   samples in columns. First, second and third columns need to be the feature
 #'   ID, mass and retention time (min). column needs
-#' @param metabolites A dataframe with metabolites containing a "mz" (mass) and
-#'   "rt" (retention time in min) columns.
+#' @param metabolites A dataframe with metabolites containing a "MZ" (mass) and
+#'   "RT" (retention time in min) columns.
 #'
 #' @return The same feature table with an extra column with matched metabolites
 #' @export
@@ -26,8 +26,8 @@ known_metabolites <- function(feature_table_complete, metabolites){
   FT$Assignation <- NA
 
   for (i in 1: nrow(feature_table_complete)) {
-    k = feature_table_complete[i, "mz"]
-    j = feature_table_complete[i, "rt"]
+    k = feature_table_complete[i, 2]
+    j = feature_table_complete[i, 3]
     lower_mz_edge <- k - 0.002
     higher_mz_edge <- k + 0.002
     lower_rt_edge <- j - 0.4

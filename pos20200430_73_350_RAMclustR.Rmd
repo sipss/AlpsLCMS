@@ -20,14 +20,21 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(NIHSlcms)
 library(RAMClustR)
+library(xcms)
 ```
 
 ```{r}
 # Where converted samples are.
-input_dir <- "C:/Users/fmadrid/Documents/IBEC/NESTLE/LCMS/20200128_Data_IBEC_Plasma_LCMS/RAW_Data/For_IBEC/proteowin/positive"
+input_dir <- "C:/Users/hgrac/Desktop/cosas/IBEC/NIHSI/positive"
 
 # Where output will be stored.
-output_dir <- "C:/Users/fmadrid/Documents/IBEC/NESTLE/LCMS/20200128_Data_IBEC_Plasma_LCMS/RAMClustR/results_pos"
+output_dir <- "C:/Users/hgrac/Desktop/cosas/IBEC/NIHSI/results_pos"
+
+# Where converted samples are.
+#input_dir <- "C:/Users/fmadrid/Documents/IBEC/NESTLE/LCMS/20200128_Data_IBEC_Plasma_LCMS/RAW_Data/For_IBEC/proteowin/positive"
+
+# Where output will be stored.
+#output_dir <- "C:/Users/fmadrid/Documents/IBEC/NESTLE/LCMS/20200128_Data_IBEC_Plasma_LCMS/RAMClustR/results_pos"
 ```
 
 
@@ -48,7 +55,8 @@ file_format <- "mzXML"
 
 # Directory where the RawConverter is.
 # We recommend converting files outside R and set this to NULL
-rawconverter <- "C:/Users/fmadrid/Documents/IBEC/NESTLE/LCMS/RawConverter_x64/RawConverter.exe"
+rawconverter <- "C:/Users/hgrac/AppData/Local/Apps/2.0/0W3LE4AA.3V9/HAK1HQ15.LLV/rawc..tion_0000000000000000_0001.0001_1563e82fa65e7a77/RawConverter.exe"
+#rawconverter <- "C:/Users/fmadrid/Documents/IBEC/NESTLE/LCMS/RawConverter_x64/RawConverter.exe"
 ```
 
 ## Code to run: list of samples
@@ -93,7 +101,8 @@ Caution with metadata. The use of characters such as "-", "/", " " (space) and s
 
 ```{r}
 # Loading the metadata. # Be careful, include a column "sampleNames" ending with the format (e.g. So1.mzXML)
-metadata <- readxl::read_excel("C:/Users/fmadrid/Documents/IBEC/NESTLE/LCMS/20200128_Data_IBEC_Plasma_LCMS/20200128_Sample_Info_adapted.xlsx")
+metadata <- readxl::read_excel("C:/Users/hgrac/Desktop/cosas/IBEC/NIHSI/20200128_Sample_Info_adapted.xlsx")
+#metadata <- readxl::read_excel("C:/Users/fmadrid/Documents/IBEC/NESTLE/LCMS/20200128_Data_IBEC_Plasma_LCMS/20200128_Sample_Info_adapted.xlsx")
 ```
 
 ## Code to run
@@ -260,11 +269,11 @@ It is required to distinguish between regular samples, blank samples and Quality
 ## Input
 
 ```{r}
-concentrated_S <- filterFile(dataset_pos_73_350, 
+concentrated_S <- xcms::filterFile(dataset_pos_73_350, 
                              file = c("Plasma6.mzXML",
                                       "Plasma18.mzXML",
                                       "Plasma10.mzXML"))
-concentrated_L <- filterFile(dataset_pos_350_900, 
+concentrated_L <- xcms::filterFile(dataset_pos_350_900, 
                              file = c("Plasma6.mzXML",
                                       "Plasma18.mzXML",
                                       "Plasma10.mzXML"))
@@ -744,16 +753,17 @@ rm(xdataL)
 Chromatogram of the detected peaks per sample **before** and **after** time alignment and grouping:
 
 ```{r Base peak}
-base_peaks_beforeS <- xcms::chromatogram(peakdet_pos_73_350,
+base_peaks_beforeS <- chromatogram(peakdet_pos_73_350,
                                         aggregationFun = "max")
 
-base_peaks_afterS <-  xcms::chromatogram(peakgrouped_pos_73_350,
-                                       aggregationFun = "max")
+#TOCHECK: error
+#base_peaks_afterS <-  xcms::chromatogram(peakgrouped_pos_73_350,
+#                                       aggregationFun = "max")
 
-base_peaks_beforeL <- xcms::chromatogram(peakdet_pos_350_900,
+base_peaks_beforeL <- chromatogram(peakdet_pos_350_900,
                                         aggregationFun = "max")
 
-base_peaks_afterL <-  xcms::chromatogram(peakgrouped_pos_350_900,
+base_peaks_afterL <-  chromatogram(peakgrouped_pos_350_900,
                                        aggregationFun = "max")
 ```
 
@@ -1391,7 +1401,8 @@ head(result_POS_HMDB[1:5,15:length(result_POS_HMDB)])
 # Targeted identification
 
 ```{r}
-metabolites <- read.csv("C:/Users/fmadrid/Documents/IBEC/NESTLE/LCMS/20200128_Data_IBEC_Plasma_LCMS/known_metabolites.csv")
+metabolites <- read.csv("C:/Users/hgrac/Desktop/cosas/IBEC/NIHSI/known_metabolites.csv")
+#metabolites <- read.csv("C:/Users/fmadrid/Documents/IBEC/NESTLE/LCMS/20200128_Data_IBEC_Plasma_LCMS/known_metabolites.csv")
 head(metabolites)
 
 targeted <- NIHSlcms::known_metabolites(tdata_reduced,

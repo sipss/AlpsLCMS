@@ -22,14 +22,12 @@ Function \code{lcms_tics} stores summarizes TIC information.
 NOTE: \code{lcms_tics} assumes that data is already filtered by polarity.
 }
 \examples{
-\dontrun{
 dataset <- lcms_dataset_load(system.file
                                   ("extdata","dataset_pos.rds",
                                     package = "NIHSlcms"))
 tics <- lcms_tics(dataset)
 
 print(tics)
-}
 }
 \seealso{
 Other dataset functions: 
@@ -54,15 +52,7 @@ Other dataset functions:
 
 Other dataset_peak_table functions: 
 \code{\link{lcms_dataset_load}()},
-\code{\link{lcms_identify_metabolites}()},
-\code{\link{lcms_peak_annotation}()},
-\code{\link{lcms_peak_table_boxplots}()},
-\code{\link{lcms_peak_table_pca}()},
-\code{\link{lcms_plot_tics}()},
-\code{\link{lcms_raw_data}()},
-\code{\link{lcms_sig_peaks_table}()},
-\code{\link{lcms_spectral_sig_features}()},
-\code{\link{lcms_to_mait}()}
+\code{\link{lcms_plot_tics}()}
 }
 \concept{dataset functions}
 \concept{dataset_peak_table functions}

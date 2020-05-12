@@ -1,5 +1,4 @@
 #' @importFrom graphics title
-#' @import MAIT
 #' @importFrom magrittr %>%
 #' @export
 magrittr::`%>%`
@@ -20,12 +19,11 @@ magrittr::`%>%`
 #' @keywords internal
 #' @noRd
 #' @examples
-#' \dontrun{
 #' data_as_list <- list(list(Gender = "Male", Height = 170),
 #'                      list(Gender = "Female", Height = 160),
 #'                      list(Gender = "Male", Weight = 80))
 #' mydata <- list_of_lists_to_tibble(data_as_list)
-#' }
+
 list_of_lists_to_tibble <- function(ls) {
   # Get all the column names per sample:
   all_columns_per_sample <- lapply(ls, function(x) names(x))

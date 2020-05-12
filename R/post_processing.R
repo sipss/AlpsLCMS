@@ -162,7 +162,8 @@ plot_df <- Measured %>%
 text_title_cloud <- paste0("Metabolite Word Cloud. Biofluid: ",
                     base::unique(Measured$Selected_Biofluid), ". ","Pvalue < 0.05.")
 
-set.seed(42)
+#BiocCheck requires remove set.seed
+#set.seed(42)
 cloud <- ggplot2::ggplot(
   plot_df,
   ggplot2::aes(

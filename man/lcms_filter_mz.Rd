@@ -18,7 +18,6 @@ A filtered lcms_dataset with the selected m/z range.
 The function filters the dataset by m/z.
 }
 \examples{
-\dontrun{
 mz_range = c(300, 400)
 dataset <- lcms_dataset_load(system.file("extdata",
                                        "dataset_pos.rds",
@@ -26,7 +25,6 @@ dataset <- lcms_dataset_load(system.file("extdata",
 dataset_pos_mz <-lcms_filter_mz(dataset, mz = mz_range)
 
 print(dataset_pos_mz)
-}
 }
 \seealso{
 Other dataset functions: 

@@ -5,7 +5,7 @@
 #' table.
 #'
 #' @param feature_table A dataframe containing feature in rows and samples in
-#'   columns. A column called "mz" is required with the correspoinding mass of each feature.
+#'   columns. First and second columns need to be the feature ID and mass.
 #'
 #' @return The same feature table with an extra column with matched metabolites
 #' @export
@@ -28,7 +28,7 @@ assignation_pos_HMDB <- function(feature_table){
   FT$Assignation <- NA
 
   for (i in 1: nrow(feature_table)) {
-    k = feature_table[i, "mz"]
+    k = feature_table[i, 2]
     lower_mz_edge <- k - 0.002
     higher_mz_edge <- k + 0.002
 

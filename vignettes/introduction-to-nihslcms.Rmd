@@ -1,0 +1,32 @@
+---
+title: "Introduction to NIHSlcms"
+author: ", Institute for Bioengineering of Catalonia"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Introduction to NIHSlcms}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  fig.width = 7,
+  fig.height = 5,
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The `NIHSlcms` package was written with ...
+
+# Final thoughts
+
+This vignette shows many of the features of the package, some features have
+room for improvement, others are not fully described, and the reader will need
+to browse the documentation. Hopefully it is a good starting point for using the
+package.
+
+

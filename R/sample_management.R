@@ -52,6 +52,7 @@ lcms_read_samples <- function(...){
 #'                                by = "sampleNames")
 #' print(dataset_metadata)
 #' }
+
 lcms_meta_add <- function(object, metadata, by = "sampleNames") {
 
   #making robust the metadata (remove strange characters and separators and numbers as a first characters)
@@ -104,6 +105,7 @@ lcms_dataset_load <- function(file_name) {
 #' @param dataset A lcms_dataset.
 #' @param file_name The file name to save to.
 #' @param ... Additional arguments passed to [saveRDS].
+#' @return null
 #' @family dataset functions
 #' @family import/export functions
 #' @export
@@ -114,6 +116,7 @@ lcms_dataset_load <- function(file_name) {
 #' lcms_dataset_save(dataset, file_name)
 #' print(dataset)
 #' }
+
 lcms_dataset_save <- function(dataset, file_name, ...) {
   lcms_diagnose(dataset) <- NULL
   saveRDS(dataset, file_name)
@@ -142,6 +145,7 @@ lcms_dataset_save <- function(dataset, file_name, ...) {
 #' lcms_meta_export(dataset_metadata, xlsx_file)
 #' print(dataset_metadata)
 #' }
+
 lcms_meta_export <- function(dataset,
                              xlsx_file) {
   groups_present <- phData(dataset)
@@ -158,12 +162,11 @@ lcms_meta_export <- function(dataset,
 #' @family import/export functions
 #' @export
 #' @examples
-#' \dontrun{
 #' metadata <- lcms_meta_read(system.file("extdata",
 #'                                              "metadata.xlsx",
 #'                                               package = "NIHSlcms"))
 #' print(metadata[1:6])
-#' }
+
 lcms_meta_read <- function(xlsx_file) {
   meta <- readxl::read_excel(xlsx_file)
   meta
@@ -196,6 +199,7 @@ lcms_meta_read <- function(xlsx_file) {
 #'
 #' head(phData(dataset_metadata))[1:4]
 #' }
+
 phData <- function (object) {
   Biobase::pData(object)
 }

@@ -20,10 +20,9 @@
 #' @family optimization functions
 #' @export
 #' @examples
-#' \dontrun{
 #' default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
 #' print(default_peakpicking_params)
-#' }
+
 lcms_default_peakpicking_params <- function(noise = c(10e+4,10e+5),
                                             snthresh = c(3,10),
                                             min_peakwidth = c(9, 20),
@@ -71,6 +70,7 @@ lcms_default_peakpicking_params <- function(noise = c(10e+4,10e+5),
 #'                                                    opt_path = opt_path,
 #'                                                    subdir = NULL)
 #' }
+
 lcms_peakpicking_optimization <- function (dataset, peakpickingParameters,
                                            nSlaves = 1, opt_path, subdir ="plot_ipo",
                                            plots = TRUE){
@@ -147,10 +147,9 @@ lcms_peakpicking_optimization <- function (dataset, peakpickingParameters,
 #' @family optimization functions.
 #' @export
 #' @examples
-#' \dontrun{
 #' default_retcorgroup_params <- lcms_default_retcorgroup_params(optimize = TRUE)
 #' print(default_retcorgroup_params)
-#' }
+
 lcms_default_retcorgroup_params <- function(profStep = c(0.7,1),
                                             gapExtend = c(2.1,2.7),
                                             optimize = TRUE){
@@ -196,6 +195,7 @@ lcms_default_retcorgroup_params <- function(profStep = c(0.7,1),
 #'                                                    opt_path = opt_path,
 #'                                                    subdir = NULL)
 #' }
+
 lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
                                         retcorGroupParameters,
                                         nSlaves = 1,
@@ -262,6 +262,7 @@ lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
 #'
 #'  lcms_write_opt_params(result_peakpicking, result_retcorgroup, opt_result_path)
 #'  }
+
 lcms_write_opt_params<- function(results_pp,
                             results_rtcg,
                             opt_result_path,
@@ -335,6 +336,7 @@ lcms_write_opt_params<- function(results_pp,
 #' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #' print(preproc_params)
 #' }
+
 lcms_read_ipo_to_xcms <- function(opt_result_path){
   params <- utils::read.csv(paste0(opt_result_path, "/params.csv"), stringsAsFactors = FALSE)
   preproc_params <- list(ppm = params$ppm,

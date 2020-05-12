@@ -1,4 +1,10 @@
-# NIHSnmr 0.0.0.9005
+# NIHSnmr 0.0.9006 (2020-05-11)
+
+- Minor fixes to pass biocCheck
+- Deletion of MAIT dependeci
+- Package updated for R4.0
+
+# NIHSnmr 0.0.9005
 
 - Bug correction in functions related to IPO and XCMS dependencies
 - Add the HMDB template
@@ -9,25 +15,23 @@
 - Remove of large example datasets
 - Enhance of the manual setting of parameters in XCMS-related functions
 
-
-
-# NIHSnmr 0.0.0.9004
+# NIHSnmr 0.0.9004
 
 - Bug correction in functions lcms_peak_table_pca and lcms_convert_ipo_to_xcms
 - Coherent style for function documentation (Third person and passive form)
 
-# NIHSnmr 0.0.0.9003
+# NIHSnmr 0.0.9003
 
 - First version of the complete metabolominc workflow included
 - Documentation finished.
 - Example dataset included.
 - Example for function use included.
 
-# NIHSnmr 0.0.0.9002
+# NIHSnmr 0.0.9002
 
 - Problems with examples set to 'notrun'
 
-# NIHSnmr 0.0.0.9001
+# NIHSnmr 0.0.9001
 
 - Generation of the package
 

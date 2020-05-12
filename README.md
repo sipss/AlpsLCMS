@@ -14,9 +14,8 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 BiocManager::install("xcms")
 BiocManager::install("CAMERA")
 BiocManager::install(c("GenomicFeatures", "AnnotationDbi"))
-BiocManager::install("MAIT")
 BiocManager::install("IPO")
-remotes::install_local("NIHSlcms_0.0.0.9005.tar.gz")
+remotes::install_local("NIHSlcms_0.0.9005.tar.gz")
 ```
 
 

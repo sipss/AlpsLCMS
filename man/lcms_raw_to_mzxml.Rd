@@ -17,6 +17,9 @@ lcms_raw_to_mzxml(
 
 \item{rawconverter}{The working directory given to \link{install_RawConverter}.}
 }
+\value{
+null
+}
 \description{
 Convert RAW samples to mzxml samples.
 }
