@@ -19,7 +19,7 @@ spectra. Default is \code{2} for \code{InMemory} mode. \code{onDisk} mode
 supports multiple levels and will, by default, read all the
 data.}
     \item{\code{verbose}}{Verbosity flag. Default is to use
-\code{\link[MSnbase:isMSnbaseVerbose]{isMSnbaseVerbose()}}.}
+\code{\link[MSnbase:MSnbaseOptions]{isMSnbaseVerbose()}}.}
     \item{\code{centroided.}}{A \code{logical}, indicating whether spectra are
 centroided or not. Default is \code{NA} in which case the information
 is extracted from the raw file (for mzML or mzXML files). In

@@ -19,7 +19,7 @@ returns a data frame with variable names as rows, description
 tags (e.g., unit of measurement) as columns.
 }
 \description{
-It uses \link[Biobase:pData]{Biobase::pData} to access phenotypic data such as
+It uses \link[Biobase:phenoData]{Biobase::pData} to access phenotypic data such as
 metadata, covariates, etc...
 }
 \examples{

@@ -20,6 +20,6 @@ below to see their documentation.
 \describe{
   \item{future}{\code{\link[future]{cluster}}, \code{\link[future]{multicore}}, \code{\link[future]{multiprocess}}, \code{\link[future]{multisession}}, \code{\link[future]{plan}}, \code{\link[future]{remote}}, \code{\link[future]{sequential}}}
 
-  \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
+  \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
 }}
 
