@@ -1,0 +1,2126 @@
+---
+title: 'NIHS IBEC malaria dataset'
+author: "Ibec team"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    code_folding: hide
+    df_print: paged
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(error = TRUE)
+```
+
+# Pipeline preparation
+
+```{r echo=FALSE}
+library(NIHSlcms)
+library(RAMClustR)
+library(xcms)
+library(mixOmics)
+#devtools::install_git("https://gitlab.com/CarlBrunius/MUVR.git")
+library(MUVR)
+```
+
+```{r}
+# Where converted samples are.
+input_dir <- "C:/Users/hgracia/Desktop/IBEC/data/MTBLS665"
+
+# Where output will be stored.
+output_dir <- "C:/Users/hgracia/Desktop/IBEC/results/MTBLS665"
+```
+
+# NODE 1: Data wrangling
+
+## Convert RAW to mzXML
+
+First, we need the listed spectra in ".mzXML" format to create the `lcms_dataset`. We manually converted ".raw" into ".mzXML" using RawConverter externally and saved them within the same input directory. 
+
+## Input
+
+```{r}
+# Where converted samples are.
+path <- input_dir
+```
+
+<!-- ## Load cdf files -->
+
+<!-- ```{r Data wrangling} -->
+<!-- samples_cdf <- fs::dir_ls(path, glob = "*.cdf") -->
+
+<!-- # cdf import example -->
+<!-- #https://rpubs.com/mohi/XCMS -->
+
+<!-- # positive, negative split -->
+<!-- samples_pos <- samples_cdf[c(TRUE, FALSE)] -->
+<!-- samples_neg <- samples_cdf[c(FALSE, TRUE)] -->
+
+<!-- dataset <- readMSData(samples_pos, mode = "onDisk") -->
+<!-- dataset_neg <- readMSData(samples_neg, mode = "onDisk") -->
+
+<!-- message("Is the dataset correctly loaded? \n") -->
+<!-- print(head(dataset)) -->
+<!-- ``` -->
+
+<!-- ## Save results to disk -->
+
+<!-- ```{r} -->
+<!-- output_dir_node1 <- file.path(output_dir, "01-load-samples") -->
+<!-- fs::dir_create(output_dir_node1) -->
+
+<!-- dataset_rds <- fs::path(output_dir_node1, "dataset_pos.rds") -->
+<!-- lcms_dataset_save(dataset, dataset_rds) -->
+<!-- dataset_rds <- fs::path(output_dir_node1, "dataset_neg.rds") -->
+<!-- lcms_dataset_save(dataset_neg, dataset_rds) -->
+<!-- ``` -->
+
+
+
+# NODE 2: Append metadata
+
+It requires a column ("sampleNames") with the same name of the files, **ending with the format (e.g. So1.mzXML)**.
+
+It requires a column ("treatment") with the class sample. Ensure you have this specific colname **"treatment"**.
+
+Caution with metadata. The use of characters such as "-", "/", " " (space) and starting with **numbers**, etc. leads to problems. Therefore, the function replace `[\\\"\\s/\\\\,;.:|#@$%&?!*%+-=><^'(){}\\[\\]]+` by `_`. Beware of using other special characters and change them by usual ASCII characters.
+
+## Input parameters
+
+```{r}
+# Loading the metadata. # Be careful, include a column "sampleNames" 
+metadata_neg <- readxl::read_excel("C:/Users/hgracia/Desktop/IBEC/data/MTBLS665/a_huc_c18neg.xlsx")
+metadata_pos <- readxl::read_excel("C:/Users/hgracia/Desktop/IBEC/data/MTBLS665/a_huc_hilicpos.xlsx")
+
+# adding needed columns, treatment and sampleNames
+# also added polarity but dont seems to be usefull in the metadata
+metadata_neg[["treatment"]] <- metadata_neg[["Factor Value[Previous Malaria Infection]"]]
+metadata_neg[["sampleNames"]] <- metadata_neg[["Raw Spectral Data File"]]
+metadata_neg[["polarity"]] <- rep(0, length(metadata_neg[["sampleNames"]]))
+metadata_pos[["treatment"]] <- metadata_pos[["Factor Value[Previous Malaria Infection]"]]
+metadata_pos[["sampleNames"]] <- metadata_pos[["Raw Spectral Data File"]]
+metadata_pos[["polarity"]] <- rep(1, length(metadata_neg[["sampleNames"]]))
+
+#Sample selection, we select only the Diagnosis time point
+selected_metadata_pos <- metadata_pos[(metadata_pos[["Factor Value[Time Point]"]] == "Diagnosis" & metadata_pos[["Factor Value[Time Point]"]] != "M/A"),]
+selected_metadata_neg <- metadata_neg[(metadata_neg[["Factor Value[Time Point]"]] == "Diagnosis" & metadata_pos[["Factor Value[Time Point]"]] != "N/A"),]
+
+#We remove outlayer VT_150411_133.cdf
+selected_metadata_pos <- selected_metadata_pos[-7,]
+```
+
+## Load cdf files
+
+```{r Data wrangling}
+#samples_cdf <- fs::dir_ls(path, glob = "*.cdf")
+
+samples_pos <- fs::path_norm(paste(path, selected_metadata_pos[["sampleNames"]], sep = "/"))
+samples_neg <- fs::path_norm(paste(path, selected_metadata_neg[["sampleNames"]], sep = "/"))
+
+# cdf import example
+#https://rpubs.com/mohi/XCMS
+
+# positive, negative split
+# samples_pos <- samples_cdf[c(TRUE, FALSE)]
+# samples_neg <- samples_cdf[c(FALSE, TRUE)]
+
+dataset <- readMSData(samples_pos, mode = "onDisk")
+dataset_neg <- readMSData(samples_neg, mode = "onDisk")
+
+message("Is the dataset correctly loaded? \n")
+print(head(dataset))
+```
+
+## Code to run
+
+```{r}
+dataset <- lcms_meta_add(dataset, selected_metadata_pos, by = "sampleNames")
+dataset_neg <- lcms_meta_add(dataset_neg, selected_metadata_neg, by = "sampleNames")
+
+#We add polarity to the datasets
+dataset@featureData@data$polarity <- selected_metadata_pos[["polarity"]] 
+dataset_neg@featureData@data$polarity <- selected_metadata_neg[["polarity"]]
+
+head(phData(dataset))
+```
+
+## Save results to disk
+
+```{r}
+output_dir_node2 <- file.path(output_dir, "02-add-metadata")
+fs::dir_create(output_dir_node2)
+
+dataset_rds <- fs::path(output_dir_node2, "dataset.rds")
+lcms_dataset_save(dataset, dataset_rds)
+dataset_rds <- fs::path(output_dir_node2, "dataset_neg.rds")
+lcms_dataset_save(dataset_neg, dataset_rds)
+
+lcms_meta_export(dataset, fs::path(output_dir_node2, "metadata.xlsx"))
+lcms_meta_export(dataset_neg, fs::path(output_dir_node2, "metadata_neg.xlsx"))
+```
+
+## TICs
+
+```{r}
+tics_pos <- lcms_tics(dataset, treatment = "treatment")
+tics_neg <- lcms_tics(dataset_neg, treatment = "treatment")
+
+lcms_plot_tics(tics_pos,
+               treatment = treatment,
+               plot_type = "spec")
+
+lcms_plot_tics(tics_pos, treatment = treatment,
+               plot_type = "boxplot")
+
+lcms_plot_tics(tics_neg,
+               treatment = treatment,
+               plot_type = "spec")
+
+lcms_plot_tics(tics_neg, treatment = treatment,
+               plot_type = "boxplot")
+```
+
+## Save results
+
+```{r}
+output_dir_node3 <- file.path(output_dir, "03-split-mass_ranges")
+fs::dir_create(output_dir_node3)
+
+positive_dataset_rds1 <- fs::path(output_dir_node3, "positive_dataset.rds")
+lcms_dataset_save(dataset, positive_dataset_rds1)
+lcms_meta_export(dataset, fs::path(output_dir_node3, "metadata.xlsx"))
+
+negative_dataset_rds1 <- fs::path(output_dir_node3, "negative_dataset.rds")
+lcms_dataset_save(dataset_neg, negative_dataset_rds1)
+lcms_meta_export(dataset_neg, fs::path(output_dir_node3, "metadata_neg.xlsx"))
+```
+
+
+# NODE 5: Optimization of parameters
+
+## Optimization of **Peak Detection** parameters
+
+Here, we try to fit the parameters obtained from the positive mode.
+
+
+## Input
+
+```{r Optimize}
+output_dir_node5_p <- file.path(output_dir, "05-optimization_pos")
+fs::dir_create(output_dir_node5_p)
+output_dir_node5_n <- file.path(output_dir, "05-optimization_neg")
+fs::dir_create(output_dir_node5_n)
+
+# if to optimize or not
+optimize = FALSE
+
+# number of rounds, by default nSlaves = 1 because does the necessary to find the optimum
+nSlaves = 1
+```
+
+## Code to run
+
+```{r}
+default_peakpeaking_params <- lcms_default_peakpicking_params(optimize = optimize)
+# 
+# default_peakpeaking_params$prefilter <- 3 
+# default_peakpeaking_params$value_of_prefilter <- 1000
+# default_peakpeaking_params$integrate <- 1
+# 
+resultPeakpicking_p<- lcms_peakpicking_optimization(
+  dataset = dataset,
+  peakpickingParameters = default_peakpeaking_params,
+  nSlaves = nSlaves,
+  opt_path = output_dir_node5_p,
+  plots = TRUE)
+
+resultPeakpicking_n<- lcms_peakpicking_optimization(
+  dataset = dataset_neg,
+  peakpickingParameters = default_peakpeaking_params,
+  nSlaves = nSlaves,
+  opt_path = output_dir_node5_n,
+  plots = TRUE)
+```
+
+###Peak optimization results are stored in the variable `optimizedXcmsSetObject`
+
+```{r}
+optimizedXcmsSetObject_p <- resultPeakpicking_p$best_settings$xset
+optimizedXcmsSetObject_n <- resultPeakpicking_n$best_settings$xset
+```
+
+## Save results
+
+```{r}
+# Positive
+resultPeakpicking_optP_rds <- fs::path(output_dir_node5_p,
+                                      "resultPeakpicking_opt_p.rds")
+lcms_dataset_save(resultPeakpicking_p,
+                  resultPeakpicking_optP_rds)
+
+optimizedXcmsSetObjectP_rds <- fs::path(output_dir_node5_p,
+                                    "optimizedXcmsSetObject_p.rds")
+
+lcms_dataset_save(optimizedXcmsSetObject_p,
+                  optimizedXcmsSetObjectP_rds)
+
+#Negative
+resultPeakpicking_optN_rds <- fs::path(output_dir_node5_n,
+                                      "resultPeakpicking_opt_n.rds")
+lcms_dataset_save(resultPeakpicking_n,
+                  resultPeakpicking_optN_rds)
+
+optimizedXcmsSetObjectN_rds <- fs::path(output_dir_node5_n,
+                                    "optimizedXcmsSetObject_n.rds")
+
+lcms_dataset_save(optimizedXcmsSetObject_n,
+                  optimizedXcmsSetObjectN_rds)
+```
+
+
+## Optimization of **retention time correction** and **grouping** parameters
+
+## Input: We set them manually (optimize = FALSE)
+
+```{r}
+optimize = FALSE
+nSlaves = 1
+
+output_dir_node5_p
+```
+
+## Code to run (I)
+
+```{r}
+retcorGroupParameters <- lcms_default_retcorgroup_params(optimize = optimize)
+```
+
+## Code to run (II)
+
+```{r}
+resultRetcorGroup_p  <- lcms_retcorgroup_optimization(
+  optimizedXcmsSetObject = optimizedXcmsSetObject_p,
+  retcorGroupParameters = retcorGroupParameters,
+  nSlaves = nSlaves,
+  opt_path = output_dir_node5_p,
+  subdir = "plot_ipo",
+  plots = TRUE
+)
+
+resultRetcorGroup_n  <- lcms_retcorgroup_optimization(
+  optimizedXcmsSetObject = optimizedXcmsSetObject_n,
+  retcorGroupParameters = retcorGroupParameters,
+  nSlaves = nSlaves,
+  opt_path = output_dir_node5_p,
+  subdir = "plot_ipo",
+  plots = TRUE
+)
+```
+
+## Save results
+
+```{r}
+resultRetcorGroup_optP_rds <- fs::path(output_dir_node5_p,
+                                      "resultRetcorGroup_opt_p.rds")
+lcms_dataset_save(resultRetcorGroup_p,
+                  resultRetcorGroup_optP_rds)
+
+### Important file
+IPO_params_p = lcms_write_opt_params(resultPeakpicking_p, 
+                                     resultRetcorGroup_p, 
+                                     output_dir_node5_p)
+
+resultRetcorGroup_optN_rds <- fs::path(output_dir_node5_n,
+                                      "resultRetcorGroup_opt_n.rds")
+lcms_dataset_save(resultRetcorGroup_n,
+                  resultRetcorGroup_optN_rds)
+
+### Important file
+IPO_params_n = lcms_write_opt_params(resultPeakpicking_n, 
+                                     resultRetcorGroup_n, 
+                                     output_dir_node5_n)
+```
+
+
+
+# NODE 6: Conversion to xcms and data rearrange
+
+First, we need the conversion from `IPO` to `XCMS` variable formats to achieve compatibility between packages. To do that, we need to read the IPO_params from the last step and convert into XCMS frame.
+
+# NODE 7: Data Preprocessing - XCMS
+
+It includes:
+
+  * Peak Detection
+  * Retention Time Correction
+  * Peak Correspondence
+  * Imputation
+
+Parameters can be changed here. After manual inspection of certain compounds that we know that they should naturally appear, such as plotting leucine and isoleucine (as we are using plasma samples), we can set parameters more accurally. 
+
+
+## Checking proline
+
+```{r prolina chromatogram}
+  #TODO comprobación funcionamiento ramclustR
+# El cluster 39 esta asignado a la prolina
+# 39,"C0039",116.071469986694,"[M+H]+",116.071469986694,"[M+H]+",115.0642," Acetamidopropanal --- D-Proline --- L-Proline "
+# 
+# colnames(mdataimputed)[472]
+# [1] "116.071469986694_126.679478991064"
+
+metabolite <- "Prolina"
+retention_time <- 126.67
+mz <- 116.0714
+
+retention_time_max <- (retention_time)+15
+retention_time_min <- (retention_time)-15
+rtr <- c(retention_time_min, retention_time_max)
+
+mz_max <- mz + 0.1
+mz_min <- mz - 0.1
+mzr <- c(mz_min, mz_max)
+
+## extract the chromatogram
+#chr_raw_p <- chromatogram(dataset)
+chr_raw_proline_p <- chromatogram(dataset, mz = mzr, rt = rtr)
+plot(chr_raw_proline_p, col = "blue", xlim = rtr, ylim = c(0,3e+9), main = "Proline")
+```
+
+## Checking L-Valine
+POS
+HMDB00883	3	L-Valine	118,0862	124,7	Multiple	118,08625	0,42	C5H11NO2	117,0789786	M+H	5789138582	
+NEG
+HMDB00883	2	L-Valine	116.0717	162.3	Multiple	116.0717	0	C5H11NO2	117.0789786	M-H	4457969.5	
+
+```{r}
+metabolite <- "L-Valine"
+retention_time <- 124.7
+mz <- 118.0862
+
+#Parece estar aqui
+# colnames(mdataimputed)[498]
+# [1] "118.076320137933_126.554635473488"
+match(118.076320137933, RC$fmz)
+[1] 4831
+RC$fmz[4831]
+[1] 118.0763
+RC$featclus[4831]
+[1] 39
+RC$M.ann[[39]]
+mz          int isogr iso charge adduct ppm  label
+9  116.0480   0.35725293    NA  NA     NA   <NA>  NA   <NA>
+3  116.0556   0.08007233    NA  NA     NA   <NA>  NA   <NA>
+6  116.0715 100.00000000     1   0      1 [M+H]+  NA [M+H]+
+4  116.0857   0.06967991    NA  NA     NA   <NA>  NA   <NA>
+2  116.0939   0.35997159    NA  NA     NA   <NA>  NA   <NA>
+7  117.0677   0.34204751    NA  NA     NA   <NA>  NA   <NA>
+8  117.0754   5.79716354     1   1      1   <NA>  NA   <NA>
+1  118.0763   0.48311315     1   2      1   <NA>  NA   <NA>
+10 562.4112   0.24276217    NA  NA     NA   <NA>  NA   <NA>
+5  563.4145   0.07854296    NA  NA     NA   <NA>  NA   <NA>
+
+  #TODO comprobación funcionamiento ramclustR
+El cluster 39 esta asignado a la prolina
+39,"C0039",116.071469986694,"[M+H]+",116.071469986694,"[M+H]+",115.0642," Acetamidopropanal --- D-Proline --- L-Proline "
+
+colnames(mdataimputed)[472]
+[1] "116.071469986694_126.679478991064"
+
+RC parameters
+st
+[1] 0.8
+> sr
+[1] 0.5
+
+st	
+numeric: sigma t - time similarity decay value
+
+sr	
+numeric: sigma r - correlational similarity decay value
+
+Por fortuna la valina se identifica en el cluster 315
+RC$M.ann[[315]]
+
+
+#Fran mencionó mirar el 132.102, hay multiples a partir de este
+# colnames(mdataimputed)[677]
+# [1] "132.102315901656_154.329600271605"
+
+metabolite_neg <- "L-Valine"
+retention_time_neg <- 162.3
+mz_neg <- 116.0717
+```
+
+## Code to run
+
+```{r}
+retention_time_max <- (retention_time)+15
+retention_time_min <- (retention_time)-15
+rtr <- c(retention_time_min, retention_time_max)
+
+mz_max <- mz + 0.1
+mz_min <- mz - 0.1
+mzr <- c(mz_min, mz_max)
+
+## extract the chromatogram
+#chr_raw_p <- chromatogram(dataset)
+chr_raw_valine_p <- chromatogram(dataset, mz = mzr, rt = rtr)
+```
+
+```{r}
+retention_time_max_neg <- (retention_time_neg)+15
+retention_time_min_neg <- (retention_time_neg)-15
+rtr_neg <- c(retention_time_min_neg, retention_time_max_neg)
+
+mz_max_neg <- mz_neg + 0.1
+mz_min_neg <- mz_neg - 0.1
+mzr_neg <- c(mz_min, mz_max)
+
+## extract the chromatogram
+#chr_raw_n <- chromatogram(dataset_neg)
+chr_raw_valine_n <- chromatogram(dataset_neg, mz = mzr_neg, rt = rtr_neg)
+```
+
+```{r}
+plot(chr_raw_p, col = "blue", xlim = c(0,300), ylim = c(0,2e+10), main = "Total")
+plot(chr_raw_valine_p, col = "blue", main = metabolite, xlim = c(retention_time_min,retention_time_max), ylim = c(0,1e+9))
+
+plot(chr_raw_n, col = "blue", xlim = c(0,300), ylim = c(0,1e+10), main = "Total")
+plot(chr_raw_valine_n, col = "blue", main = metabolite_neg, xlim = c(retention_time_min_neg,retention_time_max_neg), ylim = c(0,1e+10))
+
+#TODO la valina tiene otro rango en el negativo, pero no se aprecia muy bien,
+# seleccionar otro elemento?
+# Para buscar otro elemento
+plot(chr_raw_valine_n, col = "blue", main = metabolite_neg, xlim = c(retention_time_min_neg,retention_time_max_neg), ylim = c(0,2e+11))
+plot(chr_raw_valine_n[[1]], col = "blue", main = metabolite_neg, xlim = c(retention_time_min_neg,retention_time_max_neg), ylim = c(0,2e+8))
+
+#TODO 
+#Comparar la features table nuestra de la valina con la raw table de ellos
+#Comprobar el 132.102, No aparece en los datos del paper
+
+```
+
+
+
+<!-- We observe that the peak width can be from 10 (s) to 50-60 (s) depending on the concentration. Likewise, the noise level ranges from 5ee+3 to 1e+6. We can set the lowest one as we have a second parameter that acts as a second condition. The prefilter parameter allows an added condition in which you need at least several datapoints at this intensity to become a peak. -->
+
+
+## Input
+
+```{r Creating parameters}
+output_dir_node5_p <- file.path(output_dir, "05-optimization_pos")
+directory_params_p <- output_dir_node5_p
+
+prep_parm_p <- lcms_read_ipo_to_xcms(directory_params_p)
+prep_parm_p$peakwidth <- c(8, 60)
+prep_parm_p$noise <- 1e+4
+prep_parm_p$snthresh <- 3
+prep_parm_p$prefilter <- c(3, 1e+4)
+prep_parm_p$centerSample <- 1 # index of the center sample.
+prep_parm_p$integrate <- 2
+prep_parm_p$mzdiff <- -0.001
+prep_parm_p$profStep <- 0.005
+prep_parm_p$minFraction <- 0.2
+
+classes <- dataset@phenoData@data[["treatment"]]
+#classes <- metadata_pos[["treatment"]]
+```
+
+```{r Creating parameters neg}
+output_dir_node5_n <- file.path(output_dir, "05-optimization_neg")
+directory_params_n <- output_dir_node5_n
+
+prep_parm_n <- lcms_read_ipo_to_xcms(directory_params_n)
+prep_parm_n$peakwidth <- c(8, 60)
+prep_parm_n$noise <- 1e+4
+prep_parm_n$snthresh <- 3
+prep_parm_n$prefilter <- c(3, 1e+4)
+prep_parm_n$centerSample <- 1 # index of the center sample.
+prep_parm_n$integrate <- 2
+prep_parm_n$mzdiff <- -0.001
+prep_parm_n$profStep <- 0.005
+prep_parm_n$minFraction <- 0.2
+
+classes_neg <- dataset_neg@phenoData@data[["treatment"]]
+```
+
+# **Peak detection**
+
+Our standard method for peak detection is *'CentWave'*, since the data provided is Centroided. We must initialize its parameters according to the `IPO` Package optimization. Peak detection aims to detect important features (peaks) on the chromatographic axis. This will be useful for a posterior peak alignment on the chormatophic axis.
+
+## Code to run
+
+```{r Peak detection}
+peakdet = lcms_find_chrom_peaks_cwp(dataset, 
+                                    params = prep_parm_p)
+
+peakdet_neg = lcms_find_chrom_peaks_cwp(dataset_neg, 
+                                    params = prep_parm_n)
+
+message("Number of detected peaks")
+peakdet@msFeatureData[["chromPeakData"]]@nrows
+message("")
+
+message("Parameters")
+peakdet@.processHistory[[1]]@param
+
+message("Number of detected peaks")
+peakdet_neg@msFeatureData[["chromPeakData"]]@nrows
+message("")
+
+message("Parameters")
+peakdet_neg@.processHistory[[1]]@param
+```
+
+# **Retention Time Correction and Peak Correspondence**
+
+Peak correspondence is carried out by the *'groupChromPeaks'* method, with parameters obtained form `IPO`. Peak Correspondece consist in grouping peaks on retention time axis with the purspose of associate them to spectra on the mass/chage axis. After this stage we finally have a peak table.
+
+It requires a previous grouping.
+
+# **Correspondence, Alignment and Regrouping**
+
+## Input
+
+```{r}
+centerSample <- 4 # index of the center sample. It defaults to floor(median(1:length(fileNames(object))))
+```
+
+## **Correspondence**
+
+```{r Correspondence}
+###################################################################
+## CORRESPONDENCE
+new_params <- PeakDensityParam(sampleGroups = classes,
+                               bw = 5, 
+                               minFraction = 0.2,
+                               minSamples = 1, 
+                               binSize = 0.005, 
+                               maxFeatures = 50)
+
+peakgrouped = groupChromPeaks(peakdet, 
+                              param = new_params)
+
+new_params_neg <- PeakDensityParam(sampleGroups = classes_neg,
+                               bw = 5, 
+                               minFraction = 0.2,
+                               minSamples = 1, 
+                               binSize = 0.005, 
+                               maxFeatures = 50)
+
+peakgrouped_neg = groupChromPeaks(peakdet_neg, 
+                              param = new_params_neg)
+```
+
+
+## **Alignment and regrouping**
+
+```{r Alignment}
+###################################################################
+## ALIGNMENT
+
+pgp <- PeakGroupsParam(minFraction = 0.4,
+                       extraPeaks = 1, #maximal number of additional peaks for all samples to be assigned to a peak group (i.e. feature) for retention time correction.
+                       smooth = "loess", # interpolate corrected retention times
+                       # span = , # degree of smoothing (if smooth = "loess")
+                       family = "gaussian",
+                       subset = as.integer(                       rownames(as.data.frame(dataset@phenoData@data)))) # indices of samples within the experiment on which the alignment models should be estimated.
+
+## Get the peak groups that would be used for alignment.
+xdata_aling <- adjustRtime(peakgrouped, param = pgp)
+
+rt_plot = lcms_retention_time_alignment_plot(xdata_aling)
+rt_plot
+
+clrs <- rep("#00000040", 8)
+par(mfrow = c(2, 1), mar = c(4, 4.5, 1, 0.5))
+plot(chromatogram(xdata_aling, aggregationFun = "sum"),
+     col = clrs, peakType = "none")
+plotAdjustedRtime(xdata_aling, col = clrs, peakGroupsPch = 1,
+                  peakGroupsCol = "#00ce0040")
+
+###################################################################
+## REGROUPING
+
+new_params <- PeakDensityParam(sampleGroups = classes,
+                               bw = 5, # 
+                               minFraction = 0.2,
+                               minSamples = 1,
+                               binSize = 0.005,
+                               maxFeatures = 50)
+
+peakgrouped = groupChromPeaks(xdata_aling, param = new_params)
+```
+
+
+```{r Alignment negative}
+###################################################################
+## ALIGNMENT
+
+pgp_neg <- PeakGroupsParam(minFraction = 0.4,
+                       extraPeaks = 1, #maximal number of additional peaks for all samples to be assigned to a peak group (i.e. feature) for retention time correction.
+                       smooth = "loess", # interpolate corrected retention times
+                       # span = , # degree of smoothing (if smooth = "loess")
+                       family = "gaussian",
+                       subset = as.integer(                       rownames(as.data.frame(dataset_neg@phenoData@data)))) # indices of samples within the experiment on which the alignment models should be estimated.
+
+## Get the peak groups that would be used for alignment.
+xdata_aling_neg <- adjustRtime(peakgrouped_neg, param = pgp_neg)
+
+rt_plot_neg = lcms_retention_time_alignment_plot(xdata_aling_neg)
+rt_plot_neg
+
+clrs <- rep("#00000040", 8)
+par(mfrow = c(2, 1), mar = c(4, 4.5, 1, 0.5))
+plot(chromatogram(xdata_aling_neg, aggregationFun = "sum"),
+     col = clrs, peakType = "none")
+plotAdjustedRtime(xdata_aling_neg, col = clrs, peakGroupsPch = 1,
+                  peakGroupsCol = "#00ce0040")
+###################################################################
+## REGROUPING
+
+new_params_neg <- PeakDensityParam(sampleGroups = classes_neg,
+                               bw = 5, # 
+                               minFraction = 0.2,
+                               minSamples = 1,
+                               binSize = 0.005,
+                               maxFeatures = 50)
+
+peakgrouped_neg = groupChromPeaks(xdata_aling_neg, param = new_params_neg)
+```
+
+## Base Peak
+
+**Base peak chromatograms** before and after retention time aligment and grouping. Again, we modified the plot measuring the retention time axis in minutes.
+
+Chromatogram of the detected peaks per sample **before** and **after** time alignment and grouping:
+
+```{r Base peak}
+base_peaks_before <- chromatogram(peakdet,
+                                        aggregationFun = "max")
+
+base_peaks_before_neg <- chromatogram(peakdet_neg,
+                                        aggregationFun = "max")
+
+base_peaks_after <- chromatogram(peakgrouped,
+                                        aggregationFun = "max")
+
+base_peaks_after_neg <- chromatogram(peakgrouped_neg,
+                                        aggregationFun = "max")
+
+#TODO
+#Error in .mz_chromatograms(object, mz = "mz") : Chromatograms in row 1 have different mz
+
+#No entiendo el error
+treatment_col <- scales::hue_pal()(length(unique(dataset$treatment)))
+names(treatment_col) <- unique(dataset$treatment)
+
+for(i in seq_len(length(peakdet))){
+  message("Chromatogram ", i)
+  base_peaks_after <- chromatogram(peakgrouped[i])
+  lcms_plot_chrom(base_peaks_after, 
+                treatment_col = treatment_col[i])
+}
+min(peakgrouped@msFeatureData$chromPeaks[1,])
+peakdet@msFeatureData$chromPeaks[1,]
+
+base_peaks_before[[1]]@chromPeaks[1,]
+
+```
+
+## Code to run
+
+```{r}
+treatment_col <- scales::hue_pal()(length(unique(dataset$treatment)))
+names(treatment_col) <- unique(dataset$treatment)
+
+lcms_plot_chrom(base_peaks_before, 
+                treatment_col = treatment_col)
+
+lcms_plot_chrom(base_peaks_after, 
+               treatment_col = treatment_col)
+
+treatment_col_neg <- scales::hue_pal()(length(unique(dataset_neg$treatment)))
+names(treatment_col_neg) <- unique(dataset_neg$treatment)
+lcms_plot_chrom(base_peaks_before_neg, 
+               treatment_col = treatment_col_neg)
+
+lcms_plot_chrom(base_peaks_after_neg, 
+               treatment_col = treatment_col_neg)
+```
+
+
+```{r}
+# tics_before <- lcms_tics(peakdet, treatment = "treatment")
+# tics_after <- lcms_tics(peakgrouped, treatment = "treatment")
+# 
+# lcms_plot_tics(tics_before, treatment = treatment, plot_type = "spec")
+# lcms_plot_tics(tics_after, treatment = treatment, plot_type = "spec")
+# 
+# 
+# tics_before_neg <- lcms_tics(peakdet_neg, treatment = "treatment")
+# tics_after_neg <- lcms_tics(peakgrouped_neg, treatment = "treatment")
+# 
+# lcms_plot_tics(tics_before_neg, treatment = treatment, plot_type = "spec")
+# lcms_plot_tics(tics_after_neg, treatment = treatment, plot_type = "spec")
+```
+
+
+Image plot of the chromatographic detected peaks per sample before retention time alignment and grouping:
+
+
+```{r}
+lcms_plot_chrom_peak_image(peakdet, binSize = 5,
+                           xlim = NULL,
+                           log = FALSE,
+                           xlab = "retention time (min)",
+                           yaxt = par("yaxt"),
+                           main = "Detected Peaks (unprocessed)")
+
+lcms_plot_chrom_peak_image(peakgrouped, binSize = 5,
+                           xlim = NULL,
+                           log = FALSE,
+                           xlab = "retention time (min)",
+                           yaxt = par("yaxt"),
+                           main = "Detected Peaks (processed)")
+```
+
+```{r}
+lcms_plot_chrom_peak_image(peakdet_neg, binSize = 5,
+                           xlim = NULL,
+                           log = FALSE,
+                           xlab = "retention time (min)",
+                           yaxt = par("yaxt"),
+                           main = "Detected Peaks (unprocessed)")
+
+lcms_plot_chrom_peak_image(peakgrouped_neg, binSize = 5,
+                           xlim = NULL,
+                           log = FALSE,
+                           xlab = "retention time (min)",
+                           yaxt = par("yaxt"),
+                           main = "Detected Peaks (processed)")
+```
+
+
+```{r}
+# summary_fun <- function(z){
+#     c(peak_count = nrow(z), rt = quantile(z[, "rtmax"] - z[, "rtmin"]))
+# }
+# 
+# peak_count <- lapply(split.data.frame(chromPeaks(peakgrouped_pos_73_350), 
+#                                 f = chromPeaks(peakgrouped_pos_73_350)[, "sample"]),
+#                FUN = summary_fun)
+# 
+# peak_count <- do.call(rbind, peak_count)
+# sampleNames <- basename(fileNames(peakgrouped_pos_73_350))
+# # rownames(peak_count) <- basename(fileNames(peak_table_pos_73_350))
+# peak_count <- data.frame(sampleNames, peak_count, stringsAsFactors = FALSE)
+# peak_count <- dplyr::left_join(peak_count, phData(peakgrouped_pos_73_350), by = "sampleNames")
+#   
+# pander::pandoc.table(peak_count, caption = paste0("Summary statistics on identified chromatographic",
+#                               " peaks. Shown are number of identified peaks per",
+#                               " sample and widths/duration of chromatographic ",
+#                               "peaks."))
+```
+
+# *Imputation*
+
+Finally, in the imputation stage, we integrate the areas of the missing peaks of the peak table that were not detected in the previous steps of the signal preprocessing workflow. This stage is important to make easier statistical and machine learnig posterior stages. 
+
+```{r Imputation I}
+message("Missing values found in the processed dataset: ", sum(is.na(featureValues(peakgrouped))))
+peakgrouped_imp <- lcms_fill_chrom_peaks(
+  peakgrouped)
+
+cat("Imputing values...\n")
+
+message("Missing values found after fill_chrom_peaks: ", sum(is.na(featureValues(peakgrouped_imp))))
+```
+
+```{r Imputation I neg}
+message("Missing values found in the processed dataset: ", sum(is.na(featureValues(peakgrouped_neg))))
+peakgrouped_imp_neg <- lcms_fill_chrom_peaks(
+  peakgrouped_neg)
+
+cat("Imputing values...\n")
+
+message("Missing values found after fill_chrom_peaks: ", sum(is.na(featureValues(peakgrouped_imp_neg))))
+```
+
+### Expansion FillChromPeaksParam
+
+```{r message=FALSE, warning=FALSE}
+# ph <- processHistory(peakgrouped_pos_73_350, type = "Missing peak filling")[[1]]
+# 
+# ## Drop the filled in peaks:
+# res <- dropFilledChromPeaks(peakgrouped_pos_73_350)
+# sum(is.na(featureValues(res)))
+# 
+# 
+# # Perform the peak filling with modified settings: allow expansion of the mz range by a specified ppm and expanding the mz range by mz width/2
+# prm <- FillChromPeaksParam(ppm = 20, expandMz = 0.5)
+# peakgrouped_pos_73_350 <- base::suppressMessages(fillChromPeaks(res, param = prm))
+# 
+# ## Did we get a signal for all missing peaks?
+# message("")
+# cat("Missing values found: \n", sum(is.na(featureValues(peakgrouped_pos_73_350))))
+```
+
+
+### Expansion FillChromPeaksParam
+
+```{r}
+# ph <- processHistory(peakgrouped_pos_350_900, 
+#                      type = "Missing peak filling")[[1]]
+# 
+# ## Drop the filled in peaks:
+# res <- dropFilledChromPeaks(peakgrouped_pos_350_900)
+# sum(is.na(featureValues(res)))
+# 
+# 
+# # Perform the peak filling with modified settings: allow expansion of the mz range by a specified ppm and expanding the mz range by mz width/2
+# prm <- FillChromPeaksParam(ppm = 20, expandMz = 0.5)
+# peakgrouped_pos_350_900 <- base::suppressMessages(fillChromPeaks(res, param = prm))
+# 
+# ## Did we get a signal for all missing peaks?
+# message("")
+# cat("Missing values found: \n", sum(is.na(featureValues(peakgrouped_pos_350_900))))
+```
+
+
+## Save results
+
+```{r}
+output_dir_node7 <- file.path(output_dir, "07-data-preprocessing")
+fs::dir_create(output_dir_node7)
+
+##################################################################
+# PEAK DETECTION
+detected_peak_rds <- fs::path(output_dir_node7, "detected_peaks.rds")
+lcms_dataset_save(peakdet, detected_peak_rds)
+
+##################################################################
+# PEAK ALIGNMENT and GROUPING
+aligned_peak_rds <- fs::path(output_dir_node7,
+                                      "aligned_peak.rds")
+lcms_dataset_save(peakgrouped,
+                  aligned_peak_rds)
+
+##################################################################
+# SEMI IMPUTED PEAK TABLE
+peaktable_pos_rds <- fs::path(output_dir_node7,
+                               "peakTable_imp.rds")
+lcms_dataset_save(peakgrouped_imp,
+                  peaktable_pos_rds)
+
+# peak_count_fn <- file.path(output_dir_node7, "peak_count.csv")
+# utils::write.csv(peak_count, peak_count_fn, row.names = FALSE)
+
+rt_alignment_plot <- file.path(output_dir_node7, "rt_alignment_plot.png")
+ggplot2::ggsave(filename = rt_alignment_plot, 
+                plot = rt_plot, 
+                width = 14, 
+                height = 8, 
+                unit = "cm", 
+                dpi = 300)
+```
+
+```{r}
+##################################################################
+# PEAK DETECTION
+detected_peak_rds <- fs::path(output_dir_node7, "detected_peaks_neg.rds")
+lcms_dataset_save(peakdet_neg, detected_peak_rds)
+
+##################################################################
+# PEAK ALIGNMENT and GROUPING
+aligned_peak_rds <- fs::path(output_dir_node7,
+                                      "aligned_peak_neg.rds")
+lcms_dataset_save(peakgrouped_neg,
+                  aligned_peak_rds)
+
+##################################################################
+# SEMI IMPUTED PEAK TABLE
+peaktable_pos_rds <- fs::path(output_dir_node7,
+                               "peakTable_imp_neg.rds")
+lcms_dataset_save(peakgrouped_imp_neg,
+                  peaktable_pos_rds)
+
+# peak_count_fn <- file.path(output_dir_node7, "peak_count.csv")
+# utils::write.csv(peak_count, peak_count_fn, row.names = FALSE)
+
+rt_alignment_plot <- file.path(output_dir_node7, "rt_alignment_plot_neg.png")
+ggplot2::ggsave(filename = rt_alignment_plot, 
+                plot = rt_plot_neg, 
+                width = 14, 
+                height = 8, 
+                unit = "cm", 
+                dpi = 300)
+```
+
+## Cleaning
+
+```{r}
+#rm(base_peaks_before, base_peaks_after)
+
+#rm(peakdet, peakgrouped)
+```
+
+# NODE 8: Feature table
+
+The XCMS function featureValues creates a intensity matrix with all the features. However, since this is untargeted metabolomics, the colnames are composed by FT1, FT2, FT3... (FT = feature) and each feature needs to be explored with the feature definition function (info for mass and rt) once a feature is significantly different by groups.
+
+## Merging into a Feature Table
+
+```{r Feature table}
+xdata = featureValues(peakgrouped_imp,
+                             method = "maxint",
+                             value = "into",
+                             filled = TRUE, 
+                             missing = NA) # If "rowmin_half", the half of the row's minimal value replaces NAs.)
+
+xdata= t(xdata)
+feature=featureDefinitions(peakgrouped_imp)
+feature=feature@listData
+featNames=paste0(feature$mzmed,"_",feature$rtmed)
+colnames(xdata)=featNames
+
+#Number of missing values after missing value imputation
+message("Missing values in the feature table: ",
+sum(is.na(xdata)))
+```
+
+```{r Feature table neg}
+xdata_neg = featureValues(peakgrouped_imp_neg,
+                             method = "maxint",
+                             value = "into",
+                             filled = TRUE, 
+                             missing = NA) # If "rowmin_half", the half of the row's minimal value replaces NAs.)
+
+xdata_neg= t(xdata_neg)
+feature_neg=featureDefinitions(peakgrouped_imp_neg)
+feature_neg=feature_neg@listData
+featNames_neg=paste0(feature_neg$mzmed,"_",feature_neg$rtmed)
+colnames(xdata_neg)=featNames_neg
+
+#Number of missing values after missing value imputation
+message("Missing values in the feature table: ",
+sum(is.na(xdata_neg)))
+```
+
+## Deep Imputation by Random Forest
+
+```{r Random Forest Imputation}
+#Installation of package StatTools
+# devtools::install_git("https://gitlab.com/CarlBrunius/StatTools.git")
+#Missing Value Imputation
+
+nCore <- detectCores()-1
+cl <- makeCluster(nCore)
+doParallel::registerDoParallel(cl)
+xdataImp <- StatTools::mvImpWrap(MAT = xdata,
+                                        method = "RF")
+xdataImp_neg <- StatTools::mvImpWrap(MAT = xdata_neg,
+                                        method = "RF")
+stopCluster(cl)
+
+#Number of missing values after missing value imputation
+sum(is.na(xdataImp))
+sum(is.na(xdataImp_neg))
+```
+
+```{r}
+xdataImputed <- as.data.frame(xdataImp, stringsAsFactors = FALSE)
+
+#############################################
+# Get mz and rt columns for the feature table
+mz <- colnames(xdataImp) %>%
+  stringr::str_split(.,"\\_") %>% 
+  lapply(.,function(x) x[1]) %>% 
+  unlist() %>% 
+  as.numeric()
+
+rt <- colnames(xdataImp) %>%
+  stringr::str_split(.,"\\_") %>% 
+  lapply(.,function(x) x[2]) %>% 
+  unlist() %>% 
+  as.numeric()
+rt <- rt/60
+
+xdata_complete <- cbind(rt, xdataImp)
+xdata_complete <- cbind(mz, xdata_complete)
+xdata_complete <- cbind(sampleNames = rownames(xdataImp), xdata_complete)
+xdata_complete <- as.data.frame(xdata_complete)
+
+suppressWarnings(
+  xdata_comp_meta <- dplyr::right_join(
+    metadata_pos,
+    xdata_complete,
+    by = "sampleNames",
+    all = TRUE))
+
+##############################
+# Get transposed feature table
+tdata_complete <- as.data.frame(t(as.matrix(xdata_complete)))
+
+## Tables
+# head(xdata)
+head(xdataImputed)
+head(xdata_complete)
+head(xdata_comp_meta)
+head(tdata_complete)
+```
+
+```{r}
+xdataImputed_neg <- as.data.frame(xdataImp_neg, stringsAsFactors = FALSE)
+
+#############################################
+# Get mz and rt columns for the feature table
+mz_neg <- colnames(xdataImp_neg) %>%
+  stringr::str_split(.,"\\_") %>% 
+  lapply(.,function(x) x[1]) %>% 
+  unlist() %>% 
+  as.numeric()
+
+rt_neg <- colnames(xdataImp_neg) %>%
+  stringr::str_split(.,"\\_") %>% 
+  lapply(.,function(x) x[2]) %>% 
+  unlist() %>% 
+  as.numeric()
+rt_neg <- rt_neg/60
+
+xdata_complete_neg <- cbind(rt_neg, xdataImp_neg)
+xdata_complete_neg <- cbind(mz_neg, xdata_complete_neg)
+xdata_complete_neg <- cbind(sampleNames = rownames(xdataImp_neg), xdata_complete_neg)
+xdata_complete_neg <- as.data.frame(xdata_complete_neg)
+
+suppressWarnings(
+  xdata_comp_meta_neg <- dplyr::right_join(
+    metadata_neg,
+    xdata_complete_neg,
+    by = "sampleNames",
+    all = TRUE))
+
+##############################
+# Get transposed feature table
+tdata_complete_neg <- as.data.frame(t(as.matrix(xdata_complete_neg)))
+
+## Tables
+# head(xdata_neg)
+head(xdataImputed_neg)
+head(xdata_complete_neg)
+head(xdata_comp_meta_neg)
+head(tdata_complete_neg)
+```
+
+## Save results
+
+```{r}
+output_dir_node8 <- file.path(output_dir, "08-feature-table")
+fs::dir_create(output_dir_node8)
+
+write.csv(xdata, 
+         file = paste0(getwd(), 
+                       "/xdata.csv"))
+
+xdata_fn <- file.path(output_dir_node8,
+                              "xdataNOTimp.csv")
+utils::write.csv(xdata, xdata_fn, row.names = FALSE)
+
+xdataImputed_fn <- file.path(output_dir_node8,
+                              "xdataImputed.csv")
+utils::write.csv(xdataImputed, xdataImputed_fn, row.names = FALSE)
+
+data_complete_fn <- file.path(output_dir_node8,
+                              "feature_table.csv")
+utils::write.csv(xdata_complete, data_complete_fn, row.names = FALSE)
+
+xdata_comp_meta_fn <- file.path(output_dir_node8,
+                              "feature_tableMeta.csv")
+utils::write.csv(xdata_comp_meta, xdata_comp_meta_fn, row.names = FALSE)
+
+tdata_complete_fn <- file.path(output_dir_node8,
+                              "feature_tableT.csv")
+utils::write.csv(tdata_complete, tdata_complete_fn, row.names = FALSE)
+
+
+xdata.csv_fn <- file.path(output_dir_node8, "xdata.csv")
+utils::write.csv(xdata, xdata.csv_fn, row.names = TRUE)
+```
+
+```{r}
+write.csv(xdata_neg, 
+         file = paste0(getwd(), 
+                       "/xdata_neg.csv"))
+
+xdata_fn <- file.path(output_dir_node8,
+                              "xdataNOTimp_neg.csv")
+utils::write.csv(xdata_neg, xdata_fn, row.names = FALSE)
+
+xdataImputed_fn <- file.path(output_dir_node8,
+                              "xdataImputed_neg.csv")
+utils::write.csv(xdataImputed_neg, xdataImputed_fn, row.names = FALSE)
+
+data_complete_fn <- file.path(output_dir_node8,
+                              "feature_table_neg.csv")
+utils::write.csv(xdata_complete_neg, data_complete_fn, row.names = FALSE)
+
+xdata_comp_meta_fn <- file.path(output_dir_node8,
+                              "feature_tableMeta_neg.csv")
+utils::write.csv(xdata_comp_meta_neg, xdata_comp_meta_fn, row.names = FALSE)
+
+tdata_complete_fn <- file.path(output_dir_node8,
+                              "feature_tableT_neg.csv")
+utils::write.csv(tdata_complete_neg, tdata_complete_fn, row.names = FALSE)
+
+
+xdata.csv_fn <- file.path(output_dir_node8, "xdata_neg.csv")
+utils::write.csv(xdata_neg, xdata.csv_fn, row.names = TRUE)
+```
+
+## Cleaning
+
+```{r}
+#rm(xdata, tdata_complete)
+#rm(xdata_neg, tdata_complete_neg)
+```
+
+
+
+# NODE 9: Data reduction
+
+## Input
+
+```{r Params Data reduction}
+# devtools::install_github("cbroeckl/RAMClustR", build_vignettes = TRUE, dependencies = TRUE)
+
+getRamSt <- function(XObj) {
+  featInfo <- featureDefinitions(XObj)
+  histo <- hist((featInfo$rtmax-featInfo$rtmin)/2)
+  st <- round(median(featInfo$rtmax-featInfo$rtmin)/2,
+              digits = 2)
+  abline(v=st)
+  return(st)
+}
+value_st <- getRamSt(peakgrouped_imp)
+
+sr <- 0.5
+st <- value_st
+
+#List of adducts for do.findmain
+# ads	
+# character: vector of allowed adducts, i.e. c("[M+H]+"). if NULL, default positive mode values of H+, Na+, K+, and NH4+, as monomer, dimer, and trimer, are assigned. Negative mode include "[M-H]-", "[M+Na-2H]-", "[M+K-2H]-", "[M+CH2O2-H]-" as monomer, dimer, and trimer.
+# 
+# nls	
+# character: vector of allowed neutral losses, i.e. c("[M+H-H2O]+"). if NULL, an extensive list derived from CAMERA's will be used.
+#adducts_list = c("[M+H-H2O]+")
+adducts_list = c()
+
+### Building the defineExperiment manually
+### Change for your convenience (e.g. GC-MS)
+##########################################
+
+value <- c(rep("fill", 4), "LC-MS")
+design <- as.data.frame(value)
+rownme <- c("Experiment", "Species", "Sample",
+            "Contributer", "platform")  
+rownames(design) <- rownme
+
+######################################################
+
+value <- c(rep("fill", 13), "1")
+instrument <- as.data.frame(value)
+rownm <- c("chrominst", "msinst", "column", 
+           "solvA", "solvB", "CE1", "CE2", 
+           "mstype", "msmode", "ionization", 
+           "colgas", "msscanrange", "conevol", 
+           "MSlevs")
+rownames(instrument) <- rownm
+
+Experiment <- list(design =  design, instrument = instrument)
+
+output_dir_node9 <- file.path(output_dir, "09-data-reduction")
+fs::dir_create(output_dir_node9)
+```
+
+```{r Params Data reduction neg}
+value_st_neg <- getRamSt(peakgrouped_imp_neg)
+sr_neg <- 0.5
+st_neg <- value_st_neg
+
+### Building the defineExperiment manually
+### Change for your convenience (e.g. GC-MS)
+##########################################
+
+value_neg <- c(rep("fill", 4), "LC-MS")
+design_neg <- as.data.frame(value_neg)
+rownme_neg <- c("Experiment", "Species", "Sample",
+            "Contributer", "platform")  
+rownames(design_neg) <- rownme_neg
+
+######################################################
+
+value_neg <- c(rep("fill", 13), "1")
+instrument_neg <- as.data.frame(value_neg)
+rownm_neg <- c("chrominst", "msinst", "column", 
+           "solvA", "solvB", "CE1", "CE2", 
+           "mstype", "msmode", "ionization", 
+           "colgas", "msscanrange", "conevol", 
+           "MSlevs")
+rownames(instrument_neg) <- rownm_neg
+
+Experiment_neg <- list(design =  design_neg, instrument = instrument_neg)
+```
+
+## Code to run
+
+```{r warning=FALSE}
+knitr::opts_knit$set(root.dir = output_dir_node9)
+setwd(output_dir_node9)
+
+RC <- ramclustR(ms = paste0(output_dir_node8,"/xdataImputed.csv"),
+                 featdelim = "_",
+                 st = st,
+                 sr = sr,
+                 ExpDes = Experiment,
+                 normalize = "TIC",
+                 sampNameCol = 1,
+                 fftempdir = output_dir_node9)
+  
+RC <- do.findmain(RC,
+                  nls = adducts_list,
+                   mode = "positive",
+                   mzabs.error = 0.005,
+                   ppm.error = 5,
+                   writeMat = FALSE)
+
+RC2 <- assign.z(RC)
+```
+
+```{r warning=FALSE}
+knitr::opts_knit$set(root.dir = output_dir_node9)
+setwd(output_dir_node9)
+
+RC_neg <- ramclustR(ms = paste0(output_dir_node8,"/xdataImputed_neg.csv"),
+                 featdelim = "_",
+                 st = st_neg,
+                 sr = sr_neg,
+                 ExpDes = Experiment_neg,
+                 normalize = "TIC",
+                 sampNameCol = 1,
+                 fftempdir = output_dir_node9)
+  
+RC_neg <- do.findmain(RC_neg,
+                  nls = adducts_list,
+                   mode = "negative",
+                   mzabs.error = 0.005,
+                   ppm.error = 5,
+                   writeMat = FALSE)
+
+RC2_neg <- assign.z(RC_neg)
+```
+
+
+```{r}
+# Selection of max intensity ion as cluster representative
+Max_int<- lapply(RC$M.ann, function(x) x[which.max(x$int), ])
+Representative_ions <- dplyr::bind_rows(Max_int)
+Representative_ions$name <- paste(round(Representative_ions$mz,4),
+                             round(RC$clrt,2),
+                             sep = "_")
+
+# Adducts of representative ions
+Representative_adducts <- sapply(RC$M.ann, function(x) x[which.max(x$int), ]$adduct)
+
+# Selection of labeled max intensity ion as cluster representative
+Labeled_int <- lapply(RC$M.ann, function(x) {
+  xl <- x[which(!is.na(x$label)), ]
+  xl[which.max(xl$int), ]
+})
+Labeled_ions <- dplyr::bind_rows(Labeled_int)
+
+# We save most important cluster data
+cluster_data <- data.frame(cluster = RC$ann, Max_int_ion_mz = Representative_ions$mz, Max_int_ion_adduct = Representative_adducts, labeled_ion_mz = Labeled_ions$mz, labeled_ion_adduct = Labeled_ions$label, RC_mz = RC$M, retention_time = RC$clrt)
+
+# We save cluster features and intensities
+cluster_features_fn <- file.path(output_dir_node9, "cluster_features.csv")
+file.create(cluster_features_fn)
+for (i in seq_len(length(RC$ann))) {
+  utils::write.table(RC$ann[i], cluster_features_fn, sep = ',', row.names = FALSE, col.names = FALSE, append = TRUE)
+  utils::write.table(t(RC$M.ann[[i]]$mz), cluster_features_fn, sep = ',', row.names = FALSE, col.names = FALSE, append = TRUE)
+  utils::write.table(t(RC$M.ann[[i]]$int), cluster_features_fn, sep = ',', row.names = FALSE, col.names = FALSE, append = TRUE)
+}
+
+# All labeled ions
+All_labeled_adducts <- lapply(RC$M.ann, function(x) {
+  xl <- x[which(!is.na(x$label)), ]
+})
+All_labeled_adducts <- dplyr::bind_rows(All_labeled_adducts)
+```
+
+```{r}
+# Selection of max intensity ion as cluster representative
+Max_int_neg<- lapply(RC_neg$M.ann, function(x) x[which.max(x$int), ])
+Representative_ions_neg <- dplyr::bind_rows(Max_int_neg)
+Representative_ions_neg$name <- paste(round(Representative_ions_neg$mz,4),
+                             round(RC_neg$clrt,2),
+                             sep = "_")
+
+# Adducts of representative ions
+Representative_adducts_neg <- sapply(RC_neg$M.ann, function(x) x[which.max(x$int), ]$adduct)
+
+# Selection of labeled max intensity ion as cluster representative
+Labeled_int_neg <- lapply(RC_neg$M.ann, function(x) {
+  xl <- x[which(!is.na(x$label)), ]
+  xl[which.max(xl$int), ]
+})
+Labeled_ions_neg <- dplyr::bind_rows(Labeled_int_neg)
+
+# We save most important cluster data
+cluster_data_neg <- data.frame(cluster = RC_neg$ann, Max_int_ion_mz = Representative_ions_neg$mz, Max_int_ion_adduct = Representative_adducts_neg, labeled_ion_mz = Labeled_ions_neg$mz, labeled_ion_adduct = Labeled_ions_neg$label, RC_mz = RC_neg$M, retention_time = RC_neg$clrt)
+
+# We save cluster features and intensities
+cluster_features_fn <- file.path(output_dir_node9, "cluster_features_neg.csv")
+file.create(cluster_features_fn)
+for (i in seq_len(length(RC_neg$ann))) {
+  utils::write.table(RC_neg$ann[i], cluster_features_fn, sep = ',', row.names = FALSE, col.names = FALSE, append = TRUE)
+  utils::write.table(t(RC_neg$M.ann[[i]]$mz), cluster_features_fn, sep = ',', row.names = FALSE, col.names = FALSE, append = TRUE)
+  utils::write.table(t(RC_neg$M.ann[[i]]$int), cluster_features_fn, sep = ',', row.names = FALSE, col.names = FALSE, append = TRUE)
+}
+
+# All labeled ions
+All_labeled_adducts_neg <- lapply(RC_neg$M.ann, function(x) {
+  xl <- x[which(!is.na(x$label)), ]
+})
+All_labeled_adducts_neg <- dplyr::bind_rows(All_labeled_adducts_neg)
+```
+
+```{r}
+mz %in% Representative_ions$mz %>% table()
+message("length of features: ", length(mz))
+
+mz_neg %in% Representative_ions_neg$mz %>% table()
+message("length of features: ", length(mz_neg))
+```
+```{r Reduced feature table}
+mdataImputed <- as.matrix(xdataImputed)
+
+# Clustered features
+xdata_cluster_ions <- mdataImputed[, mz %in% Representative_ions$mz]
+
+# Singletons
+clustered_mz<- lapply(RC$M.ann,
+                      function (x) x$mz) %>% 
+                      unlist() %>%
+                      as.numeric()
+
+message("A number of ",
+        length(clustered_mz),
+        " features have been clustered into ",
+        dim(xdata_cluster_ions)[2],
+        " representative features")
+
+mdataImputed <- as.data.frame(mdataImputed)
+xdata_cluster_ions <- as.data.frame(xdata_cluster_ions)
+
+singletons <- mdataImputed[,!mz %in% clustered_mz]
+
+message("A number of ",
+        RC$nsing,
+        " features correspond to singletons")
+
+```
+
+```{r Reduced feature table neg}
+mdataImputed_neg <- as.matrix(xdataImputed_neg)
+
+# Clustered features
+xdata_cluster_ions_neg <- mdataImputed_neg[, mz_neg %in% Representative_ions_neg$mz]
+
+# Singletons
+clustered_mz_neg<- lapply(RC_neg$M.ann,
+                      function (x) x$mz) %>% 
+                      unlist() %>%
+                      as.numeric()
+
+message("A number of ",
+        length(clustered_mz_neg),
+        " features have been clustered into ",
+        dim(xdata_cluster_ions_neg)[2],
+        " representative features")
+
+mdataImputed_neg <- as.data.frame(mdataImputed_neg)
+xdata_cluster_ions_neg <- as.data.frame(xdata_cluster_ions_neg)
+
+singletons_neg <- mdataImputed_neg[,!mz_neg %in% clustered_mz_neg]
+
+message("A number of ",
+        RC_neg$nsing,
+        " features correspond to singletons")
+
+```
+
+```{r}
+#Combine singletons and molecular ions
+xdata_reduced <- cbind.data.frame(xdata_cluster_ions, singletons)
+
+message("Original dataset has ", 
+        ncol(mdataImputed), 
+        " features")
+message("")
+
+message("Cluster representative ions dataset has ", ncol(xdata_cluster_ions), 
+        " features")
+message("")
+
+message("Singletons dataset has ", ncol(singletons), " features")
+message("")
+
+message("Reduced dataset has ", ncol(xdata_reduced), " features")
+message("")
+```
+
+```{r}
+#Combine singletons and molecular ions
+xdata_reduced_neg <- cbind.data.frame(xdata_cluster_ions_neg, singletons_neg)
+
+message("Original dataset has ", 
+        ncol(mdataImputed_neg), 
+        " features")
+message("")
+
+message("Cluster representative ions dataset has ", ncol(xdata_cluster_ions_neg), 
+        " features")
+message("")
+
+message("Singletons dataset has ", ncol(singletons_neg), " features")
+message("")
+
+message("Reduced dataset has ", ncol(xdata_reduced_neg), " features")
+message("")
+```
+
+
+# Save results
+
+```{r}
+RC_rds <- fs::path(output_dir_node9, "clustering.rds")
+lcms_dataset_save(RC, RC_rds)
+
+xdata_cluster_ions_fn <- file.path(output_dir_node9, "xdata_cluster_ions.csv")
+utils::write.csv(xdata_cluster_ions, xdata_cluster_ions_fn, row.names = TRUE)
+
+xdata_singletons_fn <- file.path(output_dir_node9, "xdata_singletons.csv")
+utils::write.csv(singletons, xdata_singletons_fn, row.names = TRUE)
+
+xdata_reduced_fn <- file.path(output_dir_node9, "feature_table_reduced.csv")
+utils::write.csv(xdata_reduced, xdata_reduced_fn, row.names = TRUE)
+
+cluster_data_fn <- file.path(output_dir_node9, "cluster_data.csv")
+utils::write.csv(cluster_data, cluster_data_fn, row.names = TRUE)
+
+all_labeled_adducts_fn <- file.path(output_dir_node9, "all_labeled_adducts.csv")
+utils::write.csv(All_labeled_adducts, xdata_reduced_fn, row.names = TRUE)
+```
+
+```{r}
+RC_rds <- fs::path(output_dir_node9, "clustering_neg.rds")
+lcms_dataset_save(RC_neg, RC_rds)
+
+xdata_cluster_ions_fn <- file.path(output_dir_node9, "xdata_cluster_ions_neg.csv")
+utils::write.csv(xdata_cluster_ions_neg, xdata_cluster_ions_fn, row.names = TRUE)
+
+xdata_singletons_fn <- file.path(output_dir_node9, "xdata_singletons_neg.csv")
+utils::write.csv(singletons_neg, xdata_singletons_fn, row.names = TRUE)
+
+xdata_reduced_fn <- file.path(output_dir_node9, "feature_table_reduced_neg.csv")
+utils::write.csv(xdata_reduced_neg, xdata_reduced_fn, row.names = TRUE)
+
+cluster_data_fn <- file.path(output_dir_node9, "cluster_data_neg.csv")
+utils::write.csv(cluster_data_neg, cluster_data_fn, row.names = TRUE)
+
+all_labeled_adducts_fn <- file.path(output_dir_node9, "all_labeled_adducts_neg.csv")
+utils::write.csv(All_labeled_adducts_neg, xdata_reduced_fn, row.names = TRUE)
+```
+
+## Cleaning
+
+```{r}
+# rm(xdata_cluster_ions, singletons, Max_int, RC)
+```
+
+
+# NODE 10: Machine learning
+
+Pairwise multilevel approach takes into consideration variability within the same individual. Therefore, we use the function “rdCV_PLS_RF_ML” to perform a multilevel repeated double cross-validation optimized for unbiased variable selection (MUVR algorithm, see Shi et al., 2018). The double cross-validation procedure comprises an inner “tuning” loop nested within an outer loop aimed at reducing bias resulting from overfitting models to experimental data. Then, autoselected variables are ranked according to their VIP value.
+
+## Input
+```{r}
+X = xdata_reduced
+Y = classes
+
+X_neg = xdata_reduced_neg
+Y_neg = classes_neg
+```
+
+## Code to run
+
+```{r Machine_learning}
+MVObj = MUVR::MUVR(X, Y, parallel = FALSE)
+
+message("AUC model is ", MVObj$auc[[2]])
+
+VIPs <- MUVR::getVIP(MVObj, model="mid")
+VIPs
+#MUVR::plotVIP(MVObj,model='mid') 
+
+MVObj_neg = MUVR::MUVR(X_neg, Y_neg, parallel = FALSE)
+
+message("AUC model is ", MVObj_neg$auc[[2]])
+
+VIPs_neg <- MUVR::getVIP(MVObj_neg, model="mid")
+VIPs_neg
+#MUVR::plotVIP(MVObj,model='mid') 
+```
+
+#TODO comprobar que esta bien y falta con el neg
+## Univariante analisys 
+## Check normality
+
+```{r}
+library(car)
+normality <- function(x){shapiro.test(x)$p.value}
+
+abcd <- data.frame(apply(FUN=normality, MARGIN=2, X= xdata_reduced))
+abcd$id <- row.names(abcd)
+colnames(abcd) <- c("shapiro.test", "id")
+saphiro <- abcd
+
+#correcion fdr
+fdr.saphiro <- p.adjust(saphiro$shapiro.test, method = "fdr", n = length(saphiro$shapiro.test))
+saphiro <- cbind(saphiro, fdr.saphiro)
+message("\nNumber of features with non-normal distribution at xdata_reduced: ", 
+        sum(saphiro$fdr.saphiro < 0.05), " of ", length(saphiro$shapiro.test))
+
+sum(saphiro$shapiro.test<0.05)
+#chechar con un jemplo para ver si funciona
+message("\nSaphiro p-value of C1 (B): ", shapiro.test(xdata_reduced[,1])$p.value)
+hist(xdata_reduced[,1])
+message("\nSaphiro p-value of C10 (B): ", shapiro.test(xdata_reduced[,10])$p.value)
+hist(xdata_reduced[,10])
+
+#homocedasticity
+X_c <- cbind(xdata_reduced, classes = classes)
+homocedasticity <- function(x){leveneTest(x, group = factor(classes), data = X_c)}
+
+p.levene <- NULL
+fdr.p <- NULL
+res.homo <- apply(data.matrix(xdata_reduced), 2, homocedasticity)
+p.levene <- unlist(lapply(res.homo, function(x) { x["Pr(>F)"][1,]}))
+names(p.levene) <- colnames(xdata_reduced)
+fdr.p <- p.adjust(p.levene, "fdr")
+p.levene = as.data.frame(p.levene)
+p.levene$id = row.names(p.levene)
+saphiro = merge(saphiro, p.levene, by = "id")
+#FDR
+fdr.levene <- p.adjust(saphiro$p.levene, method = "fdr", n = length(saphiro$p.levene))
+saphiro <- cbind(saphiro, fdr.levene)
+message("\nNumber of features with heteroscedasticity: ",
+sum(saphiro$fdr.levene < 0.05), " of ", length(saphiro$fdr.levene))
+sum(saphiro$p.levene < 0.05)
+
+head(saphiro[saphiro$fdr.levene < 0.05,1])
+```
+
+## Getting means
+
+```{r}
+abcd <- data.frame(apply(FUN=mean, MARGIN=2, X=xdata_reduced))
+colnames(abcd) <- c("Means")
+abcd$id <- row.names(abcd)
+result <- abcd[c(2,1)]
+
+subcases <- subset(X_c, X_c[,"classes"]==1)
+abcd <- data.frame(apply(FUN=median, MARGIN=2, X=subcases[,-1]))
+colnames(abcd) <- c("MedianCases")
+abcd$id <- row.names(abcd)
+result <- merge(result,abcd, by ="id")
+
+abcd <- data.frame(apply(FUN=sd, MARGIN=2, X=subcases[,-1]))
+colnames(abcd) <- c("SDCases")
+abcd$id <- row.names(abcd)
+result <- merge(result,abcd, by ="id")
+
+subcontrols <- subset(X_c, X_c[,"classes"]==2)
+abcd <- data.frame(apply(FUN=median, MARGIN=2, X=subcontrols[,-1]))
+colnames(abcd) <- c("MedianControls")
+abcd$id <- row.names(abcd)
+result <- merge(result,abcd, by ="id")
+
+abcd <- data.frame(apply(FUN=sd, MARGIN=2, X=subcontrols[,-1]))
+colnames(abcd) <- c("SDControls")
+abcd$id <- row.names(abcd)
+result <- merge(result,abcd, by ="id")
+
+result <- merge(saphiro, result, by = "id")
+```
+
+```{r}
+# logX <- log(xdata_reduced)
+# Xcs <- scale(logX, center = TRUE, scale = FALSE)
+# Logdata <- cbind(classes, Xcs)
+```
+
+## Model
+
+```{r}
+library(nlme)
+
+stat <- function(x){wilcox.test(x ~ classes, X_c)$p.value}
+abcd <- data.frame(apply(FUN = stat,
+                         MARGIN = 2,
+                         X = xdata_reduced))
+colnames(abcd) <- c("p_Wilc_Binary")
+abcd$id <- row.names(abcd)
+result <- merge(result, abcd, all = TRUE, by= "id")
+summary(result$p_Wilc_Binary)
+message("\nNumber of features < 0.05 nominal p-value ", 
+sum(result$p_Wilc_Binary < 0.05))
+head(result[result$p_Wilc_Binary < 0.05,1])
+```
+
+#TODO fdr o Benjamini–Hochberg?
+## FDR correction
+
+```{r}
+#FDR
+fdr.wilcox <- p.adjust(result$p_Wilc_Binary, method = "fdr", n = length(result$p_Wilc_Binary))
+result <- cbind(result, fdr.wilcox)
+message("\nNumber of features fdr-corrected p value of < 0.05 is ", 
+sum(result$fdr.wilcox < 0.05))
+```
+
+## Wilcoxon test log data
+
+```{r}
+# stat <- function(x){wilcox.test(x ~ classes, Logdata)$p.value}
+# abcd <- data.frame(apply(FUN = stat,
+#                          MARGIN = 2,
+#                          X = xdata_reduced))
+# colnames(abcd) <- c("p_wilc_log")
+# abcd$id <- row.names(abcd)
+# result <- merge(result, abcd, all = TRUE, by= "id")
+# sum(result$p_log < 0.05)
+# result[result$p_log < 0.05,1]
+```
+
+```{r}
+#TODO para que es el kruskal?
+# Wilc_p <- function(x){kruskal.test(x ~ classes, xdata_reduced)$p.value}
+# 
+# abcd <- data.frame(apply(FUN=Wilc_p, MARGIN=2, X = xdata_reduced))
+# colnames(abcd) <- c("p_kr")
+# abcd$id <- row.names(abcd)
+# result <- merge(result, abcd, all=TRUE, by="id")
+# 
+# message("\nNumber of features with a p-value of < 0.05 in xdata_reduced is: ", sum(result$p_kr < 0.05))
+# result[result$p_kr < 0.05,1]
+```
+
+
+## FDR correction
+
+```{r}
+# fdr.Kr <- p.adjust(result$p_kr, method = "fdr", n = length(result$p_kr))
+# result <- cbind(result, fdr.Kr)
+# 
+# message("\nNumber of features with a FDR-p-value of < 0.05 in xdata_reduced is: ", sum(result$fdr.Kr < 0.05))
+# 
+# result_full_data <- result
+```
+
+# univariate anotation
+```{r Annotation univariate}
+# We use the selected vips
+univ_feat <- result[result$fdr.wilcox < 0.05,1]
+
+# Untargeted assignation
+# Creating mz column
+mzr <- univ_feat %>%
+  stringr::str_split(.,"\\_") %>%
+  lapply(.,function(x) x[1]) %>%
+  unlist() %>%
+  as.numeric()
+
+all.equal(dim(univ_feat)[2], length(mzr))
+
+#Guardo las masas
+output_dir_node10 <- file.path(output_dir, "10-univariante_pos")
+fs::dir_create(output_dir_node10)
+result_POS_HMDB_fn <- file.path(output_dir_node10,
+                               "result_POS_mz_univ.csv")
+utils::write.csv(mzr, 
+                 result_POS_HMDB_fn, 
+                 row.names = FALSE)
+
+tdata_reduced_univ <- data.frame(mz = mzr)
+result_POS_HMDB_univ <- assignation_pos_HMDB(tdata_reduced_univ)
+head(result_POS_HMDB_univ)
+```
+
+# anotation of all features
+```{r Annotation univariate}
+# Untargeted assignation
+# Creating mz column
+
+mzr <- colnames(as.matrix(xdataImputed)) %>%
+  stringr::str_split(.,"\\_") %>%
+  lapply(.,function(x) x[1]) %>%
+  unlist() %>%
+  as.numeric()
+
+all.equal(dim(univ_feat)[2], length(mzr))
+
+#Guardo las masas
+output_dir_node10 <- file.path(output_dir, "10-all_features_pos")
+fs::dir_create(output_dir_node10)
+result_POS_HMDB_fn <- file.path(output_dir_node10,
+                               "result_POS_all_features.csv")
+utils::write.csv(mzr, 
+                 result_POS_HMDB_fn, 
+                 row.names = FALSE)
+
+tdata_reduced_all_features <- data.frame(mz = mzr)
+result_POS_HMDB_all_features <- assignation_pos_HMDB(tdata_reduced_all_features)
+head(result_POS_HMDB_all_features)
+
+all_features_anotation_fn <- file.path(output_dir_node10,
+                               "all_features_anotation_pos.csv")
+utils::write.csv(result_POS_HMDB_all_features, 
+                 all_features_anotation_fn, 
+                 row.names = FALSE)
+```
+
+# NODE 11: Annotation
+
+HMDB metabolites in positive and negative ionization
+The function compares (M+H & M-H) mass of metabolites contained in the The Human Metabolome Database (HMDB) (+- 1.007276) with features from the ionized feature table (window of +-0.002).
+
+@param feature_table A dataframe containing feature in rows and samples in columns. A column called "mz" is required with the correspoinding mass of each feature.
+
+
+@return The same feature table with two extra column with matched metabolites (HMDB code and assignation).
+
+## Code to run
+
+```{r Annotation vips}
+# We use the selected vips
+xdata_vips <- xdata_reduced[,rownames(VIPs)]
+
+# Untargeted assignation
+# Creating mz column
+mzr <- colnames(xdata_vips) %>%
+  stringr::str_split(.,"\\_") %>%
+  lapply(.,function(x) x[1]) %>%
+  unlist() %>%
+  as.numeric()
+
+all.equal(dim(xdata_vips)[2], length(mzr))
+
+# We recober the ramcluster vips mz whitout adduct mass and add a proton
+clustered_mzr <- mzr[mzr %in% Representative_ions$mz]
+clustered_mzr <- cluster_data[cluster_data$Max_int_ion_mz %in% clustered_mzr, "RC_mz"] - 1.0073
+singletons_mzr <- mzr[!mzr %in% Representative_ions$mz]
+
+mzr_RC <- c(clustered_mzr, singletons_mzr)
+
+tdata_reduced <- data.frame(mz = mzr)
+result_POS_HMDB_vips <- assignation_pos_HMDB(tdata_reduced)
+head(result_POS_HMDB_vips)
+
+tdata_clusters <- data.frame(mz = Representative_ions$mz)
+result_POS_HMDB_clusters <- assignation_pos_HMDB(tdata_clusters)
+head(result_POS_HMDB_clusters)
+
+tdata_reduced_RC <- data.frame(mz = mzr_RC)
+result_POS_HMDB_vips_less_RCadduct <- assignation_pos_HMDB(tdata_reduced_RC)
+head(result_POS_HMDB_vips_less_RCadduct)
+```
+
+```{r Annotation vips neg}
+# We use the selected vips
+xdata_vips_neg <- xdata_reduced_neg[,rownames(VIPs_neg)]
+
+# Untargeted assignation
+# Creating mz column
+mzr_neg <- colnames(xdata_vips_neg) %>%
+  stringr::str_split(.,"\\_") %>%
+  lapply(.,function(x) x[1]) %>%
+  unlist() %>%
+  as.numeric()
+
+all.equal(dim(xdata_vips_neg)[2], length(mzr_neg))
+
+# We recober the ramcluster vips mz whitout adduct mass and add a proton
+clustered_mzr_neg <- mzr_neg[mzr_neg %in% Representative_ions_neg$mz]
+clustered_mzr_neg <- cluster_data_neg[cluster_data_neg$Max_int_ion_mz %in% clustered_mzr_neg, "RC_mz"] - 1.0073
+singletons_mzr_neg <- mzr_neg[!mzr_neg %in% Representative_ions_neg$mz]
+
+mzr_RC_neg <- c(clustered_mzr_neg, singletons_mzr_neg)
+
+tdata_reduced_neg <- data.frame(mz = mzr_neg)
+result_NEG_HMDB_vips <- assignation_neg_HMDB(tdata_reduced_neg)
+head(result_NEG_HMDB_vips)
+
+tdata_clusters_neg <- data.frame(mz = Representative_ions_neg$mz)
+result_NEG_HMDB_clusters <- assignation_neg_HMDB(tdata_clusters_neg)
+head(result_NEG_HMDB_clusters)
+
+tdata_reduced_RC_neg <- data.frame(mz = mzr_RC_neg)
+result_NEG_HMDB_vips_less_RCadduct <- assignation_neg_HMDB(tdata_reduced_RC_neg)
+head(result_NEG_HMDB_vips_less_RCadduct)
+```
+
+```{r Annotation xdata_reduced}
+# Untargeted assignation
+# Creating mz column
+mzr <- colnames(xdata_reduced) %>%
+  stringr::str_split(.,"\\_") %>%
+  lapply(.,function(x) x[1]) %>%
+  unlist() %>%
+  as.numeric()
+
+all.equal(dim(xdata_reduced)[2], length(mzr))
+
+tdata_reduced <- data.frame(mz = mzr)
+result_POS_HMDB_reduced <- assignation_pos_HMDB(tdata_reduced)
+head(result_POS_HMDB_reduced)
+```
+
+```{r Annotation xdata_reduced neg}
+# Untargeted assignation
+# Creating mz column
+mzr_neg <- colnames(xdata_reduced_neg) %>%
+  stringr::str_split(.,"\\_") %>%
+  lapply(.,function(x) x[1]) %>%
+  unlist() %>%
+  as.numeric()
+
+all.equal(dim(xdata_reduced_neg)[2], length(mzr_neg))
+
+tdata_reduced_neg <- data.frame(mz = mzr_neg)
+result_NEG_HMDB_reduced <- assignation_neg_HMDB(tdata_reduced_neg)
+head(result_NEG_HMDB_reduced)
+```
+
+# Targeted identification
+
+```{r}
+# #metabolites <- read.csv("C:/Users/hgracia/Desktop/IBEC/results/known_metabolites.csv")
+# #metabolites <- read.csv("C:/Users/fmadrid/Documents/IBEC/NESTLE/LCMS/20200128_Data_IBEC_Plasma_LCMS/known_metabolites.csv")
+# # metabolites <- readxl::read_excel("C:/Users/hgracia/Desktop/IBEC/data/MTBLS665/HuCColMBHsViCqPS_05042017_E09-HILICPos-Results_MULTIPL.xlsx", sheet = "Computational_Annotations", skip = 27)
+# metabolites <- readxl::read_excel("C:/Users/hgracia/Desktop/IBEC/data/MTBLS665/1-s2.0-S2213231718302556-mmc3.xlsx")
+# metabolites[["MZ"]] <- metabolites[["mz"]]
+
+# #metabolites[["RT"]] <- metabolites[["time"]]/60
+# head(metabolites)
+# 
+# # targeted <- NIHSlcms::known_metabolites(tdata_reduced,
+# #                                         metabolites)
+# 
+# head_targeted <- NIHSlcms::known_metabolites(head(tdata_reduced),
+#                                         head(metabolites))
+
+```
+
+
+# Principal Component Analysis
+
+```{r}
+xdata_reduced_rows <- cbind(sampleNames = 
+                            rownames(xdata_vips),
+                            xdata_vips)
+
+suppressWarnings(
+  xdata_reduc_comp_meta <- dplyr::right_join(
+    metadata_pos, 
+    xdata_reduced_rows, 
+    by = "sampleNames", 
+    all = TRUE))
+
+#TODO algo aquí esta mal, el fichero que se crea al final queda muy raro
+newmz <- c(colnames(xdata_reduc_comp_meta[1:7]), mzr)
+newrt <- c(colnames(xdata_reduc_comp_meta[1:7]), rtr)
+reduced_data_comp <- rbind(newrt, xdata_reduc_comp_meta)
+reduced_data_comp <- rbind(newmz, reduced_data_comp)
+
+pca_plot <- mixOmics::pca(as.matrix(xdata_reduced_rows[,-1]),
+                          ncomp = 2, 
+                          center = TRUE, 
+                          scale = TRUE)      
+# pca_plot <- mixOmics::pca(as.matrix(xdata_reduc_comp_meta[,-1:-7]),
+#                           ncomp = 2, 
+#                           center = TRUE, 
+#                           scale = TRUE)
+
+pca_plot
+
+plot_PCAtreat <- mixOmics::plotIndiv (pca_plot, 
+                     style = "graphics", 
+                     ind.names = FALSE,
+                    #ind.names = xdata_reduc_comp_meta$treatment,
+                     group = xdata_reduc_comp_meta$treatment,
+                     legend = FALSE,  
+                     X.label = "PC 1", 
+                     Y.label = "PC 2", 
+                     title = "Scaled data")
+
+pca_plot <- mixOmics::pca(as.matrix(xdata_reduced_rows[,-1]),
+                          ncomp = 2, 
+                          center = TRUE, 
+                          scale = FALSE) 
+# pca_plot <- mixOmics::pca(xdata_reduc_comp_meta[,-1:-7],
+#                           ncomp = 2, 
+#                           center = TRUE, 
+#                           scale = FALSE)
+pca_plot
+```
+
+```{r}
+xdata_reduced_rows_neg <- cbind(sampleNames = 
+                            rownames(xdata_vips_neg),
+                            xdata_vips_neg)
+
+suppressWarnings(
+  xdata_reduc_comp_meta_neg <- dplyr::right_join(
+    metadata_neg, 
+    xdata_reduced_rows_neg, 
+    by = "sampleNames", 
+    all = TRUE))
+
+newmz_neg <- c(colnames(xdata_reduc_comp_meta_neg[1:7]), mzr)
+newrt_neg <- c(colnames(xdata_reduc_comp_meta_neg[1:7]), rtr)
+reduced_data_comp_neg <- rbind(newrt_neg, xdata_reduc_comp_meta_neg)
+reduced_data_comp_neg <- rbind(newmz_neg, reduced_data_comp_neg)
+
+pca_plot_neg <- mixOmics::pca(as.matrix(xdata_reduced_rows_neg[,-1]),
+                          ncomp = 2, 
+                          center = TRUE, 
+                          scale = TRUE)      
+
+pca_plot_neg
+
+plot_PCAtreat_neg <- mixOmics::plotIndiv (pca_plot_neg, 
+                     style = "graphics", 
+                     ind.names = FALSE,
+                    #ind.names = xdata_reduc_comp_meta$treatment,
+                     group = xdata_reduc_comp_meta$treatment,
+                     legend = FALSE,  
+                     X.label = "PC 1", 
+                     Y.label = "PC 2", 
+                     title = "Scaled data")
+
+pca_plot_neg <- mixOmics::pca(as.matrix(xdata_reduced_rows_neg[,-1]),
+                          ncomp = 2, 
+                          center = TRUE, 
+                          scale = FALSE) 
+
+pca_plot_neg
+```
+
+## Save results
+
+```{r}
+output_dir_node11 <- file.path(output_dir, "11-identification")
+fs::dir_create(output_dir_node11)
+
+result_POS_HMDB_reduced_fn <- file.path(output_dir_node11,
+                               "result_POS_HMDB_reduced.csv")
+utils::write.csv(result_POS_HMDB_reduced, 
+                 result_POS_HMDB_reduced_fn, 
+                 row.names = FALSE)
+
+result_POS_HMDB_fn <- file.path(output_dir_node11,
+                               "result_POS_HMDB_vips.csv")
+utils::write.csv(result_POS_HMDB_vips, 
+                 result_POS_HMDB_fn, 
+                 row.names = FALSE)
+
+result_POS_HMDB_fn <- file.path(output_dir_node11,
+                               "result_POS_HMDB_vips_less_adduct.csv")
+utils::write.csv(result_POS_HMDB_vips_less_RCadduct, 
+                 result_POS_HMDB_fn, 
+                 row.names = FALSE)
+
+result_POS_HMDB_fn <- file.path(output_dir_node11,
+                               "result_POS_HMDB_univ.csv")
+utils::write.csv(result_POS_HMDB_univ, 
+                 result_POS_HMDB_fn, 
+                 row.names = FALSE)
+
+result_POS_HMDB_fn <- file.path(output_dir_node11,                               "result_POS_HMDB_univ_nona.csv")
+utils::write.csv(na.omit(result_POS_HMDB_univ), 
+                 result_POS_HMDB_fn, 
+                 row.names = FALSE)
+
+xdata_reduc_comp_meta_fn <- file.path(output_dir_node11,
+                               "xdata_reduc_comp_meta.csv")
+utils::write.csv(xdata_reduc_comp_meta, 
+                 xdata_reduc_comp_meta_fn, 
+                 row.names = FALSE)
+
+reduced_data_comp_fn <- file.path(output_dir_node11,
+                               "xdata_reduc_comp_meta_MzRt.csv")
+utils::write.csv(reduced_data_comp, 
+                 reduced_data_comp_fn, 
+                 row.names = FALSE)
+
+cluster_data_fn <- file.path(output_dir_node11, "cluster_data_annotated.csv")
+cluster_data_annotated <- cbind(cluster_data, result_POS_HMDB_clusters$Assignation)
+utils::write.csv(cluster_data_annotated, cluster_data_fn, row.names = TRUE)
+```
+
+
+```{r}
+output_dir_node11 <- file.path(output_dir, "11-identification")
+fs::dir_create(output_dir_node11)
+
+result_NEG_HMDB_reduced_fn <- file.path(output_dir_node11,
+                               "result_NEG_HMDB_reduced.csv")
+utils::write.csv(result_NEG_HMDB_reduced, 
+                 result_NEG_HMDB_reduced_fn, 
+                 row.names = FALSE)
+
+result_NEG_HMDB_fn <- file.path(output_dir_node11,
+                               "result_NEG_HMDB_vips.csv")
+utils::write.csv(result_NEG_HMDB_vips, 
+                 result_NEG_HMDB_fn, 
+                 row.names = FALSE)
+
+result_NEG_HMDB_fn <- file.path(output_dir_node11,
+                               "result_NEG_HMDB_vips_less_adduct.csv")
+utils::write.csv(result_NEG_HMDB_vips_less_RCadduct, 
+                 result_NEG_HMDB_fn, 
+                 row.names = FALSE)
+
+xdata_reduc_comp_meta_fn <- file.path(output_dir_node11,
+                               "xdata_reduc_comp_meta_neg.csv")
+utils::write.csv(xdata_reduc_comp_meta_neg, 
+                 xdata_reduc_comp_meta_fn, 
+                 row.names = FALSE)
+
+reduced_data_comp_fn <- file.path(output_dir_node11,
+                               "xdata_reduc_comp_meta_MzRt_neg.csv")
+utils::write.csv(reduced_data_comp_neg, 
+                 reduced_data_comp_fn, 
+                 row.names = FALSE)
+
+cluster_data_fn <- file.path(output_dir_node11, "cluster_data_annotated_neg.csv")
+cluster_data_annotated_neg <- cbind(cluster_data_neg, result_NEG_HMDB_clusters$Assignation)
+utils::write.csv(cluster_data_annotated_neg, cluster_data_fn, row.names = TRUE)
+```
+
