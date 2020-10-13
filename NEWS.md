@@ -1,3 +1,7 @@
+# NIHSnmr 0.0.0.9007
+
+- Adding ramclustr functions
+
 # NIHSnmr 0.0.0.9006
 
 - Modifications in functions for assignation (`known_metabolites` and `assignation_pos_HMDB`)
