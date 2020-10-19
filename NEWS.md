@@ -1,6 +1,8 @@
 # NIHSnmr 0.0.0.9007
 
-- Adding ramclustr functions
+- Adding RAMClustR functions
+- Fixing DESCRIPTION file
+- Checking dependencies
 
 # NIHSnmr 0.0.0.9006
 
