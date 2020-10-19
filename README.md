@@ -10,7 +10,8 @@ You can install the released version of NIHSlcms with:
 ``` r
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-    
+
+devtools::install_github("sneumann/mzR")
 BiocManager::install("xcms")
 BiocManager::install("CAMERA")
 BiocManager::install(c("GenomicFeatures", "AnnotationDbi"))
