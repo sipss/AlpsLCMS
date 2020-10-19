@@ -1,5 +1,5 @@
 #' @importFrom graphics title
-#' @import MAIT
+# @import RAMClusteR
 #' @importFrom magrittr %>%
 #' @export
 magrittr::`%>%`
