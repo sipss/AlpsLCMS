@@ -6,7 +6,7 @@
     <!-- badges: start -->
     [![Travis build status](https://travis-ci.com/Francisco-madrid-gambin/NIHSlcms.svg?branch=master)](https://travis-ci.com/Francisco-madrid-gambin/NIHSlcms)
 <!-- badges: end -->
-[![Build Status](https://github.com/sipss/AlpsNMR/workflows/R-CMD-check/badge.svg?branch=master)](https://github.com/sipss/AlpsNMR/actions/) [![codecov.io](https://codecov.io/github/sipss/AlpsNMR/coverage.svg?branch=master)](https://codecov.io/github/sipss/AlpsNMR) [![Documentation](https://img.shields.io/badge/documentation-pkgdown-informational)](https://sipss.github.io/AlpsNMR/)
+[![Build Status]()](https://github.com/Francisco-madrid-gambin/NIHSlcms/actions/) [![codecov.io](https://codecov.io/github/Francisco-madrid-gambin/NIHSlcms)](https://codecov.io/github/sipss/AlpsNMR) [![Documentation](https://img.shields.io/badge/documentation-pkgdown-informational)](https://sipss.github.io/NIHSlcms/)
 
 The goal of `NIHSlcms` is to offer a data analysis preprocessing pipeline for LC/MS
 metabolomic samples.
