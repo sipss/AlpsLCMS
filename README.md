@@ -11,12 +11,14 @@ You can install the released version of NIHSlcms with:
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
 
-devtools::install_github("sneumann/mzR")
+)
 BiocManager::install("xcms")
+BiocManager::install("mzR")
 BiocManager::install("CAMERA")
 BiocManager::install(c("GenomicFeatures", "AnnotationDbi"))
 BiocManager::install("MAIT")
 BiocManager::install("IPO")
+devtools::install_github("cbroeckl/RAMClustR"
 remotes::install_local("NIHSlcms_0.0.0.9007.tar.gz")
 ```
 
