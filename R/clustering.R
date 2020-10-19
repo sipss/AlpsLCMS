@@ -5,21 +5,22 @@
 #' @export
 #'
 getRamSt <- function(XObj) {
-  featInfo <- featureDefinitions(XObj)
-  histo <- hist((featInfo$rtmax-featInfo$rtmin)/2)
-  st <- round(median(featInfo$rtmax-featInfo$rtmin)/2,
+  featInfo <- xcms::featureDefinitions(XObj)
+  histo <- graphics::hist((featInfo$rtmax-featInfo$rtmin)/2)
+  st <- round(stats::median(featInfo$rtmax-featInfo$rtmin)/2,
               digits = 2)
-  abline(v=st)
+  graphics::abline(v=st)
   return(st)
 }
 
-#' ramclustR
+#' clustering of peaks
 #'
-#' Main clustering function for grouping features based on their analytical behavior.
-#'
+#' Main clustering function for grouping features based on their analytical
+#' behavior.
+#' @inheritParams RAMClustR::ramclustR
 #' @export
 #'
-ramclustR <- function(ms,
+lcms_clustering <- function(ms,
           featdelim,
           st,
           sr,
@@ -38,23 +39,37 @@ ramclustR <- function(ms,
   return(RC)
 }
 
-#' do.findmain
+#' do_findmain
 #'
-#' Cluster annotation function: inference of 'M' - molecular weight of the compound giving rise to each spectrum - using the InterpretMSSpectrum::findMain function
+#' Cluster annotation function: inference of 'M' - molecular weight of the
+#' compound giving rise to each spectrum - using the
+#' InterpretMSSpectrum::findMain function
 #'
 #' @export
-#'
-do.findmain <- function(RC,
-                   nls,
-                   mode,
-                   mzabs.error,
-                   ppm.error,
-                   writeMat){
-  RC_fm <- RAMClustR::do.findmain <- function(RC = RC,
-                          nls = nls,
-                          mode = mode,
-                          mzabs.error = mzabs.error,
-                          ppm.error = ppm.error,
-                          writeMat = writeMat)
+#' @inheritParams RAMClustR::do.findmain
+do_findmain <- function(ramclustObj = NULL,
+                        cmpd = NULL,
+                        mode = "positive",
+                        mzabs.error = 0.005,
+                        ppm.error = 10,
+                        ads = NULL,
+                        nls = NULL,
+                        scoring = "auto",
+                        plot.findmain = TRUE,
+                        writeMat = TRUE,
+                        writeMS = TRUE,
+                        use.z = TRUE){
+  RC_fm <- RAMClustR::do.findmain (ramclustObj = ramclustObj,
+                                   cmpd = cmpd,
+                                   mode = mode,
+                                   mzabs.error = mzabs.error,
+                                   ppm.error = ppm.error,
+                                   ads = ads,
+                                   nls = nls,
+                                   scoring = scoring,
+                                   plot.findmain = plot.findmain,
+                                   writeMat = writeMat,
+                                   writeMS = writeMS,
+                                   use.z = use.z)
     return(RC_fm)
 }
