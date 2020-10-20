@@ -2,5 +2,5 @@ pandoc: 2.7.2
 pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
-  introduction-to-alpsnmr: introduction-to-alpsnmr.html
+  introduction-to-nihslcms: introduction-to-nihslcms.html
 

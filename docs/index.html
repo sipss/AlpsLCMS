@@ -60,7 +60,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/introduction-to-alpsnmr.html">Introduction to AlpsNMR</a>
+      <a href="articles/introduction-to-nihslcms.html">Introduction to NIHSlcms</a>
     </li>
   </ul>
 </li>
@@ -83,11 +83,12 @@
 <div id="nihslcms" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#nihslcms" class="anchor"></a>NIHSlcms</h1></div>
-<p>The goal of NIHSlcms is to offer a data analysis preprocessing pipeline for LC/MS metabolomic samples.</p>
+
+<p>The goal of <code>NIHSlcms</code> is to offer a data analysis preprocessing pipeline for LC/MS metabolomic samples.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the released version of NIHSlcms with:</p>
+<p>NIHSlcms can be installed with the <code>devtools</code> package. For this is needed Rtools and note that it uses packages from CRAN, from BioConductor and from git repositories:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</a>
 <a class="sourceLine" id="cb1-2" title="2">    <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"BiocManager"</span>)</a>
 <a class="sourceLine" id="cb1-3" title="3"></a>
@@ -98,9 +99,13 @@
 <a class="sourceLine" id="cb1-8" title="8">BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"GenomicFeatures"</span>, <span class="st">"AnnotationDbi"</span>))</a>
 <a class="sourceLine" id="cb1-9" title="9">BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">"MAIT"</span>)</a>
 <a class="sourceLine" id="cb1-10" title="10">BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">"IPO"</span>)</a>
-<a class="sourceLine" id="cb1-11" title="11">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"cbroeckl/RAMClustR"</span></a>
-<a class="sourceLine" id="cb1-12" title="12">remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_local.html">install_local</a></span>(<span class="st">"NIHSlcms_0.0.0.9007.tar.gz"</span>)</a></code></pre></div>
-<p></p>
+<a class="sourceLine" id="cb1-11" title="11">remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"cbroeckl/RAMClustR"</span>)</a>
+<a class="sourceLine" id="cb1-12" title="12">remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_local.html">install_local</a></span>(<span class="st">"NIHSlcms_0.0.0.9007.tar.gz"</span>)</a>
+<a class="sourceLine" id="cb1-13" title="13"></a>
+<a class="sourceLine" id="cb1-14" title="14">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"Francisco-madrid-gambin/NIHSlcms"</span>)</a></code></pre></div>
+<p> Quick start =============</p>
+<p>Checkout the <a href="https://sipss.github.io/NIHSlcms/articles/introduction-to-nihslcms.html">Introduction to NIHSlcms</a> vignette that shows how to import data and preprocess it using NIHSlcms.</p>
+<p>See also the <a href="https://github.com/sipss/NIHSlcms/blob/master/vignettes/.pdf">tutorial</a> with a real dataset from beginning to end, including all the steps of untargeted metabolomics analysis. To run the <a href="https://github.com/sipss/NIHSlcms/blob/master/vignettes/tutorial.pdf">tutorial</a>, you can download the MTBLS242 dataset from the public <a href="https://www.ebi.ac.uk/metabolights/MTBLS242">MetaboLights repository</a>, or download and unzip the contents (spectra and metadata) of this <a href="https://dl.dropboxusercontent.com/s/0snivrsd7m82yey/MTBLS242.zip?dl=0">Dropbox link</a>.</p>
 </div>
 </div>
   </div>
@@ -109,8 +114,8 @@
     <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
-<li>file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small>file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
 <div class="developers">
@@ -124,7 +129,15 @@
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/sipss/NIHSlcms/actions/"><img src="https://github.com/sipss/NIHSlcms/workflows/R-CMD-check/badge.svg?branch=master" alt="Build Status"></a></li>
+<li><a href="https://codecov.io/github/sipss/NIHSlcms"><img src="https://codecov.io/github/sipss/NIHSlcms/coverage.svg?branch=master" alt="codecov.io"></a></li>
+<li><a href="https://sipss.github.io/NIHSlcms/"><img src="https://img.shields.io/badge/documentation-pkgdown-informational" alt="Documentation"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 

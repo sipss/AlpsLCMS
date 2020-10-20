@@ -94,7 +94,7 @@ InterpretMSSpectrum::findMain function" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/introduction-to-alpsnmr.html">Introduction to AlpsNMR</a>
+      <a href="../articles/introduction-to-nihslcms.html">Introduction to NIHSlcms</a>
     </li>
   </ul>
 </li>
@@ -143,12 +143,65 @@ InterpretMSSpectrum::findMain function</p>
   <span class='kw'>use.z</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>ramclustObj</th>
+      <td><p>ramclustR object to annotate.</p></td>
+    </tr>
+    <tr>
+      <th>cmpd</th>
+      <td><p>integer: vector defining compound numbers to annotated.  if NULL (default), all compounds</p></td>
+    </tr>
+    <tr>
+      <th>mode</th>
+      <td><p>character: "positive" or "negative"</p></td>
+    </tr>
+    <tr>
+      <th>mzabs.error</th>
+      <td><p>numeric: absolute mass deviation allowd, default = 0.01</p></td>
+    </tr>
+    <tr>
+      <th>ppm.error</th>
+      <td><p>numeric: ppm mass error _added_ to mzabs.error, default = 10</p></td>
+    </tr>
+    <tr>
+      <th>ads</th>
+      <td><p>character: vector of allowed adducts, i.e. c("[M+H]+"). if NULL, default positive mode values of H+, Na+, K+, and NH4+, as monomer, dimer, and trimer, are assigned. Negative mode include "[M-H]-", "[M+Na-2H]-", "[M+K-2H]-", "[M+CH2O2-H]-" as monomer, dimer, and trimer.</p></td>
+    </tr>
+    <tr>
+      <th>nls</th>
+      <td><p>character: vector of allowed neutral losses, i.e. c("[M+H-H2O]+").  if NULL, an extensive list derived from CAMERA's will be used.</p></td>
+    </tr>
+    <tr>
+      <th>scoring</th>
+      <td><p>character: one of 'imss' , 'ramclustr', or 'auto'. default = 'auto'. see details.</p></td>
+    </tr>
+    <tr>
+      <th>plot.findmain</th>
+      <td><p>logical: should pdf polts be generated for evaluation? detfault = TRUE. PDF saved to working.directory/spectra</p></td>
+    </tr>
+    <tr>
+      <th>writeMat</th>
+      <td><p>logical: should indidual .mat files (for MSFinder) be generated in a 'mat' subdirectory in the 'spectra' folder? default = TRUE.</p></td>
+    </tr>
+    <tr>
+      <th>writeMS</th>
+      <td><p>logical: should indidual .ms files (for Sirius) be generated in a 'ms' subdirectory in the 'spectra' folder? default = TRUE.  Note that no import functions are yet written for Sirius output.</p></td>
+    </tr>
+    <tr>
+      <th>use.z</th>
+      <td><p>logical: if you have previously run the 'assign.z' function from ramclustR, there will be a slot reflecting the feature mass after accounting for charge (fm) - if TRUE this is used instead of feature m/z (fmz) in interpreting MS data and exporing spectra for annotation.</p></td>
+    </tr>
+    </table>
 
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
     </ul>
 
   </div>

@@ -127,8 +127,8 @@ For coherence with the pipeline, time is measured in minutes. `XCMS` and `IPO` p
 
 ```{r}
 # Range of the retention time (minutes) to include in further analyses
-rt = c(50, 70)
-ms = c(100, 200)
+rt = c(50, 60)
+ms = c(200, 500)
 ```
 
 ## Code to run
@@ -144,6 +144,50 @@ lcms_plot_tics(tics,
 ```
 
 
+# NODE 5: Data Preprocessing - XCMS
+
+It includes:
+
+  * Peak Detection
+  * Retention Time Correction
+  * Peak Correspondence
+  * Imputation
+
+Parameters can be changed here. After manual inspection of certain compounds that we know that they should naturally appear, such as plotting leucine and isoleucine (as we are using plasma samples), we can set parameters more accurally. 
+
+## Checking xxx at 5.8 min and m/z
+
+```{r}
+metabolite <- "C22:0"
+retention_time <- NULL
+mz <- 446.3309
+dataset <- dataset
+```
+
+## Code to run
+
+```{r}
+# retention_time_max <- (retention_time*60)+120
+# retention_time_min <- (retention_time*60)-120
+# rtr <- c(retention_time_min, retention_time_max)
+
+mz_max <- mz + 0.01
+mz_min <- mz - 0.01
+mzr <- c(mz_min, mz_max)
+
+## extract the chromatogram
+chr_raw <- chromatogram(dataset,
+                        # rt = rtr,
+                        mz = mzr)
+
+plot(chr_raw, col = "blue", main = metabolite)
+# plot(chr_raw_leucines, col = "blue", xlim = c(330,370), ylim = c(0,1e+8), main = metabolite)
+# plot(chr_raw_leucines[[2]], col = "blue", xlim = c(330,370), ylim = c(0,1e+8), main = metabolite)
+```
+
+
+
+
 # NODE 5: Optimization of parameters
 
 ## Optimization of **Peak Detection** parameters for xcms
@@ -152,54 +196,39 @@ lcms_plot_tics(tics,
 ## Input
 
 ```{r Optimize}
-# output_dir_node5_p <- file.path(output_dir, "05-optimization_pos")
-# fs::dir_create(output_dir_node5_p)
-
-optimize = TRUE
-nSlaves = 1
+opt_path <- tempdir(system.file("opt_path", package = "NIHSlcms"))
+optimize <- TRUE
+nSlaves <- 1
 ```
 
 ## Code to run
 
 ```{r}
-default_peakpeaking_params <- lcms_default_peakpicking_params(optimize = optimize)
+default_peakpeaking_params <- lcms_default_peakpicking_params(noise = c(5e+05, 1e+06),
+                                                              snthresh = 3, 
+                                                              min_peakwidth = c(5, 20), 
+                                                              max_peakwidth = c(35, 60), 
+                                                              optimize = optimize)
 # 
 # default_peakpeaking_params$prefilter <- 3 
 # default_peakpeaking_params$value_of_prefilter <- 1000
 # default_peakpeaking_params$integrate <- 1
 # 
-resultPeakpicking <- lcms_peakpicking_optimization(
-  dataset = dataset_shorter,
-  peakpickingParameters = default_peakpeaking_params,
-  nSlaves = nSlaves,
-  opt_path = output_dir_node5_p,
-  plots = TRUE)
+# resultPeakpicking <- lcms_peakpicking_optimization(
+#   dataset = dataset,
+#   peakpickingParameters = default_peakpeaking_params,
+#   nSlaves = nSlaves,
+#   opt_path = opt_path,
+#   subdir = NULL,
+#   plots = FALSE)
 ```
 
-
-
-
-## Creating an `nmr_dataset_1D` object from a matrix
-
-You can also create an `nmr_dataset_1D` object from scratch with the
-`new_nmr_dataset_1D` function:
 
 ```{r}
-nsamp <- 12
-npoints <- 20
-# Create a random spectra matrix
-dummy_ppm_axis <- seq(from = 0.2, to = 10, length.out = npoints)
-dummy_spectra_matrix <- matrix(runif(nsamp*npoints), nrow = nsamp, ncol = npoints)
-metadata <- list(external = data.frame(NMRExperiment = paste0("Sample", 1:12),
-                                       DummyClass = c("a", "b"),
-                                       stringsAsFactors = FALSE))
-your_custom_nmr_dataset_1D <- new_nmr_dataset_1D(ppm_axis = dummy_ppm_axis,
-                                                 data_1r = dummy_spectra_matrix,
-                                                 metadata = metadata)
-print(your_custom_nmr_dataset_1D)
-plot(your_custom_nmr_dataset_1D) +
-  ggtitle("Of course those random values don't make much sense...")
+# optimizedXcmsSet <- resultPeakpicking$best_settings$xset
+
 ```
+
 
 
 # Final thoughts

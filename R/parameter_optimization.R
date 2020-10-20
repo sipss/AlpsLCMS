@@ -71,8 +71,11 @@ lcms_default_peakpicking_params <- function(noise = c(10e+4,10e+5),
 #'                                                    opt_path = opt_path,
 #'                                                    subdir = NULL)
 #' }
-lcms_peakpicking_optimization <- function (dataset, peakpickingParameters,
-                                           nSlaves = 1, opt_path, subdir ="plot_ipo",
+lcms_peakpicking_optimization <- function (dataset,
+                                           peakpickingParameters,
+                                           nSlaves = 1,
+                                           opt_path,
+                                           subdir ="plot_ipo",
                                            plots = TRUE){
 
   if(is.null(peakpickingParameters)){
@@ -101,12 +104,12 @@ lcms_peakpicking_optimization <- function (dataset, peakpickingParameters,
       file.remove(file_names_opt_path)
     }
 
-    mzR::writeMSData(data_subset, file = filer, outformat = c("mzxml"), copy = FALSE)
-    aux_filer <- stringr::str_c(filer,collapse = " ")
-    cat(stringr::str_c("Samples used for optimization:",
-                       "\n", "\t",aux_filer, "\n",collapse =" "))
-
-    cat("Saving filtered chromatogram...","\n")
+    # mzR::writeMSData(data_subset, file = filer, outformat = c("mzxml"), copy = FALSE)
+    # aux_filer <- stringr::str_c(filer,collapse = " ")
+    # cat(stringr::str_c("Samples used for optimization:",
+    #                    "\n", "\t",aux_filer, "\n",collapse =" "))
+    #
+    # cat("Saving filtered chromatogram...","\n")
 
     #samples_op <- fs::dir_ls(opt_path , glob = "*.mzXML")
     cat("Performing retention time and grouping

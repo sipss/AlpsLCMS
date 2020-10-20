@@ -93,7 +93,7 @@ behavior." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/introduction-to-alpsnmr.html">Introduction to AlpsNMR</a>
+      <a href="../articles/introduction-to-nihslcms.html">Introduction to NIHSlcms</a>
     </li>
   </ul>
 </li>
@@ -137,12 +137,49 @@ behavior.</p>
   <span class='no'>fftempdir</span>
 )</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>ms</th>
+      <td><p>filepath: optional csv input. Features as columns, rows as samples. Column header mz_rt</p></td>
+    </tr>
+    <tr>
+      <th>featdelim</th>
+      <td><p>character: how feature mz and rt are delimited in csv import column header e.g. ="-"</p></td>
+    </tr>
+    <tr>
+      <th>st</th>
+      <td><p>numeric: sigma t - time similarity decay value</p></td>
+    </tr>
+    <tr>
+      <th>sr</th>
+      <td><p>numeric: sigma r - correlational similarity decay value</p></td>
+    </tr>
+    <tr>
+      <th>ExpDes</th>
+      <td><p>either an R object created by R ExpDes object: data used for record keeping and labelling msp spectral output</p></td>
+    </tr>
+    <tr>
+      <th>normalize</th>
+      <td><p>character: either "none", "TIC", "quantile", or "batch.qc" normalization of feature intensities.  see batch.qc overview in details.</p></td>
+    </tr>
+    <tr>
+      <th>sampNameCol</th>
+      <td><p>integer: which column from the csv file contains sample names?</p></td>
+    </tr>
+    <tr>
+      <th>fftempdir</th>
+      <td><p>valid path: if there are file size limitations on the default ff pacakge temp directory  - getOptions('fftempdir') - you can change the directory used as the fftempdir with this option.</p></td>
+    </tr>
+    </table>
 
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
     </ul>
 
   </div>

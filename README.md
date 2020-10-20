@@ -22,7 +22,7 @@ BiocManager::install("CAMERA")
 BiocManager::install(c("GenomicFeatures", "AnnotationDbi"))
 BiocManager::install("MAIT")
 BiocManager::install("IPO")
-devtools::install_github("cbroeckl/RAMClustR"
+remotes::install_github("cbroeckl/RAMClustR")
 remotes::install_local("NIHSlcms_0.0.0.9007.tar.gz")
 
 devtools::install_github("Francisco-madrid-gambin/NIHSlcms")
