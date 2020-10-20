@@ -1,4 +1,13 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
-^\.travis\.yml$
+^Meta$
+^doc$
+^LICENSE\.md$
+^CRAN-RELEASE$
+^.travis.yml$
+^cran-comments\.md$
+^README.Rmd$
+^_pkgdown\.yml$
+^pkgdown$
+^\.github$

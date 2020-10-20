@@ -9,8 +9,10 @@ test_that("lcms_tics works", {
                          treatment = rep("ko",2),
                          stringsAsFactors = FALSE)
   dataset <- lcms_meta_add(dataset, metadata, by = "sampleNames")
+  dataset <- lcms_filter_polarity(dataset)
   polarity <- 1 # 1 for positive mode, 0 for negative mode
   dataset@featureData@data[["polarity"]] <- rep(polarity, length(dataset@featureData@data[["polarity"]]))
+  dataset <- lcms_filter_polarity(dataset, 1)
   tics <- lcms_tics(dataset, treatment = "treatment")
   plot <- lcms_plot_tics(tics,
                  treatment = treatment,
