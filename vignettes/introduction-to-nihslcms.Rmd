@@ -59,7 +59,7 @@ First, we need the listed spectra in ".mzXML" format to create the `lcms_dataset
 
 ## Input
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(faahKO)
 path <- dir(system.file("cdf", package = "faahKO"), full.names = TRUE,
             recursive = TRUE)[c(1:3, 7:9)]
