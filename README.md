@@ -32,7 +32,7 @@ devtools::install_github("Francisco-madrid-gambin/NIHSlcms")
 Quick start
 =============
 
-Checkout the [Introduction to NIHSlcms](https://sipss.github.io/NIHSlcms/articles/introduction-to-alpsnmr.html) vignette that shows how to import data and preprocess it using NIHSlcms.
+Checkout the [Introduction to NIHSlcms](https://sipss.github.io/NIHSlcms/articles/introduction-to-nihslcms.html) vignette that shows how to import data and preprocess it using NIHSlcms.
 
-See also the [tutorial](https://github.com/sipss/AlpsNMR/blob/master/vignettes/tutorial.pdf) with a real dataset from beginning to end, including all the steps of untargeted metabolomics analysis. To run the [tutorial](https://github.com/sipss/AlpsNMR/blob/master/vignettes/tutorial.pdf), you can download the MTBLS242 dataset from the public [MetaboLights repository](https://www.ebi.ac.uk/metabolights/MTBLS242), or download and unzip the contents (spectra and metadata) of this [Dropbox link](https://dl.dropboxusercontent.com/s/0snivrsd7m82yey/MTBLS242.zip?dl=0).
+See also the [tutorial](https://github.com/sipss/NIHSlcms/blob/master/vignettes/.pdf) with a real dataset from beginning to end, including all the steps of untargeted metabolomics analysis. To run the [tutorial](https://github.com/sipss/NIHSlcms/blob/master/vignettes/tutorial.pdf), you can download the MTBLS242 dataset from the public [MetaboLights repository](https://www.ebi.ac.uk/metabolights/MTBLS242), or download and unzip the contents (spectra and metadata) of this [Dropbox link](https://dl.dropboxusercontent.com/s/0snivrsd7m82yey/MTBLS242.zip?dl=0).
 

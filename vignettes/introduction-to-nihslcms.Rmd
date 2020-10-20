@@ -1,12 +1,12 @@
 ---
-title: "Introduction to AlpsNMR"
-author: "Sergio Oller, Institute for Bioengineering of Catalonia"
+title: "Introduction to NIHSlcms"
+author: "Institute for Bioengineering of Catalonia"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Introduction to AlpsNMR}
+  %\VignetteIndexEntry{Introduction to NIHSlcms}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The `AlpsNMR` package was written with two purposes in mind:
+The `NIHSlcms` package was written with two purposes in mind:
 
 - to help **data analysts and NMR scientists** to work with NMR samples.
 - to help **IT pipeline builders** implement automated methods for preprocessing.
