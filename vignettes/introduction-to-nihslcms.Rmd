@@ -143,7 +143,6 @@ lcms_plot_tics(tics,
                plot_type = "spec")
 ```
 
-
 # NODE 5: Data Preprocessing - XCMS
 
 It includes:
@@ -155,79 +154,244 @@ It includes:
 
 Parameters can be changed here. After manual inspection of certain compounds that we know that they should naturally appear, such as plotting leucine and isoleucine (as we are using plasma samples), we can set parameters more accurally. 
 
-## Checking xxx at 5.8 min and m/z
+## Optimization of **retention time correction** and **grouping** parameters
+
+## Input: We set them manually (optimize = FALSE)
 
 ```{r}
-metabolite <- "C22:0"
-retention_time <- NULL
-mz <- 446.3309
-dataset <- dataset
+optimize = FALSE
+nSlaves = 1
+
+output_dir <- getwd()
+output_dir_node5_p <- file.path(output_dir, "05-optimization_pos")
 ```
 
-## Code to run
+## Code to run (I)
 
 ```{r}
-# retention_time_max <- (retention_time*60)+120
-# retention_time_min <- (retention_time*60)-120
-# rtr <- c(retention_time_min, retention_time_max)
-
-mz_max <- mz + 0.01
-mz_min <- mz - 0.01
-mzr <- c(mz_min, mz_max)
-
-## extract the chromatogram
-chr_raw <- chromatogram(dataset,
-                        # rt = rtr,
-                        mz = mzr)
-
-plot(chr_raw, col = "blue", main = metabolite)
-# plot(chr_raw_leucines, col = "blue", xlim = c(330,370), ylim = c(0,1e+8), main = metabolite)
-# plot(chr_raw_leucines[[2]], col = "blue", xlim = c(330,370), ylim = c(0,1e+8), main = metabolite)
+retcorGroupParameters <- lcms_default_retcorgroup_params(optimize = optimize)
 ```
 
+## Code to run (II)
 
+```{r}
+resultRetcorGroup_p  <- lcms_retcorgroup_optimization(
+  optimizedXcmsSetObject = NULL,
+  retcorGroupParameters = retcorGroupParameters,
+  nSlaves = nSlaves,
+  opt_path = output_dir_node5_p,
+  subdir = "plot_ipo",
+  plots = TRUE
+)
+```
 
+## Save results
 
-# NODE 5: Optimization of parameters
+```{r}
+resultRetcorGroup_optP_rds <- fs::path(output_dir_node5_p,
+                                      "resultRetcorGroup_opt_p.rds")
+lcms_dataset_save(resultRetcorGroup_p,
+                  resultRetcorGroup_optP_rds)
 
-## Optimization of **Peak Detection** parameters for xcms
-
+### Important file
+IPO_params_p = lcms_write_opt_params(resultPeakpicking_p, 
+                                     resultRetcorGroup_p, 
+                                     output_dir_node5_p)
+```
 
 ## Input
 
-```{r Optimize}
-opt_path <- tempdir(system.file("opt_path", package = "NIHSlcms"))
-optimize <- TRUE
-nSlaves <- 1
+```{r Creating parameters}
+# output_dir <- getwd
+# output_dir_node5_p <- file.path(output_dir, "05-optimization_pos")
+# directory_params_p <- output_dir_node5_p
+
+# prep_parm_p <- lcms_read_ipo_to_xcms(directory_params_p)
+prep_parm_p <- NULL
+prep_parm_p$peakwidth <- c(20, 80)
+prep_parm_p$noise <- 5000
+prep_parm_p$snthresh <- 3
+prep_parm_p$prefilter <- c(6, 5000)
+prep_parm_p$centerSample <- 1 # index of the center sample.
+prep_parm_p$integrate <- 2
+prep_parm_p$mzdiff <- -0.001
+prep_parm_p$profStep <- 0.005
+prep_parm_p$minFraction <- 0.2
+
+classes <- dataset@phenoData@data[["treatment"]]
 ```
+
+# **Peak detection**
+
+Our standard method for peak detection is *'CentWave'*, since the data provided is Centroided. We must initialize its parameters according to the `IPO` Package optimization. Peak detection aims to detect important features (peaks) on the chromatographic axis. This will be useful for a posterior peak alignment on the chormatophic axis.
 
 ## Code to run
 
+```{r Peak detection}
+peakdet = lcms_find_chrom_peaks_cwp(dataset, 
+                                    params = prep_parm_p)
+
+message("Number of detected peaks")
+peakdet@msFeatureData[["chromPeakData"]]@nrows
+message("")
+
+message("Parameters")
+peakdet@.processHistory[[1]]@param
+```
+
+# **Retention Time Correction and Peak Correspondence**
+
+Peak correspondence is carried out by the *'groupChromPeaks'* method, with parameters obtained form `IPO`. Peak Correspondece consist in grouping peaks on retention time axis with the purspose of associate them to spectra on the mass/chage axis. After this stage we finally have a peak table.
+
+It requires a previous grouping.
+
+# **Correspondence, Alignment and Regrouping**
+
+## Input
+
 ```{r}
-default_peakpeaking_params <- lcms_default_peakpicking_params(noise = c(5e+05, 1e+06),
-                                                              snthresh = 3, 
-                                                              min_peakwidth = c(5, 20), 
-                                                              max_peakwidth = c(35, 60), 
-                                                              optimize = optimize)
-# 
-# default_peakpeaking_params$prefilter <- 3 
-# default_peakpeaking_params$value_of_prefilter <- 1000
-# default_peakpeaking_params$integrate <- 1
-# 
-# resultPeakpicking <- lcms_peakpicking_optimization(
-#   dataset = dataset,
-#   peakpickingParameters = default_peakpeaking_params,
-#   nSlaves = nSlaves,
-#   opt_path = opt_path,
-#   subdir = NULL,
-#   plots = FALSE)
+centerSample <- 4 # index of the center sample. It defaults to floor(median(1:length(fileNames(object))))
+```
+
+## **Correspondence**
+
+```{r Correspondence}
+###################################################################
+## CORRESPONDENCE
+new_params <- PeakDensityParam(sampleGroups = classes,
+                               bw = 5, 
+                               minFraction = 0.2,
+                               minSamples = 1, 
+                               binSize = 0.005, 
+                               maxFeatures = 50)
+
+peakgrouped = groupChromPeaks(peakdet, 
+                              param = new_params)
 ```
 
 
-```{r}
-# optimizedXcmsSet <- resultPeakpicking$best_settings$xset
+## **Alignment and regrouping**
 
+```{r Alignment}
+###################################################################
+## ALIGNMENT
+
+pgp <- PeakGroupsParam(minFraction = 0.4,
+                       extraPeaks = 1, #maximal number of additional peaks for all samples to be assigned to a peak group (i.e. feature) for retention time correction.
+                       smooth = "loess", # interpolate corrected retention times
+                       # span = , # degree of smoothing (if smooth = "loess")
+                       family = "gaussian",
+                       subset = as.integer(                       rownames(as.data.frame(dataset@phenoData@data)))) # indices of samples within the experiment on which the alignment models should be estimated.
+
+## Get the peak groups that would be used for alignment.
+xdata_aling <- adjustRtime(peakgrouped, param = pgp)
+
+rt_plot = lcms_retention_time_alignment_plot(xdata_aling)
+rt_plot
+
+clrs <- rep("#00000040", 8)
+par(mfrow = c(2, 1), mar = c(4, 4.5, 1, 0.5))
+plot(chromatogram(xdata_aling, aggregationFun = "sum"),
+     col = clrs, peakType = "none")
+plotAdjustedRtime(xdata_aling, col = clrs, peakGroupsPch = 1,
+                  peakGroupsCol = "#00ce0040")
+
+###################################################################
+## REGROUPING
+
+new_params <- PeakDensityParam(sampleGroups = classes,
+                               bw = 5, # 
+                               minFraction = 0.2,
+                               minSamples = 1,
+                               binSize = 0.005,
+                               maxFeatures = 50)
+
+peakgrouped = groupChromPeaks(xdata_aling, param = new_params)
 ```
+
+Image plot of the chromatographic detected peaks per sample before retention time alignment and grouping:
+
+
+```{r}
+lcms_plot_chrom_peak_image(peakdet, binSize = 5,
+                           xlim = NULL,
+                           log = FALSE,
+                           xlab = "retention time (min)",
+                           yaxt = par("yaxt"),
+                           main = "Detected Peaks (unprocessed)")
+
+lcms_plot_chrom_peak_image(peakgrouped, binSize = 5,
+                           xlim = NULL,
+                           log = FALSE,
+                           xlab = "retention time (min)",
+                           yaxt = par("yaxt"),
+                           main = "Detected Peaks (processed)")
+```
+
+```{r}
+lcms_plot_chrom_peak_image(peakdet_neg, binSize = 5,
+                           xlim = NULL,
+                           log = FALSE,
+                           xlab = "retention time (min)",
+                           yaxt = par("yaxt"),
+                           main = "Detected Peaks (unprocessed)")
+
+lcms_plot_chrom_peak_image(peakgrouped_neg, binSize = 5,
+                           xlim = NULL,
+                           log = FALSE,
+                           xlab = "retention time (min)",
+                           yaxt = par("yaxt"),
+                           main = "Detected Peaks (processed)")
+```
+
+# *Imputation*
+
+Finally, in the imputation stage, we integrate the areas of the missing peaks of the peak table that were not detected in the previous steps of the signal preprocessing workflow. This stage is important to make easier statistical and machine learnig posterior stages. 
+
+```{r Imputation I}
+message("Missing values found in the processed dataset: ", sum(is.na(featureValues(peakgrouped))))
+peakgrouped_imp <- lcms_fill_chrom_peaks(
+  peakgrouped)
+
+cat("Imputing values...\n")
+
+message("Missing values found after fill_chrom_peaks: ", sum(is.na(featureValues(peakgrouped_imp))))
+```
+
+<!-- ## Save results -->
+
+<!-- ```{r} -->
+<!-- output_dir_node7 <- file.path(output_dir, "07-data-preprocessing") -->
+<!-- fs::dir_create(output_dir_node7) -->
+
+<!-- ################################################################## -->
+<!-- # PEAK DETECTION -->
+<!-- detected_peak_rds <- fs::path(output_dir_node7, "detected_peaks.rds") -->
+<!-- lcms_dataset_save(peakdet, detected_peak_rds) -->
+
+<!-- ################################################################## -->
+<!-- # PEAK ALIGNMENT and GROUPING -->
+<!-- aligned_peak_rds <- fs::path(output_dir_node7, -->
+<!--                                       "aligned_peak.rds") -->
+<!-- lcms_dataset_save(peakgrouped, -->
+<!--                   aligned_peak_rds) -->
+
+<!-- ################################################################## -->
+<!-- # SEMI IMPUTED PEAK TABLE -->
+<!-- peaktable_pos_rds <- fs::path(output_dir_node7, -->
+<!--                                "peakTable_imp.rds") -->
+<!-- lcms_dataset_save(peakgrouped_imp, -->
+<!--                   peaktable_pos_rds) -->
+
+<!-- rt_alignment_plot <- file.path(output_dir_node7, "rt_alignment_plot.png") -->
+<!-- ggplot2::ggsave(filename = rt_alignment_plot,  -->
+<!--                 plot = rt_plot,  -->
+<!--                 width = 14,  -->
+<!--                 height = 8,  -->
+<!--                 unit = "cm",  -->
+<!--                 dpi = 300) -->
+<!-- ``` -->
+
 
 
 
