@@ -217,6 +217,16 @@ prep_parm_p$integrate <- 2
 prep_parm_p$mzdiff <- -0.001
 prep_parm_p$profStep <- 0.005
 prep_parm_p$minFraction <- 0.2
+prep_parm_p$ppm <- 25
+prep_parm_p$mzCenterFun <- "wMean"
+prep_parm_p$fitgauss <- FALSE
+prep_parm_p$verboseColumns <- FALSE
+
+# CentWaveParam(ppm = 25, peakwidth = c(20, 50), snthresh = 10,
+#   prefilter = c(3, 100), mzCenterFun = "wMean", integrate = 1L,
+#   mzdiff = -0.001, fitgauss = FALSE, noise = 0,
+#   verboseColumns = FALSE, roiList = list(),
+#   firstBaselineCheck = TRUE, roiScales = numeric())
 
 classes <- dataset@phenoData@data[["treatment"]]
 ```
