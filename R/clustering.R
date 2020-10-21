@@ -43,7 +43,7 @@ lcms_clustering <- function(ms,
 #'
 #' Cluster annotation function: inference of 'M' - molecular weight of the
 #' compound giving rise to each spectrum - using the
-#' InterpretMSSpectrum::findMain function
+#' InterpretMSSpectrum::findMain function.
 #'
 #' @export
 #' @inheritParams RAMClustR::do.findmain
