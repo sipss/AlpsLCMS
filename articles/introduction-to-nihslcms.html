@@ -129,7 +129,7 @@ print(pipeline_example)</code></pre>
 <span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  Number of spectra: 6 </span></span>
 <span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  MSn retention times: 41:41 - 41:49 minutes</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; - - - Processing information - - -</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; Data loaded [Thu Oct 22 16:05:38 2020] </span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; Data loaded [Thu Oct 22 16:09:47 2020] </span></span>
 <span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;  MSnbase version: 2.12.0 </span></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; - - - Meta data  - - -</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; phenoData</span></span>
@@ -565,9 +565,9 @@ print(pipeline_example)</code></pre>
 <span id="cb26-24"><a href="#cb26-24"></a><span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">""</span>)</span>
 <span id="cb26-25"><a href="#cb26-25"></a><span class="co">#&gt; </span></span></code></pre></div>
 </div>
-<div id="univariante-analisys" class="section level2">
+<div id="univariante-analysis" class="section level2">
 <h2 class="hasAnchor">
-<a href="#univariante-analisys" class="anchor"></a>Univariante analisys</h2>
+<a href="#univariante-analysis" class="anchor"></a>Univariante analysis</h2>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co">#library(car)</span></span></code></pre></div>
 </div>
 <div id="model" class="section level2">
@@ -640,9 +640,9 @@ print(pipeline_example)</code></pre>
 #&gt; Number of features fdr-corrected p value of &lt; 0.05 is 26</code></pre>
 </div>
 </div>
-<div id="univariate-anotation-postivie" class="section level1">
+<div id="univariate-anotation" class="section level1">
 <h1 class="hasAnchor">
-<a href="#univariate-anotation-postivie" class="anchor"></a>Univariate anotation postivie</h1>
+<a href="#univariate-anotation" class="anchor"></a>Univariate anotation</h1>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># We use the selected vips</span></span>
 <span id="cb29-2"><a href="#cb29-2"></a>univ_feat &lt;-<span class="st"> </span>result[result<span class="op">$</span>fdr.wilcox <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>,<span class="st">"id"</span>]</span>
 <span id="cb29-3"><a href="#cb29-3"></a></span>
@@ -766,11 +766,11 @@ print(pipeline_example)</code></pre>
 <a href="#node-9-data-reduction">NODE 9: Data reduction</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#input-3">Input</a></li>
       <li><a href="#code-to-run-4">Code to run</a></li>
-      <li><a href="#univariante-analisys">Univariante analisys</a></li>
+      <li><a href="#univariante-analysis">Univariante analysis</a></li>
       <li><a href="#model">Model</a></li>
       </ul>
 </li>
-      <li><a href="#univariate-anotation-postivie">Univariate anotation postivie</a></li>
+      <li><a href="#univariate-anotation">Univariate anotation</a></li>
       <li><a href="#anotation-of-all-features-positive">anotation of all features positive</a></li>
       <li><a href="#final-thoughts">Final thoughts</a></li>
       </ul>
