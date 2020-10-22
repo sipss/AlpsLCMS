@@ -156,7 +156,7 @@ prep_parm_p$peakwidth <- c(20, 80)
 prep_parm_p$noise <- 5000
 prep_parm_p$snthresh <- 3
 prep_parm_p$prefilter <- c(6, 5000)
-prep_parm_p$centerSample <- 1 # index of the center sample.
+prep_parm_p$centerSample <- "wMean"
 prep_parm_p$integrate <- 2
 prep_parm_p$mzdiff <- -0.001
 prep_parm_p$profStep <- 0.005
@@ -185,6 +185,8 @@ message("")
 
 message("Parameters")
 peakdet@.processHistory[[1]]@param
+
+xcms::plotChromPeakImage(peakdet)
 ```
 
 # **Retention Time Correction and Peak Correspondence**
@@ -198,18 +200,14 @@ It requires a previous grouping.
 ## Input
 
 ```{r}
-centerSample <- 4 # index of the center sample. It defaults to floor(median(1:length(fileNames(object))))
+# centerSample <- 4 # index of the center sample. It defaults to floor(median(1:length(fileNames(object))))
 ```
 
 ## **Correspondence**
 
 ```{r Correspondence}
-new_params <- PeakDensityParam(sampleGroups = classes,
-                               bw = 5, 
-                               minFraction = 0.2,
-                               minSamples = 1, 
-                               binSize = 0.005, 
-                               maxFeatures = 50)
+new_params <- PeakDensityParam(sampleGroups = classes, 
+                               binSize = 0.6)
 
 peakgrouped = groupChromPeaks(peakdet, 
                               param = new_params)
@@ -219,12 +217,11 @@ peakgrouped = groupChromPeaks(peakdet,
 ## **Alignment and regrouping**
 
 ```{r Alignment}
-pgp <- PeakGroupsParam(minFraction = 0.4,
-                       extraPeaks = 1, #maximal number of additional peaks for all samples to be assigned to a peak group (i.e. feature) for retention time correction.
-                       smooth = "loess", # interpolate corrected retention times
-                       # span = , # degree of smoothing (if smooth = "loess")
-                       family = "gaussian",
-                       subset = as.integer(                       rownames(as.data.frame(dataset@phenoData@data)))) # indices of samples within the experiment on which the alignment models should be estimated.
+pgp <- PeakGroupsParam(minFraction = 0.8,
+                       extraPeaks = 1, 
+                       smooth = "loess",
+                       span = 0.4,
+                       family = "gaussian")
 
 ## Get the peak groups that would be used for alignment.
 xdata_aling <- adjustRtime(peakgrouped, param = pgp)
@@ -232,20 +229,17 @@ xdata_aling <- adjustRtime(peakgrouped, param = pgp)
 rt_plot = lcms_retention_time_alignment_plot(xdata_aling)
 rt_plot
 
-clrs <- rep("#00000040", 8)
-par(mfrow = c(2, 1), mar = c(4, 4.5, 1, 0.5))
-plot(chromatogram(xdata_aling, aggregationFun = "sum"),
-     col = clrs, peakType = "none")
-plotAdjustedRtime(xdata_aling, col = clrs, peakGroupsPch = 1,
-                  peakGroupsCol = "#00ce0040")
+# clrs <- rep("#00000040", 8)
+# par(mfrow = c(2, 1), mar = c(4, 4.5, 1, 0.5))
+# plot(chromatogram(xdata_aling, aggregationFun = "sum"),
+#      col = clrs, peakType = "none")
+# plotAdjustedRtime(xdata_aling, col = clrs, peakGroupsPch = 1,
+#                   peakGroupsCol = "#00ce0040")
 
 ## REGROUPING
 new_params <- PeakDensityParam(sampleGroups = classes,
-                               bw = 5, # 
-                               minFraction = 0.2,
-                               minSamples = 1,
-                               binSize = 0.005,
-                               maxFeatures = 50)
+                               bw = 30, # 
+                               minFraction = 0.4)
 
 peakgrouped = groupChromPeaks(xdata_aling, param = new_params)
 ```
@@ -275,9 +269,8 @@ Finally, in the imputation stage, we integrate the areas of the missing peaks of
 
 ```{r Imputation I}
 message("Missing values found in the processed dataset: ", sum(is.na(featureValues(peakgrouped))))
-peakgrouped_imp <- lcms_fill_chrom_peaks(
-  peakgrouped)
 
+peakgrouped_imp <- lcms_fill_chrom_peaks(peakgrouped)
 cat("Imputing values...\n")
 
 message("Missing values found after fill_chrom_peaks: ", sum(is.na(featureValues(peakgrouped_imp))))
@@ -294,15 +287,13 @@ xdata = featureValues(peakgrouped_imp,
                              method = "maxint",
                              value = "into",
                              filled = TRUE, 
-                             missing = "rowmin_half") # If "rowmin_half", the half of the row's minimal value replaces NAs.)
-
+                             missing = "rowmin_half")
 xdata= t(xdata)
 feature=featureDefinitions(peakgrouped_imp)
 feature=feature@listData
 featNames=paste0(feature$mzmed,"_",feature$rtmed)
 colnames(xdata)=featNames
 
-#Number of missing values after missing value imputation
 message("Missing values in the feature table: ",
 sum(is.na(xdata)))
 ```
