@@ -198,12 +198,6 @@ It requires a previous grouping.
 
 # **Correspondence, Alignment and Regrouping**
 
-## Input
-
-```{r}
-# centerSample <- 4 # index of the center sample. It defaults to floor(median(1:length(fileNames(object))))
-```
-
 ## **Correspondence**
 
 ```{r Correspondence}
@@ -229,13 +223,6 @@ xdata_aling <- adjustRtime(peakgrouped, param = pgp)
 
 rt_plot = lcms_retention_time_alignment_plot(xdata_aling)
 rt_plot
-
-# clrs <- rep("#00000040", 8)
-# par(mfrow = c(2, 1), mar = c(4, 4.5, 1, 0.5))
-# plot(chromatogram(xdata_aling, aggregationFun = "sum"),
-#      col = clrs, peakType = "none")
-# plotAdjustedRtime(xdata_aling, col = clrs, peakGroupsPch = 1,
-#                   peakGroupsCol = "#00ce0040")
 
 ## REGROUPING
 new_params <- PeakDensityParam(sampleGroups = classes,
