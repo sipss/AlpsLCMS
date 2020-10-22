@@ -440,26 +440,6 @@ message("Reduced dataset has ", ncol(xdata_reduced), " features")
 message("")
 ```
 
-# NODE 10: Machine learning
-
-Pairwise multilevel approach takes into consideration variability within the same individual. Therefore, we use the function “rdCV_PLS_RF_ML” to perform a multilevel repeated double cross-validation optimized for unbiased variable selection (MUVR algorithm, see Shi et al., 2018). The double cross-validation procedure comprises an inner “tuning” loop nested within an outer loop aimed at reducing bias resulting from overfitting models to experimental data. Then, autoselected variables are ranked according to their VIP value.
-
-## Input
-```{r}
-X = xdata_reduced
-Y = classes
-```
-
-## Code to run
-
-```{r Machine_learning}
-MVObj = MUVR::MUVR(X, Y, parallel = FALSE)
-
-message("AUC model is ", MVObj$auc[[2]])
-MUVR::plotMV(MVObj)
-VIPs <- MUVR::getVIP(MVObj, model="mid")
-VIPs
-```
 
 ## Univariante analisys
 
@@ -471,9 +451,6 @@ library(car)
 ## Model
 
 ```{r echo = FALSE}
-library(nlme)
-X = xdata_reduced
-Y = classes
 stat <- function(x){wilcox.test(x ~ classes, xdata_reduced)$p.value}
 abcd <- data.frame(apply(FUN = stat,
                          MARGIN = 2,
@@ -498,7 +475,7 @@ sum(result$fdr.wilcox < 0.05))
 
 ```{r Annotation univariate postivie}
 # We use the selected vips
-univ_feat <- result[result$fdr.wilcox < 0.05,1]
+univ_feat <- result[result$fdr.wilcox < 0.05,"id"]
 
 # Untargeted assignation
 # Creating mz column
@@ -508,7 +485,7 @@ mzr <- univ_feat %>%
   unlist() %>%
   as.numeric()
 
-all.equal(dim(univ_feat)[2], length(mzr))
+all.equal(length(univ_feat), length(mzr))
 
 tdata_reduced_univ <- data.frame(mz = mzr)
 if(dim(tdata_reduced_univ)[1]>0){
@@ -537,114 +514,6 @@ result_POS_HMDB_all_features <- assignation_pos_HMDB(tdata_reduced_all_features)
 head(result_POS_HMDB_all_features)
 ```
 
-
-# NODE 11: Annotation
-
-HMDB metabolites in positive and negative ionization
-The function compares (M+H & M-H) mass of metabolites contained in the The Human Metabolome Database (HMDB) (+- 1.007276) with features from the ionized feature table (window of +-0.002).
-
-@param feature_table A dataframe containing feature in rows and samples in columns. A column called "mz" is required with the correspoinding mass of each feature.
-
-
-@return The same feature table with two extra column with matched metabolites (HMDB code and assignation).
-
-## Code to run
-
-```{r Annotation vips}
-# We use the selected vips
-xdata_vips <- xdata_reduced[,rownames(VIPs)]
-
-# Untargeted assignation
-# Creating mz column
-mzr <- colnames(xdata_vips) %>%
-  stringr::str_split(.,"\\_") %>%
-  lapply(.,function(x) x[1]) %>%
-  unlist() %>%
-  as.numeric()
-
-all.equal(dim(xdata_vips)[2], length(mzr))
-
-# We recober the ramcluster vips mz whitout adduct mass and add a proton
-clustered_mzr <- mzr[mzr %in% Representative_ions$mz]
-clustered_mzr <- cluster_data[cluster_data$Max_int_ion_mz %in% clustered_mzr, "RC_mz"] - 1.0073
-singletons_mzr <- mzr[!mzr %in% Representative_ions$mz]
-
-mzr_RC <- c(clustered_mzr, singletons_mzr)
-
-tdata_reduced <- data.frame(mz = mzr)
-result_POS_HMDB_vips <- assignation_pos_HMDB(tdata_reduced)
-head(result_POS_HMDB_vips)
-
-tdata_clusters <- data.frame(mz = Representative_ions$mz)
-result_POS_HMDB_clusters <- assignation_pos_HMDB(tdata_clusters)
-head(result_POS_HMDB_clusters)
-
-tdata_reduced_RC <- data.frame(mz = mzr_RC)
-result_POS_HMDB_vips_less_RCadduct <- assignation_pos_HMDB(tdata_reduced_RC)
-head(result_POS_HMDB_vips_less_RCadduct)
-```
-
-```{r Annotation xdata_reduced}
-# Untargeted assignation
-# Creating mz column
-mzr <- colnames(xdata_reduced) %>%
-  stringr::str_split(.,"\\_") %>%
-  lapply(.,function(x) x[1]) %>%
-  unlist() %>%
-  as.numeric()
-
-all.equal(dim(xdata_reduced)[2], length(mzr))
-
-tdata_reduced <- data.frame(mz = mzr)
-result_POS_HMDB_reduced <- assignation_pos_HMDB(tdata_reduced)
-head(result_POS_HMDB_reduced)
-```
-
-# Principal Component Analysis
-
-```{r}
-xdata_reduced_rows <- cbind(sampleNames = 
-                            rownames(xdata_vips),
-                            xdata_vips)
-xdata_reduc_comp_meta <- cbind(sampleNames = 
-                            rownames(xdata_vips),
-                            xdata_vips,
-                            classes)
-# 
-# suppressWarnings(
-#   xdata_reduc_comp_meta <- dplyr::right_join(
-#     classes, 
-#     xdata_reduced_rows, 
-#     by = "sampleNames", 
-#     all = TRUE))
-
-# newmz <- c(colnames(xdata_reduc_comp_meta[1:7]), mzr)
-# newrt <- c(colnames(xdata_reduc_comp_meta[1:7]), rtr)
-# reduced_data_comp <- rbind(newrt, xdata_reduc_comp_meta)
-# reduced_data_comp <- rbind(newmz, reduced_data_comp)
-
-pca_plot <- mixOmics::pca(as.matrix(xdata_reduced_rows[,-1]),
-                          ncomp = 2, 
-                          center = TRUE, 
-                          scale = TRUE)      
-pca_plot
-
-# plot_PCAtreat <- mixOmics::plotIndiv (pca_plot, 
-#                      style = "graphics", 
-#                      ind.names = FALSE,
-#                     #ind.names = xdata_reduc_comp_meta$treatment,
-#                      group = xdata_reduc_comp_meta$treatment,
-#                      legend = FALSE,  
-#                      X.label = "PC 1", 
-#                      Y.label = "PC 2", 
-#                      title = "Scaled data")
-
-pca_plot <- mixOmics::pca(as.matrix(xdata_reduced_rows[,-1]),
-                          ncomp = 2, 
-                          center = TRUE, 
-                          scale = FALSE) 
-pca_plot
-```
 
 # Final thoughts
 
