@@ -62,7 +62,7 @@ Imports:
  ggwordcloud(>= 0.5.0),
  IPO
 Suggests:
-    knitr, faahKO
+    knitr, faahKO, car 
 Remotes:
   github::cbroeckl/RAMClustR
 RoxygenNote: 7.1.1
