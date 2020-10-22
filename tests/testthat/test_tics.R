@@ -10,6 +10,7 @@ test_that("lcms_tics works", {
                          stringsAsFactors = FALSE)
   dataset <- lcms_meta_add(dataset, metadata, by = "sampleNames")
   dataset <- lcms_filter_polarity(dataset)
+  expect_true(is.numeric(dataset@featureData@data[["totIonCurrent"]]))
   polarity <- 1 # 1 for positive mode, 0 for negative mode
   dataset@featureData@data[["polarity"]] <- rep(polarity, length(dataset@featureData@data[["polarity"]]))
   dataset <- lcms_filter_polarity(dataset, 1)
