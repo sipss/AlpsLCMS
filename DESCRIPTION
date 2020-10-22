@@ -62,7 +62,7 @@ Imports:
  ggwordcloud(>= 0.5.0),
  IPO
 Suggests:
-    knitr, faahKO, StatTools
+    knitr, faahKO
 Remotes:
   github::cbroeckl/RAMClustR
 RoxygenNote: 7.1.1
