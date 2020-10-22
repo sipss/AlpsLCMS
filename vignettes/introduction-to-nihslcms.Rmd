@@ -441,7 +441,7 @@ message("")
 ```
 
 
-## Univariante analisys
+## Univariante analysis
 
 
 ```{r univariate positive}
@@ -471,7 +471,7 @@ sum(result$fdr.wilcox < 0.05))
 ```
 
 
-# Univariate anotation postivie
+# Univariate anotation
 
 ```{r Annotation univariate postivie}
 # We use the selected vips
