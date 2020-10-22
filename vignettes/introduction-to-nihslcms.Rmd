@@ -358,15 +358,15 @@ Experiment <- list(design =  design, instrument = instrument)
 ## Code to run
 
 ```{r warning=FALSE}
-RC <- ramclustR(xcmsObj = peakgrouped_imp,
-                featdelim = "_",
+RC <- RAMClustR::ramclustR(xcmsObj = peakgrouped_imp,
+                featdelim = ".",
                 st = st,
                 sr = sr,
                 ExpDes = Experiment,
                 normalize = "TIC",
                 sampNameCol = 1)
 
-RC <- do.findmain(RC,
+RC <- RAMClustR::do.findmain(RC,
                   nls = adducts_list,
                   mode = "positive",
                   mzabs.error = 0.005,
