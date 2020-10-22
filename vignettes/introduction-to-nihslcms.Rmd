@@ -60,7 +60,7 @@ First, we need the listed spectra in ".mzXML" format to create the `lcms_dataset
 ```{r message=FALSE, warning=FALSE}
 library(faahKO)
 path <- dir(system.file("cdf", package = "faahKO"), full.names = TRUE,
-            recursive = TRUE)[c(1:3, 7:9)]
+            recursive = TRUE)
 polarity <- 1 # 1 for positive mode, 0 for negative mode
 ```
 
@@ -85,7 +85,8 @@ Caution with metadata. The use of characters such as "-", "/", " " (space) and s
 
 ```{r}
 metadata <- data.frame(sampleNames = basename(path),
-                 treatment = c("ko", "ko", "ko", "wt", "wt", "wt"),
+                 treatment = c(rep("ko",6),
+                               rep("wt",6)),
                  stringsAsFactors = FALSE)
 ```
 
@@ -468,118 +469,44 @@ Y = classes
 MVObj = MUVR::MUVR(X, Y, parallel = FALSE)
 
 message("AUC model is ", MVObj$auc[[2]])
-
+MUVR::plotMV(MVObj)
 VIPs <- MUVR::getVIP(MVObj, model="mid")
 VIPs
 ```
 
-## Univariante analisys positive
-## Check normality
+## Univariante analisys
+
 
 ```{r univariate positive}
 library(car)
-normality <- function(x){shapiro.test(x)$p.value}
-
-abcd <- data.frame(apply(FUN=normality, MARGIN=2, X= xdata_reduced))
-abcd$id <- row.names(abcd)
-colnames(abcd) <- c("shapiro.test", "id")
-saphiro <- abcd
-
-#correcion fdr
-fdr.saphiro <- p.adjust(saphiro$shapiro.test, method = "fdr", n = length(saphiro$shapiro.test))
-saphiro <- cbind(saphiro, fdr.saphiro)
-message("\nNumber of features with non-normal distribution at xdata_reduced: ", 
-        sum(saphiro$fdr.saphiro < 0.05), " of ", length(saphiro$shapiro.test))
-
-sum(saphiro$shapiro.test<0.05)
-#chechar con un jemplo para ver si funciona
-message("\nSaphiro p-value of C1 (B): ", shapiro.test(xdata_reduced[,1])$p.value)
-hist(xdata_reduced[,1])
-message("\nSaphiro p-value of C10 (B): ", shapiro.test(xdata_reduced[,10])$p.value)
-hist(xdata_reduced[,10])
-
-#homocedasticity
-X_c <- cbind(xdata_reduced, classes = classes)
-homocedasticity <- function(x){leveneTest(x, group = factor(classes), data = X_c)}
-
-p.levene <- NULL
-fdr.p <- NULL
-res.homo <- apply(data.matrix(xdata_reduced), 2, homocedasticity)
-p.levene <- unlist(lapply(res.homo, function(x) { x["Pr(>F)"][1,]}))
-names(p.levene) <- colnames(xdata_reduced)
-fdr.p <- p.adjust(p.levene, "fdr")
-p.levene = as.data.frame(p.levene)
-p.levene$id = row.names(p.levene)
-saphiro = merge(saphiro, p.levene, by = "id")
-#FDR
-fdr.levene <- p.adjust(saphiro$p.levene, method = "fdr", n = length(saphiro$p.levene))
-saphiro <- cbind(saphiro, fdr.levene)
-message("\nNumber of features with heteroscedasticity: ",
-sum(saphiro$fdr.levene < 0.05), " of ", length(saphiro$fdr.levene))
-sum(saphiro$p.levene < 0.05)
-
-head(saphiro[saphiro$fdr.levene < 0.05,1])
-```
-
-## Getting means
-
-```{r}
-abcd <- data.frame(apply(FUN=mean, MARGIN=2, X=xdata_reduced))
-colnames(abcd) <- c("Means")
-abcd$id <- row.names(abcd)
 result <- abcd[c(2,1)]
-
-subcases <- subset(X_c, X_c[,"classes"]==classes[1])
-abcd <- data.frame(apply(FUN=median, MARGIN=2, X=subcases[,1:dim(subcases)[2]-1]))
-colnames(abcd) <- c("MedianCases")
-abcd$id <- row.names(abcd)
-result <- merge(result,abcd, by ="id")
-
-abcd <- data.frame(apply(FUN=sd, MARGIN=2, X=subcases[,1:dim(subcases)[2]-1]))
-colnames(abcd) <- c("SDCases")
-abcd$id <- row.names(abcd)
-result <- merge(result,abcd, by ="id")
-
-subcontrols <- subset(X_c, X_c[,"classes"]==classes[2])
-abcd <- data.frame(apply(FUN=median, MARGIN=2, X=subcontrols[,1:dim(subcontrols)[2]-1]))
-colnames(abcd) <- c("MedianControls")
-abcd$id <- row.names(abcd)
-result <- merge(result,abcd, by ="id")
-
-abcd <- data.frame(apply(FUN=sd, MARGIN=2, X=subcontrols[,1:dim(subcontrols)[2]-1]))
-colnames(abcd) <- c("SDControls")
-abcd$id <- row.names(abcd)
-result <- merge(result,abcd, by ="id")
-
-result <- merge(saphiro, result, by = "id")
 ```
 
 ## Model
 
 ```{r echo = FALSE}
 library(nlme)
-stat <- function(x){wilcox.test(x ~ classes, X_c)$p.value}
+X = xdata_reduced
+Y = classes
+stat <- function(x){wilcox.test(x ~ classes, xdata_reduced)$p.value}
 abcd <- data.frame(apply(FUN = stat,
                          MARGIN = 2,
                          X = xdata_reduced))
 colnames(abcd) <- c("p_Wilc_Binary")
 abcd$id <- row.names(abcd)
-result <- merge(result, abcd, all = TRUE, by= "id")
+result <- abcd
 summary(result$p_Wilc_Binary)
 message("\nNumber of features < 0.05 nominal p-value ", 
 sum(result$p_Wilc_Binary < 0.05))
 head(result[result$p_Wilc_Binary < 0.05,1])
-```
 
-## FDR correction
-
-```{r}
 #FDR
 fdr.wilcox <- p.adjust(result$p_Wilc_Binary, method = "fdr", n = length(result$p_Wilc_Binary))
 result <- cbind(result, fdr.wilcox)
 message("\nNumber of features fdr-corrected p value of < 0.05 is ", 
 sum(result$fdr.wilcox < 0.05))
 ```
+
 
 # Univariate anotation postivie
 
@@ -692,7 +619,7 @@ xdata_reduced_rows <- cbind(sampleNames =
 
 suppressWarnings(
   xdata_reduc_comp_meta <- dplyr::right_join(
-    metadata_pos, 
+    classes, 
     xdata_reduced_rows, 
     by = "sampleNames", 
     all = TRUE))
