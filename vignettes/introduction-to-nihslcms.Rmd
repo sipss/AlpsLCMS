@@ -47,7 +47,6 @@ print(pipeline_example)
 
 ```{r}
 library(NIHSlcms)
-library(ggplot2)
 ```
 
 # NODE 1: Data wrangling
@@ -295,7 +294,7 @@ xdata = featureValues(peakgrouped_imp,
                              method = "maxint",
                              value = "into",
                              filled = TRUE, 
-                             missing = NA) # If "rowmin_half", the half of the row's minimal value replaces NAs.)
+                             missing = "rowmin_half") # If "rowmin_half", the half of the row's minimal value replaces NAs.)
 
 xdata= t(xdata)
 feature=featureDefinitions(peakgrouped_imp)
@@ -308,22 +307,8 @@ message("Missing values in the feature table: ",
 sum(is.na(xdata)))
 ```
 
-## Deep Imputation by Random Forest
-
-```{r Random Forest Imputation, echo = FALSE}
-#Missing Value Imputation
-nCore <- detectCores()-1
-cl <- makeCluster(nCore)
-doParallel::registerDoParallel(cl)
-xdataImp <- StatTools::mvImpWrap(MAT = xdata,
-                                        method = "RF")
-stopCluster(cl)
-
-#Number of missing values after missing value imputation
-sum(is.na(xdataImp))
-```
-
 ```{r echo = FALSE}
+xdataImp <- xdata
 xdataImputed <- as.data.frame(xdataImp, stringsAsFactors = FALSE)
 
 # Get mz and rt columns for the feature table
@@ -333,7 +318,7 @@ mz <- colnames(xdataImp) %>%
   unlist() %>% 
   as.numeric()
 
-#TODO es necesario el get de rt?
+#You can get rt also
 rt <- colnames(xdataImp) %>%
   stringr::str_split(.,"\\_") %>% 
   lapply(.,function(x) x[2]) %>% 
@@ -347,19 +332,13 @@ rt <- rt/60
 ## Input
 
 ```{r Params Data reduction}
-#TODO cambiar por las funciones del paquete
-getRamSt <- function(XObj) {
-  featInfo <- featureDefinitions(XObj)
-  histo <- hist((featInfo$rtmax-featInfo$rtmin)/2)
-  st <- round(median(featInfo$rtmax-featInfo$rtmin)/2,
-              digits = 2)
-  abline(v=st)
-  return(st)
-}
-value_st <- getRamSt(peakgrouped_imp)
-
+st <- getRamSt(peakgrouped_imp)
 sr <- 0.5
-st <- value_st
+
+#Sanity check
+if(st == 0){
+  st = 0.1
+}
 
 #List of adducts for do.findmain
 #adducts_list = c("[M+H-H2O]+")
@@ -388,20 +367,14 @@ Experiment <- list(design =  design, instrument = instrument)
 ## Code to run
 
 ```{r warning=FALSE}
-knitr::opts_knit$set(root.dir = output_dir_node9)
-setwd(output_dir_node9)
-
-#TODO test this
-#RC <- ramclustR(ms = paste0(output_dir_node8,"/xdataImputed.csv"),
-RC <- ramclustR(xcmsObj = xdataImputed,
+RC <- ramclustR(xcmsObj = peakgrouped_imp,
                 featdelim = "_",
                 st = st,
                 sr = sr,
                 ExpDes = Experiment,
                 normalize = "TIC",
-                sampNameCol = 1,
-                fftempdir = output_dir_node9)
-  
+                sampNameCol = 1)
+
 RC <- do.findmain(RC,
                   nls = adducts_list,
                   mode = "positive",
