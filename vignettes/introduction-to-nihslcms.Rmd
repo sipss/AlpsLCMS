@@ -479,7 +479,6 @@ VIPs
 
 ```{r univariate positive}
 library(car)
-result <- abcd[c(2,1)]
 ```
 
 ## Model
@@ -492,16 +491,16 @@ stat <- function(x){wilcox.test(x ~ classes, xdata_reduced)$p.value}
 abcd <- data.frame(apply(FUN = stat,
                          MARGIN = 2,
                          X = xdata_reduced))
-colnames(abcd) <- c("p_Wilc_Binary")
+colnames(abcd) <- c("p_Wilc")
 abcd$id <- row.names(abcd)
 result <- abcd
-summary(result$p_Wilc_Binary)
+summary(result$p_Wilc)
 message("\nNumber of features < 0.05 nominal p-value ", 
-sum(result$p_Wilc_Binary < 0.05))
-head(result[result$p_Wilc_Binary < 0.05,1])
+sum(result$p_Wilc < 0.05))
+head(result[result$p_Wilc < 0.05,1])
 
 #FDR
-fdr.wilcox <- p.adjust(result$p_Wilc_Binary, method = "fdr", n = length(result$p_Wilc_Binary))
+fdr.wilcox <- p.adjust(result$p_Wilc, method = "fdr", n = length(result$p_Wilc))
 result <- cbind(result, fdr.wilcox)
 message("\nNumber of features fdr-corrected p value of < 0.05 is ", 
 sum(result$fdr.wilcox < 0.05))
@@ -525,8 +524,12 @@ mzr <- univ_feat %>%
 all.equal(dim(univ_feat)[2], length(mzr))
 
 tdata_reduced_univ <- data.frame(mz = mzr)
-result_POS_HMDB_univ <- assignation_pos_HMDB(tdata_reduced_univ)
-head(result_POS_HMDB_univ)
+if(dim(tdata_reduced_univ)[1]>0){
+  result_POS_HMDB_univ <- assignation_pos_HMDB(tdata_reduced_univ)
+  head(result_POS_HMDB_univ)
+} else {
+  message("There is no significant features in Wilcox test")
+}
 ```
 
 # anotation of all features positive
@@ -616,18 +619,22 @@ head(result_POS_HMDB_reduced)
 xdata_reduced_rows <- cbind(sampleNames = 
                             rownames(xdata_vips),
                             xdata_vips)
+xdata_reduc_comp_meta <- cbind(sampleNames = 
+                            rownames(xdata_vips),
+                            xdata_vips,
+                            classes)
+# 
+# suppressWarnings(
+#   xdata_reduc_comp_meta <- dplyr::right_join(
+#     classes, 
+#     xdata_reduced_rows, 
+#     by = "sampleNames", 
+#     all = TRUE))
 
-suppressWarnings(
-  xdata_reduc_comp_meta <- dplyr::right_join(
-    classes, 
-    xdata_reduced_rows, 
-    by = "sampleNames", 
-    all = TRUE))
-
-newmz <- c(colnames(xdata_reduc_comp_meta[1:7]), mzr)
-newrt <- c(colnames(xdata_reduc_comp_meta[1:7]), rtr)
-reduced_data_comp <- rbind(newrt, xdata_reduc_comp_meta)
-reduced_data_comp <- rbind(newmz, reduced_data_comp)
+# newmz <- c(colnames(xdata_reduc_comp_meta[1:7]), mzr)
+# newrt <- c(colnames(xdata_reduc_comp_meta[1:7]), rtr)
+# reduced_data_comp <- rbind(newrt, xdata_reduc_comp_meta)
+# reduced_data_comp <- rbind(newmz, reduced_data_comp)
 
 pca_plot <- mixOmics::pca(as.matrix(xdata_reduced_rows[,-1]),
                           ncomp = 2, 
@@ -635,15 +642,15 @@ pca_plot <- mixOmics::pca(as.matrix(xdata_reduced_rows[,-1]),
                           scale = TRUE)      
 pca_plot
 
-plot_PCAtreat <- mixOmics::plotIndiv (pca_plot, 
-                     style = "graphics", 
-                     ind.names = FALSE,
-                    #ind.names = xdata_reduc_comp_meta$treatment,
-                     group = xdata_reduc_comp_meta$treatment,
-                     legend = FALSE,  
-                     X.label = "PC 1", 
-                     Y.label = "PC 2", 
-                     title = "Scaled data")
+# plot_PCAtreat <- mixOmics::plotIndiv (pca_plot, 
+#                      style = "graphics", 
+#                      ind.names = FALSE,
+#                     #ind.names = xdata_reduc_comp_meta$treatment,
+#                      group = xdata_reduc_comp_meta$treatment,
+#                      legend = FALSE,  
+#                      X.label = "PC 1", 
+#                      Y.label = "PC 2", 
+#                      title = "Scaled data")
 
 pca_plot <- mixOmics::pca(as.matrix(xdata_reduced_rows[,-1]),
                           ncomp = 2, 
