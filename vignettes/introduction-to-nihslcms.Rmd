@@ -58,7 +58,7 @@ First, we need the listed spectra in ".mzXML" format to create the `lcms_dataset
 ## Input
 
 ```{r message=FALSE, warning=FALSE}
-library(faahKO)
+#library(faahKO)
 path <- dir(system.file("cdf", package = "faahKO"), full.names = TRUE,
             recursive = TRUE)
 polarity <- 1 # 1 for positive mode, 0 for negative mode
@@ -445,7 +445,7 @@ message("")
 
 
 ```{r univariate positive}
-library(car)
+#library(car)
 ```
 
 ## Model
