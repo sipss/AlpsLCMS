@@ -335,11 +335,6 @@ rt <- rt/60
 st <- getRamSt(peakgrouped_imp)
 sr <- 0.5
 
-#Sanity check
-if(st == 0){
-  st = 0.1
-}
-
 #List of adducts for do.findmain
 #adducts_list = c("[M+H-H2O]+")
 adducts_list = c()
@@ -373,7 +368,8 @@ RC <- ramclustR(xcmsObj = peakgrouped_imp,
                 sr = sr,
                 ExpDes = Experiment,
                 normalize = "TIC",
-                sampNameCol = 1)
+                sampNameCol = 1,
+                fftempdir = getwd())
 
 RC <- do.findmain(RC,
                   nls = adducts_list,
@@ -609,15 +605,6 @@ mzr <- univ_feat %>%
 
 all.equal(dim(univ_feat)[2], length(mzr))
 
-#Guardo las masas
-output_dir_node10 <- file.path(output_dir, "10-univariante_pos")
-fs::dir_create(output_dir_node10)
-result_POS_HMDB_fn <- file.path(output_dir_node10,
-                               "result_POS_mz_univ.csv")
-utils::write.csv(mzr, 
-                 result_POS_HMDB_fn, 
-                 row.names = FALSE)
-
 tdata_reduced_univ <- data.frame(mz = mzr)
 result_POS_HMDB_univ <- assignation_pos_HMDB(tdata_reduced_univ)
 head(result_POS_HMDB_univ)
@@ -636,24 +623,9 @@ mzr <- colnames(as.matrix(xdataImputed)) %>%
 
 all.equal(dim(xdataImputed)[2], length(mzr))
 
-#Guardo las masas
-output_dir_node10 <- file.path(output_dir, "10-all_features_pos")
-fs::dir_create(output_dir_node10)
-result_POS_HMDB_fn <- file.path(output_dir_node10,
-                               "result_POS_all_features.csv")
-utils::write.csv(mzr, 
-                 result_POS_HMDB_fn, 
-                 row.names = FALSE)
-
 tdata_reduced_all_features <- data.frame(mz = mzr)
 result_POS_HMDB_all_features <- assignation_pos_HMDB(tdata_reduced_all_features)
 head(result_POS_HMDB_all_features)
-
-all_features_anotation_fn <- file.path(output_dir_node10,
-                               "all_features_anotation_pos.csv")
-utils::write.csv(result_POS_HMDB_all_features, 
-                 all_features_anotation_fn, 
-                 row.names = FALSE)
 ```
 
 

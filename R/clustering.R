@@ -9,6 +9,13 @@ getRamSt <- function(XObj) {
   histo <- graphics::hist((featInfo$rtmax-featInfo$rtmin)/2)
   st <- round(stats::median(featInfo$rtmax-featInfo$rtmin)/2,
               digits = 2)
+  if(st == 0 ){
+    st <- round(mean(featInfo$rtmax-featInfo$rtmin)/2,
+                digits = 2)
+  }
+  if(st == 0){
+    st = 0.01
+  }
   graphics::abline(v=st)
   return(st)
 }
