@@ -23,11 +23,11 @@ Add metadata to MSnExp object.
 \dontrun{
 dataset <- lcms_dataset_load(system.file
                                   ("extdata","dataset.rds",
-                                  package = "NIHSlcms"))
+                                  package = "AlpsLCMS"))
 
 metadata <- lcms_meta_read(system.file("extdata",
                                        "metadata.xlsx",
-                                       package = "NIHSlcms"))
+                                       package = "AlpsLCMS"))
 
 dataset_metadata <- lcms_meta_add(dataset,
                                metadata,

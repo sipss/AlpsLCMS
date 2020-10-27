@@ -81,7 +81,7 @@ using ANOVA test or T-Student test.
 }
 \examples{
 \dontrun{
-file_name <-  system.file("extdata", "peak_table_ann.rds", package = "NIHSlcms")
+file_name <-  system.file("extdata", "peak_table_ann.rds", package = "AlpsLCMS")
 peak_table <- base::readRDS(file_name)
 peak_table_sig_ann <- lcms_spectral_sig_features(MAIT.object = peak_table,
                                           pvalue=0.05,

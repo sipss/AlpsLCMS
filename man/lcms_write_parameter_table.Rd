@@ -19,9 +19,9 @@ Write a parameter Table for MAIT functionalities.
 }
 \examples{
 \dontrun{
-data_dir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
-mait_params_path <- system.file("extdata", "results_project", package = "NIHSlcms")
-opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+data_dir <-  system.file("extdata", "rearrange_mait", package = "AlpsLCMS")
+mait_params_path <- system.file("extdata", "results_project", package = "AlpsLCMS")
+opt_result_path <-  system.file("extdata", package = "AlpsLCMS")
 preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 parameters <- c(dataDir = data_dir, preproc_params)
 

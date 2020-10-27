@@ -66,7 +66,7 @@ features.
 }
 \examples{
 \dontrun{
-file_name <-  system.file("extdata", "peak_table_sig_ann.rds", package = "NIHSlcms")
+file_name <-  system.file("extdata", "peak_table_sig_ann.rds", package = "AlpsLCMS")
 peak_table <- base::readRDS(file_name)
 sig_table <- lcms_sig_peaks_table(peak_table,  printCSVfile=FALSE)
 str(sig_table)

@@ -23,7 +23,7 @@ Base peak chromatograms with retention time axis in minutes.
 \dontrun{
 file_name <- system.file("extdata",
                          "dataset_pos.rds",
-                          package = "NIHSlcms")
+                          package = "AlpsLCMS")
 dataset <- lcms_dataset_load(file_name)
 treatment_col <- scales::hue_pal()(length(unique(dataset$treatment)))
 names(treatment_col) <- unique(dataset$treatment)

@@ -28,9 +28,9 @@ Otherwise, it can't work properly.
 }
 \examples{
 \dontrun{
-file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "NIHSlcms")
+file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "AlpsLCMS")
 dataset <- lcms_dataset_load(file_name)
-path <- system.file("extdata","rearrange_mait", package = "NIHSlcms")
+path <- system.file("extdata","rearrange_mait", package = "AlpsLCMS")
 lcms_rearrange_datafiles_by_class(dataset = dataset,
                             dataDir = path)
 fileList = list.files(path = paste(path, list.files(path = path),

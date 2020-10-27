@@ -26,8 +26,8 @@ metadata, covariates, etc...
 \dontrun{
 dataset <- lcms_dataset_load(system.file("extdata",
                                          "dataset.rds",
-                                          package = "NIHSlcms"))
-xlsx_file <- system.file("extdata", "exported_metadata.xlsx", package = "NIHSlcms")
+                                          package = "AlpsLCMS"))
+xlsx_file <- system.file("extdata", "exported_metadata.xlsx", package = "AlpsLCMS")
 metadata<- readxl::read_excel(xlsx_file)
 dataset_metadata <- lcms_meta_add(dataset, metadata, by = "sampleNames")
 

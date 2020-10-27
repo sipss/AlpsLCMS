@@ -19,7 +19,7 @@ to achieve compatibility between packages when these parameters are stored in a 
 }
 \examples{
 \dontrun{
-opt_result_path <-  system.file("extdata","ipo_opt", "params.rds", package = "NIHSlcms")
+opt_result_path <-  system.file("extdata","ipo_opt", "params.rds", package = "AlpsLCMS")
 params <- base::readRDS(opt_result_path)
 preproc_params <- lcms_convert_ipo_to_xcms(params)
 print(preproc_params)

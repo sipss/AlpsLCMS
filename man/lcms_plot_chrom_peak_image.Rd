@@ -43,7 +43,7 @@ retention time correction on the chromatographic axis.
 }
 \examples{
 \dontrun{
-file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
+file_name <-  system.file("extdata", "peakdet_align.rds", package = "AlpsLCMS")
 dataset <- base::readRDS(file_name)
 chr_peak_image <- lcms_plot_chrom_peak_image(dataset, binSize = 5, xlim = NULL, log = FALSE,
                                                xlab = "retention time (min)", yaxt = par("yaxt"))

@@ -18,7 +18,7 @@ that were not detected in the previous steps of the signal preprocessing workflo
 }
 \examples{
 \dontrun{
-file_name <-  system.file("extdata", "peak_table.rds", package = "NIHSlcms")
+file_name <-  system.file("extdata", "peak_table.rds", package = "AlpsLCMS")
 peak_table <- base::readRDS(file_name)
 peak_table_imputed <- lcms_fill_chrom_peaks(peak_table)
 

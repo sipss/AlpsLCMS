@@ -25,7 +25,7 @@ NOTE: \code{lcms_tics} assumes that data is already filtered by polarity.
 \dontrun{
 dataset <- lcms_dataset_load(system.file
                                   ("extdata","dataset_pos.rds",
-                                    package = "NIHSlcms"))
+                                    package = "AlpsLCMS"))
 tics <- lcms_tics(dataset)
 
 print(tics)
