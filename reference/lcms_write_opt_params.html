@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Displaying and Storing optimized settings — lcms_write_opt_params • NIHSlcms</title>
+<title>Displaying and Storing optimized settings — lcms_write_opt_params • AlpsLCMS</title>
 
 
 <!-- jquery -->
@@ -70,7 +70,7 @@ allows in the RStudio console. Also you can save this results in plain text file
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">NIHSlcms</a>
+        <a class="navbar-link" href="../index.html">AlpsLCMS</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
       </span>
     </div>
@@ -94,7 +94,7 @@ allows in the RStudio console. Also you can save this results in plain text file
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/introduction-to-nihslcms.html">Introduction to NIHSlcms</a>
+      <a href="../articles/introduction-to-alpslcms.html">Introduction to AlpsLCMS</a>
     </li>
   </ul>
 </li>
@@ -192,9 +192,9 @@ allows in the RStudio console. Also you can save this results in plain text file
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
- <span class='no'>opt_result_path</span> <span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"ipo_opt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
- <span class='no'>file_name_pp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"result_peakpicking.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
- <span class='no'>file_name_rcg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"result_retcorgroup.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>)
+ <span class='no'>opt_result_path</span> <span class='kw'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"ipo_opt"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"AlpsLCMS"</span>)
+ <span class='no'>file_name_pp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"result_peakpicking.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"AlpsLCMS"</span>)
+ <span class='no'>file_name_rcg</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"result_retcorgroup.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"AlpsLCMS"</span>)
  <span class='no'>result_peakpicking</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_pp</span>)
  <span class='no'>result_retcorgroup</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name_rcg</span>)
 

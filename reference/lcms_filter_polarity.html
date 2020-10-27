@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter an experiment by its polarity — lcms_filter_polarity • NIHSlcms</title>
+<title>Filter an experiment by its polarity — lcms_filter_polarity • AlpsLCMS</title>
 
 
 <!-- jquery -->
@@ -69,7 +69,7 @@ the MSnbase package on 2018-12-10 as proposed at:" />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">NIHSlcms</a>
+        <a class="navbar-link" href="../index.html">AlpsLCMS</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
       </span>
     </div>
@@ -93,7 +93,7 @@ the MSnbase package on 2018-12-10 as proposed at:" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/introduction-to-nihslcms.html">Introduction to NIHSlcms</a>
+      <a href="../articles/introduction-to-alpslcms.html">Introduction to AlpsLCMS</a>
     </li>
   </ul>
 </li>
@@ -179,7 +179,7 @@ remove this function.</p>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>dataset_2_polarities</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
                                                      <span class='st'>"dataset_metadata.rds"</span>,
-                                                     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
+                                                     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"AlpsLCMS"</span>))
 <span class='no'>dataset_pos</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_filter_polarity</span>(<span class='no'>dataset_2_polarities</span>, <span class='kw'>polarity.</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>dataset_pos</span>)

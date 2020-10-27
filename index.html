@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Signal processing of LC-MS metabolomics • NIHSlcms</title>
+<title>Signal processing of LC-MS metabolomics • AlpsLCMS</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
@@ -36,7 +36,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">NIHSlcms</a>
+        <a class="navbar-link" href="index.html">AlpsLCMS</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
       </span>
     </div>
@@ -60,7 +60,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/introduction-to-nihslcms.html">Introduction to NIHSlcms</a>
+      <a href="articles/introduction-to-alpslcms.html">Introduction to AlpsLCMS</a>
     </li>
   </ul>
 </li>
@@ -80,15 +80,15 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="nihslcms" class="section level1">
+<div id="alpslcms" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#nihslcms" class="anchor"></a>NIHSlcms</h1></div>
+<a href="#alpslcms" class="anchor"></a>AlpsLCMS</h1></div>
 
-<p>The goal of <code>NIHSlcms</code> is to offer a data analysis preprocessing pipeline for LC/MS metabolomic samples.</p>
+<p>The goal of <code>AlpsLCMS</code> is to offer a data analysis preprocessing pipeline for LC/MS metabolomic samples.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>NIHSlcms can be installed with the <code>devtools</code> package. For this is needed Rtools and note that it uses packages from CRAN, from BioConductor and from git repositories:</p>
+<p>AlpsLCMS can be installed with the <code>devtools</code> package. For this is needed Rtools and note that it uses packages from CRAN, from BioConductor and from git repositories:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"BiocManager"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</span>
 <span id="cb1-2"><a href="#cb1-2"></a>    <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"BiocManager"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3"></a></span>
@@ -100,12 +100,12 @@
 <span id="cb1-9"><a href="#cb1-9"></a>BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">"MAIT"</span>)</span>
 <span id="cb1-10"><a href="#cb1-10"></a>BiocManager<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span>(<span class="st">"IPO"</span>)</span>
 <span id="cb1-11"><a href="#cb1-11"></a>remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"cbroeckl/RAMClustR"</span>)</span>
-<span id="cb1-12"><a href="#cb1-12"></a>remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_local.html">install_local</a></span>(<span class="st">"NIHSlcms_0.0.0.9007.tar.gz"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12"></a>remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_local.html">install_local</a></span>(<span class="st">"AlpsLCMS_0.0.0.9007.tar.gz"</span>)</span>
 <span id="cb1-13"><a href="#cb1-13"></a></span>
-<span id="cb1-14"><a href="#cb1-14"></a>devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"Francisco-madrid-gambin/NIHSlcms"</span>)</span></code></pre></div>
+<span id="cb1-14"><a href="#cb1-14"></a>devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"sipss/AlpsLCMS"</span>)</span></code></pre></div>
 <p> Quick start =============</p>
-<p>Checkout the <a href="https://sipss.github.io/NIHSlcms/articles/introduction-to-nihslcms.html">Introduction to NIHSlcms</a> vignette that shows how to import data and preprocess it using NIHSlcms.</p>
-<p>See also the <a href="https://github.com/sipss/NIHSlcms/blob/master/vignettes/.pdf">tutorial</a> with a real dataset from beginning to end, including all the steps of untargeted metabolomics analysis. To run the <a href="https://github.com/sipss/NIHSlcms/blob/master/vignettes/tutorial.pdf">tutorial</a>, you can download the MTBLS242 dataset from the public <a href="https://www.ebi.ac.uk/metabolights/MTBLS242">MetaboLights repository</a>, or download and unzip the contents (spectra and metadata) of this <a href="https://dl.dropboxusercontent.com/s/0snivrsd7m82yey/MTBLS242.zip?dl=0">Dropbox link</a>.</p>
+<p>Checkout the <a href="https://sipss.github.io/AlpsLCMS/articles/introduction-to-alpslcms.html">Introduction to AlpsLCMS</a> vignette that shows how to import data and preprocess it using AlpsLCMS.</p>
+<p>See also the <a href="https://github.com/sipss/AlpsLCMS/blob/master/vignettes/.pdf">tutorial</a> with a real dataset from beginning to end, including all the steps of untargeted metabolomics analysis. To run the <a href="https://github.com/sipss/AlpsLCMS/blob/master/vignettes/tutorial.pdf">tutorial</a>, you can download the MTBLS242 dataset from the public <a href="https://www.ebi.ac.uk/metabolights/MTBLS242">MetaboLights repository</a>, or download and unzip the contents (spectra and metadata) of this <a href="https://dl.dropboxusercontent.com/s/0snivrsd7m82yey/MTBLS242.zip?dl=0">Dropbox link</a>.</p>
 </div>
 </div>
   </div>
@@ -132,9 +132,9 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/sipss/NIHSlcms/actions/"><img src="https://github.com/sipss/NIHSlcms/workflows/R-CMD-check/badge.svg?branch=master" alt="Build Status"></a></li>
-<li><a href="https://codecov.io/github/sipss/NIHSlcms"><img src="https://codecov.io/github/sipss/NIHSlcms/coverage.svg?branch=master" alt="codecov.io"></a></li>
-<li><a href="https://sipss.github.io/NIHSlcms/"><img src="https://img.shields.io/badge/documentation-pkgdown-informational" alt="Documentation"></a></li>
+<li><a href="https://github.com/sipss/AlpsLCMS/actions/"><img src="https://github.com/sipss/AlpsLCMS/workflows/R-CMD-check/badge.svg?branch=master" alt="Build Status"></a></li>
+<li><a href="https://codecov.io/github/sipss/AlpsLCMS"><img src="https://codecov.io/github/sipss/AlpsLCMS/coverage.svg?branch=master" alt="codecov.io"></a></li>
+<li><a href="https://sipss.github.io/AlpsLCMS/"><img src="https://img.shields.io/badge/documentation-pkgdown-informational" alt="Documentation"></a></li>
 </ul>
 </div>
 </div>
