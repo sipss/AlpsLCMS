@@ -24,7 +24,7 @@
 #'                             "results_project",
 #'                             "tables",
 #'                             "metaboliteTable.csv",
-#'                             package = "NIHSlcms")
+#'                             package = "AlpsLCMS")
 #' plots <- lcms_plot_metabolites(path_result, biofluid_type = "Any",
 #'                                    significance = 0.05,
 #'                                    metabolite_rm = FALSE,
