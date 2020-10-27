@@ -21,8 +21,8 @@ Export Metadata to an Excel file.
 \dontrun{
 dataset_metadata <- lcms_dataset_load(system.file("extdata",
                                              "dataset_metadata.rds",
-                                              package = "NIHSlcms"))
-xlsx_file <- paste0(system.file("extdata",package = "NIHSlcms"),
+                                              package = "AlpsLCMS"))
+xlsx_file <- paste0(system.file("extdata",package = "AlpsLCMS"),
                     "/", "exported_metadata.xlsx")
 
 lcms_meta_export(dataset_metadata, xlsx_file)

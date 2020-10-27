@@ -27,7 +27,7 @@ download and installation of the \emph{RawConverter} application.
 }
 \examples{
 \dontrun{
-sample_path <- system.file("extdata", package = "NIHSlcms")
+sample_path <- system.file("extdata", package = "AlpsLCMS")
 samples_mzxml <- lcms_list_mzxml_samples(sample_path,
                                     file_format = "mzXML")
 print(samples_mzxml)

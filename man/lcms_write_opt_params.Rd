@@ -33,9 +33,9 @@ allows in the RStudio console. Also you can save this results in plain text file
 }
 \examples{
 \dontrun{
- opt_result_path <-system.file("extdata", "ipo_opt", package = "NIHSlcms")
- file_name_pp <- system.file("extdata", "result_peakpicking.rds", package = "NIHSlcms")
- file_name_rcg <- system.file("extdata", "result_retcorgroup.rds", package = "NIHSlcms")
+ opt_result_path <-system.file("extdata", "ipo_opt", package = "AlpsLCMS")
+ file_name_pp <- system.file("extdata", "result_peakpicking.rds", package = "AlpsLCMS")
+ file_name_rcg <- system.file("extdata", "result_retcorgroup.rds", package = "AlpsLCMS")
  result_peakpicking <- base::readRDS(file_name_pp)
  result_retcorgroup <- base::readRDS(file_name_rcg)
 

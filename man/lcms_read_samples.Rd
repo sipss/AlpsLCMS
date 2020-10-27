@@ -46,7 +46,7 @@ Read LCMS samples on mzXML format.
 }
 \examples{
 \dontrun{
-file_path <- system.file("extdata", package = "NIHSlcms")
+file_path <- system.file("extdata", package = "AlpsLCMS")
 rawconverter <- NULL
 file_format <- "mzXML"
 samples_mzxml <- lcms_list_mzxml_samples(file_path,

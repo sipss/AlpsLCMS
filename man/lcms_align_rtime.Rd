@@ -28,9 +28,9 @@ The optimized set of parameters for this signal preprocessing can be obatained f
 }
 \examples{
 \dontrun{
-file_name <-  system.file("extdata", "peakdet.rds", package = "NIHSlcms")
+file_name <-  system.file("extdata", "peakdet.rds", package = "AlpsLCMS")
 peakdet <- base::readRDS(file_name)
-opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+opt_result_path <-  system.file("extdata", package = "AlpsLCMS")
 preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 
 peakdet_align <- lcms_align_rtime(peakdet, params = preproc_params)

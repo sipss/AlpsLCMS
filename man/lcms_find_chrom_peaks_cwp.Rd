@@ -30,10 +30,10 @@ be obatained from \code{IPO} Package.
 }
 \examples{
 \dontrun{
-file_path <- system.file("extdata", "rearrange_mait", package = "NIHSlcms")
+file_path <- system.file("extdata", "rearrange_mait", package = "AlpsLCMS")
 samples_mzxml <- list.files(file_path, recursive = TRUE, full.names = TRUE)
-meta_path <- system.file("extdata", "metadata.xlsx", package = "NIHSlcms")
-opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+meta_path <- system.file("extdata", "metadata.xlsx", package = "AlpsLCMS")
+opt_result_path <-  system.file("extdata", package = "AlpsLCMS")
 preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 
 dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))

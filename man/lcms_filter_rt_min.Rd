@@ -23,7 +23,7 @@ a range of the retention time in minutes.
 rtime_range = c(5,10)
 dataset <- lcms_dataset_load(system.file("extdata",
                                          "dataset_pos.rds",
-                                         package = "NIHSlcms"))
+                                         package = "AlpsLCMS"))
 dataset_pos_rt <-lcms_filter_rt_min(dataset, rt = rtime_range)
 
 print(dataset_pos_rt)

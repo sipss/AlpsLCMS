@@ -19,7 +19,7 @@
 assignation_pos_HMDB <- function(feature_table){
 
   HMDB_db <- NULL
-  utils::data("HMDB_db", package = "NIHSlcms", envir = environment())
+  utils::data("HMDB_db", package = "AlpsLCMS", envir = environment())
 
   output_assignation_list <- HMDB_db[NULL,]
   MZs <- rownames(feature_table)
@@ -76,7 +76,7 @@ assignation_pos_HMDB <- function(feature_table){
 assignation_neg_HMDB <- function(feature_table){
 
   HMDB_db <- NULL
-  utils::data("HMDB_db", package = "NIHSlcms", envir = environment())
+  utils::data("HMDB_db", package = "AlpsLCMS", envir = environment())
 
   output_assignation_list <- HMDB_db[NULL,]
   MZs <- rownames(feature_table)

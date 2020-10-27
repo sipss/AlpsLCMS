@@ -1,4 +1,4 @@
-# library(NIHSlcms)
+# library(AlpsLCMS)
 # library(dplyr)
 #
 # path <- "../../datasets/dont_sync/20180319_Lumos_Test_Samples/For_Sergio/"

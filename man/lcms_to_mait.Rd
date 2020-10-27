@@ -36,13 +36,13 @@ to an object of the MAIT Package.
 }
 \examples{
 \dontrun{
-file_name <-  system.file("extdata", "peak_table_imputed.rds", package = "NIHSlcms")
+file_name <-  system.file("extdata", "peak_table_imputed.rds", package = "AlpsLCMS")
 peak_table <- base::readRDS(file_name)
-opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+opt_result_path <-  system.file("extdata", package = "AlpsLCMS")
 preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 
-data_dir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
-project_dir <-  system.file("extdata", package = "NIHSlcms")
+data_dir <-  system.file("extdata", "rearrange_mait", package = "AlpsLCMS")
+project_dir <-  system.file("extdata", package = "AlpsLCMS")
 project <- "project"
 
 peak_table_mait <- lcms_to_mait(data_dir = data_dir,

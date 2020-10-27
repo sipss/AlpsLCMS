@@ -38,8 +38,8 @@ Retention Time Correction (‘obiwarp’) and Peak Correspondence
 }
 \examples{
 \dontrun{
-opt_path <- system.file("extdata", "ipo_opt", package = "NIHSlcms")
-file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "NIHSlcms")
+opt_path <- system.file("extdata", "ipo_opt", package = "AlpsLCMS")
+file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "AlpsLCMS")
 dataset <- lcms_dataset_load(file_name)
 default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
 result_peakpicking <- lcms_peakpicking_optimization(dataset,

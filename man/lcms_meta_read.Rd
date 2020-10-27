@@ -19,7 +19,7 @@ Reads metadata from an Excel file.
 \dontrun{
 metadata <- lcms_meta_read(system.file("extdata",
                                              "metadata.xlsx",
-                                              package = "NIHSlcms"))
+                                              package = "AlpsLCMS"))
 print(metadata[1:6])
 }
 }

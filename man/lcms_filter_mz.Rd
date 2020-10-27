@@ -22,7 +22,7 @@ The function filters the dataset by m/z.
 mz_range = c(300, 400)
 dataset <- lcms_dataset_load(system.file("extdata",
                                        "dataset_pos.rds",
-                                       package = "NIHSlcms"))
+                                       package = "AlpsLCMS"))
 dataset_pos_mz <-lcms_filter_mz(dataset, mz = mz_range)
 
 print(dataset_pos_mz)

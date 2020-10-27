@@ -76,7 +76,7 @@ If it is set to TRUE, the function will perform an adduct annotation stage.
 A MAIT-class object with xsAnnotate-class in the rawData slot.
 }
 \description{
-The \code{NIHSlcms} Package allows to annotate the peaks of the peak table provided by \code{XCMS}.
+The \code{AlpsLCMS} Package allows to annotate the peaks of the peak table provided by \code{XCMS}.
 This is done in two different stages:
 \itemize{
 \item Annotation with \code{CAMERA}.
@@ -89,7 +89,7 @@ to an object of the MAIT Package.
 }
 \examples{
 \dontrun{
-file_name <-  system.file("extdata","peak_table_mait.rds", package = "NIHSlcms")
+file_name <-  system.file("extdata","peak_table_mait.rds", package = "AlpsLCMS")
 peak_table <- base::readRDS(file_name)
 peak_table_ann <- lcms_peak_annotation(MAIT.object = peak_table)
 lcms_raw_data(peak_table_ann)

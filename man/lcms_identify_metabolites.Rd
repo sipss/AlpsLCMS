@@ -44,7 +44,7 @@ features
 }
 \examples{
 \dontrun{
-file_name <- system.file("extdata", "peak_table_sig_ann.rds", package = "NIHSlcms")
+file_name <- system.file("extdata", "peak_table_sig_ann.rds", package = "AlpsLCMS")
 peak_table <- readRDS(file_name)
 metabololite_table <- lcms_identify_metabolites(MAIT.object = peak_table,
                               peakTolerance = 0.005)

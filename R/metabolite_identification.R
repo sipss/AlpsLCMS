@@ -10,9 +10,9 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' data_dir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
-#' mait_params_path <- system.file("extdata", "results_project", package = "NIHSlcms")
-#' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+#' data_dir <-  system.file("extdata", "rearrange_mait", package = "AlpsLCMS")
+#' mait_params_path <- system.file("extdata", "results_project", package = "AlpsLCMS")
+#' opt_result_path <-  system.file("extdata", package = "AlpsLCMS")
 #' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #' parameters <- c(dataDir = data_dir, preproc_params)
 #'
@@ -63,13 +63,13 @@ lcms_write_parameter_table <- function(listParameters, folder){
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name <-  system.file("extdata", "peak_table_imputed.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata", "peak_table_imputed.rds", package = "AlpsLCMS")
 #' peak_table <- base::readRDS(file_name)
-#' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+#' opt_result_path <-  system.file("extdata", package = "AlpsLCMS")
 #' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #'
-#' data_dir <-  system.file("extdata", "rearrange_mait", package = "NIHSlcms")
-#' project_dir <-  system.file("extdata", package = "NIHSlcms")
+#' data_dir <-  system.file("extdata", "rearrange_mait", package = "AlpsLCMS")
+#' project_dir <-  system.file("extdata", package = "AlpsLCMS")
 #' project <- "project"
 #'
 #' peak_table_mait <- lcms_to_mait(data_dir = data_dir,
@@ -167,7 +167,7 @@ lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, p
 
 #' Peak Annotation
 #'
-#' The `NIHSlcms` Package allows to annotate the peaks of the peak table provided by `XCMS`.
+#' The `AlpsLCMS` Package allows to annotate the peaks of the peak table provided by `XCMS`.
 #' This is done in two different stages:
 #' * Annotation with `CAMERA`.
 #' * Annotation using predefined biotransformation.
@@ -183,7 +183,7 @@ lcms_to_mait <- function (data_dir = NULL, project_dir = NULL, project = NULL, p
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name <-  system.file("extdata","peak_table_mait.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata","peak_table_mait.rds", package = "AlpsLCMS")
 #' peak_table <- base::readRDS(file_name)
 #' peak_table_ann <- lcms_peak_annotation(MAIT.object = peak_table)
 #' lcms_raw_data(peak_table_ann)
@@ -317,7 +317,7 @@ MAITtables <- NULL
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name <-  system.file("extdata", "peak_table_mait.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata", "peak_table_mait.rds", package = "AlpsLCMS")
 #' peak_table <- base::readRDS(file_name)
 #' peak_table_ann <- lcms_peak_annotation(MAIT.object = peak_table)
 #'
@@ -346,7 +346,7 @@ lcms_raw_data <- function (MAIT.object) {
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name <-  system.file("extdata", "peak_table_ann.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata", "peak_table_ann.rds", package = "AlpsLCMS")
 #' peak_table <- base::readRDS(file_name)
 #' peak_table_sig_ann <- lcms_spectral_sig_features(MAIT.object = peak_table,
 #'                                           pvalue=0.05,
@@ -633,7 +633,7 @@ lcms_peak_aggregation<-function(MAIT.object=NULL,
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name <-  system.file("extdata", "peak_table_sig_ann.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata", "peak_table_sig_ann.rds", package = "AlpsLCMS")
 #' peak_table <- base::readRDS(file_name)
 #' sig_table <- lcms_sig_peaks_table(peak_table,  printCSVfile=FALSE)
 #' str(sig_table)
@@ -876,7 +876,7 @@ lcms_sig_peaks_table<-function(
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name <- system.file("extdata", "peak_table_sig_ann.rds", package = "NIHSlcms")
+#' file_name <- system.file("extdata", "peak_table_sig_ann.rds", package = "AlpsLCMS")
 #' peak_table <- readRDS(file_name)
 #' metabololite_table <- lcms_identify_metabolites(MAIT.object = peak_table,
 #'                               peakTolerance = 0.005)
@@ -1620,9 +1620,9 @@ lcms_spectral_fun <- function (pvalue=0.05,
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name_1 <-  system.file("extdata","peak_table_sig_ann.rds", package = "NIHSlcms")
+#' file_name_1 <-  system.file("extdata","peak_table_sig_ann.rds", package = "AlpsLCMS")
 #' peak_table <- base::readRDS(file_name_1)
-#' file_name_2 <-  system.file("extdata","dataset_pos_rt_rs.rds", package = "NIHSlcms")
+#' file_name_2 <-  system.file("extdata","dataset_pos_rt_rs.rds", package = "AlpsLCMS")
 #' dataset <-  base::readRDS(file_name_2)
 #' treatment_col <- scales::hue_pal()(length(unique(dataset$treatment)))
 #' lcms_peak_table_boxplots(peak_table,
@@ -1695,9 +1695,9 @@ lcms_peak_table_boxplots <- function (MAIT.object = NULL, treatment_col) {
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name_1 <-  system.file("extdata","peak_table_sig_ann.rds", package = "NIHSlcms")
+#' file_name_1 <-  system.file("extdata","peak_table_sig_ann.rds", package = "AlpsLCMS")
 #' peak_table <- base::readRDS(file_name_1)
-#' file_name_2 <-  system.file("extdata","dataset_pos_rt_rs.rds", package = "NIHSlcms")
+#' file_name_2 <-  system.file("extdata","dataset_pos_rt_rs.rds", package = "AlpsLCMS")
 #' dataset <-  base::readRDS(file_name_2)
 #' treatment_col <- scales::hue_pal()(length(unique(dataset$treatment)))
 #'

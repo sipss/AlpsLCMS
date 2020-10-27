@@ -25,7 +25,7 @@ The function performs a plot with the Total Ion Count (TIC).
 \dontrun{
 dataset <- lcms_dataset_load(system.file
                                   ("extdata","dataset_pos.rds",
-                                    package = "NIHSlcms"))
+                                    package = "AlpsLCMS"))
 tics <- lcms_tics(dataset)
 
 lcms_plot_tics(tics, treatment = treatment,

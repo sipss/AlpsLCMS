@@ -17,7 +17,7 @@ Function lcms_raw_data extracts the raw data used to build the MAIT-class object
 }
 \examples{
 \dontrun{
-file_name <-  system.file("extdata", "peak_table_mait.rds", package = "NIHSlcms")
+file_name <-  system.file("extdata", "peak_table_mait.rds", package = "AlpsLCMS")
 peak_table <- base::readRDS(file_name)
 peak_table_ann <- lcms_peak_annotation(MAIT.object = peak_table)
 
