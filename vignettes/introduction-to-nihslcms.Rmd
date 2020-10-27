@@ -1,12 +1,12 @@
 ---
-title: "Introduction to NIHSlcms"
+title: "Introduction to AlpsLCMS"
 author: "Institute for Bioengineering of Catalonia"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Introduction to NIHSlcms}
+  %\VignetteIndexEntry{Introduction to AlpsLCMS}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The `NIHSlcms` package was written with two purposes in mind:
+The `AlpsLCMS` package was written with two purposes in mind:
 
 - to help **data analysts and LC-MS scientists** to work with LC-MS samples.
 - to help **IT pipeline builders** implement automated methods for preprocessing.
@@ -40,13 +40,13 @@ you are interested in building pipelines with this package, you may want to open
 the file saved in this directory (run it on your computer):
 
 ```
-pipeline_example <- system.file("pipeline-rmd", "pipeline_example.R", package = "NIHSlcms")
+pipeline_example <- system.file("pipeline-rmd", "pipeline_example.R", package = "AlpsLCMS")
 print(pipeline_example)
 ```
 
 
 ```{r}
-library(NIHSlcms)
+library(AlpsLCMS)
 ```
 
 # NODE 1: Data wrangling

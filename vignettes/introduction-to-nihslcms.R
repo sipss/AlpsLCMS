@@ -7,7 +7,7 @@ knitr::opts_chunk$set(
 )
 
 ## -----------------------------------------------------------------------------
-library(NIHSlcms)
+library(AlpsLCMS)
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
 library(faahKO)
@@ -35,7 +35,7 @@ phData(dataset)
 tics <- lcms_tics(dataset, treatment = "treatment")
 
 lcms_plot_tics(tics,
-               treatment = treatment, 
+               treatment = treatment,
                plot_type = "spec")
 
 lcms_plot_tics(tics, treatment = treatment,
@@ -52,7 +52,7 @@ dataset_shorter <- lcms_filter_mz(dataset_shorter, mz = ms)
 tics <- lcms_tics(dataset_shorter, treatment = "treatment")
 
 lcms_plot_tics(tics,
-               treatment = treatment, 
+               treatment = treatment,
                plot_type = "spec")
 
 ## ----Creating parameters------------------------------------------------------
@@ -74,7 +74,7 @@ prep_parm_p$verbose.columns <- FALSE
 classes <- dataset@phenoData@data[["treatment"]]
 
 ## ----Peak detection-----------------------------------------------------------
-peakdet = lcms_find_chrom_peaks_cwp(dataset, 
+peakdet = lcms_find_chrom_peaks_cwp(dataset,
                                     params = prep_parm_p)
 
 message("Number of detected peaks")
@@ -87,15 +87,15 @@ peakdet@.processHistory[[1]]@param
 xcms::plotChromPeakImage(peakdet)
 
 ## ----Correspondence-----------------------------------------------------------
-new_params <- PeakDensityParam(sampleGroups = classes, 
+new_params <- PeakDensityParam(sampleGroups = classes,
                                binSize = 0.6)
 
-peakgrouped = groupChromPeaks(peakdet, 
+peakgrouped = groupChromPeaks(peakdet,
                               param = new_params)
 
 ## ----Alignment----------------------------------------------------------------
 pgp <- PeakGroupsParam(minFraction = 0.8,
-                       extraPeaks = 1, 
+                       extraPeaks = 1,
                        smooth = "loess",
                        span = 0.4,
                        family = "gaussian")
@@ -108,7 +108,7 @@ rt_plot
 
 ## REGROUPING
 new_params <- PeakDensityParam(sampleGroups = classes,
-                               bw = 30, # 
+                               bw = 30, #
                                minFraction = 0.4)
 
 peakgrouped = groupChromPeaks(xdata_aling, param = new_params)
@@ -140,7 +140,7 @@ message("Missing values found after fill_chrom_peaks: ", sum(is.na(featureValues
 xdata = featureValues(peakgrouped_imp,
                              method = "maxint",
                              value = "into",
-                             filled = TRUE, 
+                             filled = TRUE,
                              missing = "rowmin_half")
 xdata= t(xdata)
 feature=featureDefinitions(peakgrouped_imp)
@@ -157,16 +157,16 @@ xdataImputed <- as.data.frame(xdataImp, stringsAsFactors = FALSE)
 
 # Get mz and rt columns for the feature table
 mz <- colnames(xdataImp) %>%
-  stringr::str_split(.,"\\_") %>% 
-  lapply(.,function(x) x[1]) %>% 
-  unlist() %>% 
+  stringr::str_split(.,"\\_") %>%
+  lapply(.,function(x) x[1]) %>%
+  unlist() %>%
   as.numeric()
 
 #You can get rt also
 rt <- colnames(xdataImp) %>%
-  stringr::str_split(.,"\\_") %>% 
-  lapply(.,function(x) x[2]) %>% 
-  unlist() %>% 
+  stringr::str_split(.,"\\_") %>%
+  lapply(.,function(x) x[2]) %>%
+  unlist() %>%
   as.numeric()
 rt <- rt/60
 
@@ -183,15 +183,15 @@ adducts_list = c()
 value <- c(rep("fill", 4), "LC-MS")
 design <- as.data.frame(value)
 rownme <- c("Experiment", "Species", "Sample",
-            "Contributer", "platform")  
+            "Contributer", "platform")
 rownames(design) <- rownme
 
 value <- c(rep("fill", 13), "1")
 instrument <- as.data.frame(value)
-rownm <- c("chrominst", "msinst", "column", 
-           "solvA", "solvB", "CE1", "CE2", 
-           "mstype", "msmode", "ionization", 
-           "colgas", "msscanrange", "conevol", 
+rownm <- c("chrominst", "msinst", "column",
+           "solvA", "solvB", "CE1", "CE2",
+           "mstype", "msmode", "ionization",
+           "colgas", "msscanrange", "conevol",
            "MSlevs")
 rownames(instrument) <- rownm
 

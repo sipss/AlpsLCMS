@@ -19,7 +19,7 @@
 #' \dontrun{
 #' dataset_2_polarities <- lcms_dataset_load(system.file("extdata",
 #'                                                      "dataset_metadata.rds",
-#'                                                      package = "NIHSlcms"))
+#'                                                      package = "AlpsLCMS"))
 #' dataset_pos <- lcms_filter_polarity(dataset_2_polarities, polarity. = 1)
 #'
 #' print(dataset_pos)
@@ -48,7 +48,7 @@ lcms_filter_polarity <- function(object, polarity.) {
 #' mz_range = c(300, 400)
 #' dataset <- lcms_dataset_load(system.file("extdata",
 #'                                        "dataset_pos.rds",
-#'                                        package = "NIHSlcms"))
+#'                                        package = "AlpsLCMS"))
 #' dataset_pos_mz <-lcms_filter_mz(dataset, mz = mz_range)
 #'
 #' print(dataset_pos_mz)
@@ -76,7 +76,7 @@ lcms_filter_mz <- function(dataset, mz){
 #' rtime_range = c(5,10)
 #' dataset <- lcms_dataset_load(system.file("extdata",
 #'                                          "dataset_pos.rds",
-#'                                          package = "NIHSlcms"))
+#'                                          package = "AlpsLCMS"))
 #' dataset_pos_rt <-lcms_filter_rt_min(dataset, rt = rtime_range)
 #'
 #' print(dataset_pos_rt)
@@ -111,7 +111,7 @@ lcms_filter_rt_min <- function (dataset, rt = c(4, 14)){
 #' \dontrun{
 #' dataset <- lcms_dataset_load(system.file("extdata",
 #'                                         "dataset_pos_rt.rds",
-#'                                         package = "NIHSlcms"))
+#'                                         package = "AlpsLCMS"))
 #' especial_samples <- list(QC = NULL, blank = NULL)
 #' datasets_by_class_type <- lcms_filter_sample_type(dataset, especial_samples)
 #' dataset_pos_rt_rs <- datasets_by_class_type$regular_samples
@@ -178,10 +178,10 @@ lcms_filter_sample_type <- function(dataset,  especial_samples){
 #' @export
 #' @examples
 #' \dontrun{
-#' file_path <- system.file("extdata", "rearrange_mait", package = "NIHSlcms")
+#' file_path <- system.file("extdata", "rearrange_mait", package = "AlpsLCMS")
 #' samples_mzxml <- list.files(file_path, recursive = TRUE, full.names = TRUE)
-#' meta_path <- system.file("extdata", "metadata.xlsx", package = "NIHSlcms")
-#' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+#' meta_path <- system.file("extdata", "metadata.xlsx", package = "AlpsLCMS")
+#' opt_result_path <-  system.file("extdata", package = "AlpsLCMS")
 #' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #'
 #' dataset <- suppressWarnings(lcms_read_samples(samples_mzxml, mode = "onDisk"))
@@ -245,9 +245,9 @@ lcms_find_chrom_peaks_cwp <- function (dataset, params) {
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name <-  system.file("extdata", "peakdet.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata", "peakdet.rds", package = "AlpsLCMS")
 #' peakdet <- base::readRDS(file_name)
-#' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+#' opt_result_path <-  system.file("extdata", package = "AlpsLCMS")
 #' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #'
 #' peakdet_align <- lcms_align_rtime(peakdet, params = preproc_params)
@@ -314,9 +314,9 @@ lcms_align_rtime <- function (peakdet, params) {
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata", "peakdet_align.rds", package = "AlpsLCMS")
 #' peakdet_align <- base::readRDS(file_name)
-#' opt_result_path <-  system.file("extdata", package = "NIHSlcms")
+#' opt_result_path <-  system.file("extdata", package = "AlpsLCMS")
 #' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #'
 #'
@@ -360,7 +360,7 @@ lcms_group_peaks <- function (peakdet_align, params) {
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name <-  system.file("extdata", "peak_table.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata", "peak_table.rds", package = "AlpsLCMS")
 #' peak_table <- base::readRDS(file_name)
 #' peak_table_imputed <- lcms_fill_chrom_peaks(peak_table)
 #'
@@ -401,7 +401,7 @@ lcms_fill_chrom_peaks <- function(peak_table){
 #' \dontrun{
 #' dataset <- lcms_dataset_load(system.file
 #'                                   ("extdata","dataset_pos.rds",
-#'                                     package = "NIHSlcms"))
+#'                                     package = "AlpsLCMS"))
 #' tics <- lcms_tics(dataset)
 #'
 #' print(tics)
@@ -441,7 +441,7 @@ lcms_tics <- function(dataset, treatment = treatment){
 #' \dontrun{
 #' dataset <- lcms_dataset_load(system.file
 #'                                   ("extdata","dataset_pos.rds",
-#'                                     package = "NIHSlcms"))
+#'                                     package = "AlpsLCMS"))
 #' tics <- lcms_tics(dataset)
 #'
 #' lcms_plot_tics(tics, treatment = treatment,
@@ -510,7 +510,7 @@ lcms_plot_tics <- function(tics, treatment = treatment, rt = NULL, plot_type = "
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata", "peakdet_align.rds", package = "AlpsLCMS")
 #' data <- base::readRDS(file_name)
 #' rta_plot <- lcms_retention_time_alignment_plot(data)
 #' print(rta_plot)
@@ -552,7 +552,7 @@ lcms_retention_time_alignment_plot <- function (data){
 #' \dontrun{
 #' file_name <- system.file("extdata",
 #'                          "dataset_pos.rds",
-#'                           package = "NIHSlcms")
+#'                           package = "AlpsLCMS")
 #' dataset <- lcms_dataset_load(file_name)
 #' treatment_col <- scales::hue_pal()(length(unique(dataset$treatment)))
 #' names(treatment_col) <- unique(dataset$treatment)
@@ -605,7 +605,7 @@ lcms_plot_chrom <- function (chromatogram_object, treatment_col, rtlim = NULL){
 #' @family visualization functions
 #' @examples
 #' \dontrun{
-#' file_name <-  system.file("extdata", "peakdet_align.rds", package = "NIHSlcms")
+#' file_name <-  system.file("extdata", "peakdet_align.rds", package = "AlpsLCMS")
 #' dataset <- base::readRDS(file_name)
 #' chr_peak_image <- lcms_plot_chrom_peak_image(dataset, binSize = 5, xlim = NULL, log = FALSE,
 #'                                                xlab = "retention time (min)", yaxt = par("yaxt"))
@@ -679,9 +679,9 @@ lcms_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "NIHSlcms")
+#' file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "AlpsLCMS")
 #' dataset <- lcms_dataset_load(file_name)
-#' path <- system.file("extdata","rearrange_mait", package = "NIHSlcms")
+#' path <- system.file("extdata","rearrange_mait", package = "AlpsLCMS")
 #' lcms_rearrange_datafiles_by_class(dataset = dataset,
 #'                             dataDir = path)
 #' fileList = list.files(path = paste(path, list.files(path = path),

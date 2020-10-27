@@ -9,7 +9,7 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' file_path <- system.file("extdata", package = "NIHSlcms")
+#' file_path <- system.file("extdata", package = "AlpsLCMS")
 #' rawconverter <- NULL
 #' file_format <- "mzXML"
 #' samples_mzxml <- lcms_list_mzxml_samples(file_path,
@@ -41,11 +41,11 @@ lcms_read_samples <- function(...){
 #' \dontrun{
 #' dataset <- lcms_dataset_load(system.file
 #'                                   ("extdata","dataset.rds",
-#'                                   package = "NIHSlcms"))
+#'                                   package = "AlpsLCMS"))
 #'
 #' metadata <- lcms_meta_read(system.file("extdata",
 #'                                        "metadata.xlsx",
-#'                                        package = "NIHSlcms"))
+#'                                        package = "AlpsLCMS"))
 #'
 #' dataset_metadata <- lcms_meta_add(dataset,
 #'                                metadata,
@@ -86,7 +86,7 @@ lcms_meta_add <- function(object, metadata, by = "sampleNames") {
 #' @export
 #' @examples
 #' \dontrun{
-#' file_name <- system.file("extdata", "dataset.rds", package = "NIHSlcms")
+#' file_name <- system.file("extdata", "dataset.rds", package = "AlpsLCMS")
 #' dataset <- lcms_dataset_load(file_name)
 #' print(dataset)
 #' }
@@ -109,7 +109,7 @@ lcms_dataset_load <- function(file_name) {
 #' @export
 #' @examples
 #' \dontrun{
-#' dataset <- lcms_dataset_load(system.file("extdata", "dataset.rds", package = "NIHSlcms"))
+#' dataset <- lcms_dataset_load(system.file("extdata", "dataset.rds", package = "AlpsLCMS"))
 #' file_name <- "dataset.rds"
 #' lcms_dataset_save(dataset, file_name)
 #' print(dataset)
@@ -135,8 +135,8 @@ lcms_dataset_save <- function(dataset, file_name, ...) {
 #' \dontrun{
 #' dataset_metadata <- lcms_dataset_load(system.file("extdata",
 #'                                              "dataset_metadata.rds",
-#'                                               package = "NIHSlcms"))
-#' xlsx_file <- paste0(system.file("extdata",package = "NIHSlcms"),
+#'                                               package = "AlpsLCMS"))
+#' xlsx_file <- paste0(system.file("extdata",package = "AlpsLCMS"),
 #'                     "/", "exported_metadata.xlsx")
 #'
 #' lcms_meta_export(dataset_metadata, xlsx_file)
@@ -145,7 +145,7 @@ lcms_dataset_save <- function(dataset, file_name, ...) {
 lcms_meta_export <- function(dataset,
                              xlsx_file) {
   groups_present <- phData(dataset)
-  writexl::write_xlsx(x = NIHSlcms::phData(dataset), path = xlsx_file)
+  writexl::write_xlsx(x = AlpsLCMS::phData(dataset), path = xlsx_file)
 }
 
 #' Read metadata
@@ -161,7 +161,7 @@ lcms_meta_export <- function(dataset,
 #' \dontrun{
 #' metadata <- lcms_meta_read(system.file("extdata",
 #'                                              "metadata.xlsx",
-#'                                               package = "NIHSlcms"))
+#'                                               package = "AlpsLCMS"))
 #' print(metadata[1:6])
 #' }
 lcms_meta_read <- function(xlsx_file) {
@@ -189,8 +189,8 @@ lcms_meta_read <- function(xlsx_file) {
 #' \dontrun{
 #' dataset <- lcms_dataset_load(system.file("extdata",
 #'                                          "dataset.rds",
-#'                                           package = "NIHSlcms"))
-#' xlsx_file <- system.file("extdata", "exported_metadata.xlsx", package = "NIHSlcms")
+#'                                           package = "AlpsLCMS"))
+#' xlsx_file <- system.file("extdata", "exported_metadata.xlsx", package = "AlpsLCMS")
 #' metadata<- readxl::read_excel(xlsx_file)
 #' dataset_metadata <- lcms_meta_add(dataset, metadata, by = "sampleNames")
 #'
