@@ -23,7 +23,6 @@ BiocManager::install(c("GenomicFeatures", "AnnotationDbi"))
 BiocManager::install("MAIT")
 BiocManager::install("IPO")
 remotes::install_github("cbroeckl/RAMClustR")
-remotes::install_local("AlpsLCMS_0.0.0.9007.tar.gz")
 
 devtools::install_github("sipss/AlpsLCMS")
 ```
