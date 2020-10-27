@@ -1,4 +1,4 @@
-Package: NIHSlcms
+Package: AlpsLCMS
 Type: Package
 Title: Signal processing of LC-MS metabolomics
 Version: 0.0.0.9007
