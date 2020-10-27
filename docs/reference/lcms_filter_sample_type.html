@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter by sample type — lcms_filter_sample_type • NIHSlcms</title>
+<title>Filter by sample type — lcms_filter_sample_type • AlpsLCMS</title>
 
 
 <!-- jquery -->
@@ -73,7 +73,7 @@ if there is not any especial sample in the dataset." />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">NIHSlcms</a>
+        <a class="navbar-link" href="../index.html">AlpsLCMS</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
       </span>
     </div>
@@ -97,7 +97,7 @@ if there is not any especial sample in the dataset." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/introduction-to-nihslcms.html">Introduction to NIHSlcms</a>
+      <a href="../articles/introduction-to-alpslcms.html">Introduction to AlpsLCMS</a>
     </li>
   </ul>
 </li>
@@ -192,7 +192,7 @@ quality control and blank samples.</p>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
                                         <span class='st'>"dataset_pos_rt.rds"</span>,
-                                        <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"NIHSlcms"</span>))
+                                        <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"AlpsLCMS"</span>))
 <span class='no'>especial_samples</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>QC</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>blank</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 <span class='no'>datasets_by_class_type</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_filter_sample_type</span>(<span class='no'>dataset</span>, <span class='no'>especial_samples</span>)
 <span class='no'>dataset_pos_rt_rs</span> <span class='kw'>&lt;-</span> <span class='no'>datasets_by_class_type</span>$<span class='no'>regular_samples</span>

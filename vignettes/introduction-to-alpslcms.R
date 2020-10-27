@@ -128,3 +128,72 @@ lcms_plot_chrom_peak_image(peakgrouped, binSize = 5,
                            yaxt = par("yaxt"),
                            main = "Detected Peaks (processed)")
 
+## ----Imputation I-------------------------------------------------------------
+message("Missing values found in the processed dataset: ", sum(is.na(featureValues(peakgrouped))))
+
+peakgrouped_imp <- lcms_fill_chrom_peaks(peakgrouped)
+cat("Imputing values...\n")
+
+message("Missing values found after fill_chrom_peaks: ", sum(is.na(featureValues(peakgrouped_imp))))
+
+## ----Feature table------------------------------------------------------------
+xdata = featureValues(peakgrouped_imp,
+                             method = "maxint",
+                             value = "into",
+                             filled = TRUE, 
+                             missing = "rowmin_half")
+xdata= t(xdata)
+feature=featureDefinitions(peakgrouped_imp)
+feature=feature@listData
+featNames=paste0(feature$mzmed,"_",feature$rtmed)
+colnames(xdata)=featNames
+
+message("Missing values in the feature table: ",
+sum(is.na(xdata)))
+
+## ----echo = FALSE-------------------------------------------------------------
+xdataImp <- xdata
+xdataImputed <- as.data.frame(xdataImp, stringsAsFactors = FALSE)
+
+# Get mz and rt columns for the feature table
+mz <- colnames(xdataImp) %>%
+  stringr::str_split(.,"\\_") %>% 
+  lapply(.,function(x) x[1]) %>% 
+  unlist() %>% 
+  as.numeric()
+
+#You can get rt also
+rt <- colnames(xdataImp) %>%
+  stringr::str_split(.,"\\_") %>% 
+  lapply(.,function(x) x[2]) %>% 
+  unlist() %>% 
+  as.numeric()
+rt <- rt/60
+
+## ----Params Data reduction----------------------------------------------------
+st <- getRamSt(peakgrouped_imp)
+sr <- 0.5
+
+#List of adducts for do.findmain
+#adducts_list = c("[M+H-H2O]+")
+adducts_list = c()
+
+## Building the defineExperiment manually
+## Change for your convenience (e.g. GC-MS)
+value <- c(rep("fill", 4), "LC-MS")
+design <- as.data.frame(value)
+rownme <- c("Experiment", "Species", "Sample",
+            "Contributer", "platform")  
+rownames(design) <- rownme
+
+value <- c(rep("fill", 13), "1")
+instrument <- as.data.frame(value)
+rownm <- c("chrominst", "msinst", "column", 
+           "solvA", "solvB", "CE1", "CE2", 
+           "mstype", "msmode", "ionization", 
+           "colgas", "msscanrange", "conevol", 
+           "MSlevs")
+rownames(instrument) <- rownm
+
+Experiment <- list(design =  design, instrument = instrument)
+
