@@ -200,3 +200,30 @@ phData <- function (object) {
   Biobase::pData(object)
 }
 
+#' is.negative
+#'
+#' Function to confirm if the dataset was acquired in negative mode.
+#'
+#' @param dataset
+#'
+#' @return
+#' @export
+is.negative <- function (dataset){
+  negative_polarity = c(0,0,0,0)
+  actual_polarity = dataset@featureData@data[["polarity"]][1:4]
+  message("dataset polarity is negative: ", all.equal(actual_polarity, negative_polarity))
+}
+
+#' is.positive
+#'
+#' Function to confirm if the dataset was acquired in positive mode.
+#'
+#' @param dataset
+#'
+#' @return
+#' @export
+is.positive <- function (dataset){
+  positive_polarity = c(1,1,1,1)
+  actual_polarity = dataset@featureData@data[["polarity"]][1:4]
+  message("dataset polarity is positive: ", all.equal(actual_polarity, positive_polarity))
+}
