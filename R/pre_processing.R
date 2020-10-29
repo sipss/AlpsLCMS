@@ -729,3 +729,40 @@ lcms_rearrange_datafiles_by_class <- function(dataset, dataDir) {
   }
 }
 
+#' Filter a mass acquisition
+#'
+#' A function to filter by a mass acquisition when two different mass
+#' acquisition have been acquired in the same experiment.
+#'
+#'
+#' @param dataset A lcms_dataset that contains two different mass ranges in two different acquisitions.
+#' @param window Character. It refers to which mass range will be kept
+#'
+#' @return A lcms_dataset that only contains one mass range
+#' @export
+#'
+filterMassAcquisition <- function (dataset, window = "small"){
+  if (window == "small"){
+  number_Spec <- length(dataset@featureData@data[["polarity"]])
+  selection = rep(1:2, times = number_Spec/2)
+  Select <- dataset@featureData@data[["acquisitionNum"]]
+  names(Select) <- selection
+  small <- Select[names(Select)==1]
+  large <- Select[names(Select)==2]
+  dataset_window <- xcms::filterAcquisitionNum(dataset, small)
+  }
+  if (window == "large"){
+    number_Spec <- length(dataset@featureData@data[["polarity"]])
+    selection = rep(1:2, times = number_Spec/2)
+    Select <- dataset@featureData@data[["acquisitionNum"]]
+    names(Select) <- selection
+    small <- Select[names(Select)==1]
+    large <- Select[names(Select)==2]
+    dataset_window <- xcms::filterAcquisitionNum(dataset, large)
+  }
+  return(dataset_window)
+}
+
+
+
+
