@@ -20,5 +20,8 @@ test_that("lcms_tics works", {
                  plot_type = "spec")
   expect_true(is.data.frame(tics))
   expect_true(is.list(plot))
+  expect_message(is.positive(dataset))
+  expect_message(is.negative(dataset))
+  dataset@featureData@data[["polarity"]][1:4]
 
 })
