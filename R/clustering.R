@@ -19,3 +19,35 @@ getRamSt <- function(XObj) {
   graphics::abline(v=st)
   return(st)
 }
+
+#' Clustering
+#'
+#' `clustering` is a wrapper of the [RAMClustR::ramclustR] from `RAMClustR`
+#' package. It performs a clustering of features with a given sigma for
+#' retention time similarity `st` and for correlational similarity.
+#'
+#' @inheritDotParams RAMClustR::ramclustR
+#' @inherit RAMClustR::ramclustR
+#'
+#' @return hclust object
+#' @export
+#'
+clustering <- function(...){
+  RC <- RAMClustR::ramclustR(...)
+  RC
+}
+
+#' Cluster annotation
+#'
+#' Cluster annotation using the [InterpretMSSpectrum::findMain].
+#'
+#' @inheritDotParams RAMClustR::do.findmain
+#' @inherit RAMClustR::do.findmain
+#'
+#' @return hclust object
+#' @export
+#'
+do.findmain <- function(...){
+  RC <- RAMClustR::do.findmain(...)
+  RC
+}
