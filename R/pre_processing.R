@@ -166,7 +166,7 @@ lcms_filter_sample_type <- function(dataset,  especial_samples){
 #'
 #' Note: signal processing generally  consists in three main steps: (1) peak
 #' detection (`lcms_find_chromp_peaks_cwp` function), (2) peak alignment
-#' (`lcms_align_rtime` function) and (3) peak correspondence (`lcms_group_peaks`
+#' (`obiAdjust_Rtime` function) and (3) peak correspondence (`IPO_group_peaks`
 #' function). The optimized set of parameters for this signal preprocessing can
 #' be obatained from `IPO` Package.
 #'
@@ -188,11 +188,11 @@ lcms_filter_sample_type <- function(dataset,  especial_samples){
 #' metadata <- lcms_meta_read(meta_path)
 #' dataset_meta <- lcms_meta_add(dataset, metadata, by = "sampleNames")
 #'
-#' peakdet <- lcms_find_chrom_peaks_cwp(dataset_meta, params = preproc_params)
+#' peakdet <- find_peaks_cwp(dataset_meta, params = preproc_params)
 #' print(peakdet)
 #' }
 
-lcms_find_chrom_peaks_cwp <- function (dataset, params) {
+find_peaks_cwp <- function (dataset, params) {
   quiet <- function(x) {
     base::sink(base::tempfile())
     base::on.exit(base::sink())
@@ -200,8 +200,10 @@ lcms_find_chrom_peaks_cwp <- function (dataset, params) {
   }
 
 
-  cat("\n","Finding chromatographic peaks using the optimized set of parameters obtained from IPO package.","\n")
-
+  cat("\n","Finding chromatographic peaks","\n")
+  base::suppressWarnings(
+    base::suppressMessages(
+      quiet(require(xcms))))
   cwp <- base::suppressWarnings(
     base::suppressMessages(
       quiet(xcms::CentWaveParam(peakwidth = params$peakwidth,
@@ -230,16 +232,16 @@ lcms_find_chrom_peaks_cwp <- function (dataset, params) {
 #' Retention time correction is performed using *'obiwarp'* method.
 #'
 #' Note: signal processing generally  consists in three main steps:
-#' (1) peak detection (`lcms_find_chrom_peaks_cwp` function),
-#' (2) peak alignment (`lcms_align_rtime` function) and
-#' (3) peak correspondence (`lcms_group_peaks` function).
+#' (1) peak detection (`find_peaks_cwp` function),
+#' (2) peak alignment (`obiAdjust_Rtime` function) and
+#' (3) peak correspondence (`IPO_group_peaks` function).
 #' The optimized set of parameters for this signal preprocessing can be obatained from `IPO` Package.
 #'
 #' @param peakdet A lcms_dataset with detected peaks obtained from the
-#' `lcms_find_chrom_peaks_cwp` function.
+#' `find_peaks_cwp` function.
 #' @param params A converted parameters template from IPO parameters.
-#' @return A lcms_dataset with (1) detected (`lcms_find_chrom_peaks_cwp` function).
-#' and (2) aligned (`lcms_align_rtime` function) peaks
+#' @return A lcms_dataset with (1) detected (`find_peaks_cwp` function).
+#' and (2) aligned (`obiAdjust_Rtime` function) peaks
 #' @family dataset functions
 #' @family retention time correction functions
 #' @export
@@ -250,12 +252,12 @@ lcms_find_chrom_peaks_cwp <- function (dataset, params) {
 #' opt_result_path <-  system.file("extdata", package = "AlpsLCMS")
 #' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #'
-#' peakdet_align <- lcms_align_rtime(peakdet, params = preproc_params)
+#' peakdet_align <- obiAdjust_Rtime(peakdet, params = preproc_params)
 #' print(peakdet_align)
 #' }
 
 
-lcms_align_rtime <- function (peakdet, params) {
+obiAdjust_Rtime <- function (peakdet, params) {
 
   quiet <- function(x) {
     base::sink(base::tempfile())
@@ -296,18 +298,18 @@ lcms_align_rtime <- function (peakdet, params) {
 #' them to spectra on the mass/chage axis.
 #'
 #' Note: signal processing generally  consists in three main steps:
-#' (1) peak detection (`lcms_find_chrom_peaks_cwp` function),
-#' (2) peak alignment (`lcms_align_rtime` function) and
-#' (3) peak correspondence (`lcms_group_peaks` function).
+#' (1) peak detection (`find_peaks_cwp` function),
+#' (2) peak alignment (`obiAdjust_Rtime` function) and
+#' (3) peak correspondence (`IPO_group_peaks` function).
 #' The optimized set of parameters for this signal preprocessing can be obatained from `IPO` Package.
 #'
 #' After this stage the peak table is finally obtained.
 #'
 #' @param peakdet_align A lcms_dataset with (1) detected (`findChromPeaks_cwp`
-#' function) and (2) aligned (`lcms_align_rtime` function) peaks.
+#' function) and (2) aligned (`obiAdjust_Rtime` function) peaks.
 #' @param params A converted parameters template from IPO parameters.
-#' @return A lcms_dataset with (1) detected (`lcms_find_chrom_peaks_cwp` function),
-#' (2) aligned (`align_rtime` function) and (3) grouped  (`lcms_group_peaks`
+#' @return A lcms_dataset with (1) detected (`find_peaks_cwp` function),
+#' (2) aligned (`align_rtime` function) and (3) grouped  (`IPO_group_peaks`
 #' function) peaks.
 #' @family dataset functions
 #' @family peak correspondence functions
@@ -320,10 +322,10 @@ lcms_align_rtime <- function (peakdet, params) {
 #' preproc_params <- lcms_read_ipo_to_xcms(opt_result_path)
 #'
 #'
-#' peak_table <- lcms_group_peaks(peakdet_align, params = preproc_params)
+#' peak_table <- IPO_group_peaks(peakdet_align, params = preproc_params)
 #' print(peak_table)
 #' }
-lcms_group_peaks <- function (peakdet_align, params) {
+IPO_group_peaks <- function (peakdet_align, params) {
   quiet <- function(x) {
     base::sink(base::tempfile())
     base::on.exit(base::sink())
@@ -661,7 +663,7 @@ lcms_plot_chrom_peak_image<- function (x, binSize = 30, xlim = NULL, log = FALSE
 #' Rearrange datafiles by class
 #'
 #' Although Data Preprocessing can be performed using any
-#' filepath with the `XCMS` Package, it is convenient to
+#' filepath with the `xcms` Package, it is convenient to
 #' rearrange data files by sample class (that is, all the
 #' samples belonging to the same sample class are included
 #' in the same folder). This is done because, after the
@@ -764,5 +766,116 @@ filterMassAcquisition <- function (dataset, window = "small"){
 }
 
 
+#' cromplot
+#'
+#' Function that creates the plots of a know metabolite to observe and set the
+#' parameters for xcms preprocessing. Parameters such as peak width, noise
+#' level, or potential neighbors can be studied.
+#'
+#' @param dataset a lcms_dataset
+#' @param rt known retention time of a metabolite that surely is in the dataset
+#' @param mz known mass of a metabolite that surely is in the dataset
+#' @param metabolite character. The name of the metabolite (for plotting)
+#'
+#' @return
+#' @export
+#'
+cromplot <- function(dataset, rt, mz, metabolite = "metabolite"){
+rt_max <- (rt*60)+120
+rt_min <- (rt*60)-120
+rtr <- c(rt_min, rt_max)
 
+mz_max <- mz + 0.01
+mz_min <- mz - 0.01
+mzr <- c(mz_min, mz_max)
+
+## extract the chromatogram
+chr <- xcms::chromatogram(dataset, mz = mzr, rt = rtr)
+MSnbase::plot(chr, col = "blue", main = metabolite)
+MSnbase::plot(chr, col = "green", xlim = c((rt*60)-25, (rt*60)+25), ylim = c(0,1e+7), main = metabolite)
+MSnbase::plot(chr, col = "orange", xlim = c((rt*60)-25, (rt*60)+25), ylim = c(5e+3, 1e+6), main = metabolite)
+MSnbase::plot(chr, col = "red", xlim = c((rt*60)-25, (rt*60)+25), ylim = c(1e+3, 5e+5), main = metabolite)
+}
+
+
+#' Feature table
+#'
+#' The function creates a intensity matrix with all the features.
+#'
+#' @inheritDotParams xcms::featureValues
+#' @inherit xcms::featureValues
+#'
+#' @return A feature table
+#' @export
+#'
+featurevalues <- function(...){
+xdata <- xcms::featureValues(...)
+xdata
+}
+
+#' Peak density parameters
+#'
+#' The method creates a template with the parameters for **correspondence**.
+#' Extracted from the function `xcms::PeakDensityParam`.
+#'
+#' @inheritDotParams xcms::PeakDensityParam
+#' @inherit xcms::PeakDensityParam
+#'
+#' @return PeakDensityParam S4 object
+#' @export
+#'
+PeakDensityPar <- function(...){
+  object <- xcms::PeakDensityParam(...)
+  object
+}
+
+#' Peak correspondence
+#'
+#' `groupPeaks` is a wrapper of the `xcms::groupChromPeaks` from `xcms`
+#' package. It performs the **correspondence** (grouping) of chromatographic
+#' peaks of the samples.
+#'
+#' @inheritDotParams xcms::groupChromPeaks
+#' @inherit xcms::groupChromPeaks
+#'
+#' @return XCMSnExp object
+#' @export
+#'
+groupPeaks <- function(...){
+  object <- xcms::groupChromPeaks(...)
+  object
+}
+
+#' Peak density parameters
+#'
+#' The method creates a template with the parameters for **alignment**.
+#' Extracted from the function `xcms::PeakGroupsParam`.
+#'
+#' @inheritDotParams xcms::PeakGroupsParam
+#' @inherit xcms::PeakGroupsParam
+#'
+#' @return PeakGroupsParam S4 object
+#' @export
+#'
+PeakGroupsPar <- function(...){
+  object <- xcms::PeakGroupsParam(...)
+  object
+}
+
+#' Peak alignment
+#'
+#' `adjustRT` is a wrapper of the `xcms::adjustRtime` from `xcms` package. It
+#' performs the **alignment** (grouping) of chromatographic peaks of the
+#' samples.
+#'
+#' @inheritDotParams xcms::adjustRtime
+#' @inherit xcms::adjustRtime
+#'
+#' @return XCMSnExp object
+#' @export
+#'
+adjustRT <- function(...){
+  object <- xcms::adjustRtime(...)
+  object
+}
 

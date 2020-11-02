@@ -9,7 +9,7 @@ lcms_meta_export(dataset, xlsx_file)
 \arguments{
 \item{dataset}{A lcms_dataset.}
 
-\item{xlsx_file}{"The .xlsx excel file".}
+\item{xlsx_file}{The .xlsx excel file.}
 }
 \value{
 The Excel file name.
@@ -36,7 +36,8 @@ Other metadata functions:
 \code{\link{phData}()}
 
 Other dataset functions: 
-\code{\link{lcms_align_rtime}()},
+\code{\link{IPO_group_peaks}()},
+\code{\link{find_peaks_cwp}()},
 \code{\link{lcms_dataset_load}()},
 \code{\link{lcms_dataset_save}()},
 \code{\link{lcms_fill_chrom_peaks}()},
@@ -44,8 +45,6 @@ Other dataset functions:
 \code{\link{lcms_filter_polarity}()},
 \code{\link{lcms_filter_rt_min}()},
 \code{\link{lcms_filter_sample_type}()},
-\code{\link{lcms_find_chrom_peaks_cwp}()},
-\code{\link{lcms_group_peaks}()},
 \code{\link{lcms_meta_add}()},
 \code{\link{lcms_peakpicking_optimization}()},
 \code{\link{lcms_plot_chrom_peak_image}()},
@@ -53,6 +52,7 @@ Other dataset functions:
 \code{\link{lcms_rearrange_datafiles_by_class}()},
 \code{\link{lcms_retention_time_alignment_plot}()},
 \code{\link{lcms_tics}()},
+\code{\link{obiAdjust_Rtime}()},
 \code{\link{phData}()}
 
 Other import/export functions: 

@@ -125,7 +125,7 @@ lcms_dataset_save <- function(dataset, file_name, ...) {
 #' Export Metadata to an Excel file.
 #'
 #' @param dataset A lcms_dataset.
-#' @param xlsx_file "The .xlsx excel file".
+#' @param xlsx_file The .xlsx excel file.
 #' @return The Excel file name.
 #' @family metadata functions
 #' @family dataset functions

@@ -33,7 +33,8 @@ print(tics)
 }
 \seealso{
 Other dataset functions: 
-\code{\link{lcms_align_rtime}()},
+\code{\link{IPO_group_peaks}()},
+\code{\link{find_peaks_cwp}()},
 \code{\link{lcms_dataset_load}()},
 \code{\link{lcms_dataset_save}()},
 \code{\link{lcms_fill_chrom_peaks}()},
@@ -41,8 +42,6 @@ Other dataset functions:
 \code{\link{lcms_filter_polarity}()},
 \code{\link{lcms_filter_rt_min}()},
 \code{\link{lcms_filter_sample_type}()},
-\code{\link{lcms_find_chrom_peaks_cwp}()},
-\code{\link{lcms_group_peaks}()},
 \code{\link{lcms_meta_add}()},
 \code{\link{lcms_meta_export}()},
 \code{\link{lcms_peakpicking_optimization}()},
@@ -50,6 +49,7 @@ Other dataset functions:
 \code{\link{lcms_plot_tics}()},
 \code{\link{lcms_rearrange_datafiles_by_class}()},
 \code{\link{lcms_retention_time_alignment_plot}()},
+\code{\link{obiAdjust_Rtime}()},
 \code{\link{phData}()}
 
 Other dataset_peak_table functions: 
