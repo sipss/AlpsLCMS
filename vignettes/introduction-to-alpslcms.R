@@ -74,8 +74,8 @@ prep_parm_p$verbose.columns <- FALSE
 classes <- dataset@phenoData@data[["treatment"]]
 
 ## ----Peak detection-----------------------------------------------------------
-peakdet = lcms_find_chrom_peaks_cwp(dataset, 
-                                    params = prep_parm_p)
+peakdet = find_peaks_cwp(dataset, 
+                         params = prep_parm_p)
 
 message("Number of detected peaks")
 peakdet@msFeatureData[["chromPeakData"]]@nrows
@@ -87,31 +87,31 @@ peakdet@.processHistory[[1]]@param
 xcms::plotChromPeakImage(peakdet)
 
 ## ----Correspondence-----------------------------------------------------------
-new_params <- PeakDensityParam(sampleGroups = classes, 
+new_params <- PeakDensityPar(sampleGroups = classes, 
                                binSize = 0.6)
 
-peakgrouped = groupChromPeaks(peakdet, 
-                              param = new_params)
+peakgrouped <- groupPeaks(peakdet, 
+                         param = new_params)
 
 ## ----Alignment----------------------------------------------------------------
-pgp <- PeakGroupsParam(minFraction = 0.8,
+pgp <- PeakGroupsPar(minFraction = 0.8,
                        extraPeaks = 1, 
                        smooth = "loess",
                        span = 0.4,
                        family = "gaussian")
 
 ## Get the peak groups that would be used for alignment.
-xdata_aling <- adjustRtime(peakgrouped, param = pgp)
+xdata_aling <- adjustRT(peakgrouped, param = pgp)
 
 rt_plot = lcms_retention_time_alignment_plot(xdata_aling)
 rt_plot
 
 ## REGROUPING
-new_params <- PeakDensityParam(sampleGroups = classes,
-                               bw = 30, # 
-                               minFraction = 0.4)
+new_params <- PeakDensityPar(sampleGroups = classes,
+                             bw = 30, 
+                             minFraction = 0.4)
 
-peakgrouped = groupChromPeaks(xdata_aling, param = new_params)
+peakgrouped = groupPeaks(xdata_aling, param = new_params)
 
 ## -----------------------------------------------------------------------------
 lcms_plot_chrom_peak_image(peakdet, binSize = 5,
@@ -138,15 +138,15 @@ message("Missing values found after fill_chrom_peaks: ", sum(is.na(featureValues
 
 ## ----Feature table------------------------------------------------------------
 xdata = featureValues(peakgrouped_imp,
-                             method = "maxint",
-                             value = "into",
-                             filled = TRUE, 
-                             missing = "rowmin_half")
-xdata= t(xdata)
-feature=featureDefinitions(peakgrouped_imp)
-feature=feature@listData
-featNames=paste0(feature$mzmed,"_",feature$rtmed)
-colnames(xdata)=featNames
+                      method = "maxint",
+                      value = "into",
+                      filled = TRUE, 
+                      missing = "rowmin_half")
+xdata <-  t(xdata)
+feature <- featureDefinitions(peakgrouped_imp)
+feature <- feature@listData
+featNames <- paste0(feature$mzmed,"_",feature$rtmed)
+colnames(xdata) <- featNames
 
 message("Missing values in the feature table: ",
 sum(is.na(xdata)))
@@ -172,7 +172,7 @@ rt <- rt/60
 
 ## ----Params Data reduction----------------------------------------------------
 st <- getRamSt(peakgrouped_imp)
-sr <- 0.5
+sr <- 0.6
 
 #List of adducts for do.findmain
 #adducts_list = c("[M+H-H2O]+")
@@ -196,4 +196,103 @@ rownm <- c("chrominst", "msinst", "column",
 rownames(instrument) <- rownm
 
 Experiment <- list(design =  design, instrument = instrument)
+
+## ----warning=FALSE------------------------------------------------------------
+RC <- clustering(xcmsObj = peakgrouped_imp,
+                 featdelim = ".",
+                 st = st,
+                 sr = sr,
+                 ExpDes = Experiment,
+                 normalize = "TIC",
+                 deepSplit = TRUE,
+                 sampNameCol = 1,
+                 mspout = FALSE,
+                 fftempdir = getwd())
+
+RC <- do.findmain(RC,
+                  nls = adducts_list,
+                  mode = "positive",
+                  mzabs.error = 0.005,
+                  ppm.error = 5,
+                  plot.findmain = FALSE,
+                  writeMat = FALSE,
+                  writeMS = FALSE)
+
+
+## -----------------------------------------------------------------------------
+# Selection of max intensity ion as cluster representative
+Max_int<- lapply(RC$M.ann, function(x) x[which.max(x$int), ])
+Representative_ions <- dplyr::bind_rows(Max_int)
+Representative_ions$name <- paste(round(Representative_ions$mz,4),
+                             round(RC$clrt,2),
+                             sep = "_")
+
+# Adducts of representative ions
+Representative_adducts <- sapply(RC$M.ann, function(x) x[which.max(x$int), ]$adduct)
+
+# Selection of labeled max intensity ion as cluster representative
+Labeled_int <- lapply(RC$M.ann, function(x) {
+  xl <- x[which(!is.na(x$label)), ]
+  xl[which.max(xl$int), ]
+})
+Labeled_ions <- dplyr::bind_rows(Labeled_int)
+
+# We save most important cluster data
+cluster_data <- data.frame(cluster = RC$ann, Max_int_ion_mz = Representative_ions$mz, Max_int_ion_adduct = Representative_adducts, labeled_ion_mz = Labeled_ions$mz, labeled_ion_adduct = Labeled_ions$label, RC_mz = RC$M, retention_time = RC$clrt)
+
+# All labeled ions
+All_labeled_adducts <- lapply(RC$M.ann, function(x) {
+  xl <- x[which(!is.na(x$label)), ]
+})
+All_labeled_adducts <- dplyr::bind_rows(All_labeled_adducts)
+
+## -----------------------------------------------------------------------------
+mz %in% Representative_ions$mz %>% table()
+message("length of features: ", length(mz))
+
+## ----Reduced feature table----------------------------------------------------
+mdataImputed <- as.matrix(xdataImputed)
+
+# Clustered features
+xdata_cluster_ions <- mdataImputed[, mz %in% Representative_ions$mz]
+
+# Singletons
+clustered_mz<- lapply(RC$M.ann,
+                      function (x) x$mz) %>% 
+                      unlist() %>%
+                      as.numeric()
+
+message("A number of ",
+        length(clustered_mz),
+        " features have been clustered into ",
+        dim(xdata_cluster_ions)[2],
+        " representative features")
+
+mdataImputed <- as.data.frame(mdataImputed)
+xdata_cluster_ions <- as.data.frame(xdata_cluster_ions)
+
+singletons <- mdataImputed[,!mz %in% clustered_mz]
+
+message("A number of ",
+        RC$nsing,
+        " features correspond to singletons")
+
+## -----------------------------------------------------------------------------
+#Combine singletons and molecular ions
+xdata_reduced <- cbind.data.frame(xdata_cluster_ions, singletons)
+
+message("Original dataset has ", 
+        ncol(mdataImputed), 
+        " features")
+message("")
+
+message("Cluster representative ions dataset has ", ncol(xdata_cluster_ions), 
+        " features")
+message("")
+
+message("Singletons dataset has ", ncol(singletons), " features")
+message("")
+
+message("Reduced dataset has ", ncol(xdata_reduced), " features")
+message("")
 

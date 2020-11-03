@@ -170,15 +170,15 @@ prep_parm_p$verbose.columns <- FALSE
 classes <- dataset@phenoData@data[["treatment"]]
 ```
 
-# **Peak detection**
+# Peak detection
 
 Our standard method for peak detection is *'CentWave'*, since the data provided is Centroided. We must initialize its parameters according to the `IPO` Package optimization. Peak detection aims to detect important features (peaks) on the chromatographic axis. This will be useful for a posterior peak alignment on the chormatophic axis.
 
 ## Code to run
 
 ```{r Peak detection}
-peakdet = lcms_find_chrom_peaks_cwp(dataset, 
-                                    params = prep_parm_p)
+peakdet = find_peaks_cwp(dataset, 
+                         params = prep_parm_p)
 
 message("Number of detected peaks")
 peakdet@msFeatureData[["chromPeakData"]]@nrows
@@ -190,46 +190,46 @@ peakdet@.processHistory[[1]]@param
 xcms::plotChromPeakImage(peakdet)
 ```
 
-# **Retention Time Correction and Peak Correspondence**
+# Retention Time Correction and Peak Correspondence
 
-Peak correspondence is carried out by the *'groupChromPeaks'* method, with parameters obtained form `IPO`. Peak Correspondece consist in grouping peaks on retention time axis with the purspose of associate them to spectra on the mass/chage axis. After this stage we finally have a peak table.
+Peak correspondence is carried out by the *'groupPeaks'* method, with parameters obtained form `IPO`. Peak Correspondence consist in grouping peaks on retention time axis with the purpose of associate them to spectra on the mass/charge axis. After this stage we finally have a peak table.
 
 It requires a previous grouping.
 
-# **Correspondence, Alignment and Regrouping**
+# Correspondence, Alignment and Regrouping
 
-## **Correspondence**
+## Correspondence
 
 ```{r Correspondence}
-new_params <- PeakDensityParam(sampleGroups = classes, 
+new_params <- PeakDensityPar(sampleGroups = classes, 
                                binSize = 0.6)
 
-peakgrouped = groupChromPeaks(peakdet, 
-                              param = new_params)
+peakgrouped <- groupPeaks(peakdet, 
+                         param = new_params)
 ```
 
 
-## **Alignment and regrouping**
+## Alignment and regrouping
 
 ```{r Alignment}
-pgp <- PeakGroupsParam(minFraction = 0.8,
+pgp <- PeakGroupsPar(minFraction = 0.8,
                        extraPeaks = 1, 
                        smooth = "loess",
                        span = 0.4,
                        family = "gaussian")
 
 ## Get the peak groups that would be used for alignment.
-xdata_aling <- adjustRtime(peakgrouped, param = pgp)
+xdata_aling <- adjustRT(peakgrouped, param = pgp)
 
 rt_plot = lcms_retention_time_alignment_plot(xdata_aling)
 rt_plot
 
 ## REGROUPING
-new_params <- PeakDensityParam(sampleGroups = classes,
-                               bw = 30, # 
-                               minFraction = 0.4)
+new_params <- PeakDensityPar(sampleGroups = classes,
+                             bw = 30, 
+                             minFraction = 0.4)
 
-peakgrouped = groupChromPeaks(xdata_aling, param = new_params)
+peakgrouped = groupPeaks(xdata_aling, param = new_params)
 ```
 
 Image plot of the chromatographic detected peaks per sample before retention time alignment and grouping:
@@ -251,7 +251,7 @@ lcms_plot_chrom_peak_image(peakgrouped, binSize = 5,
                            main = "Detected Peaks (processed)")
 ```
 
-# *Imputation*
+# Imputation
 
 Finally, in the imputation stage, we integrate the areas of the missing peaks of the peak table that were not detected in the previous steps of the signal preprocessing workflow. This stage is important to make easier statistical and machine learnig posterior stages. 
 
@@ -272,15 +272,15 @@ The XCMS function featureValues creates a intensity matrix with all the features
 
 ```{r Feature table}
 xdata = featureValues(peakgrouped_imp,
-                             method = "maxint",
-                             value = "into",
-                             filled = TRUE, 
-                             missing = "rowmin_half")
-xdata= t(xdata)
-feature=featureDefinitions(peakgrouped_imp)
-feature=feature@listData
-featNames=paste0(feature$mzmed,"_",feature$rtmed)
-colnames(xdata)=featNames
+                      method = "maxint",
+                      value = "into",
+                      filled = TRUE, 
+                      missing = "rowmin_half")
+xdata <-  t(xdata)
+feature <- featureDefinitions(peakgrouped_imp)
+feature <- feature@listData
+featNames <- paste0(feature$mzmed,"_",feature$rtmed)
+colnames(xdata) <- featNames
 
 message("Missing values in the feature table: ",
 sum(is.na(xdata)))
@@ -312,7 +312,7 @@ rt <- rt/60
 
 ```{r Params Data reduction}
 st <- getRamSt(peakgrouped_imp)
-sr <- 0.5
+sr <- 0.6
 
 #List of adducts for do.findmain
 #adducts_list = c("[M+H-H2O]+")
@@ -341,22 +341,26 @@ Experiment <- list(design =  design, instrument = instrument)
 ## Code to run
 
 ```{r warning=FALSE}
-RC <- RAMClustR::ramclustR(xcmsObj = peakgrouped_imp,
-                featdelim = ".",
-                st = st,
-                sr = sr,
-                ExpDes = Experiment,
-                normalize = "TIC",
-                sampNameCol = 1,
-                fftempdir = getwd())
+RC <- clustering(xcmsObj = peakgrouped_imp,
+                 featdelim = ".",
+                 st = st,
+                 sr = sr,
+                 ExpDes = Experiment,
+                 normalize = "TIC",
+                 deepSplit = TRUE,
+                 sampNameCol = 1,
+                 mspout = FALSE,
+                 fftempdir = getwd())
 
-RC <- RAMClustR::do.findmain(RC,
+RC <- do.findmain(RC,
                   nls = adducts_list,
                   mode = "positive",
                   mzabs.error = 0.005,
                   ppm.error = 5,
+                  plot.findmain = FALSE,
                   writeMat = FALSE,
                   writeMS = FALSE)
+
 ```
 
 ```{r}
@@ -443,14 +447,8 @@ message("")
 
 ## Univariante analysis
 
-
-```{r univariate positive}
-#library(car)
-```
-
-## Model
-
-```{r echo = FALSE}
+```{r echo=, warning=FALSE}
+library(car)
 stat <- function(x){wilcox.test(x ~ classes, xdata_reduced)$p.value}
 abcd <- data.frame(apply(FUN = stat,
                          MARGIN = 2,
@@ -464,7 +462,7 @@ sum(result$p_Wilc < 0.05))
 head(result[result$p_Wilc < 0.05,1])
 
 #FDR
-fdr.wilcox <- p.adjust(result$p_Wilc, method = "fdr", n = length(result$p_Wilc))
+fdr.wilcox <- p.adjust(result$p_Wilc, method = "fdr")
 result <- cbind(result, fdr.wilcox)
 message("\nNumber of features fdr-corrected p value of < 0.05 is ", 
 sum(result$fdr.wilcox < 0.05))
@@ -497,6 +495,7 @@ if(dim(tdata_reduced_univ)[1]>0){
 ```
 
 # anotation of all features positive
+
 ```{r Annotation of all features positive}
 # Untargeted assignation
 # Creating mz column
