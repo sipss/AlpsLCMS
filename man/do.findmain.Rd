@@ -28,7 +28,7 @@ do.findmain(...)
 hclust object
 }
 \description{
-Cluster annotation using the \link[InterpretMSSpectrum:findMain]{InterpretMSSpectrum::findMain}.
+Cluster annotation using the \code{InterpretMSSpectrum::findMain}.
 }
 \details{
 a partially annotated ramclustR object.  base structure is that of a standard R heirarchical clustering output, with additional slots described in ramclustR documentation (?ramclustR).  New slots added after using the interpretMSSpectrum functionality include those described below.
