@@ -49,48 +49,7 @@ the version from the class. Slots values should exclusively be accessed
 }
 
 \examples{
-## Create a PeakDensityParam object
-p <- PeakDensityParam(binSize = 0.05, sampleGroups = c(1, 1, 2, 2))
-## Change hte minSamples slot
-minSamples(p) <- 3
-p
-
-##############################
-## Chromatographic peak detection and grouping.
-##
-## Below we perform first a peak detection (using the matchedFilter
-## method) on some of the test files from the faahKO package followed by
-## a peak grouping using the density method.
-library(faahKO)
-library(MSnbase)
-fls <- dir(system.file("cdf/KO", package = "faahKO"), recursive = TRUE,
-           full.names = TRUE)
-
-## Reading 2 of the KO samples
-raw_data <- readMSData(fls[1:2], mode = "onDisk")
-
-## Perform the chromatographic peak detection using the matchedFilter method.
-mfp <- MatchedFilterParam(snthresh = 20, binSize = 1)
-res <- findChromPeaks(raw_data, param = mfp)
-
-head(chromPeaks(res))
-## The number of peaks identified per sample:
-table(chromPeaks(res)[, "sample"])
-
-## Performing the chromatographic peak grouping. Assigning all samples to
-## the same sample group.
-fdp <- PeakDensityParam(sampleGroups = rep(1, length(fileNames(res))))
-res <- groupChromPeaks(res, fdp)
-
-## The definition of the features (peak groups):
-featureDefinitions(res)
-
-## Using the featureValues method to extract a matrix with the
-## intensities of the features per sample.
-head(featureValues(res, value = "into"))
-
-## The process history:
-processHistory(res)
+p <- PeakDensityPar(sampleGroups = c(1,2))
 }
 \references{
 Colin A. Smith, Elizabeth J. Want, Grace O'Maille, Ruben Abagyan and
