@@ -85,4 +85,5 @@ All_labeled_adducts <- lapply(RC$M.ann, function(x) {
   xl <- x[which(!is.na(x$label)), ]
 })
 All_labeled_adducts <- dplyr::bind_rows(All_labeled_adducts)
+return(All_labeled_adducts)
 }
