@@ -823,6 +823,8 @@ xdata
 #'
 #' @return PeakDensityParam S4 object
 #' @export
+#' @examples
+#' p <- PeakDensityPar(sampleGroups = c(1,2))
 
 PeakDensityPar <- function(...){
   object <- xcms::PeakDensityParam(...)
