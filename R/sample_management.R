@@ -204,9 +204,8 @@ phData <- function (object) {
 #'
 #' Function to confirm if the dataset was acquired in negative mode.
 #'
-#' @param dataset
+#' @param dataset A lcms_dataset.
 #'
-#' @return
 #' @export
 is.negative <- function (dataset){
   negative_polarity = c(0,0,0,0)
@@ -218,9 +217,8 @@ is.negative <- function (dataset){
 #'
 #' Function to confirm if the dataset was acquired in positive mode.
 #'
-#' @param dataset
+#' @param dataset A lcms_dataset.
 #'
-#' @return
 #' @export
 is.positive <- function (dataset){
   positive_polarity = c(1,1,1,1)

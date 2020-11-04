@@ -14,7 +14,7 @@ feature_reduction(mdataImputed, Representative_ions, RC)
 \item{RC}{hclust object from the \link{do.findmain} function}
 }
 \value{
-
+A data frame with important features based on the clustering
 }
 \description{
 Function to perform feature reduction from the \link{clustering}

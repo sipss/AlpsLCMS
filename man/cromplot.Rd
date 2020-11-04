@@ -16,7 +16,7 @@ cromplot(dataset, rt, mz, metabolite = "metabolite")
 \item{metabolite}{character. The name of the metabolite (for plotting)}
 }
 \value{
-
+Plot of a known chromatographic peak
 }
 \description{
 Function that creates the plots of a know metabolite to observe and set the

@@ -777,7 +777,7 @@ filterMassAcquisition <- function (dataset, window = "small"){
 #' @param mz known mass of a metabolite that surely is in the dataset
 #' @param metabolite character. The name of the metabolite (for plotting)
 #'
-#' @return
+#' @return Plot of a known chromatographic peak
 #' @export
 #'
 cromplot <- function(dataset, rt, mz, metabolite = "metabolite"){
@@ -823,7 +823,7 @@ xdata
 #'
 #' @return PeakDensityParam S4 object
 #' @export
-#'
+
 PeakDensityPar <- function(...){
   object <- xcms::PeakDensityParam(...)
   object

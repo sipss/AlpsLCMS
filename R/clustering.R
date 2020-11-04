@@ -57,9 +57,11 @@ do.findmain <- function(...){
 #'
 #' Function ton extract labelled adducts from [clustering].
 #'
-#' @param RC hclust object from the [do.findmain] function
+#' @param RC hclust object from the [do.findmain] function.
 #'
-#' @return
+#' @return A list containing data frames with (1) all labelled adducts, (2)
+#'   representative ion in each cluster/pseudospectrum, and (3) the clustering
+#'   data.
 #' @export
 #'
 labelled_adducts <- function (RC) {
@@ -106,12 +108,18 @@ return(list(All_labelled_adducts = All_labelled_adducts, Labelled_ions = Labelle
 #' @param Representative_ions dataframe from the list given by [labelled_adducts] function
 #' @param RC hclust object from the [do.findmain] function
 #'
-#' @return
+#' @return A data frame with important features based on the clustering
 #' @export
 #'
 feature_reduction <- function (mdataImputed, Representative_ions, RC) {
 
   mdataImputed <- as.matrix(mdataImputed)
+
+mz <- colnames(mdataImputed) %>%
+    stringr::str_split(.,"\\_") %>%
+    lapply(.,function(x) x[1]) %>%
+    unlist() %>%
+    as.numeric()
 
 # Clustered features
 xdata_cluster_ions <- mdataImputed[, mz %in% Representative_ions$mz]

@@ -7,10 +7,12 @@
 labelled_adducts(RC)
 }
 \arguments{
-\item{RC}{hclust object from the \link{do.findmain} function}
+\item{RC}{hclust object from the \link{do.findmain} function.}
 }
 \value{
-
+A list containing data frames with (1) all labelled adducts, (2)
+representative ion in each cluster/pseudospectrum, and (3) the clustering
+data.
 }
 \description{
 Function ton extract labelled adducts from \link{clustering}.

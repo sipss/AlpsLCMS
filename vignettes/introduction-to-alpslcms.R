@@ -221,8 +221,6 @@ RC <- do.findmain(RC,
 
 ## -----------------------------------------------------------------------------
 All_labeled_adducts <- labelled_adducts(RC)
-# mz %in% Representative_ions$mz %>% table()
-# message("length of features: ", length(mz))
 
 ## ----Reduced feature table----------------------------------------------------
 mdataImputed <- All_labeled_adducts$mdataImputed

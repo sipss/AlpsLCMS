@@ -7,10 +7,7 @@
 is.positive(dataset)
 }
 \arguments{
-\item{dataset}{}
-}
-\value{
-
+\item{dataset}{A lcms_dataset.}
 }
 \description{
 Function to confirm if the dataset was acquired in positive mode.
