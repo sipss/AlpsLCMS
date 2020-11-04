@@ -5,7 +5,6 @@ test_that("readMSData works", {
   path <- dir(system.file("cdf", package = "faahKO"), full.names = TRUE,
               recursive = TRUE)[1]
   dataset <- readMSData(path, mode = "onDisk")
-  dataset
   # check result is consistent:
   expect_true(is.numeric(dataset@featureData@data[["totIonCurrent"]]))
   expect_true(is.numeric(dataset@featureData@data[["retentionTime"]][1]))
@@ -46,4 +45,18 @@ test_that("lcms_meta_add merge works", {
   ph <- Biobase::pData(dataset)[1,2]
   expect_true(is.integer(dataset@featureData@data[["spectrum"]]))
   expect_true(is.character(class(ph)))
+})
+
+context("filter")
+
+test_that("filter works", {
+  library(faahKO)
+  path <- dir(system.file("cdf", package = "faahKO"), full.names = TRUE,
+              recursive = TRUE)[1]
+  dataset <- readMSData(path, mode = "onDisk")
+  dataset_shorterRT <- lcms_filter_rt_min(dataset, rt = c(50, 60))
+  dataset_shorterMZ <- lcms_filter_mz(dataset_shorterRT, mz = c(200, 500))
+  # check result is consistent:
+  expect_true(is.numeric(dataset_shorterRT@featureData@data[["totIonCurrent"]]))
+  expect_true(is.numeric(dataset_shorterMZ@featureData@data[["totIonCurrent"]]))
 })
