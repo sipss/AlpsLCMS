@@ -296,3 +296,61 @@ message("")
 message("Reduced dataset has ", ncol(xdata_reduced), " features")
 message("")
 
+## -----------------------------------------------------------------------------
+# library(car)
+stat <- function(x){stats::wilcox.test(x ~ classes, xdata_reduced)$p.value}
+abcd <- data.frame(apply(FUN = stat,
+                         MARGIN = 2,
+                         X = xdata_reduced))
+colnames(abcd) <- c("p_Wilc")
+abcd$id <- row.names(abcd)
+result <- abcd
+summary(result$p_Wilc)
+message("\nNumber of features < 0.05 nominal p-value ", 
+sum(result$p_Wilc < 0.05))
+head(result[result$p_Wilc < 0.05,1])
+
+#FDR
+fdr.wilcox <- stats::p.adjust(result$p_Wilc, method = "fdr")
+result <- cbind(result, fdr.wilcox)
+message("\nNumber of features fdr-corrected p value of < 0.05 is ", 
+sum(result$fdr.wilcox < 0.05))
+
+## ----Annotation univariate postivie-------------------------------------------
+# We use the selected vips
+univ_feat <- result[result$fdr.wilcox < 0.05,"id"]
+
+# Untargeted assignation
+# Creating mz column
+mzr <- univ_feat %>%
+  stringr::str_split(.,"\\_") %>%
+  lapply(.,function(x) x[1]) %>%
+  unlist() %>%
+  as.numeric()
+
+all.equal(length(univ_feat), length(mzr))
+
+tdata_reduced_univ <- data.frame(mz = mzr)
+if(dim(tdata_reduced_univ)[1]>0){
+  result_POS_HMDB_univ <- assignation_pos_HMDB(tdata_reduced_univ)
+  head(result_POS_HMDB_univ)
+} else {
+  message("There is no significant features in Wilcox test")
+}
+
+## ----Annotation of all features positive--------------------------------------
+# Untargeted assignation
+# Creating mz column
+
+mzr <- colnames(as.matrix(xdataImputed)) %>%
+  stringr::str_split(.,"\\_") %>%
+  lapply(.,function(x) x[1]) %>%
+  unlist() %>%
+  as.numeric()
+
+all.equal(dim(xdataImputed)[2], length(mzr))
+
+tdata_reduced_all_features <- data.frame(mz = mzr)
+result_POS_HMDB_all_features <- assignation_pos_HMDB(tdata_reduced_all_features)
+head(result_POS_HMDB_all_features)
+

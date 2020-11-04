@@ -447,9 +447,9 @@ message("")
 
 ## Univariante analysis
 
-```{r echo=, warning=FALSE}
-library(car)
-stat <- function(x){wilcox.test(x ~ classes, xdata_reduced)$p.value}
+```{r}
+# library(car)
+stat <- function(x){stats::wilcox.test(x ~ classes, xdata_reduced)$p.value}
 abcd <- data.frame(apply(FUN = stat,
                          MARGIN = 2,
                          X = xdata_reduced))
@@ -462,7 +462,7 @@ sum(result$p_Wilc < 0.05))
 head(result[result$p_Wilc < 0.05,1])
 
 #FDR
-fdr.wilcox <- p.adjust(result$p_Wilc, method = "fdr")
+fdr.wilcox <- stats::p.adjust(result$p_Wilc, method = "fdr")
 result <- cbind(result, fdr.wilcox)
 message("\nNumber of features fdr-corrected p value of < 0.05 is ", 
 sum(result$fdr.wilcox < 0.05))
