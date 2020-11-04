@@ -32,6 +32,6 @@ devtools::install_github("sipss/AlpsLCMS")
 Quick start
 =============
 
-Checkout the [Introduction to AlpsLCMS](https://sipss.github.io/AlpsLCMS/articles/introduction-to-alpslcms.html) vignette that shows how to import data and preprocess it using AlpsLCMS.
+Checkout the [Introduction to AlpsLCMS](https://sipss.github.io/AlpsLCMS/AlpsLCMS/articles/introduction-to-alpslcms.html) vignette that shows how to import data and preprocess it using `AlpsLCMS`.
 
 See also the [tutorial](https://github.com/sipss/AlpsLCMS/blob/master/vignettes/.pdf) with a real dataset from beginning to end, including all the steps of untargeted metabolomics analysis. 
