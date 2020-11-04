@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filling missing values in a peak table — lcms_fill_chrom_peaks • AlpsLCMS</title>
+<title>Cluster annotation — do.findmain • AlpsLCMS</title>
 
 
 <!-- jquery -->
@@ -35,9 +35,8 @@
 
 
 
-<meta property="og:title" content="Filling missing values in a peak table — lcms_fill_chrom_peaks" />
-<meta property="og:description" content="In the imputation stage, the areas of the missing peaks of the peak table
-that were not detected in the previous steps of the signal preprocessing workflow were integrated." />
+<meta property="og:title" content="Cluster annotation — do.findmain" />
+<meta property="og:description" content="Cluster annotation using the InterpretMSSpectrum::findMain." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -116,70 +115,64 @@ that were not detected in the previous steps of the signal preprocessing workflo
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filling missing values in a peak table</h1>
+    <h1>Cluster annotation</h1>
     
-    <div class="hidden name"><code>lcms_fill_chrom_peaks.Rd</code></div>
+    <div class="hidden name"><code>do.findmain.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>In the imputation stage, the areas of the missing peaks of the peak table
-that were not detected in the previous steps of the signal preprocessing workflow were integrated.</p>
+    <p>Cluster annotation using the <code>InterpretMSSpectrum::findMain</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_fill_chrom_peaks</span>(<span class='no'>peak_table</span>)</pre>
+    <pre class="usage"><span class='fu'>do.findmain</span>(<span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>peak_table</th>
-      <td><p>A table of peaks with (possibly) missing values.</p></td>
+      <th>...</th>
+      <td><p>Arguments passed on to <code><a href='https://rdrr.io/pkg/RAMClustR/man/do.findmain.html'>RAMClustR::do.findmain</a></code></p><dl class='dl-horizontal'>
+    <dt><code>ramclustObj</code></dt><dd><p>ramclustR object to annotate.</p></dd>
+    <dt><code>cmpd</code></dt><dd><p>integer: vector defining compound numbers to annotated.  if NULL (default), all compounds</p></dd>
+    <dt><code>mode</code></dt><dd><p>character: "positive" or "negative"</p></dd>
+    <dt><code>mzabs.error</code></dt><dd><p>numeric: absolute mass deviation allowd, default = 0.01</p></dd>
+    <dt><code>ppm.error</code></dt><dd><p>numeric: ppm mass error _added_ to mzabs.error, default = 10</p></dd>
+    <dt><code>ads</code></dt><dd><p>character: vector of allowed adducts, i.e. c("[M+H]+"). if NULL, default positive mode values of H+, Na+, K+, and NH4+, as monomer, dimer, and trimer, are assigned. Negative mode include "[M-H]-", "[M+Na-2H]-", "[M+K-2H]-", "[M+CH2O2-H]-" as monomer, dimer, and trimer.</p></dd>
+    <dt><code>nls</code></dt><dd><p>character: vector of allowed neutral losses, i.e. c("[M+H-H2O]+").  if NULL, an extensive list derived from CAMERA's will be used.</p></dd>
+    <dt><code>scoring</code></dt><dd><p>character: one of 'imss' , 'ramclustr', or 'auto'. default = 'auto'. see details.</p></dd>
+    <dt><code>plot.findmain</code></dt><dd><p>logical: should pdf polts be generated for evaluation? detfault = TRUE. PDF saved to working.directory/spectra</p></dd>
+    <dt><code>writeMat</code></dt><dd><p>logical: should indidual .mat files (for MSFinder) be generated in a 'mat' subdirectory in the 'spectra' folder? default = TRUE.</p></dd>
+    <dt><code>writeMS</code></dt><dd><p>logical: should indidual .ms files (for Sirius) be generated in a 'ms' subdirectory in the 'spectra' folder? default = TRUE.  Note that no import functions are yet written for Sirius output.</p></dd>
+    <dt><code>use.z</code></dt><dd><p>logical: if you have previously run the 'assign.z' function from ramclustR, there will be a slot reflecting the feature mass after accounting for charge (fm) - if TRUE this is used instead of feature m/z (fmz) in interpreting MS data and exporing spectra for annotation.</p></dd>
+  
+</dl></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A peak table where the missing peaks have been filled.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <p>hclust object</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class='dont-index'><p>Other dataset functions: 
-<code><a href='IPO_group_peaks.html'>IPO_group_peaks</a>()</code>,
-<code><a href='find_peaks_cwp.html'>find_peaks_cwp</a>()</code>,
-<code><a href='lcms_dataset_load.html'>lcms_dataset_load</a>()</code>,
-<code><a href='lcms_dataset_save.html'>lcms_dataset_save</a>()</code>,
-<code><a href='lcms_filter_mz.html'>lcms_filter_mz</a>()</code>,
-<code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a>()</code>,
-<code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a>()</code>,
-<code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a>()</code>,
-<code><a href='lcms_meta_add.html'>lcms_meta_add</a>()</code>,
-<code><a href='lcms_meta_export.html'>lcms_meta_export</a>()</code>,
-<code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a>()</code>,
-<code><a href='lcms_plot_chrom_peak_image.html'>lcms_plot_chrom_peak_image</a>()</code>,
-<code><a href='lcms_plot_tics.html'>lcms_plot_tics</a>()</code>,
-<code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a>()</code>,
-<code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a>()</code>,
-<code><a href='lcms_tics.html'>lcms_tics</a>()</code>,
-<code><a href='obiAdjust_Rtime.html'>obiAdjust_Rtime</a>()</code>,
-<code><a href='phData.html'>phData</a>()</code></p></div>
+    <p>a partially annotated ramclustR object.  base structure is that of a standard R heirarchical clustering output, with additional slots described in ramclustR documentation (?ramclustR).  New slots added after using the interpretMSSpectrum functionality include those described below.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>file_name</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>, <span class='st'>"peak_table.rds"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"AlpsLCMS"</span>)
-<span class='no'>peak_table</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>base</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/base/readRDS.html'>readRDS</a></span>(<span class='no'>file_name</span>)
-<span class='no'>peak_table_imputed</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_fill_chrom_peaks</span>(<span class='no'>peak_table</span>)
+    <p>Jaeger C, ... Lisec J. Compound annotation in liquid chromatography/high-resolution mass spectrometry based metabolomics: robust adduct ion determination as a prerequisite to structure prediction in electrospray ionization mass spectra. Rapid Commun Mass Spectrom. 2017 Aug 15;31(15):1261-1266. doi: 10.1002/rcm.7905. PubMed PMID: 28499062.</p>
+<p>Broeckling CD, Afsar FA, Neumann S, Ben-Hur A, Prenni JE. RAMClust: a novel feature clustering method enables spectral-matching-based annotation for metabolomics data. Anal Chem. 2014 Jul 15;86(14):6812-7. doi: 10.1021/ac501530d.  Epub 2014 Jun 26. PubMed PMID: 24927477.</p>
+<p>Broeckling CD, Ganna A, Layer M, Brown K, Sutton B, Ingelsson E, Peers G, Prenni JE. Enabling Efficient and Confident Annotation of LC-MS Metabolomics Data through MS1 Spectrum and Time Prediction. Anal Chem. 2016 Sep 20;88(18):9226-34. doi: 10.1021/acs.analchem.6b02479. Epub 2016 Sep 8. PubMed PMID: 7560453.</p>
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>peak_table_imputed</span>)
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#references">References</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>Corey Broeckling</p>
   </div>
 </div>
 
