@@ -34,5 +34,4 @@ Quick start
 
 Checkout the [Introduction to AlpsLCMS](https://sipss.github.io/AlpsLCMS/articles/introduction-to-alpslcms.html) vignette that shows how to import data and preprocess it using AlpsLCMS.
 
-See also the [tutorial](https://github.com/sipss/AlpsLCMS/blob/master/vignettes/.pdf) with a real dataset from beginning to end, including all the steps of untargeted metabolomics analysis. To run the [tutorial](https://github.com/sipss/AlpsLCMS/blob/master/vignettes/tutorial.pdf), you can download the MTBLS242 dataset from the public [MetaboLights repository](https://www.ebi.ac.uk/metabolights/MTBLS242), or download and unzip the contents (spectra and metadata) of this [Dropbox link](https://dl.dropboxusercontent.com/s/0snivrsd7m82yey/MTBLS242.zip?dl=0).
-
+See also the [tutorial](https://github.com/sipss/AlpsLCMS/blob/master/vignettes/.pdf) with a real dataset from beginning to end, including all the steps of untargeted metabolomics analysis. 
