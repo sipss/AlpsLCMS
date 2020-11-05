@@ -14,14 +14,17 @@ AlpsLCMS can be installed with the `devtools` package. For this is needed Rtools
 ``` r
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-
-)
-BiocManager::install("xcms")
-BiocManager::install("mzR")
-BiocManager::install("CAMERA")
+    
+if (!requireNamespace("devtools", quietly = TRUE))
+    install.packages("devtools")
+    
+if (!requireNamespace("remotes", quietly = TRUE))
+    install.packages("remotes")
+    
+BiocManager::install(c("xcms", "mzR"))
+BiocManager::install(c("CAMERA", "MAIT"))
 BiocManager::install(c("GenomicFeatures", "AnnotationDbi"))
-BiocManager::install("MAIT")
-BiocManager::install("IPO")
+BiocManager::install(c("IPO", "faahKO"))
 remotes::install_github("cbroeckl/RAMClustR")
 devtools::install_git("https://gitlab.com/CarlBrunius/StatTools.git")
 
