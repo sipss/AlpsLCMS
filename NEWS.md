@@ -1,4 +1,18 @@
-# NIHSnmr 0.0.0.9007
+# AlpsLCMS 0.0.0.9008
+
+- Adding new gh page
+- Name of certain functions updated:
+- lcms_group_peaks -> IPO_group_peaks 
+- lcms_align_rtime -> obiAdjust_Rtime
+- adjustRtime (xcms) -> adjustRT
+- lcms_find_chrom_peaks_cwp -> finpeaks_cwp
+- Ramcluster -> clustering
+- PeakDensityParam (xcms) -> PeakDensityPar
+- groupChromPeaks -> groupPeaks
+- PeakGroupsParam -> PeakGroupsPar
+- Vignettes updated
+
+# AlpsLCMS 0.0.0.9007
 
 - Adding RAMClustR functions
 - Fixing DESCRIPTION file
