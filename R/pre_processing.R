@@ -867,8 +867,13 @@ PeakGroupsPar <- function(...){
 #' Peak alignment
 #'
 #' `adjustRT` is a wrapper of the `xcms::adjustRtime` from `xcms` package. It
-#' performs the **alignment** (grouping) of chromatographic peaks of the
-#' samples.
+#' performs the **alignment** of chromatographic peaks of samples. There are two
+#' methods.
+#' A) peakGroups: Correction of RT based on alignment of features (grouped
+#' peaks) in most of samples. See [xcms::adjustRtime-peakGroups] for info.
+#' B) obiwarp: Alignment based on the complete mz-rt data. This method does not
+#' require any identified peaks or defined features. See
+#' [xcms::adjustRtime-obiwarp] for info.
 #'
 #' @inheritDotParams xcms::adjustRtime
 #' @inherit xcms::adjustRtime

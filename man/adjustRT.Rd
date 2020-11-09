@@ -18,8 +18,13 @@ XCMSnExp object
 }
 \description{
 \code{adjustRT} is a wrapper of the \code{xcms::adjustRtime} from \code{xcms} package. It
-performs the \strong{alignment} (grouping) of chromatographic peaks of the
-samples.
+performs the \strong{alignment} of chromatographic peaks of samples. There are two
+methods.
+A) peakGroups: Correction of RT based on alignment of features (grouped
+peaks) in most of samples. See \link[xcms:adjustRtime-peakGroups]{xcms::adjustRtime-peakGroups} for info.
+B) obiwarp: Alignment based on the complete mz-rt data. This method does not
+require any identified peaks or defined features. See
+\link[xcms:adjustRtime-obiwarp]{xcms::adjustRtime-obiwarp} for info.
 }
 \seealso{
 \code{\link[xcms]{retcor}} for the \emph{old} retention time correction
