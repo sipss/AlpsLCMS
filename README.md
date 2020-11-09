@@ -1,5 +1,7 @@
 # AlpsLCMS
 
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+https://www.tidyverse.org/lifecycle/#maturing
 [![Build Status](https://github.com/sipss/AlpsLCMS/workflows/R-CMD-check/badge.svg?branch=master)](https://github.com/sipss/AlpsLCMS/actions/) 
 [![codecov.io](https://codecov.io/github/sipss/AlpsLCMS/coverage.svg?branch=master)](https://codecov.io/github/sipss/AlpsLCMS)
 [![Bioc Status](https://bioconductor.org/shields/build/devel/bioc/AlpsLCMS.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/AlpsLCMS/)
