@@ -2,6 +2,7 @@
 
 [![Build Status](https://github.com/sipss/AlpsLCMS/workflows/R-CMD-check/badge.svg?branch=master)](https://github.com/sipss/AlpsLCMS/actions/) 
 [![codecov.io](https://codecov.io/github/sipss/AlpsLCMS/coverage.svg?branch=master)](https://codecov.io/github/sipss/AlpsLCMS)
+[![Bioc Status](https://bioconductor.org/shields/build/devel/bioc/AlpsLCMS.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/AlpsLCMS/)
 [![Documentation](https://img.shields.io/badge/documentation-pkgdown-informational)](https://sipss.github.io/AlpsLCMS/)
 
 The goal of `AlpsLCMS` is to offer a data analysis preprocessing pipeline for LC/MS
