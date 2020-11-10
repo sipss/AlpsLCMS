@@ -37,8 +37,13 @@
 
 <meta property="og:title" content="Peak alignment — adjustRT" />
 <meta property="og:description" content="adjustRT is a wrapper of the xcms::adjustRtime from xcms package. It
-performs the alignment (grouping) of chromatographic peaks of the
-samples." />
+performs the alignment of chromatographic peaks of samples. There are two
+methods.
+A) peakGroups: Correction of RT based on alignment of features (grouped
+peaks) in most of samples. See xcms::adjustRtime-peakGroups for info.
+B) obiwarp: Alignment based on the complete mz-rt data. This method does not
+require any identified peaks or defined features. See
+xcms::adjustRtime-obiwarp for info." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -124,8 +129,13 @@ samples." />
 
     <div class="ref-description">
     <p><code>adjustRT</code> is a wrapper of the <code><a href='https://rdrr.io/pkg/xcms/man/adjustRtime.html'>xcms::adjustRtime</a></code> from <code>xcms</code> package. It
-performs the <strong>alignment</strong> (grouping) of chromatographic peaks of the
-samples.</p>
+performs the <strong>alignment</strong> of chromatographic peaks of samples. There are two
+methods.
+A) peakGroups: Correction of RT based on alignment of features (grouped
+peaks) in most of samples. See <a href='https://rdrr.io/pkg/xcms/man/adjustRtime-peakGroups.html'>xcms::adjustRtime-peakGroups</a> for info.
+B) obiwarp: Alignment based on the complete mz-rt data. This method does not
+require any identified peaks or defined features. See
+<a href='https://rdrr.io/pkg/xcms/man/adjustRtime-obiwarp.html'>xcms::adjustRtime-obiwarp</a> for info.</p>
     </div>
 
     <pre class="usage"><span class='fu'>adjustRT</span>(<span class='no'>...</span>)</pre>
