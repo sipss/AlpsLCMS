@@ -78,7 +78,7 @@
       <h1>Introduction to AlpsLCMS</h1>
                         <h4 class="author">Institute for Bioengineering of Catalonia</h4>
             
-            <h4 class="date">2020-11-09</h4>
+            <h4 class="date">2020-11-12</h4>
       
       
       <div class="hidden name"><code>introduction-to-alpslcms.Rmd</code></div>
@@ -117,7 +117,7 @@ print(pipeline_example)</code></pre>
 <h2 class="hasAnchor">
 <a href="#code-to-run" class="anchor"></a>Code to run</h2>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Be careful setting the mode to "onDisk" when you apply this function.</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>dataset &lt;-<span class="st"> </span><span class="kw">readMSData</span>(path, <span class="dt">mode =</span> <span class="st">"onDisk"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>dataset &lt;-<span class="st"> </span><span class="kw"><a href="../reference/lcms_read_samples.html">lcms_read_samples</a></span>(path, <span class="dt">mode =</span> <span class="st">"onDisk"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; Polarity can not be extracted from netCDF files, please set manually the polarity with the 'polarity' method.</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a>dataset<span class="op">@</span>featureData<span class="op">@</span>data[[<span class="st">"polarity"</span>]] &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(polarity, <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(dataset<span class="op">@</span>featureData<span class="op">@</span>data[[<span class="st">"polarity"</span>]]))</span>
 <span id="cb4-5"><a href="#cb4-5"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(dataset)</span>
@@ -128,7 +128,7 @@ print(pipeline_example)</code></pre>
 <span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  Number of spectra: 6 </span></span>
 <span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  MSn retention times: 41:41 - 41:49 minutes</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; - - - Processing information - - -</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; Data loaded [Mon Nov 09 19:16:02 2020] </span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; Data loaded [Thu Nov 12 14:24:23 2020] </span></span>
 <span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;  MSnbase version: 2.10.1 </span></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; - - - Meta data  - - -</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; phenoData</span></span>

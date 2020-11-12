@@ -1,4 +1,5 @@
-# AlpsLCMS
+# AlpsLCMS <img src='man/figures/AlpsLCMSlogo.png' align="right" height="139" />
+
 
 [![Lifecycle:maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![Build Status](https://github.com/sipss/AlpsLCMS/workflows/R-CMD-check/badge.svg?branch=master)](https://github.com/sipss/AlpsLCMS/actions/) 
@@ -34,6 +35,6 @@ devtools::install_github("sipss/AlpsLCMS")
 
 
 Quick start
-=============
+========================
 
 Checkout the [Introduction to AlpsLCMS](https://sipss.github.io/AlpsLCMS/articles/introduction-to-alpslcms.html) vignette that shows how to import data and preprocess it using `AlpsLCMS`.
