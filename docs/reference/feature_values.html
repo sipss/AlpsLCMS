@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter by mass/charge — lcms_filter_mz • AlpsLCMS</title>
+<title>Feature table — feature_values • AlpsLCMS</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,9 @@
 
 
 
-<meta property="og:title" content="Filter by mass/charge — lcms_filter_mz" />
-<meta property="og:description" content="The function filters the dataset by m/z." />
+<meta property="og:title" content="Feature table — feature_values" />
+<meta property="og:description" content="feature_values is a wrapper from xcms. The function creates an intensity
+matrix with all the features." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,79 +122,63 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filter by mass/charge</h1>
+    <h1>Feature table</h1>
     <small class="dont-index">Source: <a href='https://github.com/sipss/AlpsLCMS/blob/master/R/pre_processing.R'><code>R/pre_processing.R</code></a></small>
-    <div class="hidden name"><code>lcms_filter_mz.Rd</code></div>
+    <div class="hidden name"><code>feature_values.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function filters the dataset by m/z.</p>
+    <p><code>feature_values</code> is a wrapper from <code>xcms</code>. The function creates an intensity
+matrix with all the features.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_filter_mz</span>(<span class='no'>dataset</span>, <span class='no'>mz</span>)</pre>
+    <pre class="usage"><span class='fu'>feature_values</span>(
+<span class='no'>object</span>,
+<span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"medret"</span>, <span class='st'>"maxint"</span>, <span class='st'>"sum"</span>),
+<span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"into"</span>,
+<span class='kw'>intensity</span> <span class='kw'>=</span> <span class='st'>"into"</span>,
+<span class='kw'>filled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+<span class='kw'>missing</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+<span class='kw'>msLevel</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span>()
+)</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>dataset</th>
-      <td><p>A lcms_dataset.</p></td>
-    </tr>
-    <tr>
-      <th>mz</th>
-      <td><p>The range of masses to filter.</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A filtered lcms_dataset with the selected m/z range.</p>
+    <p>For <code>featureValues</code>: a <code>matrix</code> with
+feature values, columns representing samples, rows features. The order
+of the features matches the order found in the
+<code>featureDefinitions(object)</code> <code>DataFrame</code>. The rownames of the
+<code>matrix</code> are the same than those of the <code>featureDefinitions</code>
+<code>DataFrame</code>. <code>NA</code> is reported for features without
+corresponding chromatographic peak in the respective sample(s).</p>
+    <h2 class="hasAnchor" id=""><a class="anchor" href="#"></a></h2>
+
+    
+
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other dataset functions: 
-<code><a href='IPO_group_peaks.html'>IPO_group_peaks</a>()</code>,
-<code><a href='find_peaks_cwp.html'>find_peaks_cwp</a>()</code>,
-<code><a href='lcms_dataset_load.html'>lcms_dataset_load</a>()</code>,
-<code><a href='lcms_dataset_save.html'>lcms_dataset_save</a>()</code>,
-<code><a href='lcms_fill_chrom_peaks.html'>lcms_fill_chrom_peaks</a>()</code>,
-<code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a>()</code>,
-<code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a>()</code>,
-<code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a>()</code>,
-<code><a href='lcms_meta_add.html'>lcms_meta_add</a>()</code>,
-<code><a href='lcms_meta_export.html'>lcms_meta_export</a>()</code>,
-<code><a href='lcms_peakpicking_optimization.html'>lcms_peakpicking_optimization</a>()</code>,
-<code><a href='lcms_plot_chrom_peak_image.html'>lcms_plot_chrom_peak_image</a>()</code>,
-<code><a href='lcms_plot_tics.html'>lcms_plot_tics</a>()</code>,
-<code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a>()</code>,
-<code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a>()</code>,
-<code><a href='lcms_tics.html'>lcms_tics</a>()</code>,
-<code><a href='obiAdjust_Rtime.html'>obiAdjust_Rtime</a>()</code>,
-<code><a href='phData.html'>phData</a>()</code></p>
-<p>Other filtering functions: 
-<code><a href='lcms_filter_polarity.html'>lcms_filter_polarity</a>()</code>,
-<code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a>()</code>,
-<code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a>()</code></p></div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/xcms/man/XCMSnExp-class.html'>XCMSnExp</a></code> for information on the data object.</p>
+<p><code><a href='https://rdrr.io/pkg/xcms/man/XCMSnExp-class.html'>featureDefinitions</a></code> to extract the <code>DataFrame</code> with the
+feature definitions.</p>
+<p><code><a href='https://rdrr.io/pkg/xcms/man/featureChromatograms.html'>featureChromatograms</a></code> to extract ion chromatograms for each
+feature.</p>
+<p><code><a href='https://rdrr.io/pkg/xcms/man/XCMSnExp-class.html'>hasFeatures</a></code> to evaluate whether the
+<code><a href='https://rdrr.io/pkg/xcms/man/XCMSnExp-class.html'>XCMSnExp</a></code> provides feature definitions.</p>
+<p><code><a href='https://rdrr.io/pkg/xcms/man/groupval-methods.html'>groupval</a></code> for the equivalent method on <code>xcmsSet</code> objects.</p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>mz_range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>300</span>, <span class='fl'>400</span>)
-<span class='no'>dataset</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
-                                       <span class='st'>"dataset_pos.rds"</span>,
-                                       <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"AlpsLCMS"</span>))
-<span class='no'>dataset_pos_mz</span> <span class='kw'>&lt;-</span><span class='fu'>lcms_filter_mz</span>(<span class='no'>dataset</span>, <span class='kw'>mz</span> <span class='kw'>=</span> <span class='no'>mz_range</span>)
-
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>dataset_pos_mz</span>)
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#"></a></li>
       <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>Johannes Rainer</p>
   </div>
 </div>
 

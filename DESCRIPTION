@@ -1,7 +1,7 @@
 Package: AlpsLCMS
 Type: Package
 Title: Signal processing of LC-MS metabolomics
-Version: 0.0.0.9008
+Version: 0.0.0.9009
 Encoding: UTF-8
 Authors@R: c(
     person(given = "Luis", 
@@ -11,7 +11,8 @@ Authors@R: c(
     person(given = "Francisco",
            family = "Madrid-Gambin", 
            email = "fmadrid@ibecbarcelona.eu",
-           role = c("aut")),
+           role = c("aut"),
+           comment = c(ORCID = "0000-0001-9333-0014")),
     person(given = "Sergio",
            family = "Oller", 
            email = "soller@ibecbarcelona.eu",
@@ -68,3 +69,5 @@ Remotes:
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
+URL: https://github.com/sipss/AlpsLCMS
+

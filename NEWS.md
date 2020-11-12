@@ -1,3 +1,10 @@
+# AlpsLCMS 0.0.0.9009
+
+- featurevalues -> feature_values
+- Extended documentation
+- New gh page with logo
+
+
 # AlpsLCMS 0.0.0.9008
 
 - Adding new gh page

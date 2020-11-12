@@ -805,7 +805,7 @@ MSnbase::plot(chr, col = "red", xlim = c((rt*60)-25, (rt*60)+25), ylim = c(1e+3,
 
 #' Feature table
 #'
-#' `featurevalues` is a wrapper from `xcms`. The function creates an intensity
+#' `feature_values` is a wrapper from `xcms`. The function creates an intensity
 #' matrix with all the features.
 #'
 #' @inheritParams xcms::featureValues
@@ -813,7 +813,7 @@ MSnbase::plot(chr, col = "red", xlim = c((rt*60)-25, (rt*60)+25), ylim = c(1e+3,
 #' @inheritSection xcms::featureValues @return
 #' @export
 #' @usage
-#' featurevalues(
+#' feature_values(
 #' object,
 #' method = c("medret", "maxint", "sum"),
 #' value = "into",
@@ -822,7 +822,7 @@ MSnbase::plot(chr, col = "red", xlim = c((rt*60)-25, (rt*60)+25), ylim = c(1e+3,
 #' missing = NA,
 #' msLevel = integer()
 #' )
-featurevalues <- function(...){
+feature_values <- function(...){
 xdata <- xcms::featureValues(...)
 xdata
 }
