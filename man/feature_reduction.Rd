@@ -9,7 +9,7 @@ feature_reduction(mdataImputed, Representative_ions, RC)
 \arguments{
 \item{mdataImputed}{data matrix with samples in rows and features in columns}
 
-\item{Representative_ions}{dataframe from the list given by \link{labelled_adducts} function}
+\item{Representative_ions}{data frame from the list given by \link{labelled_adducts} function}
 
 \item{RC}{hclust object from the \link{do.findmain} function}
 }
