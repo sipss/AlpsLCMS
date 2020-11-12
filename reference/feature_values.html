@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Default parameters for optimization of retention time correction and grouping parameters — lcms_default_retcorgroup_params • AlpsLCMS</title>
+<title>Feature table — feature_values • AlpsLCMS</title>
 
 
 <!-- jquery -->
@@ -35,12 +35,9 @@
 
 
 
-<meta property="og:title" content="Default parameters for optimization of retention time correction and grouping parameters — lcms_default_retcorgroup_params" />
-<meta property="og:description" content="The function creates default parameters for optimizing
-retention time correction and grouping algorithms.
-Parameter optimization on the XCMS preprocessing
-algorithms is performed using the IPO Package.
-Use this function to create the template within lcms_corgroup_optimization function." />
+<meta property="og:title" content="Feature table — feature_values" />
+<meta property="og:description" content="feature_values is a wrapper from xcms. The function creates an intensity
+matrix with all the features." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -125,65 +122,63 @@ Use this function to create the template within lcms_corgroup_optimization funct
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Default parameters for optimization of retention time correction and grouping parameters</h1>
-    <small class="dont-index">Source: <a href='https://github.com/sipss/AlpsLCMS/blob/master/R/parameter_optimization.R'><code>R/parameter_optimization.R</code></a></small>
-    <div class="hidden name"><code>lcms_default_retcorgroup_params.Rd</code></div>
+    <h1>Feature table</h1>
+    <small class="dont-index">Source: <a href='https://github.com/sipss/AlpsLCMS/blob/master/R/pre_processing.R'><code>R/pre_processing.R</code></a></small>
+    <div class="hidden name"><code>feature_values.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function creates default parameters for optimizing
-retention time correction and grouping algorithms.
-Parameter optimization on the XCMS preprocessing
-algorithms is performed using the IPO Package.
-Use this function to create the template within <code>lcms_corgroup_optimization</code> function.</p>
+    <p><code>feature_values</code> is a wrapper from <code>xcms</code>. The function creates an intensity
+matrix with all the features.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_default_retcorgroup_params</span>(
-  <span class='kw'>profStep</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.7</span>, <span class='fl'>1</span>),
-  <span class='kw'>gapExtend</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2.1</span>, <span class='fl'>2.7</span>),
-  <span class='kw'>optimize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'>feature_values</span>(
+<span class='no'>object</span>,
+<span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"medret"</span>, <span class='st'>"maxint"</span>, <span class='st'>"sum"</span>),
+<span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"into"</span>,
+<span class='kw'>intensity</span> <span class='kw'>=</span> <span class='st'>"into"</span>,
+<span class='kw'>filled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+<span class='kw'>missing</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+<span class='kw'>msLevel</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span>()
 )</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>profStep</th>
-      <td><p>set the m/z step for generating profile (matrix) data from raw mass spectral data.
-Smaller steps yield more precision at the cost of greater memory usage.</p></td>
-    </tr>
-    <tr>
-      <th>gapExtend</th>
-      <td><p>numeric(1) defining the penalty for gap enlargement.
-The default value for gapExtend depends on the value of distFun, for distFun = "cor"
-and distFun = "cor_opt" it is 2.4, for distFun = "cov" 11.7, for distFun = "euc" 1.8
-and for distFun = "prd" 7.8.</p></td>
-    </tr>
-    <tr>
-      <th>optimize</th>
-      <td><p>by default is TRUE. If FALSE, the function does not optimize
-the parameters.</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A parameters template for retention time correction and grouping optimization</p>
+    <p>For <code>featureValues</code>: a <code>matrix</code> with
+feature values, columns representing samples, rows features. The order
+of the features matches the order found in the
+<code>featureDefinitions(object)</code> <code>DataFrame</code>. The rownames of the
+<code>matrix</code> are the same than those of the <code>featureDefinitions</code>
+<code>DataFrame</code>. <code>NA</code> is reported for features without
+corresponding chromatographic peak in the respective sample(s).</p>
+    <h2 class="hasAnchor" id=""><a class="anchor" href="#"></a></h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>default_retcorgroup_params</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_default_retcorgroup_params</span>(<span class='kw'>optimize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>default_retcorgroup_params</span>)
-}</div></pre>
+    
+
+
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/xcms/man/XCMSnExp-class.html'>XCMSnExp</a></code> for information on the data object.</p>
+<p><code><a href='https://rdrr.io/pkg/xcms/man/XCMSnExp-class.html'>featureDefinitions</a></code> to extract the <code>DataFrame</code> with the
+feature definitions.</p>
+<p><code><a href='https://rdrr.io/pkg/xcms/man/featureChromatograms.html'>featureChromatograms</a></code> to extract ion chromatograms for each
+feature.</p>
+<p><code><a href='https://rdrr.io/pkg/xcms/man/XCMSnExp-class.html'>hasFeatures</a></code> to evaluate whether the
+<code><a href='https://rdrr.io/pkg/xcms/man/XCMSnExp-class.html'>XCMSnExp</a></code> provides feature definitions.</p>
+<p><code><a href='https://rdrr.io/pkg/xcms/man/groupval-methods.html'>groupval</a></code> for the equivalent method on <code>xcmsSet</code> objects.</p></div>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
+      <li><a href="#"></a></li>
+      <li><a href="#see-also">See also</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>Johannes Rainer</p>
   </div>
 </div>
 
