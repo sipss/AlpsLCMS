@@ -36,9 +36,9 @@
 
 
 <meta property="og:title" content="cromplot — cromplot" />
-<meta property="og:description" content="Function that creates the plots of a know metabolite to observe and set the
-parameters for xcms preprocessing. Parameters such as peak width, noise
-level, or potential neighbors can be studied." />
+<meta property="og:description" content="Function that creates four zoomed plots of a know metabolite to observe the
+set the parameters for xcms preprocessing. Parameters such as peak width,
+noise level, or potential neighbors can be studied." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -123,12 +123,15 @@ level, or potential neighbors can be studied." />
     </div>
 
     <div class="ref-description">
-    <p>Function that creates the plots of a know metabolite to observe and set the
-parameters for xcms preprocessing. Parameters such as peak width, noise
-level, or potential neighbors can be studied.</p>
+    <p>Function that creates four zoomed plots of a know metabolite to observe the
+set the parameters for xcms preprocessing. Parameters such as peak width,
+noise level, or potential neighbors can be studied.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cromplot</span>(<span class='no'>dataset</span>, <span class='no'>rt</span>, <span class='no'>mz</span>, <span class='kw'>metabolite</span> <span class='kw'>=</span> <span class='st'>"metabolite"</span>)</pre>
+    <pre class="usage"><span class='fu'>cromplot</span>(<span class='no'>dataset</span>,
+<span class='kw'>rt</span> <span class='kw'>=</span> <span class='fl'>5.8</span>,
+<span class='kw'>mz</span> <span class='kw'>=</span> <span class='fl'>132.102</span>,
+<span class='kw'>metabolite</span> <span class='kw'>=</span> <span class='st'>"(iso)leucine"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,15 +142,16 @@ level, or potential neighbors can be studied.</p>
     </tr>
     <tr>
       <th>rt</th>
-      <td><p>known retention time of a metabolite that surely is in the dataset</p></td>
+      <td><p>known retention time (minutes) of a metabolite that surely is
+within the dataset. Note that <code>rt</code> critically changes between columns.</p></td>
     </tr>
     <tr>
       <th>mz</th>
-      <td><p>known mass of a metabolite that surely is in the dataset</p></td>
+      <td><p>known ionized mass of a metabolite that surely is within the dataset.</p></td>
     </tr>
     <tr>
       <th>metabolite</th>
-      <td><p>character. The name of the metabolite (for plotting)</p></td>
+      <td><p>character. The name of the metabolite (for plotting).</p></td>
     </tr>
     </table>
 

@@ -38,12 +38,7 @@
 <meta property="og:title" content="Peak alignment — adjustRT" />
 <meta property="og:description" content="adjustRT is a wrapper of the xcms::adjustRtime from xcms package. It
 performs the alignment of chromatographic peaks of samples. There are two
-methods.
-A) peakGroups: Correction of RT based on alignment of features (grouped
-peaks) in most of samples. See xcms::adjustRtime-peakGroups for info.
-B) obiwarp: Alignment based on the complete mz-rt data. This method does not
-require any identified peaks or defined features. See
-xcms::adjustRtime-obiwarp for info." />
+methods that can be used depending on the parameters object." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -130,12 +125,7 @@ xcms::adjustRtime-obiwarp for info." />
     <div class="ref-description">
     <p><code>adjustRT</code> is a wrapper of the <code><a href='https://rdrr.io/pkg/xcms/man/adjustRtime.html'>xcms::adjustRtime</a></code> from <code>xcms</code> package. It
 performs the <strong>alignment</strong> of chromatographic peaks of samples. There are two
-methods.
-A) peakGroups: Correction of RT based on alignment of features (grouped
-peaks) in most of samples. See <a href='https://rdrr.io/pkg/xcms/man/adjustRtime-peakGroups.html'>xcms::adjustRtime-peakGroups</a> for info.
-B) obiwarp: Alignment based on the complete mz-rt data. This method does not
-require any identified peaks or defined features. See
-<a href='https://rdrr.io/pkg/xcms/man/adjustRtime-obiwarp.html'>xcms::adjustRtime-obiwarp</a> for info.</p>
+methods that can be used depending on the parameters object.</p>
     </div>
 
     <pre class="usage"><span class='fu'>adjustRT</span>(<span class='no'>...</span>)</pre>
@@ -154,7 +144,21 @@ require any identified peaks or defined features. See
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>XCMSnExp object</p>
+    <p><code>XCMSnExp</code> object with peaks aligned. Note that <code>adjustRT</code> discard
+all previous peak grouping in the obtained object and thus, a new grouping
+process might be required.
+The <a href='https://rdrr.io/pkg/xcms/man/adjustRtime-obiwarp.html'>xcms::ObiwarpParam</a> function returns a
+<code>ObiwarpParam</code> class instance with all of the settings specified for
+obiwarp retention time adjustment and alignment.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>A) peakGroups: Correction of RT based on alignment of features (grouped
+peaks) in most of samples. See <a href='https://rdrr.io/pkg/xcms/man/adjustRtime-peakGroups.html'>xcms::adjustRtime-peakGroups</a> for info.</p>
+<p>B) obiwarp: Alignment based on the complete mz-rt data. This method does not
+require any identified peaks or defined features. See
+<a href='https://rdrr.io/pkg/xcms/man/adjustRtime-obiwarp.html'>xcms::adjustRtime-obiwarp</a> for info.</p>
+<p>The parameter object <a href='https://rdrr.io/pkg/xcms/man/adjustRtime-obiwarp.html'>xcms::ObiwarpParam</a> or <a href='https://rdrr.io/pkg/xcms/man/adjustRtime-peakGroups.html'>xcms::PeakGroupsParam</a> created
+for including in the <code>adjustRT</code> function defines which method will be used.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/xcms/man/retcor-methods.html'>retcor</a></code> for the <em>old</em> retention time correction
@@ -169,6 +173,7 @@ require any identified peaks or defined features. See
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
     </ul>
 

@@ -36,7 +36,8 @@
 
 
 <meta property="og:title" content="Feature table — featurevalues" />
-<meta property="og:description" content="The function creates a intensity matrix with all the features." />
+<meta property="og:description" content="featurevalues is a wrapper from xcms. The function creates an intensity
+matrix with all the features." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,27 +122,35 @@
     </div>
 
     <div class="ref-description">
-    <p>The function creates a intensity matrix with all the features.</p>
+    <p><code>featurevalues</code> is a wrapper from <code>xcms</code>. The function creates an intensity
+matrix with all the features.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>featurevalues</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>featurevalues</span>(
+<span class='no'>object</span>,
+<span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"medret"</span>, <span class='st'>"maxint"</span>, <span class='st'>"sum"</span>),
+<span class='kw'>value</span> <span class='kw'>=</span> <span class='st'>"into"</span>,
+<span class='kw'>intensity</span> <span class='kw'>=</span> <span class='st'>"into"</span>,
+<span class='kw'>filled</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+<span class='kw'>missing</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+<span class='kw'>msLevel</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>integer</a></span>()
+)</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments passed on to <code><a href='https://rdrr.io/pkg/xcms/man/XCMSnExp-peak-grouping-results.html'>xcms::featureValues</a></code></p><dl class='dl-horizontal'>
-    <dt><code>object</code></dt><dd><p>A <code><a href='https://rdrr.io/pkg/xcms/man/XCMSnExp-class.html'>XCMSnExp</a></code> object providing the feature
-definitions.</p></dd>
-  
-</dl></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A feature table</p>
+    <p>For <code>featureValues</code>: a <code>matrix</code> with
+feature values, columns representing samples, rows features. The order
+of the features matches the order found in the
+<code>featureDefinitions(object)</code> <code>DataFrame</code>. The rownames of the
+<code>matrix</code> are the same than those of the <code>featureDefinitions</code>
+<code>DataFrame</code>. <code>NA</code> is reported for features without
+corresponding chromatographic peak in the respective sample(s).</p>
+    <h2 class="hasAnchor" id=""><a class="anchor" href="#"></a></h2>
+
+    
+
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/xcms/man/XCMSnExp-class.html'>XCMSnExp</a></code> for information on the data object.</p>
@@ -157,8 +166,8 @@ feature.</p>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#"></a></li>
       <li><a href="#see-also">See also</a></li>
     </ul>
 
