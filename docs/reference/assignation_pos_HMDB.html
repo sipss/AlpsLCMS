@@ -36,9 +36,10 @@
 
 
 <meta property="og:title" content="HMDB metabolites in positive ionization — assignation_pos_HMDB" />
-<meta property="og:description" content="The function compares (M + H) mass of metabolites contained in the The Human
-Metabolome Database (HMDB) with features from the positive ionized feature
-table." />
+<meta property="og:description" content="assignation_pos_HMDB is a function to identify the features in negative
+ionization. It assumes protonation of molecules (M - H) from the feature
+table and compares with mass of metabolites contained in the The Human
+Metabolome Database HMDB_db." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -123,9 +124,10 @@ table." />
     </div>
 
     <div class="ref-description">
-    <p>The function compares (M + H) mass of metabolites contained in the The Human
-Metabolome Database (HMDB) with features from the positive ionized feature
-table.</p>
+    <p><code>assignation_pos_HMDB</code> is a function to identify the features in negative
+ionization. It assumes protonation of molecules (M - H) from the feature
+table and compares with mass of metabolites contained in the The Human
+Metabolome Database <a href='HMDB_db.html'>HMDB_db</a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>assignation_pos_HMDB</span>(<span class='no'>feature_table</span>)</pre>
@@ -135,14 +137,16 @@ table.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>feature_table</th>
-      <td><p>A dataframe containing feature in rows and samples in
-columns. A column called "mz" is required with the correspoinding mass of each feature.</p></td>
+      <td><p>A data frame containing feature in rows and samples in
+columns. A column called "mz" is required with the corresponding mass of
+each feature.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The same feature table with an extra column with matched metabolites</p>
+    <p>The same feature table with two extra column with matched HMDB codes
+and metabolites. More than one assignation is allowed.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {

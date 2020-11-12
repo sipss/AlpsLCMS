@@ -7,16 +7,19 @@
 assignation_pos_HMDB(feature_table)
 }
 \arguments{
-\item{feature_table}{A dataframe containing feature in rows and samples in
-columns. A column called "mz" is required with the correspoinding mass of each feature.}
+\item{feature_table}{A data frame containing feature in rows and samples in
+columns. A column called "mz" is required with the corresponding mass of
+each feature.}
 }
 \value{
-The same feature table with an extra column with matched metabolites
+The same feature table with two extra column with matched HMDB codes
+and metabolites. More than one assignation is allowed.
 }
 \description{
-The function compares (M + H) mass of metabolites contained in the The Human
-Metabolome Database (HMDB) with features from the positive ionized feature
-table.
+\code{assignation_pos_HMDB} is a function to identify the features in negative
+ionization. It assumes protonation of molecules (M - H) from the feature
+table and compares with mass of metabolites contained in the The Human
+Metabolome Database \link{HMDB_db}.
 }
 \examples{
 \dontrun{

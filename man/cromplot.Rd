@@ -4,22 +4,26 @@
 \alias{cromplot}
 \title{cromplot}
 \usage{
-cromplot(dataset, rt, mz, metabolite = "metabolite")
+cromplot(dataset,
+rt = 5.8,
+mz = 132.102,
+metabolite = "(iso)leucine")
 }
 \arguments{
 \item{dataset}{a lcms_dataset}
 
-\item{rt}{known retention time of a metabolite that surely is in the dataset}
+\item{rt}{known retention time (minutes) of a metabolite that surely is
+within the dataset. Note that \code{rt} critically changes between columns.}
 
-\item{mz}{known mass of a metabolite that surely is in the dataset}
+\item{mz}{known ionized mass of a metabolite that surely is within the dataset.}
 
-\item{metabolite}{character. The name of the metabolite (for plotting)}
+\item{metabolite}{character. The name of the metabolite (for plotting).}
 }
 \value{
 Plot of a known chromatographic peak
 }
 \description{
-Function that creates the plots of a know metabolite to observe and set the
-parameters for xcms preprocessing. Parameters such as peak width, noise
-level, or potential neighbors can be studied.
+Function that creates four zoomed plots of a know metabolite to observe the
+set the parameters for xcms preprocessing. Parameters such as peak width,
+noise level, or potential neighbors can be studied.
 }

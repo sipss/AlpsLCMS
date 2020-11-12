@@ -4,22 +4,33 @@
 \alias{featurevalues}
 \title{Feature table}
 \usage{
-featurevalues(...)
-}
-\arguments{
-\item{...}{
-  Arguments passed on to \code{\link[xcms:XCMSnExp-peak-grouping-results]{xcms::featureValues}}
-  \describe{
-    \item{\code{object}}{A \code{\link[xcms]{XCMSnExp}} object providing the feature
-definitions.}
-  }}
+featurevalues(
+object,
+method = c("medret", "maxint", "sum"),
+value = "into",
+intensity = "into",
+filled = TRUE,
+missing = NA,
+msLevel = integer()
+)
 }
 \value{
-A feature table
+For \code{featureValues}: a \code{matrix} with
+feature values, columns representing samples, rows features. The order
+of the features matches the order found in the
+\code{featureDefinitions(object)} \code{DataFrame}. The rownames of the
+\code{matrix} are the same than those of the \code{featureDefinitions}
+\code{DataFrame}. \code{NA} is reported for features without
+corresponding chromatographic peak in the respective sample(s).
 }
 \description{
-The function creates a intensity matrix with all the features.
+\code{featurevalues} is a wrapper from \code{xcms}. The function creates an intensity
+matrix with all the features.
 }
+\section{}{
+
+}
+
 \seealso{
 \code{\link[xcms]{XCMSnExp}} for information on the data object.
 

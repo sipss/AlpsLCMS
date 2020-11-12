@@ -768,17 +768,23 @@ filterMassAcquisition <- function (dataset, window = "small"){
 
 #' cromplot
 #'
-#' Function that creates the plots of a know metabolite to observe and set the
-#' parameters for xcms preprocessing. Parameters such as peak width, noise
-#' level, or potential neighbors can be studied.
+#' Function that creates four zoomed plots of a know metabolite to observe the
+#' set the parameters for xcms preprocessing. Parameters such as peak width,
+#' noise level, or potential neighbors can be studied.
 #'
 #' @param dataset a lcms_dataset
-#' @param rt known retention time of a metabolite that surely is in the dataset
-#' @param mz known mass of a metabolite that surely is in the dataset
-#' @param metabolite character. The name of the metabolite (for plotting)
+#' @param rt known retention time (minutes) of a metabolite that surely is
+#'   within the dataset. Note that `rt` critically changes between columns.
+#' @param mz known ionized mass of a metabolite that surely is within the dataset.
+#' @param metabolite character. The name of the metabolite (for plotting).
 #'
 #' @return Plot of a known chromatographic peak
 #' @export
+#' @usage
+#' cromplot(dataset,
+#' rt = 5.8,
+#' mz = 132.102,
+#' metabolite = "(iso)leucine")
 #'
 cromplot <- function(dataset, rt, mz, metabolite = "metabolite"){
 rt_max <- (rt*60)+120
@@ -797,17 +803,25 @@ MSnbase::plot(chr, col = "orange", xlim = c((rt*60)-25, (rt*60)+25), ylim = c(5e
 MSnbase::plot(chr, col = "red", xlim = c((rt*60)-25, (rt*60)+25), ylim = c(1e+3, 5e+5), main = metabolite)
 }
 
-
 #' Feature table
 #'
-#' The function creates a intensity matrix with all the features.
+#' `featurevalues` is a wrapper from `xcms`. The function creates an intensity
+#' matrix with all the features.
 #'
-#' @inheritDotParams xcms::featureValues
+#' @inheritParams xcms::featureValues
 #' @inherit xcms::featureValues
-#'
-#' @return A feature table
+#' @inheritSection xcms::featureValues @return
 #' @export
-#'
+#' @usage
+#' featurevalues(
+#' object,
+#' method = c("medret", "maxint", "sum"),
+#' value = "into",
+#' intensity = "into",
+#' filled = TRUE,
+#' missing = NA,
+#' msLevel = integer()
+#' )
 featurevalues <- function(...){
 xdata <- xcms::featureValues(...)
 xdata

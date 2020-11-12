@@ -17,7 +17,7 @@ polarity <- 1 # 1 for positive mode, 0 for negative mode
 
 ## ----Data wrangling-----------------------------------------------------------
 # Be careful setting the mode to "onDisk" when you apply this function.
-dataset <- readMSData(path, mode = "onDisk")
+dataset <- lcms_read_samples(path, mode = "onDisk")
 dataset@featureData@data[["polarity"]] <- rep(polarity, length(dataset@featureData@data[["polarity"]]))
 head(dataset)
 

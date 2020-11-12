@@ -4,10 +4,10 @@
 \name{HMDB_db}
 \alias{HMDB_db}
 \title{The Human Metabolome DataBase template: Table with metabolites along with
-their ionized masses}
+their protonated/deprotonated masses}
 \description{
 The Human Metabolome DataBase template: Table with metabolites along with
-their ionized masses
+their protonated/deprotonated masses
 }
 \references{
 \url{hmdb.ca}

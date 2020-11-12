@@ -1,11 +1,13 @@
-#' Get st parameter value for RamclustR
+#' Get st parameter value for clustering
 #'
-#' @param XObj A lcms_dataset
-#' @return recomended st parameter value for RamclustR
+#' getRamSt calculates the optimal value for the [AlpsLCMS::clustering]
+#' function. It uses the `lcms_dataset` after xcms preprocessing.
+#'
+#' @param lcms_dataset A lcms_dataset
+#' @return recommended st parameter value for [AlpsLCMS::clustering]
 #' @export
-#'
-getRamSt <- function(XObj) {
-  featInfo <- xcms::featureDefinitions(XObj)
+getRamSt <- function(lcms_dataset) {
+  featInfo <- xcms::featureDefinitions(lcms_dataset)
   histo <- graphics::hist((featInfo$rtmax-featInfo$rtmin)/2)
   st <- round(stats::median(featInfo$rtmax-featInfo$rtmin)/2,
               digits = 2)
@@ -24,13 +26,49 @@ getRamSt <- function(XObj) {
 #'
 #' `clustering` is a wrapper of the [RAMClustR::ramclustR] from `RAMClustR`
 #' package. It performs a clustering of features with a given sigma for
-#' retention time similarity `st` and for correlational similarity.
+#' retention time similarity `st` and for correlation similarity `sr`. Note
+#' that, in addition to the `sr`, the argument `deepSplit = TRUE` might be
+#' critical to avoid several metabolites in a single cluster.
 #'
-#' @inheritDotParams RAMClustR::ramclustR
+#' @inheritParams RAMClustR::ramclustR
 #' @inherit RAMClustR::ramclustR
-#'
-#' @return hclust object
 #' @export
+#' @inheritSection RAMClustR::ramclustR @return
+#' @usage
+#' clustering(
+#' xcmsObj = NULL,
+#' ms = NULL,
+#' idmsms = NULL,
+#' taglocation = "filepaths",
+#' MStag = NULL,
+#' idMSMStag = NULL,
+#' featdelim = "_",
+#' timepos = 2,
+#' st = NULL,
+#' sr = NULL,
+#' maxt = NULL,
+#' deepSplit = FALSE,
+#' blocksize = 2000,
+#' mult = 5,
+#' hmax = NULL,
+#' sampNameCol = 1,
+#' collapse = TRUE,
+#' usePheno = TRUE,
+#' mspout = TRUE,
+#' ExpDes = NULL,
+#' normalize = "TIC",
+#' qc.inj.range = 20,
+#' order = NULL,
+#' batch = NULL,
+#' qc = NULL,
+#' minModuleSize = 2,
+#' linkage = "average",
+#' mzdec = 3,
+#' cor.method = "pearson",
+#' rt.only.low.n = TRUE,
+#' fftempdir = NULL,
+#' replace.zeros = TRUE
+#' )
 #'
 clustering <- function(...){
   RC <- RAMClustR::ramclustR(...)
@@ -39,12 +77,30 @@ clustering <- function(...){
 
 #' Cluster annotation
 #'
-#' Cluster annotation using the `InterpretMSSpectrum::findMain`.
+#' Cluster annotation using the `InterpretMSSpectrum::findMain`. It creates a
+#' pseudo-spectrum with the features grouped in each cluster within a given mz
+#' error. The algorithm proposes a representative ion of each
+#' cluster/pseudo-spectrum for data reduction.
 #'
-#' @inheritDotParams RAMClustR::do.findmain
+#' @inheritParams RAMClustR::do.findmain
 #' @inherit RAMClustR::do.findmain
 #'
-#' @return hclust object
+#' @inheritSection RAMClustR::do.findmain @return
+#' @usage
+#' do.findmain(
+#' ramclustObj = NULL,
+#' cmpd = NULL,
+#' mode = "positive",
+#' mzabs.error = 0.005,
+#' ppm.error = 10,
+#' ads = NULL,
+#' nls = NULL,
+#' scoring = "auto",
+#' plot.findmain = TRUE,
+#' writeMat = TRUE,
+#' writeMS = TRUE,
+#' use.z = TRUE
+#' )
 #' @export
 #'
 do.findmain <- function(...){
@@ -102,10 +158,10 @@ return(list(All_labelled_adducts = All_labelled_adducts, Labelled_ions = Labelle
 
 #' Feature reduction
 #'
-#' Function to perform feature reduction from the [clustering]
+#' Function to perform feature reduction from the [clustering].
 #'
 #' @param mdataImputed data matrix with samples in rows and features in columns
-#' @param Representative_ions dataframe from the list given by [labelled_adducts] function
+#' @param Representative_ions data frame from the list given by [labelled_adducts] function
 #' @param RC hclust object from the [do.findmain] function
 #'
 #' @return A data frame with important features based on the clustering

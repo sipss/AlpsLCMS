@@ -2,16 +2,17 @@
 % Please edit documentation in R/clustering.R
 \name{getRamSt}
 \alias{getRamSt}
-\title{Get st parameter value for RamclustR}
+\title{Get st parameter value for clustering}
 \usage{
-getRamSt(XObj)
+getRamSt(lcms_dataset)
 }
 \arguments{
-\item{XObj}{A lcms_dataset}
+\item{lcms_dataset}{A lcms_dataset}
 }
 \value{
-recomended st parameter value for RamclustR
+recommended st parameter value for \link{clustering}
 }
 \description{
-Get st parameter value for RamclustR
+getRamSt calculates the optimal value for the \link{clustering}
+function. It uses the \code{lcms_dataset} after xcms preprocessing.
 }

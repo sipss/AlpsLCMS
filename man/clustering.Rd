@@ -4,57 +4,88 @@
 \alias{clustering}
 \title{Clustering}
 \usage{
-clustering(...)
-}
-\arguments{
-\item{...}{
-  Arguments passed on to \code{\link[RAMClustR:ramclustR]{RAMClustR::ramclustR}}
-  \describe{
-    \item{\code{xcmsObj}}{xcmsObject: containing grouped feature data for clustering by ramclustR}
-    \item{\code{ms}}{filepath: optional csv input. Features as columns, rows as samples. Column header mz_rt}
-    \item{\code{idmsms}}{filepath: optional idMSMS / MSe csv data.  same dim and names as ms required}
-    \item{\code{taglocation}}{character: "filepaths" by default, "phenoData[,1]" is another option. referse to xcms slot}
-    \item{\code{MStag}}{character: character string in 'taglocation' to designat MS / MSe files e.g. "01.cdf"}
-    \item{\code{idMSMStag}}{character: character string in 'taglocation' to designat idMSMS / MSe files e.g. "02.cdf"}
-    \item{\code{featdelim}}{character: how feature mz and rt are delimited in csv import column header e.g. ="-"}
-    \item{\code{timepos}}{integer: which position in delimited column header represents the retention time (csv only)}
-    \item{\code{st}}{numeric: sigma t - time similarity decay value}
-    \item{\code{sr}}{numeric: sigma r - correlational similarity decay value}
-    \item{\code{maxt}}{numeric: maximum time difference to calculate retention similarity for - all values beyond this are assigned similarity of zero}
-    \item{\code{deepSplit}}{logical: controls how agressively the HCA tree is cut - see ?cutreeDynamicTree}
-    \item{\code{blocksize}}{integer: number of features (scans?) processed in one block  =1000,}
-    \item{\code{mult}}{numeric: internal value, can be used to influence processing speed/ram usage}
-    \item{\code{hmax}}{numeric: precut the tree at this height, default 0.3 - see ?cutreeDynamicTree}
-    \item{\code{sampNameCol}}{integer: which column from the csv file contains sample names?}
-    \item{\code{collapse}}{logical: reduce feature intensities to spectrum intensities?}
-    \item{\code{usePheno}}{logical: tranfer phenotype data from XCMS object to SpecAbund dataset?}
-    \item{\code{mspout}}{logical: write msp formatted specta to file?}
-    \item{\code{ExpDes}}{either an R object created by R ExpDes object: data used for record keeping and labelling msp spectral output}
-    \item{\code{normalize}}{character: either "none", "TIC", "quantile", or "batch.qc" normalization of feature intensities.  see batch.qc overview in details.}
-    \item{\code{qc.inj.range}}{integer: how many injections around each injection are to be scanned for presence of QC samples when using batch.qc normalization?  A good rule of thumb is between 1 and 3 times the typical injection span between QC injections.  i.e. if you inject QC ever 7 samples, set this to between 7 and 21.  smaller values provide more local precision but make normalization sensitive to individual poor outliers (though these are first removed using the boxplot function outlier detection), while wider values provide less local precision in normalization but better stability to individual peak areas.}
-    \item{\code{order}}{integer vector with length equal to number of injections in xset or csv file}
-    \item{\code{batch}}{integer vector with length equal to number of injections in xset or csv file}
-    \item{\code{qc}}{logical vector with length equal to number of injections in xset or csv file.}
-    \item{\code{minModuleSize}}{integer: how many features must be part of a cluster to be returned? default = 2}
-    \item{\code{linkage}}{character: heirarchical clustering linkage method - see ?hclust}
-    \item{\code{mzdec}}{integer: number of decimal places used in printing m/z values}
-    \item{\code{cor.method}}{character: which correlational method used to calculate 'r' - see ?cor}
-    \item{\code{rt.only.low.n}}{logical: default = TRUE  At low injection numbers, correlational relationships of peak intensities may be unreliable.  by defualt ramclustR will simply ignore the correlational r value and cluster on retention time alone.  if you wish to use correlation with at n < 5, set this value to FALSE.}
-    \item{\code{fftempdir}}{valid path: if there are file size limitations on the default ff pacakge temp directory  - getOptions('fftempdir') - you can change the directory used as the fftempdir with this option.}
-    \item{\code{replace.zeros}}{logincal: TRUE by default.  NA, NaN, and Inf values are replaced with zero, and zero values are sometimes returned from peak peaking.  When TRUE, zero values will be replaced with a small amount of noise, with noise level set based on the detected signal intensities for that feature.}
-  }}
+clustering(
+xcmsObj = NULL,
+ms = NULL,
+idmsms = NULL,
+taglocation = "filepaths",
+MStag = NULL,
+idMSMStag = NULL,
+featdelim = "_",
+timepos = 2,
+st = NULL,
+sr = NULL,
+maxt = NULL,
+deepSplit = FALSE,
+blocksize = 2000,
+mult = 5,
+hmax = NULL,
+sampNameCol = 1,
+collapse = TRUE,
+usePheno = TRUE,
+mspout = TRUE,
+ExpDes = NULL,
+normalize = "TIC",
+qc.inj.range = 20,
+order = NULL,
+batch = NULL,
+qc = NULL,
+minModuleSize = 2,
+linkage = "average",
+mzdec = 3,
+cor.method = "pearson",
+rt.only.low.n = TRUE,
+fftempdir = NULL,
+replace.zeros = TRUE
+)
 }
 \value{
-hclust object
+$featclus: integer vector of cluster membership for each feature
+
+$frt: feature retention time, in whatever units were fed in (xcms uses seconds, by default)
+
+$fmz: feature retention time, reported in number of decimal points selected in ramclustR function
+
+$xcmsOrd: the original XCMS (or csv) feature order for cross referencing, if need be
+
+$clrt: cluster retention time
+
+$clrtsd: retention time standard deviation of all the features that comprise that cluster
+
+$nfeat: number of features in the cluster
+
+$nsing: number of 'singletons' - that is the number of features which clustered with no other feature
+
+$ExpDes: the experimental design object used when running ramclustR.  List of two dataframes.
+
+$cmpd: compound name.  C#### are assigned in order of output by dynamicTreeCut.  Compound with the most features is classified as C0001...
+
+$ann: annotation.  By default, annotation names are identical to 'cmpd' names.  This slot is a placeholder for when annotations are provided
+
+$MSdata:  the MSdataset provided by either xcms or csv input
+
+$MSMSdata: the (optional) MSe/idMSMS dataset provided be either xcms or csv input
+
+$SpecAbund: the cluster intensities after collapsing features to clusters
+
+$SpecAbundAve: the cluster intensities after averaging all samples with identical sample names
+
+- 'spectra' directory is created in the working directory.  In this directory a .msp is (optionally) created, which contains the spectra for all compounds in the dataset following clustering.  if MSe/idMSMS data are provided, they are listed witht he same compound name as the MS spectrum, with the collision energy provided in the ExpDes object provided to distinguish low from high CE spectra.
 }
 \description{
 \code{clustering} is a wrapper of the \link[RAMClustR:ramclustR]{RAMClustR::ramclustR} from \code{RAMClustR}
 package. It performs a clustering of features with a given sigma for
-retention time similarity \code{st} and for correlational similarity.
+retention time similarity \code{st} and for correlation similarity \code{sr}. Note
+that, in addition to the \code{sr}, the argument \code{deepSplit = TRUE} might be
+critical to avoid several metabolites in a single cluster.
 }
 \details{
 Main clustering function output - see citation for algorithm description or vignette('RAMClustR') for a walk through.  batch.qc. normalization requires input of three vectors (1) batch (2) order (3) qc.   This is a feature centric normalization approach which adjusts signal intensities first by comparing batch median intensity of each feature (one feature at a time) QC signal intensity to full dataset median to correct for systematic batch effects and then secondly to apply a local QC median vs global median sample correction to correct for run order effects.
 }
+\section{}{
+
+}
+
 \references{
 Broeckling CD, Afsar FA, Neumann S, Ben-Hur A, Prenni JE. RAMClust: a novel feature clustering method enables spectral-matching-based annotation for metabolomics data. Anal Chem. 2014 Jul 15;86(14):6812-7. doi: 10.1021/ac501530d.  Epub 2014 Jun 26. PubMed PMID: 24927477.
 

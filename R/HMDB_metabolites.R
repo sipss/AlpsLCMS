@@ -1,15 +1,19 @@
 #' HMDB metabolites in positive ionization
 #'
-#' The function compares (M + H) mass of metabolites contained in the The Human
-#' Metabolome Database (HMDB) with features from the positive ionized feature
-#' table.
+#' `assignation_pos_HMDB` is a function to identify the features in negative
+#' ionization. It assumes protonation of molecules (M - H) from the feature
+#' table and compares with mass of metabolites contained in the The Human
+#' Metabolome Database [HMDB_db].
 #'
-#' @param feature_table A dataframe containing feature in rows and samples in
-#'   columns. A column called "mz" is required with the correspoinding mass of each feature.
+#' @param feature_table A data frame containing feature in rows and samples in
+#'   columns. A column called "mz" is required with the corresponding mass of
+#'   each feature.
 #'
-#' @return The same feature table with an extra column with matched metabolites
+#' @return The same feature table with two extra column with matched HMDB codes
+#'   and metabolites. More than one assignation is allowed.
 #' @export
-#'
+#' @usage
+#' assignation_pos_HMDB(feature_table)
 #' @examples
 #' \dontrun{
 #' FT <- assignation_pos_HMDB(feature_table)
@@ -57,16 +61,17 @@ assignation_pos_HMDB <- function(feature_table){
 
 #' HMDB metabolites in negative ionization
 #'
-#' The function compares (M - H) mass of metabolites contained in the The Human
-#' Metabolome Database (HMDB) with features from the negative ionized feature
-#' table.
+#' `assignation_neg_HMDB` is a function to identify the features in negative
+#' ionization. It assumes deprotonation of molecules (M - H) from the feature
+#' table and compares with mass of metabolites contained in the The Human
+#' Metabolome Database [HMDB_db].
 #'
-#' @param feature_table A dataframe containing feature in rows and samples in
+#' @param feature_table A data frame containing feature in rows and samples in
 #'   columns. First and second columns need to be the feature ID and mass.
 #'
-#' @return The same feature table with an extra column with matched metabolites
+#' @return The same feature table with two extra column with matched HMDB codes
+#'   and metabolites. More than one assignation is allowed.
 #' @export
-#'
 #' @examples
 #' \dontrun{
 #' FT <- assignation_neg_HMDB(feature_table)
@@ -112,7 +117,7 @@ assignation_neg_HMDB <- function(feature_table){
 }
 
 #' The Human Metabolome DataBase template: Table with metabolites along with
-#' their ionized masses
+#' their protonated/deprotonated masses
 #'
 #' @name HMDB_db
 #' @docType data

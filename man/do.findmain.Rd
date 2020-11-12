@@ -4,35 +4,63 @@
 \alias{do.findmain}
 \title{Cluster annotation}
 \usage{
-do.findmain(...)
-}
-\arguments{
-\item{...}{
-  Arguments passed on to \code{\link[RAMClustR:do.findmain]{RAMClustR::do.findmain}}
-  \describe{
-    \item{\code{ramclustObj}}{ramclustR object to annotate.}
-    \item{\code{cmpd}}{integer: vector defining compound numbers to annotated.  if NULL (default), all compounds}
-    \item{\code{mode}}{character: "positive" or "negative"}
-    \item{\code{mzabs.error}}{numeric: absolute mass deviation allowd, default = 0.01}
-    \item{\code{ppm.error}}{numeric: ppm mass error _added_ to mzabs.error, default = 10}
-    \item{\code{ads}}{character: vector of allowed adducts, i.e. c("[M+H]+"). if NULL, default positive mode values of H+, Na+, K+, and NH4+, as monomer, dimer, and trimer, are assigned. Negative mode include "[M-H]-", "[M+Na-2H]-", "[M+K-2H]-", "[M+CH2O2-H]-" as monomer, dimer, and trimer.}
-    \item{\code{nls}}{character: vector of allowed neutral losses, i.e. c("[M+H-H2O]+").  if NULL, an extensive list derived from CAMERA's will be used.}
-    \item{\code{scoring}}{character: one of 'imss' , 'ramclustr', or 'auto'. default = 'auto'. see details.}
-    \item{\code{plot.findmain}}{logical: should pdf polts be generated for evaluation? detfault = TRUE. PDF saved to working.directory/spectra}
-    \item{\code{writeMat}}{logical: should indidual .mat files (for MSFinder) be generated in a 'mat' subdirectory in the 'spectra' folder? default = TRUE.}
-    \item{\code{writeMS}}{logical: should indidual .ms files (for Sirius) be generated in a 'ms' subdirectory in the 'spectra' folder? default = TRUE.  Note that no import functions are yet written for Sirius output.}
-    \item{\code{use.z}}{logical: if you have previously run the 'assign.z' function from ramclustR, there will be a slot reflecting the feature mass after accounting for charge (fm) - if TRUE this is used instead of feature m/z (fmz) in interpreting MS data and exporing spectra for annotation.}
-  }}
+do.findmain(
+ramclustObj = NULL,
+cmpd = NULL,
+mode = "positive",
+mzabs.error = 0.005,
+ppm.error = 10,
+ads = NULL,
+nls = NULL,
+scoring = "auto",
+plot.findmain = TRUE,
+writeMat = TRUE,
+writeMS = TRUE,
+use.z = TRUE
+)
 }
 \value{
-hclust object
+$M:  The inferred molecular weight of the compound giving rise to the each spectrum
+
+$M.ppm:  The ppm error of all the MS signals annotated, high error values should be considered 'red flags'.
+
+$M.ann:  The annotated spectrum supporting the intepretation of M
+
+$use.findmain:  Logical vector indicating whether findmain scoring (TRUE) or ramclustR scoring (FALSE) was used to support inference of M.  By default, findmain scoring is used.  When ramclustR scoring differs from findmain scoring, the scoring metric which predicts higher M is selected.
+
+$M.ramclustr:  M selected using ramclustR scoring
+
+$M.ppm.ramclustr:  ppm error of M selected using ramclustR scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.
+
+$M.ann.ramclustr:  annotated spectrum supporing M using ramclustR scoring
+
+$M.nann.ramclustr:  number of masses annotated using ramclustR scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.
+
+$M.space.ramclustr:  the 'space' of scores between the best and second best ramclustR scores. Calculated as a ratio. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.
+
+$M.findmain:  M selected using findmain scoring
+
+$M.ppm.findmain:  ppm error of M selected using findmain scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.
+
+$M.ann.findmain:  annotated spectrum supporing M using findmain scoring
+
+$M.nann.findmain:  number of masses annotated using findmain scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.
+
+$M.space.findmain:  the 'space' of scores between the best and second best findmain scores. Calculated as a ratio. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.
 }
 \description{
-Cluster annotation using the \code{InterpretMSSpectrum::findMain}.
+Cluster annotation using the \code{InterpretMSSpectrum::findMain}. It creates a
+pseudo-spectrum with the features grouped in each cluster within a given mz
+error. The algorithm proposes a representative ion of each
+cluster/pseudo-spectrum for data reduction.
 }
 \details{
 a partially annotated ramclustR object.  base structure is that of a standard R heirarchical clustering output, with additional slots described in ramclustR documentation (?ramclustR).  New slots added after using the interpretMSSpectrum functionality include those described below.
 }
+\section{}{
+
+}
+
 \references{
 Jaeger C, ... Lisec J. Compound annotation in liquid chromatography/high-resolution mass spectrometry based metabolomics: robust adduct ion determination as a prerequisite to structure prediction in electrospray ionization mass spectra. Rapid Commun Mass Spectrom. 2017 Aug 15;31(15):1261-1266. doi: 10.1002/rcm.7905. PubMed PMID: 28499062.
 
