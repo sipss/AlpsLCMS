@@ -4,70 +4,15 @@
 \alias{do.findmain}
 \title{Cluster annotation}
 \usage{
-do.findmain(
-ramclustObj = NULL,
-cmpd = NULL,
-mode = "positive",
-mzabs.error = 0.005,
-ppm.error = 10,
-ads = NULL,
-nls = NULL,
-scoring = "auto",
-plot.findmain = TRUE,
-writeMat = TRUE,
-writeMS = TRUE,
-use.z = TRUE
-)
-}
-\value{
-$M:  The inferred molecular weight of the compound giving rise to the each spectrum
-
-$M.ppm:  The ppm error of all the MS signals annotated, high error values should be considered 'red flags'.
-
-$M.ann:  The annotated spectrum supporting the intepretation of M
-
-$use.findmain:  Logical vector indicating whether findmain scoring (TRUE) or ramclustR scoring (FALSE) was used to support inference of M.  By default, findmain scoring is used.  When ramclustR scoring differs from findmain scoring, the scoring metric which predicts higher M is selected.
-
-$M.ramclustr:  M selected using ramclustR scoring
-
-$M.ppm.ramclustr:  ppm error of M selected using ramclustR scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.
-
-$M.ann.ramclustr:  annotated spectrum supporing M using ramclustR scoring
-
-$M.nann.ramclustr:  number of masses annotated using ramclustR scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.
-
-$M.space.ramclustr:  the 'space' of scores between the best and second best ramclustR scores. Calculated as a ratio. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.
-
-$M.findmain:  M selected using findmain scoring
-
-$M.ppm.findmain:  ppm error of M selected using findmain scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.
-
-$M.ann.findmain:  annotated spectrum supporing M using findmain scoring
-
-$M.nann.findmain:  number of masses annotated using findmain scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.
-
-$M.space.findmain:  the 'space' of scores between the best and second best findmain scores. Calculated as a ratio. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.
+do.findmain(...)
 }
 \description{
-Cluster annotation using the \code{InterpretMSSpectrum::findMain}. It creates a
+Cluster annotation using the \link[InterpretMSSpectrum:findMain]{InterpretMSSpectrum::findMain}. It creates a
 pseudo-spectrum with the features grouped in each cluster within a given mz
 error. The algorithm proposes a representative ion of each
 cluster/pseudo-spectrum for data reduction.
-}
-\details{
-a partially annotated ramclustR object.  base structure is that of a standard R heirarchical clustering output, with additional slots described in ramclustR documentation (?ramclustR).  New slots added after using the interpretMSSpectrum functionality include those described below.
 }
 \section{}{
 
 }
 
-\references{
-Jaeger C, ... Lisec J. Compound annotation in liquid chromatography/high-resolution mass spectrometry based metabolomics: robust adduct ion determination as a prerequisite to structure prediction in electrospray ionization mass spectra. Rapid Commun Mass Spectrom. 2017 Aug 15;31(15):1261-1266. doi: 10.1002/rcm.7905. PubMed PMID: 28499062.
-
-Broeckling CD, Afsar FA, Neumann S, Ben-Hur A, Prenni JE. RAMClust: a novel feature clustering method enables spectral-matching-based annotation for metabolomics data. Anal Chem. 2014 Jul 15;86(14):6812-7. doi: 10.1021/ac501530d.  Epub 2014 Jun 26. PubMed PMID: 24927477.
-
-Broeckling CD, Ganna A, Layer M, Brown K, Sutton B, Ingelsson E, Peers G, Prenni JE. Enabling Efficient and Confident Annotation of LC-MS Metabolomics Data through MS1 Spectrum and Time Prediction. Anal Chem. 2016 Sep 20;88(18):9226-34. doi: 10.1021/acs.analchem.6b02479. Epub 2016 Sep 8. PubMed PMID: 7560453.
-}
-\author{
-Corey Broeckling
-}

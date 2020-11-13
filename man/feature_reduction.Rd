@@ -17,7 +17,7 @@ RC)
 }
 \value{
 A reduced data frame with important features based on the clustering
-and features no clusterized.
+and features no clustered.
 }
 \description{
 \code{feature_reduction} is a function to reduce the feature table using the info

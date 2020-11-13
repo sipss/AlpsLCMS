@@ -30,7 +30,7 @@ getRamSt <- function(lcms_dataset) {
 #' that, in addition to the `sr`, the argument `deepSplit = TRUE` might be
 #' critical to avoid several metabolites in a single cluster.
 #'
-#' @inheritParams RAMClustR::ramclustR
+#' @inheritSection RAMClustR::ramclustR @Arguments
 #' @inherit RAMClustR::ramclustR
 #' @export
 #' @inheritSection RAMClustR::ramclustR @return
@@ -77,30 +77,14 @@ clustering <- function(...){
 
 #' Cluster annotation
 #'
-#' Cluster annotation using the `InterpretMSSpectrum::findMain`. It creates a
+#' Cluster annotation using the [InterpretMSSpectrum::findMain]. It creates a
 #' pseudo-spectrum with the features grouped in each cluster within a given mz
 #' error. The algorithm proposes a representative ion of each
 #' cluster/pseudo-spectrum for data reduction.
 #'
 #' @inheritParams RAMClustR::do.findmain
-#' @inherit RAMClustR::do.findmain
 #'
 #' @inheritSection RAMClustR::do.findmain @return
-#' @usage
-#' do.findmain(
-#' ramclustObj = NULL,
-#' cmpd = NULL,
-#' mode = "positive",
-#' mzabs.error = 0.005,
-#' ppm.error = 10,
-#' ads = NULL,
-#' nls = NULL,
-#' scoring = "auto",
-#' plot.findmain = TRUE,
-#' writeMat = TRUE,
-#' writeMS = TRUE,
-#' use.z = TRUE
-#' )
 #' @export
 #'
 do.findmain <- function(...){

@@ -152,18 +152,18 @@ message("Missing values in the feature table: ",
 sum(is.na(xdata)))
 
 ## ----echo = FALSE-------------------------------------------------------------
-xdataImp <- xdata
-xdataImputed <- as.data.frame(xdataImp, stringsAsFactors = FALSE)
+# xdataImp <- xdata
+# xdataImputed <- as.data.frame(xdataImp, stringsAsFactors = FALSE)
 
 # Get mz and rt columns for the feature table
-mz <- colnames(xdataImp) %>%
+mz <- colnames(xdata) %>%
   stringr::str_split(.,"\\_") %>% 
   lapply(.,function(x) x[1]) %>% 
   unlist() %>% 
   as.numeric()
 
 #You can get rt also
-rt <- colnames(xdataImp) %>%
+rt <- colnames(xdata) %>%
   stringr::str_split(.,"\\_") %>% 
   lapply(.,function(x) x[2]) %>% 
   unlist() %>% 
@@ -219,12 +219,10 @@ RC <- do.findmain(RC,
                   writeMS = FALSE)
 
 
-## -----------------------------------------------------------------------------
-All_labeled_adducts <- labelled_adducts(RC)
-
 ## ----Reduced feature table----------------------------------------------------
-Representative_ions <- All_labeled_adducts$Representative_ions
-xdata_reduced <- feature_reduction(xdataImputed, Representative_ions, RC)
+labeled_adducts <- labelled_adducts(RC)
+representative_ions <- labeled_adducts$Representative_ions
+xdata_reduced <- feature_reduction(xdata, representative_ions, RC)
 
 ## -----------------------------------------------------------------------------
 stat <- function(x){stats::wilcox.test(x ~ classes, xdata_reduced)$p.value}
@@ -271,13 +269,13 @@ if(dim(tdata_reduced_univ)[1]>0){
 # Untargeted assignation
 # Creating mz column
 
-mzr <- colnames(as.matrix(xdataImputed)) %>%
+mzr <- colnames(as.matrix(xdata)) %>%
   stringr::str_split(.,"\\_") %>%
   lapply(.,function(x) x[1]) %>%
   unlist() %>%
   as.numeric()
 
-all.equal(dim(xdataImputed)[2], length(mzr))
+all.equal(dim(xdata)[2], length(mzr))
 
 tdata_reduced_all_features <- data.frame(mz = mzr)
 result_POS_HMDB_all_features <- assignation_pos_HMDB(tdata_reduced_all_features)
