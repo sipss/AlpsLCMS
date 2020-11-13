@@ -4,18 +4,24 @@
 \alias{feature_reduction}
 \title{Feature reduction}
 \usage{
-feature_reduction(mdataImputed, Representative_ions, RC)
+feature_reduction(mdata,
+representative_ions,
+RC)
 }
 \arguments{
-\item{mdataImputed}{data matrix with samples in rows and features in columns}
+\item{mdata}{data matrix with samples in rows and features in columns}
 
-\item{Representative_ions}{data frame from the list given by \link{labelled_adducts} function}
+\item{representative_ions}{data frame from the list given by \link{labelled_adducts} function}
 
 \item{RC}{hclust object from the \link{do.findmain} function}
 }
 \value{
-A data frame with important features based on the clustering
+A reduced data frame with important features based on the clustering
+and features no clusterized.
 }
 \description{
-Function to perform feature reduction from the \link{clustering}.
+\code{feature_reduction} is a function to reduce the feature table using the info
+from the \link{clustering}. A representative feature/ion is selected from each
+cluster discarding the rest of the feature of the same cluster (normally, the
+most intense one).
 }

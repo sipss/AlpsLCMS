@@ -123,8 +123,8 @@ do.findmain <- function(...){
 labelled_adducts <- function (RC) {
 # Selection of max intensity ion as cluster representative
 Max_int<- lapply(RC$M.ann, function(x) x[which.max(x$int), ])
-Representative_ions <- dplyr::bind_rows(Max_int)
-Representative_ions$name <- paste(round(Representative_ions$mz,4),
+representative_ions <- dplyr::bind_rows(Max_int)
+representative_ions$name <- paste(round(representative_ions$mz,4),
                                   round(RC$clrt,2),
                                   sep = "_")
 
@@ -140,7 +140,7 @@ Labelled_ions <- dplyr::bind_rows(Labelled_int)
 
 # We save most important cluster data
 cluster_data <- data.frame(cluster = RC$ann,
-                           Max_int_ion_mz = Representative_ions$mz,
+                           Max_int_ion_mz = representative_ions$mz,
                            Max_int_ion_adduct = Representative_adducts,
                            Labelled_ion_mz = Labelled_ions$mz,
                            Labelled_ion_adduct = Labelled_ions$label,
@@ -152,33 +152,40 @@ All_labelled_adducts <- lapply(RC$M.ann, function(x) {
   xl <- x[which(!is.na(x$label)), ]
 })
 All_labelled_adducts <- dplyr::bind_rows(All_labelled_adducts)
-return(list(All_labelled_adducts = All_labelled_adducts, Labelled_ions = Labelled_ions, Representative_ions = Representative_ions, cluster_data = cluster_data))
+return(list(All_labelled_adducts = All_labelled_adducts, Labelled_ions = Labelled_ions, representative_ions = representative_ions, cluster_data = cluster_data))
 }
-
 
 #' Feature reduction
 #'
-#' Function to perform feature reduction from the [clustering].
+#' `feature_reduction` is a function to reduce the feature table using the info
+#' from the [clustering]. A representative feature/ion is selected from each
+#' cluster discarding the rest of the feature of the same cluster (normally, the
+#' most intense one).
 #'
-#' @param mdataImputed data matrix with samples in rows and features in columns
-#' @param Representative_ions data frame from the list given by [labelled_adducts] function
+#' @param mdata data matrix with samples in rows and features in columns
+#' @param representative_ions data frame from the list given by [labelled_adducts] function
 #' @param RC hclust object from the [do.findmain] function
 #'
-#' @return A data frame with important features based on the clustering
+#' @return A reduced data frame with important features based on the clustering
+#'   and features no clustered.
 #' @export
+#' @usage
+#' feature_reduction(mdata,
+#' representative_ions,
+#' RC)
 #'
-feature_reduction <- function (mdataImputed, Representative_ions, RC) {
+feature_reduction <- function (mdata, representative_ions, RC) {
 
-  mdataImputed <- as.matrix(mdataImputed)
+  mdata <- as.matrix(mdata)
 
-mz <- colnames(mdataImputed) %>%
+mz <- colnames(mdata) %>%
     stringr::str_split(.,"\\_") %>%
     lapply(.,function(x) x[1]) %>%
     unlist() %>%
     as.numeric()
 
 # Clustered features
-xdata_cluster_ions <- mdataImputed[, mz %in% Representative_ions$mz]
+xdata_cluster_ions <- mdata[, mz %in% representative_ions$mz]
 
 # Singletons
 clustered_mz<- lapply(RC$M.ann,
@@ -190,10 +197,10 @@ message("A number of ",
         dim(xdata_cluster_ions)[2],
         " representative features")
 
-mdataImputed <- as.data.frame(mdataImputed)
+mdata <- as.data.frame(mdata)
 xdata_cluster_ions <- as.data.frame(xdata_cluster_ions)
 
-singletons <- mdataImputed[,!mz %in% clustered_mz]
+singletons <- mdata[,!mz %in% clustered_mz]
 
 message("A number of ",
         RC$nsing,
@@ -202,7 +209,7 @@ message("A number of ",
 xdata_reduced <- cbind.data.frame(xdata_cluster_ions, singletons)
 
 message("Original dataset has ",
-        ncol(mdataImputed),
+        ncol(mdata),
         " features")
 
 message("Cluster representative ions dataset has ", ncol(xdata_cluster_ions),

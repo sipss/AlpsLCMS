@@ -36,7 +36,10 @@
 
 
 <meta property="og:title" content="Feature reduction — feature_reduction" />
-<meta property="og:description" content="Function to perform feature reduction from the clustering." />
+<meta property="og:description" content="feature_reduction is a function to reduce the feature table using the info
+from the clustering. A representative feature/ion is selected from each
+cluster discarding the rest of the feature of the same cluster (normally, the
+most intense one)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -127,20 +130,25 @@
     </div>
 
     <div class="ref-description">
-    <p>Function to perform feature reduction from the <a href='clustering.html'>clustering</a>.</p>
+    <p><code>feature_reduction</code> is a function to reduce the feature table using the info
+from the <a href='clustering.html'>clustering</a>. A representative feature/ion is selected from each
+cluster discarding the rest of the feature of the same cluster (normally, the
+most intense one).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>feature_reduction</span>(<span class='no'>mdataImputed</span>, <span class='no'>Representative_ions</span>, <span class='no'>RC</span>)</pre>
+    <pre class="usage"><span class='fu'>feature_reduction</span>(<span class='no'>mdata</span>,
+<span class='no'>representative_ions</span>,
+<span class='no'>RC</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mdataImputed</th>
+      <th>mdata</th>
       <td><p>data matrix with samples in rows and features in columns</p></td>
     </tr>
     <tr>
-      <th>Representative_ions</th>
+      <th>representative_ions</th>
       <td><p>data frame from the list given by <a href='labelled_adducts.html'>labelled_adducts</a> function</p></td>
     </tr>
     <tr>
@@ -151,7 +159,8 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with important features based on the clustering</p>
+    <p>A reduced data frame with important features based on the clustering
+and features no clusterized.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

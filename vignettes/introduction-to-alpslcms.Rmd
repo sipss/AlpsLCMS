@@ -369,7 +369,6 @@ All_labeled_adducts <- labelled_adducts(RC)
 
 
 ```{r Reduced feature table}
-mdataImputed <- All_labeled_adducts$mdataImputed
 Representative_ions <- All_labeled_adducts$Representative_ions
 xdata_reduced <- feature_reduction(xdataImputed, Representative_ions, RC)
 ```
