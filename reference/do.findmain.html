@@ -130,70 +130,28 @@ cluster/pseudo-spectrum for data reduction." />
     </div>
 
     <div class="ref-description">
-    <p>Cluster annotation using the <code>InterpretMSSpectrum::findMain</code>. It creates a
+    <p>Cluster annotation using the InterpretMSSpectrum::findMain. It creates a
 pseudo-spectrum with the features grouped in each cluster within a given mz
 error. The algorithm proposes a representative ion of each
 cluster/pseudo-spectrum for data reduction.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>do.findmain</span>(
-<span class='kw'>ramclustObj</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-<span class='kw'>cmpd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"positive"</span>,
-<span class='kw'>mzabs.error</span> <span class='kw'>=</span> <span class='fl'>0.005</span>,
-<span class='kw'>ppm.error</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-<span class='kw'>ads</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-<span class='kw'>nls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-<span class='kw'>scoring</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-<span class='kw'>plot.findmain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-<span class='kw'>writeMat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-<span class='kw'>writeMS</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-<span class='kw'>use.z</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>do.findmain</span>(<span class='no'>...</span>)</pre>
 
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>$M:  The inferred molecular weight of the compound giving rise to the each spectrum</p>
-<p>$M.ppm:  The ppm error of all the MS signals annotated, high error values should be considered 'red flags'.</p>
-<p>$M.ann:  The annotated spectrum supporting the intepretation of M</p>
-<p>$use.findmain:  Logical vector indicating whether findmain scoring (TRUE) or ramclustR scoring (FALSE) was used to support inference of M.  By default, findmain scoring is used.  When ramclustR scoring differs from findmain scoring, the scoring metric which predicts higher M is selected.</p>
-<p>$M.ramclustr:  M selected using ramclustR scoring</p>
-<p>$M.ppm.ramclustr:  ppm error of M selected using ramclustR scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.</p>
-<p>$M.ann.ramclustr:  annotated spectrum supporing M using ramclustR scoring</p>
-<p>$M.nann.ramclustr:  number of masses annotated using ramclustR scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.</p>
-<p>$M.space.ramclustr:  the 'space' of scores between the best and second best ramclustR scores. Calculated as a ratio. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.</p>
-<p>$M.findmain:  M selected using findmain scoring</p>
-<p>$M.ppm.findmain:  ppm error of M selected using findmain scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.</p>
-<p>$M.ann.findmain:  annotated spectrum supporing M using findmain scoring</p>
-<p>$M.nann.findmain:  number of masses annotated using findmain scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.</p>
-<p>$M.space.findmain:  the 'space' of scores between the best and second best findmain scores. Calculated as a ratio. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>a partially annotated ramclustR object.  base structure is that of a standard R heirarchical clustering output, with additional slots described in ramclustR documentation (?ramclustR).  New slots added after using the interpretMSSpectrum functionality include those described below.</p>
     <h2 class="hasAnchor" id=""><a class="anchor" href="#"></a></h2>
 
     
 
 
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Jaeger C, ... Lisec J. Compound annotation in liquid chromatography/high-resolution mass spectrometry based metabolomics: robust adduct ion determination as a prerequisite to structure prediction in electrospray ionization mass spectra. Rapid Commun Mass Spectrom. 2017 Aug 15;31(15):1261-1266. doi: 10.1002/rcm.7905. PubMed PMID: 28499062.</p>
-<p>Broeckling CD, Afsar FA, Neumann S, Ben-Hur A, Prenni JE. RAMClust: a novel feature clustering method enables spectral-matching-based annotation for metabolomics data. Anal Chem. 2014 Jul 15;86(14):6812-7. doi: 10.1021/ac501530d.  Epub 2014 Jun 26. PubMed PMID: 24927477.</p>
-<p>Broeckling CD, Ganna A, Layer M, Brown K, Sutton B, Ingelsson E, Peers G, Prenni JE. Enabling Efficient and Confident Annotation of LC-MS Metabolomics Data through MS1 Spectrum and Time Prediction. Anal Chem. 2016 Sep 20;88(18):9226-34. doi: 10.1021/acs.analchem.6b02479. Epub 2016 Sep 8. PubMed PMID: 7560453.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
       <li><a href="#"></a></li>
-      <li><a href="#references">References</a></li>
     </ul>
 
-    <h2>Author</h2>
-    <p>Corey Broeckling</p>
   </div>
 </div>
 
