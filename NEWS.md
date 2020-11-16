@@ -1,6 +1,8 @@
 # AlpsLCMS 0.0.0.9009
 
 - featurevalues -> feature_values
+- labelled_adducts -> labelling
+- do.findmain -> do_findmain
 - Extended documentation
 - New gh page with logo
 

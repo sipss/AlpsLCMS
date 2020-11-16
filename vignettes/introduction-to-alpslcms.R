@@ -209,8 +209,8 @@ RC <- clustering(xcmsObj = peakgrouped_imp,
                  mspout = FALSE,
                  fftempdir = getwd())
 
-RC <- do.findmain(RC,
-                  nls = adducts_list,
+RC <- do_findmain(RC,
+                  nls = c("[M+H-H2O]+"),
                   mode = "positive",
                   mzabs.error = 0.005,
                   ppm.error = 5,
@@ -220,7 +220,7 @@ RC <- do.findmain(RC,
 
 
 ## ----Reduced feature table----------------------------------------------------
-labeled_adducts <- labelled_adducts(RC)
+labeled_adducts <- labelling(RC)
 representative_ions <- labeled_adducts$Representative_ions
 xdata_reduced <- feature_reduction(xdata, representative_ions, RC)
 

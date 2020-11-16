@@ -474,7 +474,7 @@ print(pipeline_example)</code></pre>
 <span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  Number of spectra: 6 </span></span>
 <span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  MSn retention times: 41:41 - 41:49 minutes</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; - - - Processing information - - -</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; Data loaded [Fri Nov 13 11:42:56 2020] </span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; Data loaded [Fri Nov 13 14:00:16 2020] </span></span>
 <span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;  MSnbase version: 2.10.1 </span></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; - - - Meta data  - - -</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; phenoData</span></span>
@@ -779,8 +779,8 @@ print(pipeline_example)</code></pre>
 <span id="cb22-19"><a href="#cb22-19"></a><span class="co">#&gt; RAMClust has condensed 525 features into 121 spectra </span></span>
 <span id="cb22-20"><a href="#cb22-20"></a><span class="co">#&gt; collapsing feature into spectral signal intensities</span></span>
 <span id="cb22-21"><a href="#cb22-21"></a></span>
-<span id="cb22-22"><a href="#cb22-22"></a>RC &lt;-<span class="st"> </span><span class="kw">do.findmain</span>(RC,</span>
-<span id="cb22-23"><a href="#cb22-23"></a>                  <span class="dt">nls =</span> adducts_list,</span>
+<span id="cb22-22"><a href="#cb22-22"></a>RC &lt;-<span class="st"> </span><span class="kw">do_findmain</span>(RC,</span>
+<span id="cb22-23"><a href="#cb22-23"></a>                  <span class="dt">nls =</span> <span class="kw">c</span>(<span class="st">&quot;[M+H-H2O]+&quot;</span>),</span>
 <span id="cb22-24"><a href="#cb22-24"></a>                  <span class="dt">mode =</span> <span class="st">&quot;positive&quot;</span>,</span>
 <span id="cb22-25"><a href="#cb22-25"></a>                  <span class="dt">mzabs.error =</span> <span class="fl">0.005</span>,</span>
 <span id="cb22-26"><a href="#cb22-26"></a>                  <span class="dt">ppm.error =</span> <span class="dv">5</span>,</span>
@@ -800,7 +800,7 @@ print(pipeline_example)</code></pre>
 <span id="cb22-40"><a href="#cb22-40"></a><span class="co">#&gt; 110 of 121 </span></span>
 <span id="cb22-41"><a href="#cb22-41"></a><span class="co">#&gt; 120 of 121 </span></span>
 <span id="cb22-42"><a href="#cb22-42"></a><span class="co">#&gt; finished</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>labeled_adducts &lt;-<span class="st"> </span><span class="kw">labelled_adducts</span>(RC)</span>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>labeled_adducts &lt;-<span class="st"> </span><span class="kw">labelling</span>(RC)</span>
 <span id="cb23-2"><a href="#cb23-2"></a>representative_ions &lt;-<span class="st"> </span>labeled_adducts<span class="op">$</span>Representative_ions</span>
 <span id="cb23-3"><a href="#cb23-3"></a>xdata_reduced &lt;-<span class="st"> </span><span class="kw">feature_reduction</span>(xdata, representative_ions, RC)</span>
 <span id="cb23-4"><a href="#cb23-4"></a><span class="co">#&gt; A number of 371 features have been clustered into 0 representative features</span></span>

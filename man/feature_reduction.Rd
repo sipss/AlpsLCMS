@@ -11,9 +11,9 @@ RC)
 \arguments{
 \item{mdata}{data matrix with samples in rows and features in columns}
 
-\item{representative_ions}{data frame from the list given by \link{labelled_adducts} function}
+\item{representative_ions}{data frame from the list given by \link{labelling} function}
 
-\item{RC}{hclust object from the \link{do.findmain} function}
+\item{RC}{hclust object from the \link{do_findmain} function}
 }
 \value{
 A reduced data frame with important features based on the clustering

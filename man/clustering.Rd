@@ -39,6 +39,44 @@ fftempdir = NULL,
 replace.zeros = TRUE
 )
 }
+\arguments{
+\item{...}{
+  Arguments passed on to \code{\link[RAMClustR:ramclustR]{RAMClustR::ramclustR}}
+  \describe{
+    \item{\code{xcmsObj}}{xcmsObject: containing grouped feature data for clustering by ramclustR}
+    \item{\code{ms}}{filepath: optional csv input. Features as columns, rows as samples. Column header mz_rt}
+    \item{\code{idmsms}}{filepath: optional idMSMS / MSe csv data.  same dim and names as ms required}
+    \item{\code{taglocation}}{character: "filepaths" by default, "phenoData[,1]" is another option. referse to xcms slot}
+    \item{\code{MStag}}{character: character string in 'taglocation' to designat MS / MSe files e.g. "01.cdf"}
+    \item{\code{idMSMStag}}{character: character string in 'taglocation' to designat idMSMS / MSe files e.g. "02.cdf"}
+    \item{\code{featdelim}}{character: how feature mz and rt are delimited in csv import column header e.g. ="-"}
+    \item{\code{timepos}}{integer: which position in delimited column header represents the retention time (csv only)}
+    \item{\code{st}}{numeric: sigma t - time similarity decay value}
+    \item{\code{sr}}{numeric: sigma r - correlational similarity decay value}
+    \item{\code{maxt}}{numeric: maximum time difference to calculate retention similarity for - all values beyond this are assigned similarity of zero}
+    \item{\code{deepSplit}}{logical: controls how agressively the HCA tree is cut - see ?cutreeDynamicTree}
+    \item{\code{blocksize}}{integer: number of features (scans?) processed in one block  =1000,}
+    \item{\code{mult}}{numeric: internal value, can be used to influence processing speed/ram usage}
+    \item{\code{hmax}}{numeric: precut the tree at this height, default 0.3 - see ?cutreeDynamicTree}
+    \item{\code{sampNameCol}}{integer: which column from the csv file contains sample names?}
+    \item{\code{collapse}}{logical: reduce feature intensities to spectrum intensities?}
+    \item{\code{usePheno}}{logical: tranfer phenotype data from XCMS object to SpecAbund dataset?}
+    \item{\code{mspout}}{logical: write msp formatted specta to file?}
+    \item{\code{ExpDes}}{either an R object created by R ExpDes object: data used for record keeping and labelling msp spectral output}
+    \item{\code{normalize}}{character: either "none", "TIC", "quantile", or "batch.qc" normalization of feature intensities.  see batch.qc overview in details.}
+    \item{\code{qc.inj.range}}{integer: how many injections around each injection are to be scanned for presence of QC samples when using batch.qc normalization?  A good rule of thumb is between 1 and 3 times the typical injection span between QC injections.  i.e. if you inject QC ever 7 samples, set this to between 7 and 21.  smaller values provide more local precision but make normalization sensitive to individual poor outliers (though these are first removed using the boxplot function outlier detection), while wider values provide less local precision in normalization but better stability to individual peak areas.}
+    \item{\code{order}}{integer vector with length equal to number of injections in xset or csv file}
+    \item{\code{batch}}{integer vector with length equal to number of injections in xset or csv file}
+    \item{\code{qc}}{logical vector with length equal to number of injections in xset or csv file.}
+    \item{\code{minModuleSize}}{integer: how many features must be part of a cluster to be returned? default = 2}
+    \item{\code{linkage}}{character: heirarchical clustering linkage method - see ?hclust}
+    \item{\code{mzdec}}{integer: number of decimal places used in printing m/z values}
+    \item{\code{cor.method}}{character: which correlational method used to calculate 'r' - see ?cor}
+    \item{\code{rt.only.low.n}}{logical: default = TRUE  At low injection numbers, correlational relationships of peak intensities may be unreliable.  by defualt ramclustR will simply ignore the correlational r value and cluster on retention time alone.  if you wish to use correlation with at n < 5, set this value to FALSE.}
+    \item{\code{fftempdir}}{valid path: if there are file size limitations on the default ff pacakge temp directory  - getOptions('fftempdir') - you can change the directory used as the fftempdir with this option.}
+    \item{\code{replace.zeros}}{logincal: TRUE by default.  NA, NaN, and Inf values are replaced with zero, and zero values are sometimes returned from peak peaking.  When TRUE, zero values will be replaced with a small amount of noise, with noise level set based on the detected signal intensities for that feature.}
+  }}
+}
 \value{
 $featclus: integer vector of cluster membership for each feature
 
