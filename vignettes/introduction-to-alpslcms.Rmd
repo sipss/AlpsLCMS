@@ -138,56 +138,39 @@ lcms_plot_tics(tics,
                plot_type = "spec")
 ```
 
-# NODE 5: Data Preprocessing - XCMS
+# NODE 5: Optimization of parameters: IPO
 
-It includes:
+We perform parameter optimization on the XCMS preprocessing algorithms using the `IPO` Package. This includes Peak Detection ('Centwave' and 'Matched Filter'), Retention Time  Correction ('obiwarp') and Peak Correspondence ('Density'). Optimization can be done using all the regular samples(exhaustive), or just a subset. Also you can use Quality Control samples for optimization. Finally, you can skip the optimization process and use the default set of parameter provided by the `IPO` Package.
 
-  * Peak Detection
-  * Retention Time Correction
-  * Peak Correspondence
-  * Imputation
-
-Parameters can be changed here. After manual inspection of certain compounds that we know that they should naturally appear, such as plotting leucine and isoleucine (as we are using plasma samples), we can set parameters more accurally. 
+# Optimization of *Peak Detection* parameters
 
 ## Input
 
 ```{r Creating parameters}
-prep_parm_p <- NULL
-prep_parm_p$peakwidth <- c(20, 80)
-prep_parm_p$noise <- 5000
-prep_parm_p$snthresh <- 3
-prep_parm_p$prefilter <- c(6, 5000)
-prep_parm_p$centerSample <- "wMean"
-prep_parm_p$integrate <- 2
-prep_parm_p$mzdiff <- -0.001
-prep_parm_p$profStep <- 0.005
-prep_parm_p$minFraction <- 0.2
-prep_parm_p$ppm <- 25
-prep_parm_p$mzCenterFun <- "wMean"
-prep_parm_p$fitgauss <- FALSE
-prep_parm_p$verbose.columns <- FALSE
-
+# if to optimize or not
+optimize = TRUE
+nSlaves = 1
 classes <- dataset@phenoData@data[["treatment"]]
 ```
 
-# Peak detection
+## Code to run (matchedFilter)
 
-Our standard method for peak detection is *'CentWave'*, since the data provided is Centroided. We must initialize its parameters according to the `IPO` Package optimization. Peak detection aims to detect important features (peaks) on the chromatographic axis. This will be useful for a posterior peak alignment on the chormatophic axis.
+```{r}
+default_peakPar <- IPO::getDefaultXcmsSetStartingParams('matchedFilter')
+```
 
-## Code to run
 
-```{r Peak detection}
-peakdet = find_peaks_cwp(dataset, 
-                         params = prep_parm_p)
 
-message("Number of detected peaks")
-peakdet@msFeatureData[["chromPeakData"]]@nrows
-message("")
+# NODE 6: Preprocessing with xcms
 
-message("Parameters")
-peakdet@.processHistory[[1]]@param
+# Peak detection (matched filter)
 
-xcms::plotChromPeakImage(peakdet)
+```{r message=FALSE, warning=FALSE}
+mfp <- xcms::MatchedFilterParam(
+  mzdiff = default_peakPar$mzdiff,
+  snthresh =  3
+)
+peakdet <- xcms::findChromPeaks(dataset, param = mfp)
 ```
 
 # Retention Time Correction and Peak Correspondence
@@ -196,11 +179,9 @@ Peak correspondence is carried out by the *'groupPeaks'* method, with parameters
 
 It requires a previous grouping.
 
-# Correspondence, Alignment and Regrouping
-
 ## Correspondence
 
-```{r Correspondence}
+```{r}
 new_params <- PeakDensityPar(sampleGroups = classes, 
                                binSize = 0.6)
 
@@ -208,6 +189,10 @@ peakgrouped <- groupPeaks(peakdet,
                          param = new_params)
 ```
 
+```{r}
+message("Number of detected peaks")
+peakdet@msFeatureData[["chromPeakData"]]@nrows
+```
 
 ## Alignment and regrouping
 
@@ -266,12 +251,12 @@ message("Missing values found after fill_chrom_peaks: ", sum(is.na(featureValues
 
 # NODE 8: Feature table
 
-The XCMS function featureValues creates a intensity matrix with all the features. However, since this is untargeted metabolomics, the colnames are composed by FT1, FT2, FT3... (FT = feature) and each feature needs to be explored with the feature definition function (info for mass and rt) once a feature is significantly different by groups.
+The function `feature_values` creates a intensity matrix with all the features. However, since this is untargeted metabolomics, the colnames are composed by FT1, FT2, FT3... (FT = feature) and each feature needs to be explored with the feature definition function (info for mass and rt) once a feature is significantly different by groups.
 
 ## Merging into a Feature Table
 
 ```{r Feature table}
-xdata = featureValues(peakgrouped_imp,
+xdata = feature_values(peakgrouped_imp,
                       method = "maxint",
                       value = "into",
                       filled = TRUE, 
@@ -287,9 +272,6 @@ sum(is.na(xdata)))
 ```
 
 ```{r echo = FALSE}
-# xdataImp <- xdata
-# xdataImputed <- as.data.frame(xdataImp, stringsAsFactors = FALSE)
-
 # Get mz and rt columns for the feature table
 mz <- colnames(xdata) %>%
   stringr::str_split(.,"\\_") %>% 
@@ -355,8 +337,8 @@ RC <- clustering(xcmsObj = peakgrouped_imp,
 RC <- do_findmain(RC,
                   nls = c("[M+H-H2O]+"),
                   mode = "positive",
-                  mzabs.error = 0.005,
-                  ppm.error = 5,
+                  mzabs.error = 0.01,
+                  ppm.error = 10,
                   plot.findmain = FALSE,
                   writeMat = FALSE,
                   writeMS = FALSE)
@@ -368,6 +350,9 @@ RC <- do_findmain(RC,
 labeled_adducts <- labelling(RC)
 representative_ions <- labeled_adducts$representative_ions
 xdata_reduced <- feature_reduction(xdata, representative_ions, RC)
+
+dim(xdata)
+dim(xdata_reduced)
 ```
 
 
@@ -384,7 +369,7 @@ result <- abcd
 summary(result$p_Wilc)
 message("\nNumber of features < 0.05 nominal p-value ", 
 sum(result$p_Wilc < 0.05))
-head(result[result$p_Wilc < 0.05,1])
+head(result[result$p_Wilc < 0.05, 1])
 
 #FDR
 fdr.wilcox <- stats::p.adjust(result$p_Wilc, method = "fdr")
@@ -392,7 +377,6 @@ result <- cbind(result, fdr.wilcox)
 message("\nNumber of features fdr-corrected p value of < 0.05 is ", 
 sum(result$fdr.wilcox < 0.05))
 ```
-
 
 # Univariate anotation
 
