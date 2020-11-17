@@ -14,7 +14,7 @@
 - lcms_group_peaks -> IPO_group_peaks 
 - lcms_align_rtime -> obiAdjust_Rtime
 - adjustRtime (xcms) -> adjustRT
-- lcms_find_chrom_peaks_cwp -> finpeaks_cwp
+- lcms_find_chrom_peaks_cwp -> find_peaks_cwp
 - Ramcluster -> clustering
 - PeakDensityParam (xcms) -> PeakDensityPar
 - groupChromPeaks -> groupPeaks
