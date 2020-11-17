@@ -9,7 +9,7 @@
 #' remove this function.
 #'
 #'
-#' @param object A MSnExp object.
+#' @param lcms_dataset A MSnExp object.
 #' @param polarity. The polarity to keep.
 #' @family dataset functions
 #' @family filtering functions
@@ -17,21 +17,16 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' dataset_2_polarities <- lcms_dataset_load(system.file("extdata",
-#'                                                      "dataset_metadata.rds",
-#'                                                      package = "AlpsLCMS"))
+#' dataset_2_polarities <- lcms_read_samples("yourDir/sample1.mzXML", mode = "onDisk")
 #' dataset_pos <- lcms_filter_polarity(dataset_2_polarities, polarity. = 1)
 #'
-#' print(dataset_pos)
+#' is.positive(dataset_pos)
 #' }
-lcms_filter_polarity <- function(object, polarity.) {
-  if (missing(polarity.)) return(object)
-  polarity. <- as.numeric(polarity.)
-  subset <- MSnbase::polarity(object) %in% polarity.
-  object[subset]
-  object
+lcms_filter_polarity <- function(lcms_dataset, polarity.) {
+  if (missing(polarity.)) return(lcms_dataset)
+  lcms_dataset <- MSnbase::filterPolarity(lcms_dataset, polarity. = polarity.)
+  lcms_dataset
 }
-
 
 #' Filter by mass/charge
 #'
@@ -731,16 +726,23 @@ lcms_rearrange_datafiles_by_class <- function(dataset, dataDir) {
   }
 }
 
-#' Filter a mass acquisition
+#' Filter a mass window
 #'
-#' A function to filter by a mass acquisition when two different mass
-#' acquisition have been acquired in the same experiment.
-#'
+#' `filterMassAcquisition` is a function to filter a mass window when two
+#' different mass windows have been acquired in the same experiment. Note that
+#' the function works in a unique polarity, either positive or negative. Then,
+#' the function extracts one of the sequential spectra within a `lcms_dataset`.
+#' Spectra need to be alternating the "small and "large" mass window in the
+#' file.
 #'
 #' @param dataset A lcms_dataset that contains two different mass ranges in two different acquisitions.
-#' @param window Character. It refers to which mass range will be kept
-#'
-#' @return A lcms_dataset that only contains one mass range
+#' @param window Character. It refers to which mass range will be kept.
+#' @usage
+#' dataset <- filterMassAcquisition(dataset, window = c("small", "large))
+#' @return A `lcms_dataset` that only contains one mass range. The function
+#'   filtered out the other spectra. For example, if "small" was set, The
+#'   function will keep the first spectrum out of two because mass windows are
+#'   intercalated within the file.
 #' @export
 #'
 filterMassAcquisition <- function (dataset, window = "small"){
@@ -764,7 +766,6 @@ filterMassAcquisition <- function (dataset, window = "small"){
   }
   return(dataset_window)
 }
-
 
 #' cromplot
 #'

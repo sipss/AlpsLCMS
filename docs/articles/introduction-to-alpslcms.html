@@ -86,7 +86,7 @@
       <h1>Introduction to AlpsLCMS</h1>
                         <h4 class="author">Institute for Bioengineering of Catalonia</h4>
             
-            <h4 class="date">2020-11-13</h4>
+            <h4 class="date">2020-11-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sipss/AlpsLCMS/blob/master/vignettes/introduction-to-alpslcms.Rmd"><code>vignettes/introduction-to-alpslcms.Rmd</code></a></small>
       <div class="hidden name"><code>introduction-to-alpslcms.Rmd</code></div>
@@ -136,7 +136,7 @@ print(pipeline_example)</code></pre>
 <span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  Number of spectra: 6 </span></span>
 <span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  MSn retention times: 41:41 - 41:49 minutes</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; - - - Processing information - - -</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; Data loaded [Fri Nov 13 11:26:15 2020] </span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; Data loaded [Tue Nov 17 17:06:31 2020] </span></span>
 <span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;  MSnbase version: 2.10.1 </span></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; - - - Meta data  - - -</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; phenoData</span></span>
@@ -463,8 +463,8 @@ print(pipeline_example)</code></pre>
 <span id="cb22-19"><a href="#cb22-19"></a><span class="co">#&gt; RAMClust has condensed 525 features into 121 spectra </span></span>
 <span id="cb22-20"><a href="#cb22-20"></a><span class="co">#&gt; collapsing feature into spectral signal intensities</span></span>
 <span id="cb22-21"><a href="#cb22-21"></a></span>
-<span id="cb22-22"><a href="#cb22-22"></a>RC &lt;-<span class="st"> </span><span class="kw"><a href="../reference/do.findmain.html">do.findmain</a></span>(RC,</span>
-<span id="cb22-23"><a href="#cb22-23"></a>                  <span class="dt">nls =</span> adducts_list,</span>
+<span id="cb22-22"><a href="#cb22-22"></a>RC &lt;-<span class="st"> </span><span class="kw"><a href="../reference/do_findmain.html">do_findmain</a></span>(RC,</span>
+<span id="cb22-23"><a href="#cb22-23"></a>                  <span class="dt">nls =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"[M+H-H2O]+"</span>),</span>
 <span id="cb22-24"><a href="#cb22-24"></a>                  <span class="dt">mode =</span> <span class="st">"positive"</span>,</span>
 <span id="cb22-25"><a href="#cb22-25"></a>                  <span class="dt">mzabs.error =</span> <span class="fl">0.005</span>,</span>
 <span id="cb22-26"><a href="#cb22-26"></a>                  <span class="dt">ppm.error =</span> <span class="dv">5</span>,</span>
@@ -484,165 +484,166 @@ print(pipeline_example)</code></pre>
 <span id="cb22-40"><a href="#cb22-40"></a><span class="co">#&gt; 110 of 121 </span></span>
 <span id="cb22-41"><a href="#cb22-41"></a><span class="co">#&gt; 120 of 121 </span></span>
 <span id="cb22-42"><a href="#cb22-42"></a><span class="co">#&gt; finished</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>All_labeled_adducts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/labelled_adducts.html">labelled_adducts</a></span>(RC)</span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>Representative_ions &lt;-<span class="st"> </span>All_labeled_adducts<span class="op">$</span>Representative_ions</span>
-<span id="cb24-2"><a href="#cb24-2"></a>xdata_reduced &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_reduction.html">feature_reduction</a></span>(xdataImputed, Representative_ions, RC)</span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="co">#&gt; A number of 371 features have been clustered into 0 representative features</span></span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#&gt; A number of 154 features correspond to singletons</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="co">#&gt; Original dataset has 525 features</span></span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="co">#&gt; Cluster representative ions dataset has 0 features</span></span>
-<span id="cb24-7"><a href="#cb24-7"></a><span class="co">#&gt; Singletons dataset has 493 features</span></span>
-<span id="cb24-8"><a href="#cb24-8"></a><span class="co">#&gt; Reduced dataset has 493 features</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>labeled_adducts &lt;-<span class="st"> </span><span class="kw"><a href="../reference/labelling.html">labelling</a></span>(RC)</span>
+<span id="cb23-2"><a href="#cb23-2"></a>representative_ions &lt;-<span class="st"> </span>labeled_adducts<span class="op">$</span>representative_ions</span>
+<span id="cb23-3"><a href="#cb23-3"></a>xdata_reduced &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_reduction.html">feature_reduction</a></span>(xdata, representative_ions, RC)</span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="co">#&gt; A number of 154 features correspond to singletons</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="co">#&gt; Original dataset has 525 features</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="co">#&gt; Cluster representative ions dataset has 13 features</span></span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="co">#&gt; Singletons dataset has 493 features</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a><span class="co">#&gt; Reduced dataset has 506 features</span></span></code></pre></div>
 </div>
 <div id="univariante-analysis" class="section level2">
 <h2 class="hasAnchor">
 <a href="#univariante-analysis" class="anchor"></a>Univariante analysis</h2>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>stat &lt;-<span class="st"> </span><span class="cf">function</span>(x){stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span>(x <span class="op">~</span><span class="st"> </span>classes, xdata_reduced)<span class="op">$</span>p.value}</span>
-<span id="cb25-2"><a href="#cb25-2"></a>abcd &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="dt">FUN =</span> stat,</span>
-<span id="cb25-3"><a href="#cb25-3"></a>                         <span class="dt">MARGIN =</span> <span class="dv">2</span>,</span>
-<span id="cb25-4"><a href="#cb25-4"></a>                         <span class="dt">X =</span> xdata_reduced))</span>
-<span id="cb25-5"><a href="#cb25-5"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 74949.7277647054, ko16.CDF =</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a><span class="co">#&gt; 1712607.242, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-7"><a href="#cb25-7"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 52692.8685652169, ko16.CDF =</span></span>
-<span id="cb25-8"><a href="#cb25-8"></a><span class="co">#&gt; 264208.005611114, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-9"><a href="#cb25-9"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 644218.408947367, ko16.CDF =</span></span>
-<span id="cb25-10"><a href="#cb25-10"></a><span class="co">#&gt; 738819.992785718, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-11"><a href="#cb25-11"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 249307.773428571, ko16.CDF =</span></span>
-<span id="cb25-12"><a href="#cb25-12"></a><span class="co">#&gt; 339477.464270272, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-13"><a href="#cb25-13"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 19195.5121629565, ko16.CDF =</span></span>
-<span id="cb25-14"><a href="#cb25-14"></a><span class="co">#&gt; 4825.98841706919, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-15"><a href="#cb25-15"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 860.061812917071, ko16.CDF =</span></span>
-<span id="cb25-16"><a href="#cb25-16"></a><span class="co">#&gt; 1675351.28000003, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-17"><a href="#cb25-17"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 8340.51025530303, ko16.CDF =</span></span>
-<span id="cb25-18"><a href="#cb25-18"></a><span class="co">#&gt; 1786114.9128889, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-19"><a href="#cb25-19"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 2056.08446741879, ko16.CDF =</span></span>
-<span id="cb25-20"><a href="#cb25-20"></a><span class="co">#&gt; 2148576.59858824, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-21"><a href="#cb25-21"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 6600.2784496801, ko16.CDF =</span></span>
-<span id="cb25-22"><a href="#cb25-22"></a><span class="co">#&gt; 730497.326823537, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-23"><a href="#cb25-23"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 5398.21722869392, ko16.CDF =</span></span>
-<span id="cb25-24"><a href="#cb25-24"></a><span class="co">#&gt; 591023.677200004, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-25"><a href="#cb25-25"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 2413.41358976665, ko16.CDF =</span></span>
-<span id="cb25-26"><a href="#cb25-26"></a><span class="co">#&gt; 294707.34857143, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-27"><a href="#cb25-27"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 66280.9420909089, ko16.CDF =</span></span>
-<span id="cb25-28"><a href="#cb25-28"></a><span class="co">#&gt; 247646.232045452, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-29"><a href="#cb25-29"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 296797.555, ko16.CDF =</span></span>
-<span id="cb25-30"><a href="#cb25-30"></a><span class="co">#&gt; 145485.623199999, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-31"><a href="#cb25-31"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 34049.7049999998, ko16.CDF =</span></span>
-<span id="cb25-32"><a href="#cb25-32"></a><span class="co">#&gt; 34049.7049999998, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-33"><a href="#cb25-33"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 674.614624999989, ko16.CDF =</span></span>
-<span id="cb25-34"><a href="#cb25-34"></a><span class="co">#&gt; 99423.1985714261, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-35"><a href="#cb25-35"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 397476.207857141, ko16.CDF =</span></span>
-<span id="cb25-36"><a href="#cb25-36"></a><span class="co">#&gt; 85016.7935384618, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-37"><a href="#cb25-37"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 416789.072761899, ko16.CDF =</span></span>
-<span id="cb25-38"><a href="#cb25-38"></a><span class="co">#&gt; 215015.350000003, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-39"><a href="#cb25-39"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 1718.14936272445, ko16.CDF =</span></span>
-<span id="cb25-40"><a href="#cb25-40"></a><span class="co">#&gt; 13281.6971636578, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-41"><a href="#cb25-41"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 17412.74819575, ko16.CDF =</span></span>
-<span id="cb25-42"><a href="#cb25-42"></a><span class="co">#&gt; 11924.0051504973, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-43"><a href="#cb25-43"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 28619.196, ko16.CDF =</span></span>
-<span id="cb25-44"><a href="#cb25-44"></a><span class="co">#&gt; 443612.604545453, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-45"><a href="#cb25-45"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 167843.120000001, ko16.CDF =</span></span>
-<span id="cb25-46"><a href="#cb25-46"></a><span class="co">#&gt; 16685.6224659292, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-47"><a href="#cb25-47"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 108495.147272727, ko16.CDF =</span></span>
-<span id="cb25-48"><a href="#cb25-48"></a><span class="co">#&gt; 96206.5246666678, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-49"><a href="#cb25-49"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 1209.16748203519, ko16.CDF =</span></span>
-<span id="cb25-50"><a href="#cb25-50"></a><span class="co">#&gt; 664881.168000003, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-51"><a href="#cb25-51"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 552.911438103612, ko16.CDF =</span></span>
-<span id="cb25-52"><a href="#cb25-52"></a><span class="co">#&gt; 210353.133176469, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-53"><a href="#cb25-53"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 235.271600089588, ko16.CDF =</span></span>
-<span id="cb25-54"><a href="#cb25-54"></a><span class="co">#&gt; 399571.735764703, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-55"><a href="#cb25-55"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 397.558145102662, ko16.CDF =</span></span>
-<span id="cb25-56"><a href="#cb25-56"></a><span class="co">#&gt; 123005.324933332, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-57"><a href="#cb25-57"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 455.569255965981, ko16.CDF =</span></span>
-<span id="cb25-58"><a href="#cb25-58"></a><span class="co">#&gt; 174710.340000001, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-59"><a href="#cb25-59"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 6031655.11619057, ko16.CDF =</span></span>
-<span id="cb25-60"><a href="#cb25-60"></a><span class="co">#&gt; 216442.120421053, : cannot compute exact p-value with ties</span></span>
-<span id="cb25-61"><a href="#cb25-61"></a><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(abcd) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"p_Wilc"</span>)</span>
-<span id="cb25-62"><a href="#cb25-62"></a>abcd<span class="op">$</span>id &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span>(abcd)</span>
-<span id="cb25-63"><a href="#cb25-63"></a>result &lt;-<span class="st"> </span>abcd</span>
-<span id="cb25-64"><a href="#cb25-64"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(result<span class="op">$</span>p_Wilc)</span>
-<span id="cb25-65"><a href="#cb25-65"></a><span class="co">#&gt;     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. </span></span>
-<span id="cb25-66"><a href="#cb25-66"></a><span class="co">#&gt; 0.002165 0.309524 0.588745 0.570396 0.818182 1.000000</span></span>
-<span id="cb25-67"><a href="#cb25-67"></a><span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of features &lt; 0.05 nominal p-value "</span>, </span>
-<span id="cb25-68"><a href="#cb25-68"></a><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(result<span class="op">$</span>p_Wilc <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>))</span>
-<span id="cb25-69"><a href="#cb25-69"></a><span class="co">#&gt; </span></span>
-<span id="cb25-70"><a href="#cb25-70"></a><span class="co">#&gt; Number of features &lt; 0.05 nominal p-value 40</span></span>
-<span id="cb25-71"><a href="#cb25-71"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result[result<span class="op">$</span>p_Wilc <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>,<span class="dv">1</span>])</span>
-<span id="cb25-72"><a href="#cb25-72"></a><span class="co">#&gt; [1] 0.002164502 0.002164502 0.002164502 0.002164502 0.002164502 0.002164502</span></span>
-<span id="cb25-73"><a href="#cb25-73"></a></span>
-<span id="cb25-74"><a href="#cb25-74"></a><span class="co">#FDR</span></span>
-<span id="cb25-75"><a href="#cb25-75"></a>fdr.wilcox &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span>(result<span class="op">$</span>p_Wilc, <span class="dt">method =</span> <span class="st">"fdr"</span>)</span>
-<span id="cb25-76"><a href="#cb25-76"></a>result &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(result, fdr.wilcox)</span>
-<span id="cb25-77"><a href="#cb25-77"></a><span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of features fdr-corrected p value of &lt; 0.05 is "</span>, </span>
-<span id="cb25-78"><a href="#cb25-78"></a><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(result<span class="op">$</span>fdr.wilcox <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>))</span>
-<span id="cb25-79"><a href="#cb25-79"></a><span class="co">#&gt; </span></span>
-<span id="cb25-80"><a href="#cb25-80"></a><span class="co">#&gt; Number of features fdr-corrected p value of &lt; 0.05 is 26</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>stat &lt;-<span class="st"> </span><span class="cf">function</span>(x){stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span>(x <span class="op">~</span><span class="st"> </span>classes, xdata_reduced)<span class="op">$</span>p.value}</span>
+<span id="cb24-2"><a href="#cb24-2"></a>abcd &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="dt">FUN =</span> stat,</span>
+<span id="cb24-3"><a href="#cb24-3"></a>                         <span class="dt">MARGIN =</span> <span class="dv">2</span>,</span>
+<span id="cb24-4"><a href="#cb24-4"></a>                         <span class="dt">X =</span> xdata_reduced))</span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 149469.692965517, ko16.CDF =</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a><span class="co">#&gt; 34776.6475000001, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 74949.7277647054, ko16.CDF =</span></span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="co">#&gt; 1712607.242, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 52692.8685652169, ko16.CDF =</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a><span class="co">#&gt; 264208.005611114, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 644218.408947367, ko16.CDF =</span></span>
+<span id="cb24-12"><a href="#cb24-12"></a><span class="co">#&gt; 738819.992785718, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-13"><a href="#cb24-13"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 249307.773428571, ko16.CDF =</span></span>
+<span id="cb24-14"><a href="#cb24-14"></a><span class="co">#&gt; 339477.464270272, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 19195.5121629565, ko16.CDF =</span></span>
+<span id="cb24-16"><a href="#cb24-16"></a><span class="co">#&gt; 4825.98841706919, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-17"><a href="#cb24-17"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 860.061812917071, ko16.CDF =</span></span>
+<span id="cb24-18"><a href="#cb24-18"></a><span class="co">#&gt; 1675351.28000003, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-19"><a href="#cb24-19"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 8340.51025530303, ko16.CDF =</span></span>
+<span id="cb24-20"><a href="#cb24-20"></a><span class="co">#&gt; 1786114.9128889, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-21"><a href="#cb24-21"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 2056.08446741879, ko16.CDF =</span></span>
+<span id="cb24-22"><a href="#cb24-22"></a><span class="co">#&gt; 2148576.59858824, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-23"><a href="#cb24-23"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 6600.2784496801, ko16.CDF =</span></span>
+<span id="cb24-24"><a href="#cb24-24"></a><span class="co">#&gt; 730497.326823537, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-25"><a href="#cb24-25"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 5398.21722869392, ko16.CDF =</span></span>
+<span id="cb24-26"><a href="#cb24-26"></a><span class="co">#&gt; 591023.677200004, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-27"><a href="#cb24-27"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 2413.41358976665, ko16.CDF =</span></span>
+<span id="cb24-28"><a href="#cb24-28"></a><span class="co">#&gt; 294707.34857143, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-29"><a href="#cb24-29"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 66280.9420909089, ko16.CDF =</span></span>
+<span id="cb24-30"><a href="#cb24-30"></a><span class="co">#&gt; 247646.232045452, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-31"><a href="#cb24-31"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 296797.555, ko16.CDF =</span></span>
+<span id="cb24-32"><a href="#cb24-32"></a><span class="co">#&gt; 145485.623199999, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-33"><a href="#cb24-33"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 34049.7049999998, ko16.CDF =</span></span>
+<span id="cb24-34"><a href="#cb24-34"></a><span class="co">#&gt; 34049.7049999998, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-35"><a href="#cb24-35"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 674.614624999989, ko16.CDF =</span></span>
+<span id="cb24-36"><a href="#cb24-36"></a><span class="co">#&gt; 99423.1985714261, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-37"><a href="#cb24-37"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 397476.207857141, ko16.CDF =</span></span>
+<span id="cb24-38"><a href="#cb24-38"></a><span class="co">#&gt; 85016.7935384618, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-39"><a href="#cb24-39"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 416789.072761899, ko16.CDF =</span></span>
+<span id="cb24-40"><a href="#cb24-40"></a><span class="co">#&gt; 215015.350000003, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-41"><a href="#cb24-41"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 1718.14936272445, ko16.CDF =</span></span>
+<span id="cb24-42"><a href="#cb24-42"></a><span class="co">#&gt; 13281.6971636578, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-43"><a href="#cb24-43"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 17412.74819575, ko16.CDF =</span></span>
+<span id="cb24-44"><a href="#cb24-44"></a><span class="co">#&gt; 11924.0051504973, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-45"><a href="#cb24-45"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 28619.196, ko16.CDF =</span></span>
+<span id="cb24-46"><a href="#cb24-46"></a><span class="co">#&gt; 443612.604545453, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-47"><a href="#cb24-47"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 167843.120000001, ko16.CDF =</span></span>
+<span id="cb24-48"><a href="#cb24-48"></a><span class="co">#&gt; 16685.6224659292, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-49"><a href="#cb24-49"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 108495.147272727, ko16.CDF =</span></span>
+<span id="cb24-50"><a href="#cb24-50"></a><span class="co">#&gt; 96206.5246666678, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-51"><a href="#cb24-51"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 1209.16748203519, ko16.CDF =</span></span>
+<span id="cb24-52"><a href="#cb24-52"></a><span class="co">#&gt; 664881.168000003, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-53"><a href="#cb24-53"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 552.911438103612, ko16.CDF =</span></span>
+<span id="cb24-54"><a href="#cb24-54"></a><span class="co">#&gt; 210353.133176469, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-55"><a href="#cb24-55"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 235.271600089588, ko16.CDF =</span></span>
+<span id="cb24-56"><a href="#cb24-56"></a><span class="co">#&gt; 399571.735764703, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-57"><a href="#cb24-57"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 397.558145102662, ko16.CDF =</span></span>
+<span id="cb24-58"><a href="#cb24-58"></a><span class="co">#&gt; 123005.324933332, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-59"><a href="#cb24-59"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 455.569255965981, ko16.CDF =</span></span>
+<span id="cb24-60"><a href="#cb24-60"></a><span class="co">#&gt; 174710.340000001, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-61"><a href="#cb24-61"></a><span class="co">#&gt; Warning in wilcox.test.default(x = c(ko15.CDF = 6031655.11619057, ko16.CDF =</span></span>
+<span id="cb24-62"><a href="#cb24-62"></a><span class="co">#&gt; 216442.120421053, : cannot compute exact p-value with ties</span></span>
+<span id="cb24-63"><a href="#cb24-63"></a><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(abcd) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"p_Wilc"</span>)</span>
+<span id="cb24-64"><a href="#cb24-64"></a>abcd<span class="op">$</span>id &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span>(abcd)</span>
+<span id="cb24-65"><a href="#cb24-65"></a>result &lt;-<span class="st"> </span>abcd</span>
+<span id="cb24-66"><a href="#cb24-66"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(result<span class="op">$</span>p_Wilc)</span>
+<span id="cb24-67"><a href="#cb24-67"></a><span class="co">#&gt;     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. </span></span>
+<span id="cb24-68"><a href="#cb24-68"></a><span class="co">#&gt; 0.002165 0.309524 0.588745 0.567469 0.818182 1.000000</span></span>
+<span id="cb24-69"><a href="#cb24-69"></a><span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of features &lt; 0.05 nominal p-value "</span>, </span>
+<span id="cb24-70"><a href="#cb24-70"></a><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(result<span class="op">$</span>p_Wilc <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>))</span>
+<span id="cb24-71"><a href="#cb24-71"></a><span class="co">#&gt; </span></span>
+<span id="cb24-72"><a href="#cb24-72"></a><span class="co">#&gt; Number of features &lt; 0.05 nominal p-value 40</span></span>
+<span id="cb24-73"><a href="#cb24-73"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result[result<span class="op">$</span>p_Wilc <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>,<span class="dv">1</span>])</span>
+<span id="cb24-74"><a href="#cb24-74"></a><span class="co">#&gt; [1] 0.002164502 0.002164502 0.002164502 0.002164502 0.002164502 0.002164502</span></span>
+<span id="cb24-75"><a href="#cb24-75"></a></span>
+<span id="cb24-76"><a href="#cb24-76"></a><span class="co">#FDR</span></span>
+<span id="cb24-77"><a href="#cb24-77"></a>fdr.wilcox &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span>(result<span class="op">$</span>p_Wilc, <span class="dt">method =</span> <span class="st">"fdr"</span>)</span>
+<span id="cb24-78"><a href="#cb24-78"></a>result &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(result, fdr.wilcox)</span>
+<span id="cb24-79"><a href="#cb24-79"></a><span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of features fdr-corrected p value of &lt; 0.05 is "</span>, </span>
+<span id="cb24-80"><a href="#cb24-80"></a><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(result<span class="op">$</span>fdr.wilcox <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>))</span>
+<span id="cb24-81"><a href="#cb24-81"></a><span class="co">#&gt; </span></span>
+<span id="cb24-82"><a href="#cb24-82"></a><span class="co">#&gt; Number of features fdr-corrected p value of &lt; 0.05 is 26</span></span></code></pre></div>
 </div>
 </div>
 <div id="univariate-anotation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#univariate-anotation" class="anchor"></a>Univariate anotation</h1>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># We use the selected vips</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a>univ_feat &lt;-<span class="st"> </span>result[result<span class="op">$</span>fdr.wilcox <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>,<span class="st">"id"</span>]</span>
-<span id="cb26-3"><a href="#cb26-3"></a></span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="co"># Untargeted assignation</span></span>
-<span id="cb26-5"><a href="#cb26-5"></a><span class="co"># Creating mz column</span></span>
-<span id="cb26-6"><a href="#cb26-6"></a>mzr &lt;-<span class="st"> </span>univ_feat <span class="op">%&gt;%</span></span>
-<span id="cb26-7"><a href="#cb26-7"></a><span class="st">  </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span>(.,<span class="st">"</span><span class="ch">\\</span><span class="st">_"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb26-8"><a href="#cb26-8"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(.,<span class="cf">function</span>(x) x[<span class="dv">1</span>]) <span class="op">%&gt;%</span></span>
-<span id="cb26-9"><a href="#cb26-9"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>() <span class="op">%&gt;%</span></span>
-<span id="cb26-10"><a href="#cb26-10"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>()</span>
-<span id="cb26-11"><a href="#cb26-11"></a></span>
-<span id="cb26-12"><a href="#cb26-12"></a><span class="kw"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(univ_feat), <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(mzr))</span>
-<span id="cb26-13"><a href="#cb26-13"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb26-14"><a href="#cb26-14"></a></span>
-<span id="cb26-15"><a href="#cb26-15"></a>tdata_reduced_univ &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">mz =</span> mzr)</span>
-<span id="cb26-16"><a href="#cb26-16"></a><span class="cf">if</span>(<span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(tdata_reduced_univ)[<span class="dv">1</span>]<span class="op">&gt;</span><span class="dv">0</span>){</span>
-<span id="cb26-17"><a href="#cb26-17"></a>  result_POS_HMDB_univ &lt;-<span class="st"> </span><span class="kw"><a href="../reference/assignation_pos_HMDB.html">assignation_pos_HMDB</a></span>(tdata_reduced_univ)</span>
-<span id="cb26-18"><a href="#cb26-18"></a>  <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result_POS_HMDB_univ)</span>
-<span id="cb26-19"><a href="#cb26-19"></a>} <span class="cf">else</span> {</span>
-<span id="cb26-20"><a href="#cb26-20"></a>  <span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"There is no significant features in Wilcox test"</span>)</span>
-<span id="cb26-21"><a href="#cb26-21"></a>}</span>
-<span id="cb26-22"><a href="#cb26-22"></a><span class="co">#&gt;      mz       HMDB</span></span>
-<span id="cb26-23"><a href="#cb26-23"></a><span class="co">#&gt; 1 298.2       &lt;NA&gt;</span></span>
-<span id="cb26-24"><a href="#cb26-24"></a><span class="co">#&gt; 2 300.2       &lt;NA&gt;</span></span>
-<span id="cb26-25"><a href="#cb26-25"></a><span class="co">#&gt; 3 301.2       &lt;NA&gt;</span></span>
-<span id="cb26-26"><a href="#cb26-26"></a><span class="co">#&gt; 4 302.2       &lt;NA&gt;</span></span>
-<span id="cb26-27"><a href="#cb26-27"></a><span class="co">#&gt; 5 322.1 HMDB12143 </span></span>
-<span id="cb26-28"><a href="#cb26-28"></a><span class="co">#&gt; 6 324.2       &lt;NA&gt;</span></span>
-<span id="cb26-29"><a href="#cb26-29"></a><span class="co">#&gt;                                                                                        Assignation</span></span>
-<span id="cb26-30"><a href="#cb26-30"></a><span class="co">#&gt; 1                                                                                             &lt;NA&gt;</span></span>
-<span id="cb26-31"><a href="#cb26-31"></a><span class="co">#&gt; 2                                                                                             &lt;NA&gt;</span></span>
-<span id="cb26-32"><a href="#cb26-32"></a><span class="co">#&gt; 3                                                                                             &lt;NA&gt;</span></span>
-<span id="cb26-33"><a href="#cb26-33"></a><span class="co">#&gt; 4                                                                                             &lt;NA&gt;</span></span>
-<span id="cb26-34"><a href="#cb26-34"></a><span class="co">#&gt; 5  2-Amino-4-oxo-4-alpha-hydroxy-6-(erythro-1',2',3'-trihydroxypropyl)-5,6,7,8-tetrahydroxypterin </span></span>
-<span id="cb26-35"><a href="#cb26-35"></a><span class="co">#&gt; 6                                                                                             &lt;NA&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># We use the selected vips</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>univ_feat &lt;-<span class="st"> </span>result[result<span class="op">$</span>fdr.wilcox <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>,<span class="st">"id"</span>]</span>
+<span id="cb25-3"><a href="#cb25-3"></a></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="co"># Untargeted assignation</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a><span class="co"># Creating mz column</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>mzr &lt;-<span class="st"> </span>univ_feat <span class="op">%&gt;%</span></span>
+<span id="cb25-7"><a href="#cb25-7"></a><span class="st">  </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span>(.,<span class="st">"</span><span class="ch">\\</span><span class="st">_"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb25-8"><a href="#cb25-8"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(.,<span class="cf">function</span>(x) x[<span class="dv">1</span>]) <span class="op">%&gt;%</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>() <span class="op">%&gt;%</span></span>
+<span id="cb25-10"><a href="#cb25-10"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>()</span>
+<span id="cb25-11"><a href="#cb25-11"></a></span>
+<span id="cb25-12"><a href="#cb25-12"></a><span class="kw"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(univ_feat), <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(mzr))</span>
+<span id="cb25-13"><a href="#cb25-13"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb25-14"><a href="#cb25-14"></a></span>
+<span id="cb25-15"><a href="#cb25-15"></a>tdata_reduced_univ &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">mz =</span> mzr)</span>
+<span id="cb25-16"><a href="#cb25-16"></a><span class="cf">if</span>(<span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(tdata_reduced_univ)[<span class="dv">1</span>]<span class="op">&gt;</span><span class="dv">0</span>){</span>
+<span id="cb25-17"><a href="#cb25-17"></a>  result_POS_HMDB_univ &lt;-<span class="st"> </span><span class="kw"><a href="../reference/assignation_pos_HMDB.html">assignation_pos_HMDB</a></span>(tdata_reduced_univ)</span>
+<span id="cb25-18"><a href="#cb25-18"></a>  <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result_POS_HMDB_univ)</span>
+<span id="cb25-19"><a href="#cb25-19"></a>} <span class="cf">else</span> {</span>
+<span id="cb25-20"><a href="#cb25-20"></a>  <span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"There is no significant features in Wilcox test"</span>)</span>
+<span id="cb25-21"><a href="#cb25-21"></a>}</span>
+<span id="cb25-22"><a href="#cb25-22"></a><span class="co">#&gt;      mz       HMDB</span></span>
+<span id="cb25-23"><a href="#cb25-23"></a><span class="co">#&gt; 1 298.2       &lt;NA&gt;</span></span>
+<span id="cb25-24"><a href="#cb25-24"></a><span class="co">#&gt; 2 300.2       &lt;NA&gt;</span></span>
+<span id="cb25-25"><a href="#cb25-25"></a><span class="co">#&gt; 3 301.2       &lt;NA&gt;</span></span>
+<span id="cb25-26"><a href="#cb25-26"></a><span class="co">#&gt; 4 302.2       &lt;NA&gt;</span></span>
+<span id="cb25-27"><a href="#cb25-27"></a><span class="co">#&gt; 5 322.1 HMDB12143 </span></span>
+<span id="cb25-28"><a href="#cb25-28"></a><span class="co">#&gt; 6 324.2       &lt;NA&gt;</span></span>
+<span id="cb25-29"><a href="#cb25-29"></a><span class="co">#&gt;                                                                                        Assignation</span></span>
+<span id="cb25-30"><a href="#cb25-30"></a><span class="co">#&gt; 1                                                                                             &lt;NA&gt;</span></span>
+<span id="cb25-31"><a href="#cb25-31"></a><span class="co">#&gt; 2                                                                                             &lt;NA&gt;</span></span>
+<span id="cb25-32"><a href="#cb25-32"></a><span class="co">#&gt; 3                                                                                             &lt;NA&gt;</span></span>
+<span id="cb25-33"><a href="#cb25-33"></a><span class="co">#&gt; 4                                                                                             &lt;NA&gt;</span></span>
+<span id="cb25-34"><a href="#cb25-34"></a><span class="co">#&gt; 5  2-Amino-4-oxo-4-alpha-hydroxy-6-(erythro-1',2',3'-trihydroxypropyl)-5,6,7,8-tetrahydroxypterin </span></span>
+<span id="cb25-35"><a href="#cb25-35"></a><span class="co">#&gt; 6                                                                                             &lt;NA&gt;</span></span></code></pre></div>
 </div>
 <div id="anotation-of-all-features-positive" class="section level1">
 <h1 class="hasAnchor">
 <a href="#anotation-of-all-features-positive" class="anchor"></a>anotation of all features positive</h1>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Untargeted assignation</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="co"># Creating mz column</span></span>
-<span id="cb27-3"><a href="#cb27-3"></a></span>
-<span id="cb27-4"><a href="#cb27-4"></a>mzr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(xdataImputed)) <span class="op">%&gt;%</span></span>
-<span id="cb27-5"><a href="#cb27-5"></a><span class="st">  </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span>(.,<span class="st">"</span><span class="ch">\\</span><span class="st">_"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb27-6"><a href="#cb27-6"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(.,<span class="cf">function</span>(x) x[<span class="dv">1</span>]) <span class="op">%&gt;%</span></span>
-<span id="cb27-7"><a href="#cb27-7"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>() <span class="op">%&gt;%</span></span>
-<span id="cb27-8"><a href="#cb27-8"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>()</span>
-<span id="cb27-9"><a href="#cb27-9"></a></span>
-<span id="cb27-10"><a href="#cb27-10"></a><span class="kw"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(xdataImputed)[<span class="dv">2</span>], <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(mzr))</span>
-<span id="cb27-11"><a href="#cb27-11"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb27-12"><a href="#cb27-12"></a></span>
-<span id="cb27-13"><a href="#cb27-13"></a>tdata_reduced_all_features &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">mz =</span> mzr)</span>
-<span id="cb27-14"><a href="#cb27-14"></a>result_POS_HMDB_all_features &lt;-<span class="st"> </span><span class="kw"><a href="../reference/assignation_pos_HMDB.html">assignation_pos_HMDB</a></span>(tdata_reduced_all_features)</span>
-<span id="cb27-15"><a href="#cb27-15"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result_POS_HMDB_all_features)</span>
-<span id="cb27-16"><a href="#cb27-16"></a><span class="co">#&gt;      mz HMDB Assignation</span></span>
-<span id="cb27-17"><a href="#cb27-17"></a><span class="co">#&gt; 1 200.1 &lt;NA&gt;        &lt;NA&gt;</span></span>
-<span id="cb27-18"><a href="#cb27-18"></a><span class="co">#&gt; 2 205.0 &lt;NA&gt;        &lt;NA&gt;</span></span>
-<span id="cb27-19"><a href="#cb27-19"></a><span class="co">#&gt; 3 206.0 &lt;NA&gt;        &lt;NA&gt;</span></span>
-<span id="cb27-20"><a href="#cb27-20"></a><span class="co">#&gt; 4 207.1 &lt;NA&gt;        &lt;NA&gt;</span></span>
-<span id="cb27-21"><a href="#cb27-21"></a><span class="co">#&gt; 5 219.1 &lt;NA&gt;        &lt;NA&gt;</span></span>
-<span id="cb27-22"><a href="#cb27-22"></a><span class="co">#&gt; 6 231.0 &lt;NA&gt;        &lt;NA&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Untargeted assignation</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="co"># Creating mz column</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a></span>
+<span id="cb26-4"><a href="#cb26-4"></a>mzr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(xdata)) <span class="op">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="st">  </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span>(.,<span class="st">"</span><span class="ch">\\</span><span class="st">_"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(.,<span class="cf">function</span>(x) x[<span class="dv">1</span>]) <span class="op">%&gt;%</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>() <span class="op">%&gt;%</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>()</span>
+<span id="cb26-9"><a href="#cb26-9"></a></span>
+<span id="cb26-10"><a href="#cb26-10"></a><span class="kw"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(xdata)[<span class="dv">2</span>], <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(mzr))</span>
+<span id="cb26-11"><a href="#cb26-11"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb26-12"><a href="#cb26-12"></a></span>
+<span id="cb26-13"><a href="#cb26-13"></a>tdata_reduced_all_features &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">mz =</span> mzr)</span>
+<span id="cb26-14"><a href="#cb26-14"></a>result_POS_HMDB_all_features &lt;-<span class="st"> </span><span class="kw"><a href="../reference/assignation_pos_HMDB.html">assignation_pos_HMDB</a></span>(tdata_reduced_all_features)</span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result_POS_HMDB_all_features)</span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="co">#&gt;      mz HMDB Assignation</span></span>
+<span id="cb26-17"><a href="#cb26-17"></a><span class="co">#&gt; 1 200.1 &lt;NA&gt;        &lt;NA&gt;</span></span>
+<span id="cb26-18"><a href="#cb26-18"></a><span class="co">#&gt; 2 205.0 &lt;NA&gt;        &lt;NA&gt;</span></span>
+<span id="cb26-19"><a href="#cb26-19"></a><span class="co">#&gt; 3 206.0 &lt;NA&gt;        &lt;NA&gt;</span></span>
+<span id="cb26-20"><a href="#cb26-20"></a><span class="co">#&gt; 4 207.1 &lt;NA&gt;        &lt;NA&gt;</span></span>
+<span id="cb26-21"><a href="#cb26-21"></a><span class="co">#&gt; 5 219.1 &lt;NA&gt;        &lt;NA&gt;</span></span>
+<span id="cb26-22"><a href="#cb26-22"></a><span class="co">#&gt; 6 231.0 &lt;NA&gt;        &lt;NA&gt;</span></span></code></pre></div>
 </div>
 <div id="final-thoughts" class="section level1">
 <h1 class="hasAnchor">

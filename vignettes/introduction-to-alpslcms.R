@@ -221,7 +221,7 @@ RC <- do_findmain(RC,
 
 ## ----Reduced feature table----------------------------------------------------
 labeled_adducts <- labelling(RC)
-representative_ions <- labeled_adducts$Representative_ions
+representative_ions <- labeled_adducts$representative_ions
 xdata_reduced <- feature_reduction(xdata, representative_ions, RC)
 
 ## -----------------------------------------------------------------------------

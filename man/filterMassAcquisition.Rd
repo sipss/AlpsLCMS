@@ -2,19 +2,26 @@
 % Please edit documentation in R/pre_processing.R
 \name{filterMassAcquisition}
 \alias{filterMassAcquisition}
-\title{Filter a mass acquisition}
+\title{Filter a mass window}
 \usage{
-filterMassAcquisition(dataset, window = "small")
+dataset <- filterMassAcquisition(dataset, window = c("small", "large))
 }
 \arguments{
 \item{dataset}{A lcms_dataset that contains two different mass ranges in two different acquisitions.}
 
-\item{window}{Character. It refers to which mass range will be kept}
+\item{window}{Character. It refers to which mass range will be kept.}
 }
 \value{
-A lcms_dataset that only contains one mass range
+A \code{lcms_dataset} that only contains one mass range. The function
+filtered out the other spectra. For example, if "small" was set, The
+function will keep the first spectrum out of two because mass windows are
+intercalated within the file.
 }
 \description{
-A function to filter by a mass acquisition when two different mass
-acquisition have been acquired in the same experiment.
+\code{filterMassAcquisition} is a function to filter a mass window when two
+different mass windows have been acquired in the same experiment. Note that
+the function works in a unique polarity, either positive or negative. Then,
+the function extracts one of the sequential spectra within a \code{lcms_dataset}.
+Spectra need to be alternating the "small and "large" mass window in the
+file.
 }

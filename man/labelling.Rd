@@ -13,10 +13,11 @@ labelling(RC)
 A list containing data frames with (1) all labelled adducts, (2)
 representative ion in each cluster/pseudospectrum, and (3) the clustering
 data.
-$labelled_adducts: data frame containing the mz, relative intensity of the
-fragment in the corresponding cluster, charge, selected adduct and ppm
-error.
-$labelled_ion:
+$representative_ions: data frame containing the mz, relative intensity of the
+fragment in the corresponding cluster, charge, selected adduct and ppm.
+$cluster_data: data frame with info of the clustering, name of the
+clusters, the most intense ion in the cluster, labelled ion, retention
+time.
 }
 \description{
 \code{labelling} is a function that applied to the \code{hclust} object from

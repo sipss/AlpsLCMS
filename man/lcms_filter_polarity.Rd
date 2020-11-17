@@ -4,10 +4,10 @@
 \alias{lcms_filter_polarity}
 \title{Filter an experiment by its polarity}
 \usage{
-lcms_filter_polarity(object, polarity.)
+lcms_filter_polarity(lcms_dataset, polarity.)
 }
 \arguments{
-\item{object}{A MSnExp object.}
+\item{lcms_dataset}{A MSnExp object.}
 
 \item{polarity.}{The polarity to keep.}
 }
@@ -26,12 +26,10 @@ remove this function.
 }
 \examples{
 \dontrun{
-dataset_2_polarities <- lcms_dataset_load(system.file("extdata",
-                                                     "dataset_metadata.rds",
-                                                     package = "AlpsLCMS"))
+dataset_2_polarities <- lcms_read_samples("yourDir/sample1.mzXML", mode = "onDisk")
 dataset_pos <- lcms_filter_polarity(dataset_2_polarities, polarity. = 1)
 
-print(dataset_pos)
+is.positive(dataset_pos)
 }
 }
 \seealso{

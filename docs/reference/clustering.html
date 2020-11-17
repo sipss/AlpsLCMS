@@ -173,6 +173,48 @@ critical to avoid several metabolites in a single cluster.</p>
 <span class='kw'>replace.zeros</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments passed on to <code><a href='https://rdrr.io/pkg/RAMClustR/man/ramclustR.html'>RAMClustR::ramclustR</a></code></p><dl class='dl-horizontal'>
+    <dt><code>xcmsObj</code></dt><dd><p>xcmsObject: containing grouped feature data for clustering by ramclustR</p></dd>
+    <dt><code>ms</code></dt><dd><p>filepath: optional csv input. Features as columns, rows as samples. Column header mz_rt</p></dd>
+    <dt><code>idmsms</code></dt><dd><p>filepath: optional idMSMS / MSe csv data.  same dim and names as ms required</p></dd>
+    <dt><code>taglocation</code></dt><dd><p>character: "filepaths" by default, "phenoData[,1]" is another option. referse to xcms slot</p></dd>
+    <dt><code>MStag</code></dt><dd><p>character: character string in 'taglocation' to designat MS / MSe files e.g. "01.cdf"</p></dd>
+    <dt><code>idMSMStag</code></dt><dd><p>character: character string in 'taglocation' to designat idMSMS / MSe files e.g. "02.cdf"</p></dd>
+    <dt><code>featdelim</code></dt><dd><p>character: how feature mz and rt are delimited in csv import column header e.g. ="-"</p></dd>
+    <dt><code>timepos</code></dt><dd><p>integer: which position in delimited column header represents the retention time (csv only)</p></dd>
+    <dt><code>st</code></dt><dd><p>numeric: sigma t - time similarity decay value</p></dd>
+    <dt><code>sr</code></dt><dd><p>numeric: sigma r - correlational similarity decay value</p></dd>
+    <dt><code>maxt</code></dt><dd><p>numeric: maximum time difference to calculate retention similarity for - all values beyond this are assigned similarity of zero</p></dd>
+    <dt><code>deepSplit</code></dt><dd><p>logical: controls how agressively the HCA tree is cut - see ?cutreeDynamicTree</p></dd>
+    <dt><code>blocksize</code></dt><dd><p>integer: number of features (scans?) processed in one block  =1000,</p></dd>
+    <dt><code>mult</code></dt><dd><p>numeric: internal value, can be used to influence processing speed/ram usage</p></dd>
+    <dt><code>hmax</code></dt><dd><p>numeric: precut the tree at this height, default 0.3 - see ?cutreeDynamicTree</p></dd>
+    <dt><code>sampNameCol</code></dt><dd><p>integer: which column from the csv file contains sample names?</p></dd>
+    <dt><code>collapse</code></dt><dd><p>logical: reduce feature intensities to spectrum intensities?</p></dd>
+    <dt><code>usePheno</code></dt><dd><p>logical: tranfer phenotype data from XCMS object to SpecAbund dataset?</p></dd>
+    <dt><code>mspout</code></dt><dd><p>logical: write msp formatted specta to file?</p></dd>
+    <dt><code>ExpDes</code></dt><dd><p>either an R object created by R ExpDes object: data used for record keeping and labelling msp spectral output</p></dd>
+    <dt><code>normalize</code></dt><dd><p>character: either "none", "TIC", "quantile", or "batch.qc" normalization of feature intensities.  see batch.qc overview in details.</p></dd>
+    <dt><code>qc.inj.range</code></dt><dd><p>integer: how many injections around each injection are to be scanned for presence of QC samples when using batch.qc normalization?  A good rule of thumb is between 1 and 3 times the typical injection span between QC injections.  i.e. if you inject QC ever 7 samples, set this to between 7 and 21.  smaller values provide more local precision but make normalization sensitive to individual poor outliers (though these are first removed using the boxplot function outlier detection), while wider values provide less local precision in normalization but better stability to individual peak areas.</p></dd>
+    <dt><code>order</code></dt><dd><p>integer vector with length equal to number of injections in xset or csv file</p></dd>
+    <dt><code>batch</code></dt><dd><p>integer vector with length equal to number of injections in xset or csv file</p></dd>
+    <dt><code>qc</code></dt><dd><p>logical vector with length equal to number of injections in xset or csv file.</p></dd>
+    <dt><code>minModuleSize</code></dt><dd><p>integer: how many features must be part of a cluster to be returned? default = 2</p></dd>
+    <dt><code>linkage</code></dt><dd><p>character: heirarchical clustering linkage method - see ?hclust</p></dd>
+    <dt><code>mzdec</code></dt><dd><p>integer: number of decimal places used in printing m/z values</p></dd>
+    <dt><code>cor.method</code></dt><dd><p>character: which correlational method used to calculate 'r' - see ?cor</p></dd>
+    <dt><code>rt.only.low.n</code></dt><dd><p>logical: default = TRUE  At low injection numbers, correlational relationships of peak intensities may be unreliable.  by defualt ramclustR will simply ignore the correlational r value and cluster on retention time alone.  if you wish to use correlation with at n &lt; 5, set this value to FALSE.</p></dd>
+    <dt><code>fftempdir</code></dt><dd><p>valid path: if there are file size limitations on the default ff pacakge temp directory  - getOptions('fftempdir') - you can change the directory used as the fftempdir with this option.</p></dd>
+    <dt><code>replace.zeros</code></dt><dd><p>logincal: TRUE by default.  NA, NaN, and Inf values are replaced with zero, and zero values are sometimes returned from peak peaking.  When TRUE, zero values will be replaced with a small amount of noise, with noise level set based on the detected signal intensities for that feature.</p></dd>
+  
+</dl></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -209,6 +251,7 @@ critical to avoid several metabolites in a single cluster.</p>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
       <li><a href="#"></a></li>
