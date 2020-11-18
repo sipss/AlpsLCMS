@@ -736,7 +736,10 @@ lcms_rearrange_datafiles_by_class <- function(dataset, dataDir) {
 #' file.
 #'
 #' @param dataset A lcms_dataset that contains two different mass ranges in two different acquisitions.
-#' @param window Character. It refers to which mass range will be kept.
+#' @param window Character. It refers to which mass range will be kept with
+#'   `"small"` or `"large"`. `window = "small"` will keep the first spectrum of each
+#'   couple of the intercalated spectra, while `window = "large"` will keep the
+#'   second.
 #' @return A `lcms_dataset` that only contains one mass range. The function
 #'   filtered out the other spectra. For example, if "small" was set, The
 #'   function will keep the first spectrum out of two because mass windows are

@@ -9,7 +9,10 @@ filterMassAcquisition(dataset, window = "small")
 \arguments{
 \item{dataset}{A lcms_dataset that contains two different mass ranges in two different acquisitions.}
 
-\item{window}{Character. It refers to which mass range will be kept.}
+\item{window}{Character. It refers to which mass range will be kept with
+\code{"small"} or \code{"large"}. \code{window = "small"} will keep the first spectrum of each
+couple of the intercalated spectra, while \code{window = "large"} will keep the
+second.}
 }
 \value{
 A \code{lcms_dataset} that only contains one mass range. The function
