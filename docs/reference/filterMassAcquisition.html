@@ -36,6 +36,12 @@
 
 
 <meta property="og:title" content="Filter a mass window — filterMassAcquisition" />
+<meta property="og:description" content="filterMassAcquisition is a function to filter a mass window when two
+different mass windows have been acquired in the same experiment. Note that
+the function works in a unique polarity, either positive or negative. Then,
+the function extracts one of the sequential spectra within a lcms_dataset.
+Spectra need to be alternating the &quot;small and &quot;large&quot; mass window in the
+file." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,35 +132,42 @@
     </div>
 
     <div class="ref-description">
-    </div>
-
-    <pre class="usage">dataset <- filterMassAcquisition(dataset, window = c("small", "large))
-}
-\arguments{
-\item{dataset}{A lcms_dataset that contains two different mass ranges in two different acquisitions.}
-
-\item{window}{Character. It refers to which mass range will be kept.}
-}
-{
-A \code{lcms_dataset} that only contains one mass range. The function
-filtered out the other spectra. For example, if "small" was set, The
-function will keep the first spectrum out of two because mass windows are
-intercalated within the file.
-}
-\description{
-\code{filterMassAcquisition} is a function to filter a mass window when two
+    <p><code>filterMassAcquisition</code> is a function to filter a mass window when two
 different mass windows have been acquired in the same experiment. Note that
 the function works in a unique polarity, either positive or negative. Then,
-the function extracts one of the sequential spectra within a \code{lcms_dataset}.
+the function extracts one of the sequential spectra within a <code>lcms_dataset</code>.
 Spectra need to be alternating the "small and "large" mass window in the
-file.</pre>
+file.</p>
+    </div>
 
+    <pre class="usage"><span class='fu'>filterMassAcquisition</span>(<span class='no'>dataset</span>, <span class='kw'>window</span> <span class='kw'>=</span> <span class='st'>"small"</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>dataset</th>
+      <td><p>A lcms_dataset that contains two different mass ranges in two different acquisitions.</p></td>
+    </tr>
+    <tr>
+      <th>window</th>
+      <td><p>Character. It refers to which mass range will be kept.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A <code>lcms_dataset</code> that only contains one mass range. The function
+filtered out the other spectra. For example, if "small" was set, The
+function will keep the first spectrum out of two because mass windows are
+intercalated within the file.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
     </ul>
 
   </div>

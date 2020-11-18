@@ -56,42 +56,31 @@ lcms_plot_tics(tics,
                plot_type = "spec")
 
 ## ----Creating parameters------------------------------------------------------
-prep_parm_p <- NULL
-prep_parm_p$peakwidth <- c(20, 80)
-prep_parm_p$noise <- 5000
-prep_parm_p$snthresh <- 3
-prep_parm_p$prefilter <- c(6, 5000)
-prep_parm_p$centerSample <- "wMean"
-prep_parm_p$integrate <- 2
-prep_parm_p$mzdiff <- -0.001
-prep_parm_p$profStep <- 0.005
-prep_parm_p$minFraction <- 0.2
-prep_parm_p$ppm <- 25
-prep_parm_p$mzCenterFun <- "wMean"
-prep_parm_p$fitgauss <- FALSE
-prep_parm_p$verbose.columns <- FALSE
-
+# if to optimize or not
+optimize = TRUE
+nSlaves = 1
 classes <- dataset@phenoData@data[["treatment"]]
 
-## ----Peak detection-----------------------------------------------------------
-peakdet = find_peaks_cwp(dataset, 
-                         params = prep_parm_p)
+## -----------------------------------------------------------------------------
+default_peakPar <- IPO::getDefaultXcmsSetStartingParams('matchedFilter')
 
-message("Number of detected peaks")
-peakdet@msFeatureData[["chromPeakData"]]@nrows
-message("")
+## ----message=FALSE, warning=FALSE---------------------------------------------
+mfp <- xcms::MatchedFilterParam(
+  mzdiff = default_peakPar$mzdiff,
+  snthresh =  3
+)
+peakdet <- xcms::findChromPeaks(dataset, param = mfp)
 
-message("Parameters")
-peakdet@.processHistory[[1]]@param
-
-xcms::plotChromPeakImage(peakdet)
-
-## ----Correspondence-----------------------------------------------------------
+## -----------------------------------------------------------------------------
 new_params <- PeakDensityPar(sampleGroups = classes, 
                                binSize = 0.6)
 
 peakgrouped <- groupPeaks(peakdet, 
                          param = new_params)
+
+## -----------------------------------------------------------------------------
+message("Number of detected peaks")
+peakdet@msFeatureData[["chromPeakData"]]@nrows
 
 ## ----Alignment----------------------------------------------------------------
 pgp <- PeakGroupsPar(minFraction = 0.8,
@@ -137,7 +126,7 @@ cat("Imputing values...\n")
 message("Missing values found after fill_chrom_peaks: ", sum(is.na(featureValues(peakgrouped_imp))))
 
 ## ----Feature table------------------------------------------------------------
-xdata = featureValues(peakgrouped_imp,
+xdata = feature_values(peakgrouped_imp,
                       method = "maxint",
                       value = "into",
                       filled = TRUE, 
@@ -152,9 +141,6 @@ message("Missing values in the feature table: ",
 sum(is.na(xdata)))
 
 ## ----echo = FALSE-------------------------------------------------------------
-# xdataImp <- xdata
-# xdataImputed <- as.data.frame(xdataImp, stringsAsFactors = FALSE)
-
 # Get mz and rt columns for the feature table
 mz <- colnames(xdata) %>%
   stringr::str_split(.,"\\_") %>% 
@@ -212,8 +198,8 @@ RC <- clustering(xcmsObj = peakgrouped_imp,
 RC <- do_findmain(RC,
                   nls = c("[M+H-H2O]+"),
                   mode = "positive",
-                  mzabs.error = 0.005,
-                  ppm.error = 5,
+                  mzabs.error = 0.01,
+                  ppm.error = 10,
                   plot.findmain = FALSE,
                   writeMat = FALSE,
                   writeMS = FALSE)
@@ -223,6 +209,9 @@ RC <- do_findmain(RC,
 labeled_adducts <- labelling(RC)
 representative_ions <- labeled_adducts$representative_ions
 xdata_reduced <- feature_reduction(xdata, representative_ions, RC)
+
+dim(xdata)
+dim(xdata_reduced)
 
 ## -----------------------------------------------------------------------------
 stat <- function(x){stats::wilcox.test(x ~ classes, xdata_reduced)$p.value}
@@ -235,7 +224,7 @@ result <- abcd
 summary(result$p_Wilc)
 message("\nNumber of features < 0.05 nominal p-value ", 
 sum(result$p_Wilc < 0.05))
-head(result[result$p_Wilc < 0.05,1])
+head(result[result$p_Wilc < 0.05, 1])
 
 #FDR
 fdr.wilcox <- stats::p.adjust(result$p_Wilc, method = "fdr")

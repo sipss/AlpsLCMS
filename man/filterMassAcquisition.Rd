@@ -4,7 +4,7 @@
 \alias{filterMassAcquisition}
 \title{Filter a mass window}
 \usage{
-dataset <- filterMassAcquisition(dataset, window = c("small", "large))
+filterMassAcquisition(dataset, window = "small")
 }
 \arguments{
 \item{dataset}{A lcms_dataset that contains two different mass ranges in two different acquisitions.}
