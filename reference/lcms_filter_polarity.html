@@ -132,13 +132,13 @@ the MSnbase package on 2018-12-10 as proposed at:" />
 the MSnbase package on 2018-12-10 as proposed at:</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_filter_polarity</span>(<span class='no'>object</span>, <span class='no'>polarity.</span>)</pre>
+    <pre class="usage"><span class='fu'>lcms_filter_polarity</span>(<span class='no'>lcms_dataset</span>, <span class='no'>polarity.</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
+      <th>lcms_dataset</th>
       <td><p>A MSnExp object.</p></td>
     </tr>
     <tr>
@@ -183,12 +183,10 @@ remove this function.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>dataset_2_polarities</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_dataset_load.html'>lcms_dataset_load</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"extdata"</span>,
-                                                     <span class='st'>"dataset_metadata.rds"</span>,
-                                                     <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"AlpsLCMS"</span>))
+<span class='no'>dataset_2_polarities</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_read_samples.html'>lcms_read_samples</a></span>(<span class='st'>"yourDir/sample1.mzXML"</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"onDisk"</span>)
 <span class='no'>dataset_pos</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_filter_polarity</span>(<span class='no'>dataset_2_polarities</span>, <span class='kw'>polarity.</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>dataset_pos</span>)
+<span class='fu'><a href='is.positive.html'>is.positive</a></span>(<span class='no'>dataset_pos</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

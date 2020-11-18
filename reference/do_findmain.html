@@ -6,14 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>do_findmain — do_findmain • NIHSlcms</title>
+<title>Cluster annotation — do_findmain • AlpsLCMS</title>
 
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -35,10 +35,11 @@
 
 
 
-<meta property="og:title" content="do_findmain — do_findmain" />
-<meta property="og:description" content="Cluster annotation function: inference of 'M' - molecular weight of the
-compound giving rise to each spectrum - using the
-InterpretMSSpectrum::findMain function" />
+<meta property="og:title" content="Cluster annotation — do_findmain" />
+<meta property="og:description" content="Cluster annotation using the InterpretMSSpectrum::findMain and RAMClustR::do.findmain. It creates a
+pseudo-spectrum with the features grouped in each cluster within a given mz
+error. The algorithm proposes a representative ion of each
+cluster/pseudo-spectrum for data reduction." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -70,8 +71,8 @@ InterpretMSSpectrum::findMain function" />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">NIHSlcms</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
+        <a class="navbar-link" href="../index.html">AlpsLCMS</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
       </span>
     </div>
 
@@ -79,7 +80,7 @@ InterpretMSSpectrum::findMain function" />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,7 +95,8 @@ InterpretMSSpectrum::findMain function" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/introduction-to-nihslcms.html">Introduction to NIHSlcms</a>
+      <a href="../articles/introduction-to-alpslcms.html">AlpsLCMS Workflow
+</a>
     </li>
   </ul>
 </li>
@@ -103,7 +105,12 @@ InterpretMSSpectrum::findMain function" />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/sipss/AlpsLCMS">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -117,40 +124,93 @@ InterpretMSSpectrum::findMain function" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>do_findmain</h1>
-    
+    <h1>Cluster annotation</h1>
+    <small class="dont-index">Source: <a href='https://github.com/sipss/AlpsLCMS/blob/master/R/clustering.R'><code>R/clustering.R</code></a></small>
     <div class="hidden name"><code>do_findmain.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Cluster annotation function: inference of 'M' - molecular weight of the
-compound giving rise to each spectrum - using the
-InterpretMSSpectrum::findMain function</p>
+    <p>Cluster annotation using the InterpretMSSpectrum::findMain and <a href='https://rdrr.io/pkg/RAMClustR/man/do.findmain.html'>RAMClustR::do.findmain</a>. It creates a
+pseudo-spectrum with the features grouped in each cluster within a given mz
+error. The algorithm proposes a representative ion of each
+cluster/pseudo-spectrum for data reduction.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>do_findmain</span>(
-  <span class='kw'>ramclustObj</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cmpd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"positive"</span>,
-  <span class='kw'>mzabs.error</span> <span class='kw'>=</span> <span class='fl'>0.005</span>,
-  <span class='kw'>ppm.error</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>ads</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>scoring</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
-  <span class='kw'>plot.findmain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>writeMat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>writeMS</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>use.z</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'>do.findmain</span>(
+<span class='kw'>ramclustObj</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='kw'>cmpd</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"positive"</span>,
+<span class='kw'>mzabs.error</span> <span class='kw'>=</span> <span class='fl'>0.005</span>,
+<span class='kw'>ppm.error</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+<span class='kw'>ads</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='kw'>nls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+<span class='kw'>scoring</span> <span class='kw'>=</span> <span class='st'>"auto"</span>,
+<span class='kw'>plot.findmain</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+<span class='kw'>writeMat</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+<span class='kw'>writeMS</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+<span class='kw'>use.z</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments passed on to <code><a href='https://rdrr.io/pkg/RAMClustR/man/do.findmain.html'>RAMClustR::do.findmain</a></code></p><dl class='dl-horizontal'>
+    <dt><code>ramclustObj</code></dt><dd><p>ramclustR object to annotate.</p></dd>
+    <dt><code>cmpd</code></dt><dd><p>integer: vector defining compound numbers to annotated.  if NULL (default), all compounds</p></dd>
+    <dt><code>mode</code></dt><dd><p>character: "positive" or "negative"</p></dd>
+    <dt><code>mzabs.error</code></dt><dd><p>numeric: absolute mass deviation allowd, default = 0.01</p></dd>
+    <dt><code>ppm.error</code></dt><dd><p>numeric: ppm mass error _added_ to mzabs.error, default = 10</p></dd>
+    <dt><code>ads</code></dt><dd><p>character: vector of allowed adducts, i.e. c("[M+H]+"). if NULL, default positive mode values of H+, Na+, K+, and NH4+, as monomer, dimer, and trimer, are assigned. Negative mode include "[M-H]-", "[M+Na-2H]-", "[M+K-2H]-", "[M+CH2O2-H]-" as monomer, dimer, and trimer.</p></dd>
+    <dt><code>nls</code></dt><dd><p>character: vector of allowed neutral losses, i.e. c("[M+H-H2O]+").  if NULL, an extensive list derived from CAMERA's will be used.</p></dd>
+    <dt><code>scoring</code></dt><dd><p>character: one of 'imss' , 'ramclustr', or 'auto'. default = 'auto'. see details.</p></dd>
+    <dt><code>plot.findmain</code></dt><dd><p>logical: should pdf polts be generated for evaluation? detfault = TRUE. PDF saved to working.directory/spectra</p></dd>
+    <dt><code>writeMat</code></dt><dd><p>logical: should indidual .mat files (for MSFinder) be generated in a 'mat' subdirectory in the 'spectra' folder? default = TRUE.</p></dd>
+    <dt><code>writeMS</code></dt><dd><p>logical: should indidual .ms files (for Sirius) be generated in a 'ms' subdirectory in the 'spectra' folder? default = TRUE.  Note that no import functions are yet written for Sirius output.</p></dd>
+    <dt><code>use.z</code></dt><dd><p>logical: if you have previously run the 'assign.z' function from ramclustR, there will be a slot reflecting the feature mass after accounting for charge (fm) - if TRUE this is used instead of feature m/z (fmz) in interpreting MS data and exporing spectra for annotation.</p></dd>
+  
+</dl></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>$M:  The inferred molecular weight of the compound giving rise to the each spectrum</p>
+<p>$M.ppm:  The ppm error of all the MS signals annotated, high error values should be considered 'red flags'.</p>
+<p>$M.ann:  The annotated spectrum supporting the intepretation of M</p>
+<p>$use.findmain:  Logical vector indicating whether findmain scoring (TRUE) or ramclustR scoring (FALSE) was used to support inference of M.  By default, findmain scoring is used.  When ramclustR scoring differs from findmain scoring, the scoring metric which predicts higher M is selected.</p>
+<p>$M.ramclustr:  M selected using ramclustR scoring</p>
+<p>$M.ppm.ramclustr:  ppm error of M selected using ramclustR scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.</p>
+<p>$M.ann.ramclustr:  annotated spectrum supporing M using ramclustR scoring</p>
+<p>$M.nann.ramclustr:  number of masses annotated using ramclustR scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.</p>
+<p>$M.space.ramclustr:  the 'space' of scores between the best and second best ramclustR scores. Calculated as a ratio. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.</p>
+<p>$M.findmain:  M selected using findmain scoring</p>
+<p>$M.ppm.findmain:  ppm error of M selected using findmain scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.</p>
+<p>$M.ann.findmain:  annotated spectrum supporing M using findmain scoring</p>
+<p>$M.nann.findmain:  number of masses annotated using findmain scoring. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.</p>
+<p>$M.space.findmain:  the 'space' of scores between the best and second best findmain scores. Calculated as a ratio. Used to resolve concflicts between ramclustR and findmain M assignment when scoring = auto.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>a partially annotated ramclustR object.  base structure is that of a standard R heirarchical clustering output, with additional slots described in ramclustR documentation (?ramclustR).  New slots added after using the interpretMSSpectrum functionality include those described below.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Jaeger C, ... Lisec J. Compound annotation in liquid chromatography/high-resolution mass spectrometry based metabolomics: robust adduct ion determination as a prerequisite to structure prediction in electrospray ionization mass spectra. Rapid Commun Mass Spectrom. 2017 Aug 15;31(15):1261-1266. doi: 10.1002/rcm.7905. PubMed PMID: 28499062.</p>
+<p>Broeckling CD, Afsar FA, Neumann S, Ben-Hur A, Prenni JE. RAMClust: a novel feature clustering method enables spectral-matching-based annotation for metabolomics data. Anal Chem. 2014 Jul 15;86(14):6812-7. doi: 10.1021/ac501530d.  Epub 2014 Jun 26. PubMed PMID: 24927477.</p>
+<p>Broeckling CD, Ganna A, Layer M, Brown K, Sutton B, Ingelsson E, Peers G, Prenni JE. Enabling Efficient and Confident Annotation of LC-MS Metabolomics Data through MS1 Spectrum and Time Prediction. Anal Chem. 2016 Sep 20;88(18):9226-34. doi: 10.1021/acs.analchem.6b02479. Epub 2016 Sep 8. PubMed PMID: 7560453.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
+      <li><a href="#references">References</a></li>
     </ul>
 
+    <h2>Author</h2>
+    <p>Corey Broeckling</p>
   </div>
 </div>
 

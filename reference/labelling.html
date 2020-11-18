@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Feature reduction — feature_reduction • AlpsLCMS</title>
+<title>Labelled fragments — labelling • AlpsLCMS</title>
 
 
 <!-- jquery -->
@@ -35,11 +35,10 @@
 
 
 
-<meta property="og:title" content="Feature reduction — feature_reduction" />
-<meta property="og:description" content="feature_reduction is a function to reduce the feature table using the info
-from the clustering. A representative feature/ion is selected from each
-cluster discarding the rest of the feature of the same cluster (normally, the
-most intense one)." />
+<meta property="og:title" content="Labelled fragments — labelling" />
+<meta property="og:description" content="labelling is a function that applied to the hclust object from
+clustering and do_findmain, creates a list with extracted info from each
+cluster/pseudo-spectrum." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -124,43 +123,38 @@ most intense one)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Feature reduction</h1>
+    <h1>Labelled fragments</h1>
     <small class="dont-index">Source: <a href='https://github.com/sipss/AlpsLCMS/blob/master/R/clustering.R'><code>R/clustering.R</code></a></small>
-    <div class="hidden name"><code>feature_reduction.Rd</code></div>
+    <div class="hidden name"><code>labelling.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>feature_reduction</code> is a function to reduce the feature table using the info
-from the <a href='clustering.html'>clustering</a>. A representative feature/ion is selected from each
-cluster discarding the rest of the feature of the same cluster (normally, the
-most intense one).</p>
+    <p><code>labelling</code> is a function that applied to the <code>hclust</code> object from
+<a href='clustering.html'>clustering</a> and <a href='do_findmain.html'>do_findmain</a>, creates a list with extracted info from each
+cluster/pseudo-spectrum.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>feature_reduction</span>(<span class='no'>mdata</span>,
-<span class='no'>representative_ions</span>,
-<span class='no'>RC</span>)</pre>
+    <pre class="usage"><span class='fu'>labelling</span>(<span class='no'>RC</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mdata</th>
-      <td><p>data matrix with samples in rows and features in columns</p></td>
-    </tr>
-    <tr>
-      <th>representative_ions</th>
-      <td><p>data frame from the list given by <a href='labelling.html'>labelling</a> function</p></td>
-    </tr>
-    <tr>
       <th>RC</th>
-      <td><p>hclust object from the <a href='do_findmain.html'>do_findmain</a> function</p></td>
+      <td><p>hclust object from the <a href='do_findmain.html'>do_findmain</a> function.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A reduced data frame with important features based on the clustering
-and features no clustered.</p>
+    <p>A list containing data frames with (1) all labelled adducts, (2)
+representative ion in each cluster/pseudospectrum, and (3) the clustering
+data.
+$representative_ions: data frame containing the mz, relative intensity of the
+fragment in the corresponding cluster, charge, selected adduct and ppm.
+$cluster_data: data frame with info of the clustering, name of the
+clusters, the most intense ion in the cluster, labelled ion, retention
+time.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
