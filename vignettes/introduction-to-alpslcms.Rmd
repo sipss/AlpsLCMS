@@ -53,23 +53,31 @@ library(AlpsLCMS)
 
 ## Convert RAW to mzXML
 
-First, we need the listed spectra in ".mzXML" format to create the `lcms_dataset`. We can manually convert ".raw" into ".mzXML" using RawConverter or ProteoWizard externally and saved them within the same input directory. We set the polarity manually.
+First, we need the listed spectra ideally in `".mzXML"` or `".cdf"` formats to create the `lcms_dataset`. We can manually convert `".raw"` into `".mzXML"` using RawConverter or ProteoWizard externally and saved them within the same input directory. In `".cdf"` files, we need to set the polarity manually.
 
 ## Input
 
 ```{r message=FALSE, warning=FALSE}
+# Set the path of the example dataset. 
+# Only 4 samples will be considered.
 library(faahKO)
 path <- dir(system.file("cdf", package = "faahKO"), full.names = TRUE,
-            recursive = TRUE)
+            recursive = TRUE)[5:8]
+
+# Do not run if .mzXML format is used
 polarity <- 1 # 1 for positive mode, 0 for negative mode
 ```
 
 ## Code to run
 
 ```{r Data wrangling}
-# Be careful setting the mode to "onDisk" when you apply this function.
+# Set the mode to "onDisk" when you apply this function. Otherwise, it could
+# take too much memory.
 dataset <- lcms_read_samples(path, mode = "onDisk")
-dataset@featureData@data[["polarity"]] <- rep(polarity, length(dataset@featureData@data[["polarity"]]))
+
+# Set the polarity
+dataset@featureData@data[["polarity"]] <- rep(polarity, 
+                                              length(dataset@featureData@data[["polarity"]]))
 head(dataset)
 ```
 
@@ -84,9 +92,10 @@ Caution with metadata. The use of characters such as "-", "/", " " (space) and s
 ## Input parameters
 
 ```{r}
+# Create a metadata for this example dataset
 metadata <- data.frame(sampleNames = basename(path),
-                 treatment = c(rep("ko",6),
-                               rep("wt",6)),
+                 treatment = c(rep("ko",2),
+                               rep("wt",2)),
                  stringsAsFactors = FALSE)
 ```
 
@@ -138,9 +147,10 @@ lcms_plot_tics(tics,
                plot_type = "spec")
 ```
 
+
 # NODE 5: Optimization of parameters: IPO
 
-We perform parameter optimization on the XCMS preprocessing algorithms using the `IPO` Package. This includes Peak Detection ('Centwave' and 'Matched Filter'), Retention Time  Correction ('obiwarp') and Peak Correspondence ('Density'). Optimization can be done using all the regular samples(exhaustive), or just a subset. Also you can use Quality Control samples for optimization. Finally, you can skip the optimization process and use the default set of parameter provided by the `IPO` Package.
+We perform parameter optimization on the XCMS preprocessing algorithms using the `IPO` Package. This includes Peak Detection ('Centwave'), Retention Time  Correction ('obiwarp') and Peak Correspondence ('Density'). Optimization can be done using all the regular samples(exhaustive), or just a subset. Also you can use Quality Control samples for optimization. Finally, you can skip the optimization process and use the default set of parameter provided by the `IPO` Package.
 
 # Optimization of *Peak Detection* parameters
 
@@ -148,29 +158,43 @@ We perform parameter optimization on the XCMS preprocessing algorithms using the
 
 ```{r Creating parameters}
 # if to optimize or not
-optimize = TRUE
-nSlaves = 1
+optimize <- TRUE
+nSlaves <- 1
+subset <- dataset[2:3]
 classes <- dataset@phenoData@data[["treatment"]]
 ```
 
-## Code to run (matchedFilter)
+## Code to run
 
 ```{r}
-default_peakPar <- IPO::getDefaultXcmsSetStartingParams('matchedFilter')
+# peakpeaking_par <- default_peakpicking_params(optimize = optimize)
+# resultPeakpicking <- peakpicking_optimization(dataset = subset,
+#                                               peakpickingParameters = peakpeaking_par,
+#                                               nSlaves = nSlaves,
+#                                               opt_path = NULL,
+#                                               plots = FALSE)
 ```
 
 
+
+```{r}
+
+```
 
 # NODE 6: Preprocessing with xcms
 
 # Peak detection (matched filter)
 
 ```{r message=FALSE, warning=FALSE}
+resultPeakpicking$best_settings$result
+optimizedXcmsSetObject <- resultPeakpicking$best_settings$xset
+
+
 mfp <- xcms::MatchedFilterParam(
   mzdiff = default_peakPar$mzdiff,
   snthresh =  3
 )
-peakdet <- xcms::findChromPeaks(dataset, param = mfp)
+peakdet <- xcms::findChromPeaks(dataset, param = optimizedXcmsSetObject)
 ```
 
 # Retention Time Correction and Peak Correspondence

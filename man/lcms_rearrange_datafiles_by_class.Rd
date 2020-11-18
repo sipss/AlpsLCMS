@@ -51,12 +51,12 @@ Other dataset functions:
 \code{\link{lcms_filter_sample_type}()},
 \code{\link{lcms_meta_add}()},
 \code{\link{lcms_meta_export}()},
-\code{\link{lcms_peakpicking_optimization}()},
 \code{\link{lcms_plot_chrom_peak_image}()},
 \code{\link{lcms_plot_tics}()},
 \code{\link{lcms_retention_time_alignment_plot}()},
 \code{\link{lcms_tics}()},
 \code{\link{obiAdjust_Rtime}()},
+\code{\link{peakpicking_optimization}()},
 \code{\link{phData}()}
 
 Other import/export functions: 

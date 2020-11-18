@@ -6,7 +6,7 @@
 #' This includes Peak Detection (‘Centwave’),
 #' Retention Time Correction (‘obiwarp’) and Peak Correspondence
 #' (‘Density’). Use this function to generate the template within the
-#' `lcms_peakpicking_optimization` function.
+#' `peakpicking_optimization` function.
 #'
 #' @param noise numeric, minimum intensity needed to be included in the analysis.
 #' @param snthresh numeric, set the signal to noise ratio threshold to be included.
@@ -21,13 +21,13 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
+#' default_peakpicking_params <- default_peakpicking_params(optimize = TRUE)
 #' print(default_peakpicking_params)
 #' }
-lcms_default_peakpicking_params <- function(noise = c(10e+4,10e+5),
-                                            snthresh = c(3,10),
+default_peakpicking_params <- function(noise = c(10e+4,10e+6),
+                                            snthresh = c(3, 5),
                                             min_peakwidth = c(9, 20),
-                                            max_peakwidth = c(35, 120),
+                                            max_peakwidth = c(35, 50),
                                             optimize = TRUE){
   if (optimize == TRUE){
     peakpickingParameters <- IPO::getDefaultXcmsSetStartingParams(method = c("centWave"))
@@ -65,18 +65,19 @@ lcms_default_peakpicking_params <- function(noise = c(10e+4,10e+5),
 #' opt_path <- system.file("extdata", "ipo_opt", package = "AlpsLCMS")
 #' file_name <- system.file("extdata", "dataset_pos_rt_rs.rds", package = "AlpsLCMS")
 #' dataset <- lcms_dataset_load(file_name)
-#' default_peakpicking_params <- lcms_default_peakpicking_params(optimize = TRUE)
-#' result_peakpicking <- lcms_peakpicking_optimization(dataset,
+#' default_peakpicking_params <- default_peakpicking_params(optimize = TRUE)
+#' result_peakpicking <- peakpicking_optimization(dataset,
 #'                                                    default_peakpicking_params,
 #'                                                    opt_path = opt_path,
 #'                                                    subdir = NULL)
 #' }
-lcms_peakpicking_optimization <- function (dataset,
-                                           peakpickingParameters,
-                                           nSlaves = 1,
-                                           opt_path,
-                                           subdir ="plot_ipo",
-                                           plots = TRUE){
+peakpicking_optimization <- function (dataset,
+                                      peakpickingParameters,
+                                      nSlaves = 1,
+                                      opt_path,
+                                      subdir ="plot_ipo",
+                                      plots = TRUE,
+                                      format = "mzXML"){
 
   if(is.null(peakpickingParameters)){
     resultPeakpicking <- NULL
@@ -84,7 +85,8 @@ lcms_peakpicking_optimization <- function (dataset,
     filenames <- Biobase::pData(dataset)$sampleNames
     filer <- filenames
     former_dir <- getwd()
-    setwd(opt_path)
+    if(is.null(opt_path)){
+      opt_path <- dataset@processingData@files}
 
     ## Get the spectra
     data_subset <- dataset %>% MSnbase::filterFile(file = filenames)
@@ -93,16 +95,16 @@ lcms_peakpicking_optimization <- function (dataset,
     cat("Be careful if you run twice the function using the same output directory.", "\n")
     cat("The algorithm will remove the files stored in it, and then write the new files.", "\n")
 
-    mzxml_in_opt_path <- lcms_list_mzxml_samples(opt_path, file_format = "mzXML",
-                                                 rawconverter_path = NULL)
-
-    file_names_opt_path <- stringr::str_c(stringr::str_match(mzxml_in_opt_path,"\\w+\\.mzXML$"))
-    num_mzxml_opt_path <- length(file_names_opt_path)
-    file_names_union <- union(file_names_opt_path, filer)
-
-    if(num_mzxml_opt_path > 0){
-      file.remove(file_names_opt_path)
-    }
+    # mzxml_in_opt_path <- lcms_list_mzxml_samples(opt_path, file_format = format,
+    #                                              rawconverter_path = NULL)
+    #
+    # file_names_opt_path <- stringr::str_c(stringr::str_match(mzxml_in_opt_path,"\\w+\\.mzXML$"))
+    # num_mzxml_opt_path <- length(file_names_opt_path)
+    # file_names_union <- union(file_names_opt_path, filer)
+    #
+    # if(num_mzxml_opt_path > 0){
+    #   file.remove(file_names_opt_path)
+    # }
 
     # mzR::writeMSData(data_subset, file = filer, outformat = c("mzxml"), copy = FALSE)
     # aux_filer <- stringr::str_c(filer,collapse = " ")
@@ -125,7 +127,7 @@ lcms_peakpicking_optimization <- function (dataset,
         )
       )
     })
-    setwd(former_dir)
+    # setwd(former_dir)
   }
   return(resultPeakpicking)
 }
@@ -174,7 +176,7 @@ lcms_default_retcorgroup_params <- function(profStep = c(0.7,1),
 #' for the retention time correction and grouping using the IPO Package.
 #'
 #' @param optimizedXcmsSetObject XCMS object conatining the `best_settings` parameters.
-#' This object may be created after running `lcms_peakpicking_optimization` and extract
+#' This object may be created after running `peakpicking_optimization` and extract
 #' best_settings$xset (e.g. optimizedXcmsSetObject <- resultPeakpicking$best_settings$xset)
 #' @param retcorGroupParameters Parameters for retention time correction and optimization
 #' @param nSlaves Number of slaves the optimization process should spawn.
@@ -246,7 +248,7 @@ lcms_retcorgroup_optimization <- function (optimizedXcmsSetObject,
 #' allows in the RStudio console. Also you can save this results in plain text files
 #' (i.e. a .CVS file).
 #'
-#' @param results_pp object from the `lcms_peakpicking_optimization` function. If NULL, the default parameters for xcms are loaded.
+#' @param results_pp object from the `peakpicking_optimization` function. If NULL, the default parameters for xcms are loaded.
 #' @param results_rtcg object from the `lcms_corgroup_optimization` function.
 #' @param opt_result_path A directory to save the parameters file.
 #' @param csv if TRUE, it writes a file in csv format.

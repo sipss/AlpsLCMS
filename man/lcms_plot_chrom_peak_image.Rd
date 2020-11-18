@@ -63,12 +63,12 @@ Other dataset functions:
 \code{\link{lcms_filter_sample_type}()},
 \code{\link{lcms_meta_add}()},
 \code{\link{lcms_meta_export}()},
-\code{\link{lcms_peakpicking_optimization}()},
 \code{\link{lcms_plot_tics}()},
 \code{\link{lcms_rearrange_datafiles_by_class}()},
 \code{\link{lcms_retention_time_alignment_plot}()},
 \code{\link{lcms_tics}()},
 \code{\link{obiAdjust_Rtime}()},
+\code{\link{peakpicking_optimization}()},
 \code{\link{phData}()}
 
 Other chromatogram functions: 
@@ -78,11 +78,11 @@ Other chromatogram functions:
 Other visualization functions: 
 \code{\link{lcms_peak_table_boxplots}()},
 \code{\link{lcms_peak_table_pca}()},
-\code{\link{lcms_peakpicking_optimization}()},
 \code{\link{lcms_plot_chrom}()},
 \code{\link{lcms_plot_tics}()},
 \code{\link{lcms_retcorgroup_optimization}()},
-\code{\link{lcms_retention_time_alignment_plot}()}
+\code{\link{lcms_retention_time_alignment_plot}()},
+\code{\link{peakpicking_optimization}()}
 }
 \concept{chromatogram functions}
 \concept{dataset functions}

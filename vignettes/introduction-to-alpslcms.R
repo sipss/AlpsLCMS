@@ -10,21 +10,30 @@ knitr::opts_chunk$set(
 library(AlpsLCMS)
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
+# Set the path of the example dataset. 
+# Only 4 samples will be considered.
 library(faahKO)
 path <- dir(system.file("cdf", package = "faahKO"), full.names = TRUE,
-            recursive = TRUE)
+            recursive = TRUE)[5:8]
+
+# Do not run if .mzXML format is used
 polarity <- 1 # 1 for positive mode, 0 for negative mode
 
 ## ----Data wrangling-----------------------------------------------------------
-# Be careful setting the mode to "onDisk" when you apply this function.
+# Set the mode to "onDisk" when you apply this function. Otherwise, it could
+# take too much memory.
 dataset <- lcms_read_samples(path, mode = "onDisk")
-dataset@featureData@data[["polarity"]] <- rep(polarity, length(dataset@featureData@data[["polarity"]]))
+
+# Set the polarity
+dataset@featureData@data[["polarity"]] <- rep(polarity, 
+                                              length(dataset@featureData@data[["polarity"]]))
 head(dataset)
 
 ## -----------------------------------------------------------------------------
+# Create a metadata for this example dataset
 metadata <- data.frame(sampleNames = basename(path),
-                 treatment = c(rep("ko",6),
-                               rep("wt",6)),
+                 treatment = c(rep("ko",2),
+                               rep("wt",2)),
                  stringsAsFactors = FALSE)
 
 ## -----------------------------------------------------------------------------
@@ -57,216 +66,8 @@ lcms_plot_tics(tics,
 
 ## ----Creating parameters------------------------------------------------------
 # if to optimize or not
-optimize = TRUE
-nSlaves = 1
+optimize <- TRUE
+nSlaves <- 1
+subset <- dataset[3:4]
 classes <- dataset@phenoData@data[["treatment"]]
-
-## -----------------------------------------------------------------------------
-default_peakPar <- IPO::getDefaultXcmsSetStartingParams('matchedFilter')
-
-## ----message=FALSE, warning=FALSE---------------------------------------------
-mfp <- xcms::MatchedFilterParam(
-  mzdiff = default_peakPar$mzdiff,
-  snthresh =  3
-)
-peakdet <- xcms::findChromPeaks(dataset, param = mfp)
-
-## -----------------------------------------------------------------------------
-new_params <- PeakDensityPar(sampleGroups = classes, 
-                               binSize = 0.6)
-
-peakgrouped <- groupPeaks(peakdet, 
-                         param = new_params)
-
-## -----------------------------------------------------------------------------
-message("Number of detected peaks")
-peakdet@msFeatureData[["chromPeakData"]]@nrows
-
-## ----Alignment----------------------------------------------------------------
-pgp <- PeakGroupsPar(minFraction = 0.8,
-                       extraPeaks = 1, 
-                       smooth = "loess",
-                       span = 0.4,
-                       family = "gaussian")
-
-## Get the peak groups that would be used for alignment.
-xdata_aling <- adjustRT(peakgrouped, param = pgp)
-
-rt_plot = lcms_retention_time_alignment_plot(xdata_aling)
-rt_plot
-
-## REGROUPING
-new_params <- PeakDensityPar(sampleGroups = classes,
-                             bw = 30, 
-                             minFraction = 0.4)
-
-peakgrouped = groupPeaks(xdata_aling, param = new_params)
-
-## -----------------------------------------------------------------------------
-lcms_plot_chrom_peak_image(peakdet, binSize = 5,
-                           xlim = NULL,
-                           log = FALSE,
-                           xlab = "retention time (min)",
-                           yaxt = par("yaxt"),
-                           main = "Detected Peaks (unprocessed)")
-
-lcms_plot_chrom_peak_image(peakgrouped, binSize = 5,
-                           xlim = NULL,
-                           log = FALSE,
-                           xlab = "retention time (min)",
-                           yaxt = par("yaxt"),
-                           main = "Detected Peaks (processed)")
-
-## ----Imputation I-------------------------------------------------------------
-message("Missing values found in the processed dataset: ", sum(is.na(featureValues(peakgrouped))))
-
-peakgrouped_imp <- lcms_fill_chrom_peaks(peakgrouped)
-cat("Imputing values...\n")
-
-message("Missing values found after fill_chrom_peaks: ", sum(is.na(featureValues(peakgrouped_imp))))
-
-## ----Feature table------------------------------------------------------------
-xdata = feature_values(peakgrouped_imp,
-                      method = "maxint",
-                      value = "into",
-                      filled = TRUE, 
-                      missing = "rowmin_half")
-xdata <-  t(xdata)
-feature <- featureDefinitions(peakgrouped_imp)
-feature <- feature@listData
-featNames <- paste0(feature$mzmed,"_",feature$rtmed)
-colnames(xdata) <- featNames
-
-message("Missing values in the feature table: ",
-sum(is.na(xdata)))
-
-## ----echo = FALSE-------------------------------------------------------------
-# Get mz and rt columns for the feature table
-mz <- colnames(xdata) %>%
-  stringr::str_split(.,"\\_") %>% 
-  lapply(.,function(x) x[1]) %>% 
-  unlist() %>% 
-  as.numeric()
-
-#You can get rt also
-rt <- colnames(xdata) %>%
-  stringr::str_split(.,"\\_") %>% 
-  lapply(.,function(x) x[2]) %>% 
-  unlist() %>% 
-  as.numeric()
-rt <- rt/60
-
-## ----Params Data reduction----------------------------------------------------
-st <- getRamSt(peakgrouped_imp)
-sr <- 0.6
-
-#List of adducts for do.findmain
-#adducts_list = c("[M+H-H2O]+")
-adducts_list = c()
-
-## Building the defineExperiment manually
-## Change for your convenience (e.g. GC-MS)
-value <- c(rep("fill", 4), "LC-MS")
-design <- as.data.frame(value)
-rownme <- c("Experiment", "Species", "Sample",
-            "Contributer", "platform")  
-rownames(design) <- rownme
-
-value <- c(rep("fill", 13), "1")
-instrument <- as.data.frame(value)
-rownm <- c("chrominst", "msinst", "column", 
-           "solvA", "solvB", "CE1", "CE2", 
-           "mstype", "msmode", "ionization", 
-           "colgas", "msscanrange", "conevol", 
-           "MSlevs")
-rownames(instrument) <- rownm
-
-Experiment <- list(design =  design, instrument = instrument)
-
-## ----warning=FALSE------------------------------------------------------------
-RC <- clustering(xcmsObj = peakgrouped_imp,
-                 featdelim = ".",
-                 st = st,
-                 sr = sr,
-                 ExpDes = Experiment,
-                 normalize = "TIC",
-                 deepSplit = TRUE,
-                 sampNameCol = 1,
-                 mspout = FALSE,
-                 fftempdir = getwd())
-
-RC <- do_findmain(RC,
-                  nls = c("[M+H-H2O]+"),
-                  mode = "positive",
-                  mzabs.error = 0.01,
-                  ppm.error = 10,
-                  plot.findmain = FALSE,
-                  writeMat = FALSE,
-                  writeMS = FALSE)
-
-
-## ----Reduced feature table----------------------------------------------------
-labeled_adducts <- labelling(RC)
-representative_ions <- labeled_adducts$representative_ions
-xdata_reduced <- feature_reduction(xdata, representative_ions, RC)
-
-dim(xdata)
-dim(xdata_reduced)
-
-## -----------------------------------------------------------------------------
-stat <- function(x){stats::wilcox.test(x ~ classes, xdata_reduced)$p.value}
-abcd <- data.frame(apply(FUN = stat,
-                         MARGIN = 2,
-                         X = xdata_reduced))
-colnames(abcd) <- c("p_Wilc")
-abcd$id <- row.names(abcd)
-result <- abcd
-summary(result$p_Wilc)
-message("\nNumber of features < 0.05 nominal p-value ", 
-sum(result$p_Wilc < 0.05))
-head(result[result$p_Wilc < 0.05, 1])
-
-#FDR
-fdr.wilcox <- stats::p.adjust(result$p_Wilc, method = "fdr")
-result <- cbind(result, fdr.wilcox)
-message("\nNumber of features fdr-corrected p value of < 0.05 is ", 
-sum(result$fdr.wilcox < 0.05))
-
-## ----Annotation univariate postivie-------------------------------------------
-# We use the selected vips
-univ_feat <- result[result$fdr.wilcox < 0.05,"id"]
-
-# Untargeted assignation
-# Creating mz column
-mzr <- univ_feat %>%
-  stringr::str_split(.,"\\_") %>%
-  lapply(.,function(x) x[1]) %>%
-  unlist() %>%
-  as.numeric()
-
-all.equal(length(univ_feat), length(mzr))
-
-tdata_reduced_univ <- data.frame(mz = mzr)
-if(dim(tdata_reduced_univ)[1]>0){
-  result_POS_HMDB_univ <- assignation_pos_HMDB(tdata_reduced_univ)
-  head(result_POS_HMDB_univ)
-} else {
-  message("There is no significant features in Wilcox test")
-}
-
-## ----Annotation of all features positive--------------------------------------
-# Untargeted assignation
-# Creating mz column
-
-mzr <- colnames(as.matrix(xdata)) %>%
-  stringr::str_split(.,"\\_") %>%
-  lapply(.,function(x) x[1]) %>%
-  unlist() %>%
-  as.numeric()
-
-all.equal(dim(xdata)[2], length(mzr))
-
-tdata_reduced_all_features <- data.frame(mz = mzr)
-result_POS_HMDB_all_features <- assignation_pos_HMDB(tdata_reduced_all_features)
-head(result_POS_HMDB_all_features)
 

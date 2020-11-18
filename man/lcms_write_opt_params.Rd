@@ -13,7 +13,7 @@ lcms_write_opt_params(
 )
 }
 \arguments{
-\item{results_pp}{object from the \code{lcms_peakpicking_optimization} function. If NULL, the default parameters for xcms are loaded.}
+\item{results_pp}{object from the \code{peakpicking_optimization} function. If NULL, the default parameters for xcms are loaded.}
 
 \item{results_rtcg}{object from the \code{lcms_corgroup_optimization} function.}
 
@@ -44,11 +44,11 @@ allows in the RStudio console. Also you can save this results in plain text file
 }
 \seealso{
 Other optimization functions: 
+\code{\link{default_peakpicking_params}()},
 \code{\link{lcms_convert_ipo_to_xcms}()},
-\code{\link{lcms_default_peakpicking_params}()},
-\code{\link{lcms_peakpicking_optimization}()},
 \code{\link{lcms_read_ipo_to_xcms}()},
-\code{\link{lcms_retcorgroup_optimization}()}
+\code{\link{lcms_retcorgroup_optimization}()},
+\code{\link{peakpicking_optimization}()}
 
 Other import/export functions: 
 \code{\link{lcms_convert_ipo_to_xcms}()},

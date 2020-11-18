@@ -27,11 +27,11 @@ print(preproc_params)
 }
 \seealso{
 Other optimization functions: 
-\code{\link{lcms_default_peakpicking_params}()},
-\code{\link{lcms_peakpicking_optimization}()},
+\code{\link{default_peakpicking_params}()},
 \code{\link{lcms_read_ipo_to_xcms}()},
 \code{\link{lcms_retcorgroup_optimization}()},
-\code{\link{lcms_write_opt_params}()}
+\code{\link{lcms_write_opt_params}()},
+\code{\link{peakpicking_optimization}()}
 
 Other import/export functions: 
 \code{\link{lcms_dataset_load}()},
