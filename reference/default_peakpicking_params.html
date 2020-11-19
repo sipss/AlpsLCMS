@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Filter an experiment by its polarity — lcms_filter_polarity • AlpsLCMS</title>
+<title>Default parameters for peak picking optimization — default_peakpicking_params • AlpsLCMS</title>
 
 
 <!-- jquery -->
@@ -35,9 +35,14 @@
 
 
 
-<meta property="og:title" content="Filter an experiment by its polarity — lcms_filter_polarity" />
-<meta property="og:description" content="This function was merged in
-the MSnbase package on 2018-12-10 as proposed at:" />
+<meta property="og:title" content="Default parameters for peak picking optimization — default_peakpicking_params" />
+<meta property="og:description" content="The function creates default parameters for optimizing
+peakpicking algorithms.Parameter optimization
+on the XCMS preprocessing algorithms was performed using the IPO Package.
+This includes Peak Detection (‘Centwave’),
+Retention Time Correction (‘obiwarp’) and Peak Correspondence
+(‘Density’). Use this function to generate the template within the
+peakpicking_optimization function." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,71 +127,73 @@ the MSnbase package on 2018-12-10 as proposed at:" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Filter an experiment by its polarity</h1>
-    <small class="dont-index">Source: <a href='https://github.com/sipss/AlpsLCMS/blob/master/R/pre_processing.R'><code>R/pre_processing.R</code></a></small>
-    <div class="hidden name"><code>lcms_filter_polarity.Rd</code></div>
+    <h1>Default parameters for peak picking optimization</h1>
+    <small class="dont-index">Source: <a href='https://github.com/sipss/AlpsLCMS/blob/master/R/parameter_optimization.R'><code>R/parameter_optimization.R</code></a></small>
+    <div class="hidden name"><code>default_peakpicking_params.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function was merged in
-the MSnbase package on 2018-12-10 as proposed at:</p>
+    <p>The function creates default parameters for optimizing
+peakpicking algorithms.Parameter optimization
+on the XCMS preprocessing algorithms was performed using the IPO Package.
+This includes Peak Detection (‘Centwave’),
+Retention Time Correction (‘obiwarp’) and Peak Correspondence
+(‘Density’). Use this function to generate the template within the
+<code>peakpicking_optimization</code> function.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lcms_filter_polarity</span>(<span class='no'>lcms_dataset</span>, <span class='no'>polarity.</span>)</pre>
+    <pre class="usage"><span class='fu'>default_peakpicking_params</span>(
+  <span class='kw'>noise</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1e+05</span>, <span class='fl'>1e+07</span>),
+  <span class='kw'>snthresh</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>5</span>),
+  <span class='kw'>min_peakwidth</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>9</span>, <span class='fl'>20</span>),
+  <span class='kw'>max_peakwidth</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>35</span>, <span class='fl'>50</span>),
+  <span class='kw'>optimize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>lcms_dataset</th>
-      <td><p>A MSnExp object.</p></td>
+      <th>noise</th>
+      <td><p>numeric, minimum intensity needed to be included in the analysis.</p></td>
     </tr>
     <tr>
-      <th>polarity.</th>
-      <td><p>The polarity to keep.</p></td>
+      <th>snthresh</th>
+      <td><p>numeric, set the signal to noise ratio threshold to be included.</p></td>
+    </tr>
+    <tr>
+      <th>min_peakwidth</th>
+      <td><p>numeric (two values) with the expected minimal peak width in
+chromatographic dimension. Set as a range (min, max) in seconds.</p></td>
+    </tr>
+    <tr>
+      <th>max_peakwidth</th>
+      <td><p>numeric (two values) with the expected maximum peak width in
+chromatographic dimension. Set as a range (min, max) in seconds.</p></td>
+    </tr>
+    <tr>
+      <th>optimize</th>
+      <td><p>by default is TRUE. If FALSE, the function does not initialze the parameters
+the parameters</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A filtered lcms_dataset with the selected polarity.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>https://github.com/lgatto/MSnbase/issues/388</p>
-<p>Once MSnbase is released (Bioconductor 3.9, maybe once R 3.6 is out),
-remove this function.</p>
+    <p>A parameters template for peak picking optimization</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other dataset functions: 
-<code><a href='IPO_group_peaks.html'>IPO_group_peaks</a>()</code>,
-<code><a href='find_peaks_cwp.html'>find_peaks_cwp</a>()</code>,
-<code><a href='lcms_dataset_load.html'>lcms_dataset_load</a>()</code>,
-<code><a href='lcms_dataset_save.html'>lcms_dataset_save</a>()</code>,
-<code><a href='lcms_fill_chrom_peaks.html'>lcms_fill_chrom_peaks</a>()</code>,
-<code><a href='lcms_filter_mz.html'>lcms_filter_mz</a>()</code>,
-<code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a>()</code>,
-<code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a>()</code>,
-<code><a href='lcms_meta_add.html'>lcms_meta_add</a>()</code>,
-<code><a href='lcms_meta_export.html'>lcms_meta_export</a>()</code>,
-<code><a href='lcms_plot_chrom_peak_image.html'>lcms_plot_chrom_peak_image</a>()</code>,
-<code><a href='lcms_plot_tics.html'>lcms_plot_tics</a>()</code>,
-<code><a href='lcms_rearrange_datafiles_by_class.html'>lcms_rearrange_datafiles_by_class</a>()</code>,
-<code><a href='lcms_retention_time_alignment_plot.html'>lcms_retention_time_alignment_plot</a>()</code>,
-<code><a href='lcms_tics.html'>lcms_tics</a>()</code>,
-<code><a href='obiAdjust_Rtime.html'>obiAdjust_Rtime</a>()</code>,
-<code><a href='peakpicking_optimization.html'>peakpicking_optimization</a>()</code>,
-<code><a href='phData.html'>phData</a>()</code></p>
-<p>Other filtering functions: 
-<code><a href='lcms_filter_mz.html'>lcms_filter_mz</a>()</code>,
-<code><a href='lcms_filter_rt_min.html'>lcms_filter_rt_min</a>()</code>,
-<code><a href='lcms_filter_sample_type.html'>lcms_filter_sample_type</a>()</code></p></div>
+    <div class='dont-index'><p>Other optimization functions: 
+<code><a href='lcms_convert_ipo_to_xcms.html'>lcms_convert_ipo_to_xcms</a>()</code>,
+<code><a href='lcms_read_ipo_to_xcms.html'>lcms_read_ipo_to_xcms</a>()</code>,
+<code><a href='lcms_retcorgroup_optimization.html'>lcms_retcorgroup_optimization</a>()</code>,
+<code><a href='lcms_write_opt_params.html'>lcms_write_opt_params</a>()</code>,
+<code><a href='peakpicking_optimization.html'>peakpicking_optimization</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>dataset_2_polarities</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='lcms_read_samples.html'>lcms_read_samples</a></span>(<span class='st'>"yourDir/sample1.mzXML"</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"onDisk"</span>)
-<span class='no'>dataset_pos</span> <span class='kw'>&lt;-</span> <span class='fu'>lcms_filter_polarity</span>(<span class='no'>dataset_2_polarities</span>, <span class='kw'>polarity.</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-
-<span class='fu'><a href='is.positive.html'>is.positive</a></span>(<span class='no'>dataset_pos</span>)
+<span class='no'>default_peakpicking_params</span> <span class='kw'>&lt;-</span> <span class='fu'>default_peakpicking_params</span>(<span class='kw'>optimize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>default_peakpicking_params</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -194,7 +201,6 @@ remove this function.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
