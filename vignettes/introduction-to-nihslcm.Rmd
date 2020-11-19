@@ -1,12 +1,12 @@
 ---
-title: "Introduction to AlpsLCMS"
+title: "Introduction to NIHSlcms"
 author: "Institute for Bioengineering of Catalonia"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Introduction to AlpsLCMS}
+  %\VignetteIndexEntry{Introduction to NIHSlcms}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The `AlpsLCMS` package was written with two purposes in mind:
+The `NIHSlcms` package was written with two purposes in mind:
 
 - to help **data analysts and LC-MS scientists** to work with LC-MS samples.
 - to help **IT pipeline builders** implement automated methods for preprocessing.
@@ -40,44 +40,36 @@ you are interested in building pipelines with this package, you may want to open
 the file saved in this directory (run it on your computer):
 
 ```
-pipeline_example <- system.file("pipeline-rmd", "pipeline_example.R", package = "AlpsLCMS")
+pipeline_example <- system.file("pipeline-rmd", "pipeline_example.R", package = "NIHSlcms")
 print(pipeline_example)
 ```
 
 
 ```{r}
-library(AlpsLCMS)
+library(NIHSlcms)
 ```
 
 # NODE 1: Data wrangling
 
 ## Convert RAW to mzXML
 
-First, we need the listed spectra ideally in `".mzXML"` or `".cdf"` formats to create the `lcms_dataset`. We can manually convert `".raw"` into `".mzXML"` using RawConverter or ProteoWizard externally and saved them within the same input directory. In `".cdf"` files, we need to set the polarity manually.
+First, we need the listed spectra in ".mzXML" format to create the `lcms_dataset`. We can manually convert ".raw" into ".mzXML" using RawConverter or ProteoWizard externally and saved them within the same input directory. We set the polarity manually.
 
 ## Input
 
 ```{r message=FALSE, warning=FALSE}
-# Set the path of the example dataset. 
-# Only 4 samples will be considered.
 library(faahKO)
 path <- dir(system.file("cdf", package = "faahKO"), full.names = TRUE,
-            recursive = TRUE)[5:8]
-
-# Do not run if .mzXML format is used
+            recursive = TRUE)
 polarity <- 1 # 1 for positive mode, 0 for negative mode
 ```
 
 ## Code to run
 
 ```{r Data wrangling}
-# Set the mode to "onDisk" when you apply this function. Otherwise, it could
-# take too much memory.
-dataset <- lcms_read_samples(path, mode = "onDisk")
-
-# Set the polarity
-dataset@featureData@data[["polarity"]] <- rep(polarity, 
-                                              length(dataset@featureData@data[["polarity"]]))
+# Be careful setting the mode to "onDisk" when you apply this function.
+dataset <- readMSData(path, mode = "onDisk")
+dataset@featureData@data[["polarity"]] <- rep(polarity, length(dataset@featureData@data[["polarity"]]))
 head(dataset)
 ```
 
@@ -92,10 +84,9 @@ Caution with metadata. The use of characters such as "-", "/", " " (space) and s
 ## Input parameters
 
 ```{r}
-# Create a metadata for this example dataset
 metadata <- data.frame(sampleNames = basename(path),
-                 treatment = c(rep("ko",2),
-                               rep("wt",2)),
+                 treatment = c(rep("ko",6),
+                               rep("wt",6)),
                  stringsAsFactors = FALSE)
 ```
 
@@ -147,98 +138,98 @@ lcms_plot_tics(tics,
                plot_type = "spec")
 ```
 
+# NODE 5: Data Preprocessing - XCMS
 
-# NODE 5: Optimization of parameters: IPO
+It includes:
 
-We perform parameter optimization on the XCMS preprocessing algorithms using the `IPO` Package. This includes Peak Detection ('Centwave'), Retention Time  Correction ('obiwarp') and Peak Correspondence ('Density'). Optimization can be done using all the regular samples(exhaustive), or just a subset. Also you can use Quality Control samples for optimization. Finally, you can skip the optimization process and use the default set of parameter provided by the `IPO` Package.
+  * Peak Detection
+  * Retention Time Correction
+  * Peak Correspondence
+  * Imputation
 
-# Optimization of *Peak Detection* parameters
+Parameters can be changed here. After manual inspection of certain compounds that we know that they should naturally appear, such as plotting leucine and isoleucine (as we are using plasma samples), we can set parameters more accurally. 
 
 ## Input
 
 ```{r Creating parameters}
-# if to optimize or not
-optimize <- TRUE
-nSlaves <- 1
-subset <- dataset[2:3]
+prep_parm_p <- NULL
+prep_parm_p$peakwidth <- c(20, 80)
+prep_parm_p$noise <- 5000
+prep_parm_p$snthresh <- 3
+prep_parm_p$prefilter <- c(6, 5000)
+prep_parm_p$centerSample <- "wMean"
+prep_parm_p$integrate <- 2
+prep_parm_p$mzdiff <- -0.001
+prep_parm_p$profStep <- 0.005
+prep_parm_p$minFraction <- 0.2
+prep_parm_p$ppm <- 25
+prep_parm_p$mzCenterFun <- "wMean"
+prep_parm_p$fitgauss <- FALSE
+prep_parm_p$verbose.columns <- FALSE
+
 classes <- dataset@phenoData@data[["treatment"]]
 ```
 
+# **Peak detection**
+
+Our standard method for peak detection is *'CentWave'*, since the data provided is Centroided. We must initialize its parameters according to the `IPO` Package optimization. Peak detection aims to detect important features (peaks) on the chromatographic axis. This will be useful for a posterior peak alignment on the chormatophic axis.
+
 ## Code to run
 
-```{r}
-# peakpeaking_par <- default_peakpicking_params(optimize = optimize)
-# resultPeakpicking <- peakpicking_optimization(dataset = subset,
-#                                               peakpickingParameters = peakpeaking_par,
-#                                               nSlaves = nSlaves,
-#                                               opt_path = NULL,
-#                                               plots = FALSE)
+```{r Peak detection}
+peakdet = lcms_find_chrom_peaks_cwp(dataset, 
+                                    params = prep_parm_p)
+
+message("Number of detected peaks")
+peakdet@msFeatureData[["chromPeakData"]]@nrows
+message("")
+
+message("Parameters")
+peakdet@.processHistory[[1]]@param
+
+xcms::plotChromPeakImage(peakdet)
 ```
 
+# **Retention Time Correction and Peak Correspondence**
 
-
-```{r}
-
-```
-
-# NODE 6: Preprocessing with xcms
-
-# Peak detection (matched filter)
-
-```{r message=FALSE, warning=FALSE}
-resultPeakpicking$best_settings$result
-optimizedXcmsSetObject <- resultPeakpicking$best_settings$xset
-
-
-mfp <- xcms::MatchedFilterParam(
-  mzdiff = default_peakPar$mzdiff,
-  snthresh =  3
-)
-peakdet <- xcms::findChromPeaks(dataset, param = optimizedXcmsSetObject)
-```
-
-# Retention Time Correction and Peak Correspondence
-
-Peak correspondence is carried out by the *'groupPeaks'* method, with parameters obtained form `IPO`. Peak Correspondence consist in grouping peaks on retention time axis with the purpose of associate them to spectra on the mass/charge axis. After this stage we finally have a peak table.
+Peak correspondence is carried out by the *'groupChromPeaks'* method, with parameters obtained form `IPO`. Peak Correspondece consist in grouping peaks on retention time axis with the purspose of associate them to spectra on the mass/chage axis. After this stage we finally have a peak table.
 
 It requires a previous grouping.
 
-## Correspondence
+# **Correspondence, Alignment and Regrouping**
 
-```{r}
-new_params <- PeakDensityPar(sampleGroups = classes, 
+## **Correspondence**
+
+```{r Correspondence}
+new_params <- PeakDensityParam(sampleGroups = classes, 
                                binSize = 0.6)
 
-peakgrouped <- groupPeaks(peakdet, 
-                         param = new_params)
+peakgrouped = groupChromPeaks(peakdet, 
+                              param = new_params)
 ```
 
-```{r}
-message("Number of detected peaks")
-peakdet@msFeatureData[["chromPeakData"]]@nrows
-```
 
-## Alignment and regrouping
+## **Alignment and regrouping**
 
 ```{r Alignment}
-pgp <- PeakGroupsPar(minFraction = 0.8,
+pgp <- PeakGroupsParam(minFraction = 0.8,
                        extraPeaks = 1, 
                        smooth = "loess",
                        span = 0.4,
                        family = "gaussian")
 
 ## Get the peak groups that would be used for alignment.
-xdata_aling <- adjustRT(peakgrouped, param = pgp)
+xdata_aling <- adjustRtime(peakgrouped, param = pgp)
 
 rt_plot = lcms_retention_time_alignment_plot(xdata_aling)
 rt_plot
 
 ## REGROUPING
-new_params <- PeakDensityPar(sampleGroups = classes,
-                             bw = 30, 
-                             minFraction = 0.4)
+new_params <- PeakDensityParam(sampleGroups = classes,
+                               bw = 30, # 
+                               minFraction = 0.4)
 
-peakgrouped = groupPeaks(xdata_aling, param = new_params)
+peakgrouped = groupChromPeaks(xdata_aling, param = new_params)
 ```
 
 Image plot of the chromatographic detected peaks per sample before retention time alignment and grouping:
@@ -260,7 +251,7 @@ lcms_plot_chrom_peak_image(peakgrouped, binSize = 5,
                            main = "Detected Peaks (processed)")
 ```
 
-# Imputation
+# *Imputation*
 
 Finally, in the imputation stage, we integrate the areas of the missing peaks of the peak table that were not detected in the previous steps of the signal preprocessing workflow. This stage is important to make easier statistical and machine learnig posterior stages. 
 
@@ -275,36 +266,39 @@ message("Missing values found after fill_chrom_peaks: ", sum(is.na(featureValues
 
 # NODE 8: Feature table
 
-The function `feature_values` creates a intensity matrix with all the features. However, since this is untargeted metabolomics, the colnames are composed by FT1, FT2, FT3... (FT = feature) and each feature needs to be explored with the feature definition function (info for mass and rt) once a feature is significantly different by groups.
+The XCMS function featureValues creates a intensity matrix with all the features. However, since this is untargeted metabolomics, the colnames are composed by FT1, FT2, FT3... (FT = feature) and each feature needs to be explored with the feature definition function (info for mass and rt) once a feature is significantly different by groups.
 
 ## Merging into a Feature Table
 
 ```{r Feature table}
-xdata = feature_values(peakgrouped_imp,
-                      method = "maxint",
-                      value = "into",
-                      filled = TRUE, 
-                      missing = "rowmin_half")
-xdata <-  t(xdata)
-feature <- featureDefinitions(peakgrouped_imp)
-feature <- feature@listData
-featNames <- paste0(feature$mzmed,"_",feature$rtmed)
-colnames(xdata) <- featNames
+xdata = featureValues(peakgrouped_imp,
+                             method = "maxint",
+                             value = "into",
+                             filled = TRUE, 
+                             missing = "rowmin_half")
+xdata= t(xdata)
+feature=featureDefinitions(peakgrouped_imp)
+feature=feature@listData
+featNames=paste0(feature$mzmed,"_",feature$rtmed)
+colnames(xdata)=featNames
 
 message("Missing values in the feature table: ",
 sum(is.na(xdata)))
 ```
 
 ```{r echo = FALSE}
+xdataImp <- xdata
+xdataImputed <- as.data.frame(xdataImp, stringsAsFactors = FALSE)
+
 # Get mz and rt columns for the feature table
-mz <- colnames(xdata) %>%
+mz <- colnames(xdataImp) %>%
   stringr::str_split(.,"\\_") %>% 
   lapply(.,function(x) x[1]) %>% 
   unlist() %>% 
   as.numeric()
 
 #You can get rt also
-rt <- colnames(xdata) %>%
+rt <- colnames(xdataImp) %>%
   stringr::str_split(.,"\\_") %>% 
   lapply(.,function(x) x[2]) %>% 
   unlist() %>% 
@@ -318,7 +312,7 @@ rt <- rt/60
 
 ```{r Params Data reduction}
 st <- getRamSt(peakgrouped_imp)
-sr <- 0.6
+sr <- 0.5
 
 #List of adducts for do.findmain
 #adducts_list = c("[M+H-H2O]+")
@@ -347,43 +341,117 @@ Experiment <- list(design =  design, instrument = instrument)
 ## Code to run
 
 ```{r warning=FALSE}
-RC <- clustering(xcmsObj = peakgrouped_imp,
-                 featdelim = ".",
-                 st = st,
-                 sr = sr,
-                 ExpDes = Experiment,
-                 normalize = "TIC",
-                 deepSplit = TRUE,
-                 sampNameCol = 1,
-                 mspout = FALSE,
-                 fftempdir = getwd())
+RC <- RAMClustR::ramclustR(xcmsObj = peakgrouped_imp,
+                featdelim = ".",
+                st = st,
+                sr = sr,
+                ExpDes = Experiment,
+                normalize = "TIC",
+                sampNameCol = 1,
+                fftempdir = getwd())
 
-RC <- do_findmain(RC,
-                  nls = c("[M+H-H2O]+"),
+RC <- RAMClustR::do.findmain(RC,
+                  nls = adducts_list,
                   mode = "positive",
-                  mzabs.error = 0.01,
-                  ppm.error = 10,
-                  plot.findmain = FALSE,
+                  mzabs.error = 0.005,
+                  ppm.error = 5,
                   writeMat = FALSE,
                   writeMS = FALSE)
-
 ```
-
-
-```{r Reduced feature table}
-labeled_adducts <- labelling(RC)
-representative_ions <- labeled_adducts$representative_ions
-xdata_reduced <- feature_reduction(xdata, representative_ions, RC)
-
-dim(xdata)
-dim(xdata_reduced)
-```
-
-
-## Univariante analysis
 
 ```{r}
-stat <- function(x){stats::wilcox.test(x ~ classes, xdata_reduced)$p.value}
+# Selection of max intensity ion as cluster representative
+Max_int<- lapply(RC$M.ann, function(x) x[which.max(x$int), ])
+Representative_ions <- dplyr::bind_rows(Max_int)
+Representative_ions$name <- paste(round(Representative_ions$mz,4),
+                             round(RC$clrt,2),
+                             sep = "_")
+
+# Adducts of representative ions
+Representative_adducts <- sapply(RC$M.ann, function(x) x[which.max(x$int), ]$adduct)
+
+# Selection of labeled max intensity ion as cluster representative
+Labeled_int <- lapply(RC$M.ann, function(x) {
+  xl <- x[which(!is.na(x$label)), ]
+  xl[which.max(xl$int), ]
+})
+Labeled_ions <- dplyr::bind_rows(Labeled_int)
+
+# We save most important cluster data
+cluster_data <- data.frame(cluster = RC$ann, Max_int_ion_mz = Representative_ions$mz, Max_int_ion_adduct = Representative_adducts, labeled_ion_mz = Labeled_ions$mz, labeled_ion_adduct = Labeled_ions$label, RC_mz = RC$M, retention_time = RC$clrt)
+
+# All labeled ions
+All_labeled_adducts <- lapply(RC$M.ann, function(x) {
+  xl <- x[which(!is.na(x$label)), ]
+})
+All_labeled_adducts <- dplyr::bind_rows(All_labeled_adducts)
+```
+
+```{r}
+mz %in% Representative_ions$mz %>% table()
+message("length of features: ", length(mz))
+```
+```{r Reduced feature table}
+mdataImputed <- as.matrix(xdataImputed)
+
+# Clustered features
+xdata_cluster_ions <- mdataImputed[, mz %in% Representative_ions$mz]
+
+# Singletons
+clustered_mz<- lapply(RC$M.ann,
+                      function (x) x$mz) %>% 
+                      unlist() %>%
+                      as.numeric()
+
+message("A number of ",
+        length(clustered_mz),
+        " features have been clustered into ",
+        dim(xdata_cluster_ions)[2],
+        " representative features")
+
+mdataImputed <- as.data.frame(mdataImputed)
+xdata_cluster_ions <- as.data.frame(xdata_cluster_ions)
+
+singletons <- mdataImputed[,!mz %in% clustered_mz]
+
+message("A number of ",
+        RC$nsing,
+        " features correspond to singletons")
+```
+
+
+```{r}
+#Combine singletons and molecular ions
+xdata_reduced <- cbind.data.frame(xdata_cluster_ions, singletons)
+
+message("Original dataset has ", 
+        ncol(mdataImputed), 
+        " features")
+message("")
+
+message("Cluster representative ions dataset has ", ncol(xdata_cluster_ions), 
+        " features")
+message("")
+
+message("Singletons dataset has ", ncol(singletons), " features")
+message("")
+
+message("Reduced dataset has ", ncol(xdata_reduced), " features")
+message("")
+```
+
+
+## Univariante analisys
+
+
+```{r univariate positive}
+library(car)
+```
+
+## Model
+
+```{r echo = FALSE}
+stat <- function(x){wilcox.test(x ~ classes, xdata_reduced)$p.value}
 abcd <- data.frame(apply(FUN = stat,
                          MARGIN = 2,
                          X = xdata_reduced))
@@ -393,16 +461,17 @@ result <- abcd
 summary(result$p_Wilc)
 message("\nNumber of features < 0.05 nominal p-value ", 
 sum(result$p_Wilc < 0.05))
-head(result[result$p_Wilc < 0.05, 1])
+head(result[result$p_Wilc < 0.05,1])
 
 #FDR
-fdr.wilcox <- stats::p.adjust(result$p_Wilc, method = "fdr")
+fdr.wilcox <- p.adjust(result$p_Wilc, method = "fdr", n = length(result$p_Wilc))
 result <- cbind(result, fdr.wilcox)
 message("\nNumber of features fdr-corrected p value of < 0.05 is ", 
 sum(result$fdr.wilcox < 0.05))
 ```
 
-# Univariate anotation
+
+# Univariate anotation postivie
 
 ```{r Annotation univariate postivie}
 # We use the selected vips
@@ -428,18 +497,17 @@ if(dim(tdata_reduced_univ)[1]>0){
 ```
 
 # anotation of all features positive
-
 ```{r Annotation of all features positive}
 # Untargeted assignation
 # Creating mz column
 
-mzr <- colnames(as.matrix(xdata)) %>%
+mzr <- colnames(as.matrix(xdataImputed)) %>%
   stringr::str_split(.,"\\_") %>%
   lapply(.,function(x) x[1]) %>%
   unlist() %>%
   as.numeric()
 
-all.equal(dim(xdata)[2], length(mzr))
+all.equal(dim(xdataImputed)[2], length(mzr))
 
 tdata_reduced_all_features <- data.frame(mz = mzr)
 result_POS_HMDB_all_features <- assignation_pos_HMDB(tdata_reduced_all_features)

@@ -10,7 +10,8 @@ peakpicking_optimization(
   nSlaves = 1,
   opt_path,
   subdir = "plot_ipo",
-  plots = TRUE
+  plots = TRUE,
+  format = "mzXML"
 )
 }
 \arguments{

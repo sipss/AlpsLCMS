@@ -5,10 +5,10 @@
 \title{Default parameters for peak picking optimization}
 \usage{
 default_peakpicking_params(
-  noise = c(1e+05, 1e+06),
-  snthresh = c(3, 10),
+  noise = c(1e+05, 1e+07),
+  snthresh = c(3, 5),
   min_peakwidth = c(9, 20),
-  max_peakwidth = c(35, 120),
+  max_peakwidth = c(35, 50),
   optimize = TRUE
 )
 }
