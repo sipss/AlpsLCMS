@@ -282,11 +282,8 @@ message("A number of ",
 xdata_reduced <- cbind.data.frame(xdata_cluster_ions, singletons)
 message("Reduced dataset has ", ncol(xdata_reduced), " features")
 
-## ----univariate positive------------------------------------------------------
-library(car)
-
-## ----echo = FALSE-------------------------------------------------------------
-stat <- function(x){wilcox.test(x ~ classes, xdata_reduced)$p.value}
+## ----warning=FALSE------------------------------------------------------------
+stat <- function(x){stats::wilcox.test(x ~ classes, xdata_reduced)$p.value}
 abcd <- data.frame(apply(FUN = stat,
                          MARGIN = 2,
                          X = xdata_reduced))
@@ -296,15 +293,15 @@ result <- abcd
 summary(result$p_Wilc)
 message("\nNumber of features < 0.05 nominal p-value ", 
 sum(result$p_Wilc < 0.05))
-head(result[result$p_Wilc < 0.05,1])
+head(result[result$p_Wilc < 0.05, 1])
 
 #FDR
-fdr.wilcox <- p.adjust(result$p_Wilc, method = "fdr", n = length(result$p_Wilc))
+fdr.wilcox <- stats::p.adjust(result$p_Wilc, method = "fdr")
 result <- cbind(result, fdr.wilcox)
 message("\nNumber of features fdr-corrected p value of < 0.05 is ", 
 sum(result$fdr.wilcox < 0.05))
 
-## -----------------------------------------------------------------------------
+## ----Annotation univariate postivie-------------------------------------------
 # We use the selected vips
 univ_feat <- result[result$fdr.wilcox < 0.05,"id"]
 
@@ -330,13 +327,11 @@ if(dim(tdata_reduced_univ)[1]>0){
 # Untargeted assignation
 # Creating mz column
 
-mzr <- colnames(as.matrix(xdataImputed)) %>%
+mzr <- colnames(as.matrix(xdata)) %>%
   stringr::str_split(.,"\\_") %>%
   lapply(.,function(x) x[1]) %>%
   unlist() %>%
   as.numeric()
-
-all.equal(dim(xdataImputed)[2], length(mzr))
 
 tdata_reduced_all_features <- data.frame(mz = mzr)
 result_POS_HMDB_all_features <- assignation_pos_HMDB(tdata_reduced_all_features)
