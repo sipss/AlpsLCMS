@@ -14,7 +14,7 @@
 
 <meta name="date" content="2020-11-19" />
 
-<title>Introduction to NIHSlcms</title>
+<title>Introduction to AlpsLCMS</title>
 
 <script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
 // v0.0.1
@@ -389,7 +389,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Introduction to NIHSlcms</h1>
+<h1 class="title toc-ignore">Introduction to AlpsLCMS</h1>
 <h4 class="author">Institute for Bioengineering of Catalonia</h4>
 <h4 class="date">2020-11-19</h4>
 
@@ -432,42 +432,22 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <li><a href="#univariante-analisys">Univariante analisys</a></li>
 <li><a href="#model">Model</a></li>
 </ul></li>
-<li><a href="#univariate-anotation-postivie">Univariate anotation postivie</a></li>
-<li><a href="#anotation-of-all-features-positive">anotation of all features positive</a></li>
+<li><a href="#univariate-anotation">Univariate anotation</a></li>
+<li><a href="#anotation-of-all-features">Anotation of all features</a></li>
 <li><a href="#final-thoughts">Final thoughts</a></li>
 </ul>
 </div>
 
-<p>The <code>NIHSlcms</code> package was written with two purposes in mind:</p>
+<p>The <code>AlpsLCMS</code> package was written with two purposes in mind:</p>
 <ul>
 <li>to help <strong>data analysts and LC-MS scientists</strong> to work with LC-MS samples.</li>
 <li>to help <strong>IT pipeline builders</strong> implement automated methods for preprocessing.</li>
 </ul>
 <p>Functions from this package written for data analysts and LC-MS scientists are prefixed with <code>lcms_</code>, while higher level functions written for IT pipeline builders are prefixed with <code>pipe_</code>. The main reason why all exported functions have a prefix is to make it easy for the user to discover the functions from the package. By typing lcms_ RStudio will return the list of exported functions. In the R terminal, lcms_ followed by the tab key (⇥) twice will have the same effect. Other popular packages, follow similar approaches (e.g: <code>forcats</code>: <code>fct_*</code>, <code>stringr</code>: <code>str_*</code>).</p>
 <p>This vignette is written for the first group. It assumes some prior basic knowledge of LC-MS and data analysis, as well as some basic R programming. In case you are interested in building pipelines with this package, you may want to open the file saved in this directory (run it on your computer):</p>
-<pre><code>pipeline_example &lt;- system.file(&quot;pipeline-rmd&quot;, &quot;pipeline_example.R&quot;, package = &quot;NIHSlcms&quot;)
+<pre><code>pipeline_example &lt;- system.file(&quot;pipeline-rmd&quot;, &quot;pipeline_example.R&quot;, package = &quot;AlpsLCMS&quot;)
 print(pipeline_example)</code></pre>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(NIHSlcms)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="co">#&gt; </span></span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt; Attaching package: &#39;NIHSlcms&#39;</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; The following objects are masked from &#39;package:AlpsLCMS&#39;:</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; </span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt;     assignation_neg_HMDB, assignation_pos_HMDB, getRamSt,</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt;     install_RawConverter, known_metabolites, lcms_convert_ipo_to_xcms,</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt;     lcms_dataset_load, lcms_dataset_save,</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt;     lcms_default_retcorgroup_params, lcms_diagnose, lcms_diagnose&lt;-,</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt;     lcms_fill_chrom_peaks, lcms_filter_mz, lcms_filter_polarity,</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt;     lcms_filter_rt_min, lcms_filter_sample_type,</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt;     lcms_identify_metabolites, lcms_list_mzxml_samples, lcms_meta_add,</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt;     lcms_meta_export, lcms_meta_read, lcms_peak_annotation,</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt;     lcms_peak_table_boxplots, lcms_peak_table_pca, lcms_plot_chrom,</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt;     lcms_plot_chrom_peak_image, lcms_plot_metabolites, lcms_plot_tics,</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt;     lcms_raw_data, lcms_raw_to_mzxml, lcms_read_ipo_to_xcms,</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt;     lcms_read_samples, lcms_rearrange_datafiles_by_class,</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt;     lcms_retcorgroup_optimization, lcms_retention_time_alignment_plot,</span></span>
-<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt;     lcms_sig_peaks_table, lcms_spectral_sig_features, lcms_tics,</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a><span class="co">#&gt;     lcms_to_mait, lcms_write_opt_params, lcms_write_parameter_table,</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt;     phData</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">library</span>(AlpsLCMS)</span></code></pre></div>
 <div id="node-1-data-wrangling" class="section level1">
 <h1>NODE 1: Data wrangling</h1>
 <div id="convert-raw-to-mzxml" class="section level2">
@@ -495,7 +475,7 @@ print(pipeline_example)</code></pre>
 <span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  Number of spectra: 6 </span></span>
 <span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  MSn retention times: 41:41 - 41:49 minutes</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; - - - Processing information - - -</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; Data loaded [Thu Nov 19 18:45:34 2020] </span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; Data loaded [Thu Nov 19 19:46:02 2020] </span></span>
 <span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;  MSnbase version: 2.10.1 </span></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; - - - Meta data  - - -</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; phenoData</span></span>
@@ -613,13 +593,13 @@ print(pipeline_example)</code></pre>
 </div>
 <div id="peak-detection" class="section level1">
 <h1><strong>Peak detection</strong></h1>
-<p>Our standard method for peak detection is <em>‘CentWave’</em>, since the data provided is Centroided. We must initialize its parameters according to the <code>IPO</code> Package optimization. Peak detection aims to detect important features (peaks) on the chromatographic axis. This will be useful for a posterior peak alignment on the chormatophic axis.</p>
+<p>Our standard method for peak detection is <em>‘CentWave’</em>, since the data provided is centroided. We must initialize its parameters according to the <code>IPO</code> Package optimization. Peak detection aims to detect important features (peaks) on the chromatographic axis.</p>
 <div id="code-to-run-3" class="section level2">
 <h2>Code to run</h2>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>peakdet =<span class="st"> </span><span class="kw">lcms_find_chrom_peaks_cwp</span>(dataset, </span>
-<span id="cb12-2"><a href="#cb12-2"></a>                                    <span class="dt">params =</span> prep_parm_p)</span>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>peakdet =<span class="st"> </span><span class="kw">find_peaks_cwp</span>(dataset, </span>
+<span id="cb12-2"><a href="#cb12-2"></a>                         <span class="dt">params =</span> prep_parm_p)</span>
 <span id="cb12-3"><a href="#cb12-3"></a><span class="co">#&gt; </span></span>
-<span id="cb12-4"><a href="#cb12-4"></a><span class="co">#&gt;  Finding chromatographic peaks using the optimized set of parameters obtained from IPO package.</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="co">#&gt;  Finding chromatographic peaks</span></span>
 <span id="cb12-5"><a href="#cb12-5"></a></span>
 <span id="cb12-6"><a href="#cb12-6"></a><span class="kw">message</span>(<span class="st">&quot;Number of detected peaks&quot;</span>)</span>
 <span id="cb12-7"><a href="#cb12-7"></a><span class="co">#&gt; Number of detected peaks</span></span>
@@ -727,19 +707,19 @@ print(pipeline_example)</code></pre>
 </div>
 <div id="node-8-feature-table" class="section level1">
 <h1>NODE 8: Feature table</h1>
-<p>The XCMS function featureValues creates a intensity matrix with all the features. However, since this is untargeted metabolomics, the colnames are composed by FT1, FT2, FT3… (FT = feature) and each feature needs to be explored with the feature definition function (info for mass and rt) once a feature is significantly different by groups.</p>
+<p>The function <code>feature_values</code> creates a intensity matrix with all the features. However, since this is untargeted metabolomics, the colnames are composed by FT1, FT2, FT3… (FT = feature) and each feature needs to be explored with the feature definition function (info for mass and rt) once a feature is significantly different by groups.</p>
 <div id="merging-into-a-feature-table" class="section level2">
 <h2>Merging into a Feature Table</h2>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>xdata =<span class="st"> </span><span class="kw">featureValues</span>(peakgrouped_imp,</span>
-<span id="cb19-2"><a href="#cb19-2"></a>                             <span class="dt">method =</span> <span class="st">&quot;maxint&quot;</span>,</span>
-<span id="cb19-3"><a href="#cb19-3"></a>                             <span class="dt">value =</span> <span class="st">&quot;into&quot;</span>,</span>
-<span id="cb19-4"><a href="#cb19-4"></a>                             <span class="dt">filled =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb19-5"><a href="#cb19-5"></a>                             <span class="dt">missing =</span> <span class="st">&quot;rowmin_half&quot;</span>)</span>
-<span id="cb19-6"><a href="#cb19-6"></a>xdata=<span class="st"> </span><span class="kw">t</span>(xdata)</span>
-<span id="cb19-7"><a href="#cb19-7"></a>feature=<span class="kw">featureDefinitions</span>(peakgrouped_imp)</span>
-<span id="cb19-8"><a href="#cb19-8"></a>feature=feature<span class="op">@</span>listData</span>
-<span id="cb19-9"><a href="#cb19-9"></a>featNames=<span class="kw">paste0</span>(feature<span class="op">$</span>mzmed,<span class="st">&quot;_&quot;</span>,feature<span class="op">$</span>rtmed)</span>
-<span id="cb19-10"><a href="#cb19-10"></a><span class="kw">colnames</span>(xdata)=featNames</span>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>xdata =<span class="st"> </span><span class="kw">feature_values</span>(peakgrouped_imp,</span>
+<span id="cb19-2"><a href="#cb19-2"></a>                      <span class="dt">method =</span> <span class="st">&quot;maxint&quot;</span>,</span>
+<span id="cb19-3"><a href="#cb19-3"></a>                      <span class="dt">value =</span> <span class="st">&quot;into&quot;</span>,</span>
+<span id="cb19-4"><a href="#cb19-4"></a>                      <span class="dt">filled =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb19-5"><a href="#cb19-5"></a>                      <span class="dt">missing =</span> <span class="st">&quot;rowmin_half&quot;</span>)</span>
+<span id="cb19-6"><a href="#cb19-6"></a>xdata &lt;-<span class="st">  </span><span class="kw">t</span>(xdata)</span>
+<span id="cb19-7"><a href="#cb19-7"></a>feature &lt;-<span class="st"> </span><span class="kw">featureDefinitions</span>(peakgrouped_imp)</span>
+<span id="cb19-8"><a href="#cb19-8"></a>feature &lt;-<span class="st"> </span>feature<span class="op">@</span>listData</span>
+<span id="cb19-9"><a href="#cb19-9"></a>featNames &lt;-<span class="st"> </span><span class="kw">paste0</span>(feature<span class="op">$</span>mzmed,<span class="st">&quot;_&quot;</span>,feature<span class="op">$</span>rtmed)</span>
+<span id="cb19-10"><a href="#cb19-10"></a><span class="kw">colnames</span>(xdata) &lt;-<span class="st"> </span>featNames</span>
 <span id="cb19-11"><a href="#cb19-11"></a></span>
 <span id="cb19-12"><a href="#cb19-12"></a><span class="kw">message</span>(<span class="st">&quot;Missing values in the feature table: &quot;</span>,</span>
 <span id="cb19-13"><a href="#cb19-13"></a><span class="kw">sum</span>(<span class="kw">is.na</span>(xdata)))</span>
@@ -752,7 +732,7 @@ print(pipeline_example)</code></pre>
 <h2>Input</h2>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>st &lt;-<span class="st"> </span><span class="kw">getRamSt</span>(peakgrouped_imp)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>sr &lt;-<span class="st"> </span><span class="fl">0.5</span></span>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>sr &lt;-<span class="st"> </span><span class="fl">0.6</span></span>
 <span id="cb21-2"><a href="#cb21-2"></a></span>
 <span id="cb21-3"><a href="#cb21-3"></a><span class="co">#List of adducts for do.findmain</span></span>
 <span id="cb21-4"><a href="#cb21-4"></a><span class="co">#adducts_list = c(&quot;[M+H-H2O]+&quot;)</span></span>
@@ -779,46 +759,48 @@ print(pipeline_example)</code></pre>
 </div>
 <div id="code-to-run-4" class="section level2">
 <h2>Code to run</h2>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>RC &lt;-<span class="st"> </span>RAMClustR<span class="op">::</span><span class="kw">ramclustR</span>(<span class="dt">xcmsObj =</span> peakgrouped_imp,</span>
-<span id="cb22-2"><a href="#cb22-2"></a>                <span class="dt">featdelim =</span> <span class="st">&quot;.&quot;</span>,</span>
-<span id="cb22-3"><a href="#cb22-3"></a>                <span class="dt">st =</span> st,</span>
-<span id="cb22-4"><a href="#cb22-4"></a>                <span class="dt">sr =</span> sr,</span>
-<span id="cb22-5"><a href="#cb22-5"></a>                <span class="dt">ExpDes =</span> Experiment,</span>
-<span id="cb22-6"><a href="#cb22-6"></a>                <span class="dt">normalize =</span> <span class="st">&quot;TIC&quot;</span>,</span>
-<span id="cb22-7"><a href="#cb22-7"></a>                <span class="dt">sampNameCol =</span> <span class="dv">1</span>,</span>
-<span id="cb22-8"><a href="#cb22-8"></a>                <span class="dt">fftempdir =</span> <span class="kw">getwd</span>())</span>
-<span id="cb22-9"><a href="#cb22-9"></a><span class="co">#&gt;   organizing dataset </span></span>
-<span id="cb22-10"><a href="#cb22-10"></a><span class="co">#&gt;   normalizing dataset </span></span>
-<span id="cb22-11"><a href="#cb22-11"></a><span class="co">#&gt; calculating ramclustR similarity: nblocks =  1 </span></span>
-<span id="cb22-12"><a href="#cb22-12"></a><span class="co">#&gt; 1  </span></span>
-<span id="cb22-13"><a href="#cb22-13"></a><span class="co">#&gt;  RAMClust feature similarity matrix calculated and stored: </span></span>
-<span id="cb22-14"><a href="#cb22-14"></a><span class="co">#&gt; RAMClust distances converted to distance object </span></span>
-<span id="cb22-15"><a href="#cb22-15"></a><span class="co">#&gt; fastcluster based clustering complete </span></span>
-<span id="cb22-16"><a href="#cb22-16"></a><span class="co">#&gt; dynamicTreeCut based pruning complete </span></span>
-<span id="cb22-17"><a href="#cb22-17"></a><span class="co">#&gt; RAMClust has condensed 525 features into 109 spectra </span></span>
-<span id="cb22-18"><a href="#cb22-18"></a><span class="co">#&gt; collapsing feature into spectral signal intensities </span></span>
-<span id="cb22-19"><a href="#cb22-19"></a><span class="co">#&gt; writing msp formatted spectra </span></span>
-<span id="cb22-20"><a href="#cb22-20"></a><span class="co">#&gt; msp file complete</span></span>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>RC &lt;-<span class="st"> </span><span class="kw">clustering</span>(<span class="dt">xcmsObj =</span> peakgrouped_imp,</span>
+<span id="cb22-2"><a href="#cb22-2"></a>                 <span class="dt">featdelim =</span> <span class="st">&quot;.&quot;</span>,</span>
+<span id="cb22-3"><a href="#cb22-3"></a>                 <span class="dt">st =</span> st,</span>
+<span id="cb22-4"><a href="#cb22-4"></a>                 <span class="dt">sr =</span> sr,</span>
+<span id="cb22-5"><a href="#cb22-5"></a>                 <span class="dt">ExpDes =</span> Experiment,</span>
+<span id="cb22-6"><a href="#cb22-6"></a>                 <span class="dt">normalize =</span> <span class="st">&quot;TIC&quot;</span>,</span>
+<span id="cb22-7"><a href="#cb22-7"></a>                 <span class="dt">deepSplit =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb22-8"><a href="#cb22-8"></a>                 <span class="dt">sampNameCol =</span> <span class="dv">1</span>,</span>
+<span id="cb22-9"><a href="#cb22-9"></a>                 <span class="dt">mspout =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb22-10"><a href="#cb22-10"></a>                 <span class="dt">fftempdir =</span> <span class="kw">getwd</span>())</span>
+<span id="cb22-11"><a href="#cb22-11"></a><span class="co">#&gt;   organizing dataset </span></span>
+<span id="cb22-12"><a href="#cb22-12"></a><span class="co">#&gt;   normalizing dataset </span></span>
+<span id="cb22-13"><a href="#cb22-13"></a><span class="co">#&gt; calculating ramclustR similarity: nblocks =  1 </span></span>
+<span id="cb22-14"><a href="#cb22-14"></a><span class="co">#&gt; 1  </span></span>
+<span id="cb22-15"><a href="#cb22-15"></a><span class="co">#&gt;  RAMClust feature similarity matrix calculated and stored: </span></span>
+<span id="cb22-16"><a href="#cb22-16"></a><span class="co">#&gt; RAMClust distances converted to distance object </span></span>
+<span id="cb22-17"><a href="#cb22-17"></a><span class="co">#&gt; fastcluster based clustering complete </span></span>
+<span id="cb22-18"><a href="#cb22-18"></a><span class="co">#&gt; dynamicTreeCut based pruning complete </span></span>
+<span id="cb22-19"><a href="#cb22-19"></a><span class="co">#&gt; RAMClust has condensed 525 features into 121 spectra </span></span>
+<span id="cb22-20"><a href="#cb22-20"></a><span class="co">#&gt; collapsing feature into spectral signal intensities</span></span>
 <span id="cb22-21"><a href="#cb22-21"></a></span>
-<span id="cb22-22"><a href="#cb22-22"></a>RC &lt;-<span class="st"> </span>RAMClustR<span class="op">::</span><span class="kw">do.findmain</span>(RC,</span>
-<span id="cb22-23"><a href="#cb22-23"></a>                  <span class="dt">nls =</span> adducts_list,</span>
+<span id="cb22-22"><a href="#cb22-22"></a>RC &lt;-<span class="st"> </span><span class="kw">do_findmain</span>(RC,</span>
+<span id="cb22-23"><a href="#cb22-23"></a>                  <span class="dt">nls =</span> <span class="kw">c</span>(<span class="st">&quot;[M+H-H2O]+&quot;</span>),</span>
 <span id="cb22-24"><a href="#cb22-24"></a>                  <span class="dt">mode =</span> <span class="st">&quot;positive&quot;</span>,</span>
-<span id="cb22-25"><a href="#cb22-25"></a>                  <span class="dt">mzabs.error =</span> <span class="fl">0.005</span>,</span>
-<span id="cb22-26"><a href="#cb22-26"></a>                  <span class="dt">ppm.error =</span> <span class="dv">5</span>,</span>
-<span id="cb22-27"><a href="#cb22-27"></a>                  <span class="dt">writeMat =</span> <span class="ot">FALSE</span>,</span>
-<span id="cb22-28"><a href="#cb22-28"></a>                  <span class="dt">writeMS =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb22-29"><a href="#cb22-29"></a><span class="co">#&gt; 10 of 109 </span></span>
-<span id="cb22-30"><a href="#cb22-30"></a><span class="co">#&gt; 20 of 109 </span></span>
-<span id="cb22-31"><a href="#cb22-31"></a><span class="co">#&gt; 30 of 109 </span></span>
-<span id="cb22-32"><a href="#cb22-32"></a><span class="co">#&gt; 40 of 109 </span></span>
-<span id="cb22-33"><a href="#cb22-33"></a><span class="co">#&gt; 50 of 109 </span></span>
-<span id="cb22-34"><a href="#cb22-34"></a><span class="co">#&gt; 60 of 109 </span></span>
-<span id="cb22-35"><a href="#cb22-35"></a><span class="co">#&gt; 70 of 109 </span></span>
-<span id="cb22-36"><a href="#cb22-36"></a><span class="co">#&gt; 80 of 109 </span></span>
-<span id="cb22-37"><a href="#cb22-37"></a><span class="co">#&gt; 90 of 109 </span></span>
-<span id="cb22-38"><a href="#cb22-38"></a><span class="co">#&gt; 100 of 109 </span></span>
-<span id="cb22-39"><a href="#cb22-39"></a><span class="co">#&gt; plotting findmain annotation results</span></span>
-<span id="cb22-40"><a href="#cb22-40"></a><span class="co">#&gt; finished</span></span></code></pre></div>
+<span id="cb22-25"><a href="#cb22-25"></a>                  <span class="dt">mzabs.error =</span> <span class="fl">0.01</span>,</span>
+<span id="cb22-26"><a href="#cb22-26"></a>                  <span class="dt">ppm.error =</span> <span class="dv">10</span>,</span>
+<span id="cb22-27"><a href="#cb22-27"></a>                  <span class="dt">plot.findmain =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb22-28"><a href="#cb22-28"></a>                  <span class="dt">writeMat =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb22-29"><a href="#cb22-29"></a>                  <span class="dt">writeMS =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb22-30"><a href="#cb22-30"></a><span class="co">#&gt; 10 of 121 </span></span>
+<span id="cb22-31"><a href="#cb22-31"></a><span class="co">#&gt; 20 of 121 </span></span>
+<span id="cb22-32"><a href="#cb22-32"></a><span class="co">#&gt; 30 of 121 </span></span>
+<span id="cb22-33"><a href="#cb22-33"></a><span class="co">#&gt; 40 of 121 </span></span>
+<span id="cb22-34"><a href="#cb22-34"></a><span class="co">#&gt; 50 of 121 </span></span>
+<span id="cb22-35"><a href="#cb22-35"></a><span class="co">#&gt; 60 of 121 </span></span>
+<span id="cb22-36"><a href="#cb22-36"></a><span class="co">#&gt; 70 of 121 </span></span>
+<span id="cb22-37"><a href="#cb22-37"></a><span class="co">#&gt; 80 of 121 </span></span>
+<span id="cb22-38"><a href="#cb22-38"></a><span class="co">#&gt; 90 of 121 </span></span>
+<span id="cb22-39"><a href="#cb22-39"></a><span class="co">#&gt; 100 of 121 </span></span>
+<span id="cb22-40"><a href="#cb22-40"></a><span class="co">#&gt; 110 of 121 </span></span>
+<span id="cb22-41"><a href="#cb22-41"></a><span class="co">#&gt; 120 of 121 </span></span>
+<span id="cb22-42"><a href="#cb22-42"></a><span class="co">#&gt; finished</span></span></code></pre></div>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># Selection of max intensity ion as cluster representative</span></span>
 <span id="cb23-2"><a href="#cb23-2"></a>Max_int&lt;-<span class="st"> </span><span class="kw">lapply</span>(RC<span class="op">$</span>M.ann, <span class="cf">function</span>(x) x[<span class="kw">which.max</span>(x<span class="op">$</span>int), ])</span>
 <span id="cb23-3"><a href="#cb23-3"></a>Representative_ions &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw">bind_rows</span>(Max_int)</span>
@@ -847,7 +829,7 @@ print(pipeline_example)</code></pre>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>mz <span class="op">%in%</span><span class="st"> </span>Representative_ions<span class="op">$</span>mz <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">table</span>()</span>
 <span id="cb24-2"><a href="#cb24-2"></a><span class="co">#&gt; .</span></span>
 <span id="cb24-3"><a href="#cb24-3"></a><span class="co">#&gt; FALSE  TRUE </span></span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#&gt;   513    12</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#&gt;   512    13</span></span>
 <span id="cb24-5"><a href="#cb24-5"></a><span class="kw">message</span>(<span class="st">&quot;length of features: &quot;</span>, <span class="kw">length</span>(mz))</span>
 <span id="cb24-6"><a href="#cb24-6"></a><span class="co">#&gt; length of features: 525</span></span></code></pre></div>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>mdataImputed &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(xdataImputed)</span>
@@ -866,7 +848,7 @@ print(pipeline_example)</code></pre>
 <span id="cb25-14"><a href="#cb25-14"></a>        <span class="st">&quot; features have been clustered into &quot;</span>,</span>
 <span id="cb25-15"><a href="#cb25-15"></a>        <span class="kw">dim</span>(xdata_cluster_ions)[<span class="dv">2</span>],</span>
 <span id="cb25-16"><a href="#cb25-16"></a>        <span class="st">&quot; representative features&quot;</span>)</span>
-<span id="cb25-17"><a href="#cb25-17"></a><span class="co">#&gt; A number of 317 features have been clustered into 12 representative features</span></span>
+<span id="cb25-17"><a href="#cb25-17"></a><span class="co">#&gt; A number of 371 features have been clustered into 13 representative features</span></span>
 <span id="cb25-18"><a href="#cb25-18"></a></span>
 <span id="cb25-19"><a href="#cb25-19"></a>mdataImputed &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(mdataImputed)</span>
 <span id="cb25-20"><a href="#cb25-20"></a>xdata_cluster_ions &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(xdata_cluster_ions)</span>
@@ -876,32 +858,11 @@ print(pipeline_example)</code></pre>
 <span id="cb25-24"><a href="#cb25-24"></a><span class="kw">message</span>(<span class="st">&quot;A number of &quot;</span>,</span>
 <span id="cb25-25"><a href="#cb25-25"></a>        RC<span class="op">$</span>nsing,</span>
 <span id="cb25-26"><a href="#cb25-26"></a>        <span class="st">&quot; features correspond to singletons&quot;</span>)</span>
-<span id="cb25-27"><a href="#cb25-27"></a><span class="co">#&gt; A number of 208 features correspond to singletons</span></span></code></pre></div>
+<span id="cb25-27"><a href="#cb25-27"></a><span class="co">#&gt; A number of 154 features correspond to singletons</span></span></code></pre></div>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">#Combine singletons and molecular ions</span></span>
 <span id="cb26-2"><a href="#cb26-2"></a>xdata_reduced &lt;-<span class="st"> </span><span class="kw">cbind.data.frame</span>(xdata_cluster_ions, singletons)</span>
-<span id="cb26-3"><a href="#cb26-3"></a></span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="kw">message</span>(<span class="st">&quot;Original dataset has &quot;</span>, </span>
-<span id="cb26-5"><a href="#cb26-5"></a>        <span class="kw">ncol</span>(mdataImputed), </span>
-<span id="cb26-6"><a href="#cb26-6"></a>        <span class="st">&quot; features&quot;</span>)</span>
-<span id="cb26-7"><a href="#cb26-7"></a><span class="co">#&gt; Original dataset has 525 features</span></span>
-<span id="cb26-8"><a href="#cb26-8"></a><span class="kw">message</span>(<span class="st">&quot;&quot;</span>)</span>
-<span id="cb26-9"><a href="#cb26-9"></a><span class="co">#&gt; </span></span>
-<span id="cb26-10"><a href="#cb26-10"></a></span>
-<span id="cb26-11"><a href="#cb26-11"></a><span class="kw">message</span>(<span class="st">&quot;Cluster representative ions dataset has &quot;</span>, <span class="kw">ncol</span>(xdata_cluster_ions), </span>
-<span id="cb26-12"><a href="#cb26-12"></a>        <span class="st">&quot; features&quot;</span>)</span>
-<span id="cb26-13"><a href="#cb26-13"></a><span class="co">#&gt; Cluster representative ions dataset has 12 features</span></span>
-<span id="cb26-14"><a href="#cb26-14"></a><span class="kw">message</span>(<span class="st">&quot;&quot;</span>)</span>
-<span id="cb26-15"><a href="#cb26-15"></a><span class="co">#&gt; </span></span>
-<span id="cb26-16"><a href="#cb26-16"></a></span>
-<span id="cb26-17"><a href="#cb26-17"></a><span class="kw">message</span>(<span class="st">&quot;Singletons dataset has &quot;</span>, <span class="kw">ncol</span>(singletons), <span class="st">&quot; features&quot;</span>)</span>
-<span id="cb26-18"><a href="#cb26-18"></a><span class="co">#&gt; Singletons dataset has 494 features</span></span>
-<span id="cb26-19"><a href="#cb26-19"></a><span class="kw">message</span>(<span class="st">&quot;&quot;</span>)</span>
-<span id="cb26-20"><a href="#cb26-20"></a><span class="co">#&gt; </span></span>
-<span id="cb26-21"><a href="#cb26-21"></a></span>
-<span id="cb26-22"><a href="#cb26-22"></a><span class="kw">message</span>(<span class="st">&quot;Reduced dataset has &quot;</span>, <span class="kw">ncol</span>(xdata_reduced), <span class="st">&quot; features&quot;</span>)</span>
-<span id="cb26-23"><a href="#cb26-23"></a><span class="co">#&gt; Reduced dataset has 506 features</span></span>
-<span id="cb26-24"><a href="#cb26-24"></a><span class="kw">message</span>(<span class="st">&quot;&quot;</span>)</span>
-<span id="cb26-25"><a href="#cb26-25"></a><span class="co">#&gt; </span></span></code></pre></div>
+<span id="cb26-3"><a href="#cb26-3"></a><span class="kw">message</span>(<span class="st">&quot;Reduced dataset has &quot;</span>, <span class="kw">ncol</span>(xdata_reduced), <span class="st">&quot; features&quot;</span>)</span>
+<span id="cb26-4"><a href="#cb26-4"></a><span class="co">#&gt; Reduced dataset has 506 features</span></span></code></pre></div>
 </div>
 <div id="univariante-analisys" class="section level2">
 <h2>Univariante analisys</h2>
@@ -977,8 +938,8 @@ print(pipeline_example)</code></pre>
 #&gt; Number of features fdr-corrected p value of &lt; 0.05 is 26</code></pre>
 </div>
 </div>
-<div id="univariate-anotation-postivie" class="section level1">
-<h1>Univariate anotation postivie</h1>
+<div id="univariate-anotation" class="section level1">
+<h1>Univariate anotation</h1>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># We use the selected vips</span></span>
 <span id="cb29-2"><a href="#cb29-2"></a>univ_feat &lt;-<span class="st"> </span>result[result<span class="op">$</span>fdr.wilcox <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>,<span class="st">&quot;id&quot;</span>]</span>
 <span id="cb29-3"><a href="#cb29-3"></a></span>
@@ -1015,8 +976,8 @@ print(pipeline_example)</code></pre>
 <span id="cb29-34"><a href="#cb29-34"></a><span class="co">#&gt; 5  2-Amino-4-oxo-4-alpha-hydroxy-6-(erythro-1&#39;,2&#39;,3&#39;-trihydroxypropyl)-5,6,7,8-tetrahydroxypterin </span></span>
 <span id="cb29-35"><a href="#cb29-35"></a><span class="co">#&gt; 6                                                                                             &lt;NA&gt;</span></span></code></pre></div>
 </div>
-<div id="anotation-of-all-features-positive" class="section level1">
-<h1>anotation of all features positive</h1>
+<div id="anotation-of-all-features" class="section level1">
+<h1>Anotation of all features</h1>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># Untargeted assignation</span></span>
 <span id="cb30-2"><a href="#cb30-2"></a><span class="co"># Creating mz column</span></span>
 <span id="cb30-3"><a href="#cb30-3"></a></span>

@@ -7,7 +7,7 @@ knitr::opts_chunk$set(
 )
 
 ## -----------------------------------------------------------------------------
-library(NIHSlcms)
+library(AlpsLCMS)
 
 ## ----message=FALSE, warning=FALSE---------------------------------------------
 library(faahKO)
@@ -74,8 +74,8 @@ prep_parm_p$verbose.columns <- FALSE
 classes <- dataset@phenoData@data[["treatment"]]
 
 ## ----Peak detection-----------------------------------------------------------
-peakdet = lcms_find_chrom_peaks_cwp(dataset, 
-                                    params = prep_parm_p)
+peakdet = find_peaks_cwp(dataset, 
+                         params = prep_parm_p)
 
 message("Number of detected peaks")
 peakdet@msFeatureData[["chromPeakData"]]@nrows
@@ -137,16 +137,16 @@ cat("Imputing values...\n")
 message("Missing values found after fill_chrom_peaks: ", sum(is.na(featureValues(peakgrouped_imp))))
 
 ## ----Feature table------------------------------------------------------------
-xdata = featureValues(peakgrouped_imp,
-                             method = "maxint",
-                             value = "into",
-                             filled = TRUE, 
-                             missing = "rowmin_half")
-xdata= t(xdata)
-feature=featureDefinitions(peakgrouped_imp)
-feature=feature@listData
-featNames=paste0(feature$mzmed,"_",feature$rtmed)
-colnames(xdata)=featNames
+xdata = feature_values(peakgrouped_imp,
+                      method = "maxint",
+                      value = "into",
+                      filled = TRUE, 
+                      missing = "rowmin_half")
+xdata <-  t(xdata)
+feature <- featureDefinitions(peakgrouped_imp)
+feature <- feature@listData
+featNames <- paste0(feature$mzmed,"_",feature$rtmed)
+colnames(xdata) <- featNames
 
 message("Missing values in the feature table: ",
 sum(is.na(xdata)))
@@ -172,7 +172,7 @@ rt <- rt/60
 
 ## ----Params Data reduction----------------------------------------------------
 st <- getRamSt(peakgrouped_imp)
-sr <- 0.5
+sr <- 0.6
 
 #List of adducts for do.findmain
 #adducts_list = c("[M+H-H2O]+")
@@ -198,22 +198,26 @@ rownames(instrument) <- rownm
 Experiment <- list(design =  design, instrument = instrument)
 
 ## ----warning=FALSE------------------------------------------------------------
-RC <- RAMClustR::ramclustR(xcmsObj = peakgrouped_imp,
-                featdelim = ".",
-                st = st,
-                sr = sr,
-                ExpDes = Experiment,
-                normalize = "TIC",
-                sampNameCol = 1,
-                fftempdir = getwd())
+RC <- clustering(xcmsObj = peakgrouped_imp,
+                 featdelim = ".",
+                 st = st,
+                 sr = sr,
+                 ExpDes = Experiment,
+                 normalize = "TIC",
+                 deepSplit = TRUE,
+                 sampNameCol = 1,
+                 mspout = FALSE,
+                 fftempdir = getwd())
 
-RC <- RAMClustR::do.findmain(RC,
-                  nls = adducts_list,
+RC <- do_findmain(RC,
+                  nls = c("[M+H-H2O]+"),
                   mode = "positive",
-                  mzabs.error = 0.005,
-                  ppm.error = 5,
+                  mzabs.error = 0.01,
+                  ppm.error = 10,
+                  plot.findmain = FALSE,
                   writeMat = FALSE,
                   writeMS = FALSE)
+
 
 ## -----------------------------------------------------------------------------
 # Selection of max intensity ion as cluster representative
@@ -276,21 +280,7 @@ message("A number of ",
 ## -----------------------------------------------------------------------------
 #Combine singletons and molecular ions
 xdata_reduced <- cbind.data.frame(xdata_cluster_ions, singletons)
-
-message("Original dataset has ", 
-        ncol(mdataImputed), 
-        " features")
-message("")
-
-message("Cluster representative ions dataset has ", ncol(xdata_cluster_ions), 
-        " features")
-message("")
-
-message("Singletons dataset has ", ncol(singletons), " features")
-message("")
-
 message("Reduced dataset has ", ncol(xdata_reduced), " features")
-message("")
 
 ## ----univariate positive------------------------------------------------------
 library(car)
@@ -314,7 +304,7 @@ result <- cbind(result, fdr.wilcox)
 message("\nNumber of features fdr-corrected p value of < 0.05 is ", 
 sum(result$fdr.wilcox < 0.05))
 
-## ----Annotation univariate postivie-------------------------------------------
+## -----------------------------------------------------------------------------
 # We use the selected vips
 univ_feat <- result[result$fdr.wilcox < 0.05,"id"]
 
