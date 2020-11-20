@@ -28,6 +28,9 @@ navbar:
       - text: |
           AlpsLCMS Workflow
         href: articles/introduction-to-alpslcms.html
+      - text: |
+          AlpsLCMS tutorial
+        href: articles/NIHSlcms_MTBLS665.html
     news:
       text: Changelog
       href: news/index.html
