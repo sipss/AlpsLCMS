@@ -9,20 +9,15 @@ lcms_filter_polarity(lcms_dataset, polarity.)
 \arguments{
 \item{lcms_dataset}{A MSnExp object.}
 
-\item{polarity.}{The polarity to keep.}
+\item{polarity.}{The polarity to keep. set \code{polarity. = 1} for positive
+ionization mode. set \code{polarity. = 0} for negative ionization mode.}
 }
 \value{
 A filtered lcms_dataset with the selected polarity.
 }
 \description{
-This function was merged in
-the MSnbase package on 2018-12-10 as proposed at:
-}
-\details{
-https://github.com/lgatto/MSnbase/issues/388
-
-Once MSnbase is released (Bioconductor 3.9, maybe once R 3.6 is out),
-remove this function.
+This function was merged in the MSnbase package on 2018-12-10. It filter by
+positive or negative ionization mode.
 }
 \examples{
 \dontrun{

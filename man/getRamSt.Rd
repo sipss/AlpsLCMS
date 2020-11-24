@@ -10,9 +10,9 @@ getRamSt(lcms_dataset)
 \item{lcms_dataset}{A lcms_dataset}
 }
 \value{
-recommended st parameter value for \link{clustering}
+the recommended value for the \code{st} parameter in \link{clustering}
 }
 \description{
-getRamSt calculates the optimal value for the \link{clustering}
-function. It uses the \code{lcms_dataset} after xcms preprocessing.
+\code{getRamSt} function calculates the optimal value for the parameter \code{st} the \link{clustering}
+function. It uses the \code{lcms_dataset} after the xcms preprocessing.
 }

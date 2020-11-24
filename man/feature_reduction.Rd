@@ -4,20 +4,28 @@
 \alias{feature_reduction}
 \title{Feature reduction}
 \usage{
-feature_reduction(mdata,
-representative_ions,
-RC)
+feature_reduction(RC,
+xdata,
+loaded = TRUE)
 }
 \arguments{
-\item{mdata}{data matrix with samples in rows and features in columns}
-
-\item{representative_ions}{data frame from the list given by \link{labelling} function}
-
 \item{RC}{hclust object from the \link{do_findmain} function}
+
+\item{xdataImp}{data matrix with samples in rows and features in columns. The
+matrix should not include metadata or any columns without LC-MS data. Note
+that depending on the origins of the dataset, colnames might have a
+character starting with "X" avoiding a number in the first character (see
+\code{loaded = TRUE})}
+
+\item{loaded}{if matrix is loaded into R, an "X" will be added to each
+colname. In this case, set \code{loaded = TRUE}.}
 }
 \value{
-A reduced data frame with important features based on the clustering
-and features no clustered.
+A list containing:
+$singletons: data frame with features that has not been clustered.
+$xdata_mol_ions: data frame with the representative ions of each cluster
+$xdata_reduced: data frame with the reduced dataset (singletons +
+representative ions of each cluster)
 }
 \description{
 \code{feature_reduction} is a function to reduce the feature table using the info
