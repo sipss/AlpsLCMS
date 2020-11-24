@@ -182,42 +182,47 @@ labelling <- function (RC) {
 #' RC)
 #'
 feature_reduction <- function (mdata, representative_ions, RC) {
-
   mdata <- as.matrix(mdata)
 
-mz <- colnames(mdata) %>%
-    stringr::str_split(.,"\\_") %>%
-    lapply(.,function(x) x[1]) %>%
+  # Get mz columns for the feature table
+  mz <- colnames(mdata) %>%
+    stringr::str_split(., "\\_") %>%
+    lapply(., function(x)
+      x[1]) %>%
     unlist() %>%
     as.numeric()
+  # Ramcluster make a round of 4 decimals, we have to round mz too
+  mz <- round(mz, 4)
 
-# Clustered features
-xdata_cluster_ions <- mdata[, mz %in% representative_ions$mz]
+  # Clustered features
+  xdata_cluster_ions <- mdata[, mz %in% representative_ions$mz]
 
-# Singletons
-clustered_mz<- lapply(RC$M.ann,
-                      function (x) x$mz) %>% unlist() %>%  as.numeric()
+  # Singletons
+  clustered_mz <- lapply(RC$M.ann,
+                         function (x)
+                           x$mz) %>% unlist() %>%  as.numeric()
 
-mdata <- as.data.frame(mdata)
-xdata_cluster_ions <- as.data.frame(xdata_cluster_ions)
+  mdata <- as.data.frame(mdata)
+  xdata_cluster_ions <- as.data.frame(xdata_cluster_ions)
 
-singletons <- mdata[,!mz %in% clustered_mz]
+  singletons <- mdata[, !mz %in% clustered_mz]
 
-message("A number of ",
-        RC$nsing,
-        " features correspond to singletons")
-#Combine singletons and molecular ions
-xdata_reduced <- cbind.data.frame(xdata_cluster_ions, singletons)
+  message("A number of ",
+          RC$nsing,
+          " features correspond to singletons")
+  #Combine singletons and molecular ions
+  xdata_reduced <- cbind.data.frame(xdata_cluster_ions, singletons)
 
-message("Original dataset has ",
-        ncol(mdata),
-        " features")
+  message("Original dataset has ",
+          ncol(mdata),
+          " features")
 
-message("Cluster representative ions dataset has ", ncol(xdata_cluster_ions),
-        " features")
+  message("Cluster representative ions dataset has ",
+          ncol(xdata_cluster_ions),
+          " features")
 
-message("Singletons dataset has ", ncol(singletons), " features")
+  message("Singletons dataset has ", ncol(singletons), " features")
 
-message("Reduced dataset has ", ncol(xdata_reduced), " features")
-return(xdata_reduced)
+  message("Reduced dataset has ", ncol(xdata_reduced), " features")
+  return(xdata_reduced)
 }
