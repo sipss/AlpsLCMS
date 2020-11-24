@@ -140,31 +140,39 @@ cluster discarding the rest of the feature of the same cluster (normally, the
 most intense one).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>feature_reduction</span>(<span class='no'>mdata</span>,
-<span class='no'>representative_ions</span>,
-<span class='no'>RC</span>)</pre>
+    <pre class="usage"><span class='fu'>feature_reduction</span>(<span class='no'>RC</span>,
+<span class='no'>xdata</span>,
+<span class='kw'>loaded</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>mdata</th>
-      <td><p>data matrix with samples in rows and features in columns</p></td>
-    </tr>
-    <tr>
-      <th>representative_ions</th>
-      <td><p>data frame from the list given by <a href='labelling.html'>labelling</a> function</p></td>
-    </tr>
-    <tr>
       <th>RC</th>
       <td><p>hclust object from the <a href='do_findmain.html'>do_findmain</a> function</p></td>
+    </tr>
+    <tr>
+      <th>xdataImp</th>
+      <td><p>data matrix with samples in rows and features in columns. The
+matrix should not include metadata or any columns without LC-MS data. Note
+that depending on the origins of the dataset, colnames might have a
+character starting with "X" avoiding a number in the first character (see
+<code>loaded = TRUE</code>)</p></td>
+    </tr>
+    <tr>
+      <th>loaded</th>
+      <td><p>if matrix is loaded into R, an "X" will be added to each
+colname. In this case, set <code>loaded = TRUE</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A reduced data frame with important features based on the clustering
-and features no clustered.</p>
+    <p>A list containing:
+$singletons: data frame with features that has not been clustered.
+$xdata_mol_ions: data frame with the representative ions of each cluster
+$xdata_reduced: data frame with the reduced dataset (singletons +
+representative ions of each cluster)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

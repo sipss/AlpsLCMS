@@ -36,8 +36,8 @@
 
 
 <meta property="og:title" content="Filter an experiment by its polarity — lcms_filter_polarity" />
-<meta property="og:description" content="This function was merged in
-the MSnbase package on 2018-12-10 as proposed at:" />
+<meta property="og:description" content="This function was merged in the MSnbase package on 2018-12-10. It filter by
+positive or negative ionization mode." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -132,8 +132,8 @@ the MSnbase package on 2018-12-10 as proposed at:" />
     </div>
 
     <div class="ref-description">
-    <p>This function was merged in
-the MSnbase package on 2018-12-10 as proposed at:</p>
+    <p>This function was merged in the MSnbase package on 2018-12-10. It filter by
+positive or negative ionization mode.</p>
     </div>
 
     <pre class="usage"><span class='fu'>lcms_filter_polarity</span>(<span class='no'>lcms_dataset</span>, <span class='no'>polarity.</span>)</pre>
@@ -147,18 +147,14 @@ the MSnbase package on 2018-12-10 as proposed at:</p>
     </tr>
     <tr>
       <th>polarity.</th>
-      <td><p>The polarity to keep.</p></td>
+      <td><p>The polarity to keep. set <code>polarity. = 1</code> for positive
+ionization mode. set <code>polarity. = 0</code> for negative ionization mode.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A filtered lcms_dataset with the selected polarity.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>https://github.com/lgatto/MSnbase/issues/388</p>
-<p>Once MSnbase is released (Bioconductor 3.9, maybe once R 3.6 is out),
-remove this function.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other dataset functions: 
@@ -198,7 +194,6 @@ remove this function.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
