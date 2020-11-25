@@ -91,7 +91,7 @@
       <h1>Introduction to AlpsLCMS</h1>
                         <h4 class="author">Institute for Bioengineering of Catalonia</h4>
             
-            <h4 class="date">2020-11-24</h4>
+            <h4 class="date">2020-11-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/sipss/AlpsLCMS/blob/master/vignettes/introduction-to-alpslcms.Rmd"><code>vignettes/introduction-to-alpslcms.Rmd</code></a></small>
       <div class="hidden name"><code>introduction-to-alpslcms.Rmd</code></div>
@@ -141,7 +141,7 @@ print(pipeline_example)</code></pre>
 <span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt;  Number of spectra: 6 </span></span>
 <span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt;  MSn retention times: 41:41 - 41:49 minutes</span></span>
 <span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; - - - Processing information - - -</span></span>
-<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; Data loaded [Tue Nov 24 18:30:00 2020] </span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; Data loaded [Wed Nov 25 12:05:05 2020] </span></span>
 <span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt;  MSnbase version: 2.12.0 </span></span>
 <span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; - - - Meta data  - - -</span></span>
 <span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; phenoData</span></span>
@@ -495,159 +495,107 @@ print(pipeline_example)</code></pre>
 <span id="cb22-40"><a href="#cb22-40"></a><span class="co">#&gt; 110 of 121 </span></span>
 <span id="cb22-41"><a href="#cb22-41"></a><span class="co">#&gt; 120 of 121 </span></span>
 <span id="cb22-42"><a href="#cb22-42"></a><span class="co">#&gt; finished</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co"># Selection of max intensity ion as cluster representative</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>Max_int&lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(RC<span class="op">$</span>M.ann, <span class="cf">function</span>(x) x[<span class="kw"><a href="https://rdrr.io/r/base/which.min.html">which.max</a></span>(x<span class="op">$</span>int), ])</span>
-<span id="cb23-3"><a href="#cb23-3"></a>Representative_ions &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(Max_int)</span>
-<span id="cb23-4"><a href="#cb23-4"></a>Representative_ions<span class="op">$</span>name &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(Representative_ions<span class="op">$</span>mz,<span class="dv">4</span>),</span>
-<span id="cb23-5"><a href="#cb23-5"></a>                             <span class="kw"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(RC<span class="op">$</span>clrt,<span class="dv">2</span>),</span>
-<span id="cb23-6"><a href="#cb23-6"></a>                             <span class="dt">sep =</span> <span class="st">"_"</span>)</span>
-<span id="cb23-7"><a href="#cb23-7"></a></span>
-<span id="cb23-8"><a href="#cb23-8"></a><span class="co"># Adducts of representative ions</span></span>
-<span id="cb23-9"><a href="#cb23-9"></a>Representative_adducts &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">sapply</a></span>(RC<span class="op">$</span>M.ann, <span class="cf">function</span>(x) x[<span class="kw"><a href="https://rdrr.io/r/base/which.min.html">which.max</a></span>(x<span class="op">$</span>int), ]<span class="op">$</span>adduct)</span>
-<span id="cb23-10"><a href="#cb23-10"></a></span>
-<span id="cb23-11"><a href="#cb23-11"></a><span class="co"># Selection of labeled max intensity ion as cluster representative</span></span>
-<span id="cb23-12"><a href="#cb23-12"></a>Labeled_int &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(RC<span class="op">$</span>M.ann, <span class="cf">function</span>(x) {</span>
-<span id="cb23-13"><a href="#cb23-13"></a>  xl &lt;-<span class="st"> </span>x[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(x<span class="op">$</span>label)), ]</span>
-<span id="cb23-14"><a href="#cb23-14"></a>  xl[<span class="kw"><a href="https://rdrr.io/r/base/which.min.html">which.max</a></span>(xl<span class="op">$</span>int), ]</span>
-<span id="cb23-15"><a href="#cb23-15"></a>})</span>
-<span id="cb23-16"><a href="#cb23-16"></a>Labeled_ions &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(Labeled_int)</span>
-<span id="cb23-17"><a href="#cb23-17"></a></span>
-<span id="cb23-18"><a href="#cb23-18"></a><span class="co"># We save most important cluster data</span></span>
-<span id="cb23-19"><a href="#cb23-19"></a>cluster_data &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">cluster =</span> RC<span class="op">$</span>ann, <span class="dt">Max_int_ion_mz =</span> Representative_ions<span class="op">$</span>mz, <span class="dt">Max_int_ion_adduct =</span> Representative_adducts, <span class="dt">labeled_ion_mz =</span> Labeled_ions<span class="op">$</span>mz, <span class="dt">labeled_ion_adduct =</span> Labeled_ions<span class="op">$</span>label, <span class="dt">RC_mz =</span> RC<span class="op">$</span>M, <span class="dt">retention_time =</span> RC<span class="op">$</span>clrt)</span>
-<span id="cb23-20"><a href="#cb23-20"></a></span>
-<span id="cb23-21"><a href="#cb23-21"></a><span class="co"># All labeled ions</span></span>
-<span id="cb23-22"><a href="#cb23-22"></a>All_labeled_adducts &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(RC<span class="op">$</span>M.ann, <span class="cf">function</span>(x) {</span>
-<span id="cb23-23"><a href="#cb23-23"></a>  xl &lt;-<span class="st"> </span>x[<span class="kw"><a href="https://rdrr.io/r/base/which.html">which</a></span>(<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(x<span class="op">$</span>label)), ]</span>
-<span id="cb23-24"><a href="#cb23-24"></a>})</span>
-<span id="cb23-25"><a href="#cb23-25"></a>All_labeled_adducts &lt;-<span class="st"> </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(All_labeled_adducts)</span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>mz <span class="op">%in%</span><span class="st"> </span>Representative_ions<span class="op">$</span>mz <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>()</span>
-<span id="cb24-2"><a href="#cb24-2"></a><span class="co">#&gt; .</span></span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="co">#&gt; FALSE  TRUE </span></span>
-<span id="cb24-4"><a href="#cb24-4"></a><span class="co">#&gt;   512    13</span></span>
-<span id="cb24-5"><a href="#cb24-5"></a><span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"length of features: "</span>, <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(mz))</span>
-<span id="cb24-6"><a href="#cb24-6"></a><span class="co">#&gt; length of features: 525</span></span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>mdataImputed &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(xdataImputed)</span>
-<span id="cb25-2"><a href="#cb25-2"></a></span>
-<span id="cb25-3"><a href="#cb25-3"></a><span class="co"># Clustered features</span></span>
-<span id="cb25-4"><a href="#cb25-4"></a>xdata_cluster_ions &lt;-<span class="st"> </span>mdataImputed[, mz <span class="op">%in%</span><span class="st"> </span>Representative_ions<span class="op">$</span>mz]</span>
-<span id="cb25-5"><a href="#cb25-5"></a></span>
-<span id="cb25-6"><a href="#cb25-6"></a><span class="co"># Singletons</span></span>
-<span id="cb25-7"><a href="#cb25-7"></a>clustered_mz&lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(RC<span class="op">$</span>M.ann,</span>
-<span id="cb25-8"><a href="#cb25-8"></a>                      <span class="cf">function</span> (x) x<span class="op">$</span>mz) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb25-9"><a href="#cb25-9"></a><span class="st">                      </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>() <span class="op">%&gt;%</span></span>
-<span id="cb25-10"><a href="#cb25-10"></a><span class="st">                      </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>()</span>
-<span id="cb25-11"><a href="#cb25-11"></a></span>
-<span id="cb25-12"><a href="#cb25-12"></a><span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"A number of "</span>,</span>
-<span id="cb25-13"><a href="#cb25-13"></a>        <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(clustered_mz),</span>
-<span id="cb25-14"><a href="#cb25-14"></a>        <span class="st">" features have been clustered into "</span>,</span>
-<span id="cb25-15"><a href="#cb25-15"></a>        <span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(xdata_cluster_ions)[<span class="dv">2</span>],</span>
-<span id="cb25-16"><a href="#cb25-16"></a>        <span class="st">" representative features"</span>)</span>
-<span id="cb25-17"><a href="#cb25-17"></a><span class="co">#&gt; A number of 371 features have been clustered into 13 representative features</span></span>
-<span id="cb25-18"><a href="#cb25-18"></a></span>
-<span id="cb25-19"><a href="#cb25-19"></a>mdataImputed &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(mdataImputed)</span>
-<span id="cb25-20"><a href="#cb25-20"></a>xdata_cluster_ions &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(xdata_cluster_ions)</span>
-<span id="cb25-21"><a href="#cb25-21"></a></span>
-<span id="cb25-22"><a href="#cb25-22"></a>singletons &lt;-<span class="st"> </span>mdataImputed[,<span class="op">!</span>mz <span class="op">%in%</span><span class="st"> </span>clustered_mz]</span>
-<span id="cb25-23"><a href="#cb25-23"></a></span>
-<span id="cb25-24"><a href="#cb25-24"></a><span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"A number of "</span>,</span>
-<span id="cb25-25"><a href="#cb25-25"></a>        RC<span class="op">$</span>nsing,</span>
-<span id="cb25-26"><a href="#cb25-26"></a>        <span class="st">" features correspond to singletons"</span>)</span>
-<span id="cb25-27"><a href="#cb25-27"></a><span class="co">#&gt; A number of 154 features correspond to singletons</span></span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co">#Combine singletons and molecular ions</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a>xdata_reduced &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind.data.frame</a></span>(xdata_cluster_ions, singletons)</span>
-<span id="cb26-3"><a href="#cb26-3"></a><span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"Reduced dataset has "</span>, <span class="kw"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span>(xdata_reduced), <span class="st">" features"</span>)</span>
-<span id="cb26-4"><a href="#cb26-4"></a><span class="co">#&gt; Reduced dataset has 506 features</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>reduced_object  &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_reduction.html">feature_reduction</a></span>(RC, xdata, <span class="dt">loaded =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="co">#&gt; length of features: 525</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="co">#&gt; A number of 371 features have been clustered into 13 representative features</span></span>
+<span id="cb23-4"><a href="#cb23-4"></a><span class="co">#&gt; A number of 493 features correspond to singletons</span></span>
+<span id="cb23-5"><a href="#cb23-5"></a><span class="co">#&gt; Original dataset has 525 features</span></span>
+<span id="cb23-6"><a href="#cb23-6"></a><span class="co">#&gt; </span></span>
+<span id="cb23-7"><a href="#cb23-7"></a><span class="co">#&gt; Molecular ions dataset has 13 features</span></span>
+<span id="cb23-8"><a href="#cb23-8"></a><span class="co">#&gt; Singletons dataset has 493 features</span></span>
+<span id="cb23-9"><a href="#cb23-9"></a><span class="co">#&gt; Reduced dataset has 506 features</span></span>
+<span id="cb23-10"><a href="#cb23-10"></a>xdata_reduced &lt;-<span class="st"> </span>reduced_object<span class="op">$</span>xdata_reduced</span></code></pre></div>
 </div>
 <div id="univariante-analysis" class="section level2">
 <h2 class="hasAnchor">
 <a href="#univariante-analysis" class="anchor"></a>Univariante analysis</h2>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>stat &lt;-<span class="st"> </span><span class="cf">function</span>(x){stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span>(x <span class="op">~</span><span class="st"> </span>classes, xdata_reduced)<span class="op">$</span>p.value}</span>
-<span id="cb27-2"><a href="#cb27-2"></a>abcd &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="dt">FUN =</span> stat,</span>
-<span id="cb27-3"><a href="#cb27-3"></a>                         <span class="dt">MARGIN =</span> <span class="dv">2</span>,</span>
-<span id="cb27-4"><a href="#cb27-4"></a>                         <span class="dt">X =</span> xdata_reduced))</span>
-<span id="cb27-5"><a href="#cb27-5"></a><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(abcd) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"p_Wilc"</span>)</span>
-<span id="cb27-6"><a href="#cb27-6"></a>abcd<span class="op">$</span>id &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span>(abcd)</span>
-<span id="cb27-7"><a href="#cb27-7"></a>result &lt;-<span class="st"> </span>abcd</span>
-<span id="cb27-8"><a href="#cb27-8"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(result<span class="op">$</span>p_Wilc)</span>
-<span id="cb27-9"><a href="#cb27-9"></a><span class="co">#&gt;     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. </span></span>
-<span id="cb27-10"><a href="#cb27-10"></a><span class="co">#&gt; 0.002165 0.309524 0.588745 0.567469 0.818182 1.000000</span></span>
-<span id="cb27-11"><a href="#cb27-11"></a><span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of features &lt; 0.05 nominal p-value "</span>, </span>
-<span id="cb27-12"><a href="#cb27-12"></a><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(result<span class="op">$</span>p_Wilc <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>))</span>
-<span id="cb27-13"><a href="#cb27-13"></a><span class="co">#&gt; </span></span>
-<span id="cb27-14"><a href="#cb27-14"></a><span class="co">#&gt; Number of features &lt; 0.05 nominal p-value 40</span></span>
-<span id="cb27-15"><a href="#cb27-15"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result[result<span class="op">$</span>p_Wilc <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>, <span class="dv">1</span>])</span>
-<span id="cb27-16"><a href="#cb27-16"></a><span class="co">#&gt; [1] 0.002164502 0.002164502 0.002164502 0.002164502 0.002164502 0.002164502</span></span>
-<span id="cb27-17"><a href="#cb27-17"></a></span>
-<span id="cb27-18"><a href="#cb27-18"></a><span class="co">#FDR</span></span>
-<span id="cb27-19"><a href="#cb27-19"></a>fdr.wilcox &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span>(result<span class="op">$</span>p_Wilc, <span class="dt">method =</span> <span class="st">"fdr"</span>)</span>
-<span id="cb27-20"><a href="#cb27-20"></a>result &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(result, fdr.wilcox)</span>
-<span id="cb27-21"><a href="#cb27-21"></a><span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of features fdr-corrected p value of &lt; 0.05 is "</span>, </span>
-<span id="cb27-22"><a href="#cb27-22"></a><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(result<span class="op">$</span>fdr.wilcox <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>))</span>
-<span id="cb27-23"><a href="#cb27-23"></a><span class="co">#&gt; </span></span>
-<span id="cb27-24"><a href="#cb27-24"></a><span class="co">#&gt; Number of features fdr-corrected p value of &lt; 0.05 is 26</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>stat &lt;-<span class="st"> </span><span class="cf">function</span>(x){stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span>(x <span class="op">~</span><span class="st"> </span>classes, xdata_reduced)<span class="op">$</span>p.value}</span>
+<span id="cb24-2"><a href="#cb24-2"></a>abcd &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/apply.html">apply</a></span>(<span class="dt">FUN =</span> stat,</span>
+<span id="cb24-3"><a href="#cb24-3"></a>                         <span class="dt">MARGIN =</span> <span class="dv">2</span>,</span>
+<span id="cb24-4"><a href="#cb24-4"></a>                         <span class="dt">X =</span> xdata_reduced))</span>
+<span id="cb24-5"><a href="#cb24-5"></a><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(abcd) &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"p_Wilc"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6"></a>abcd<span class="op">$</span>id &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/row.names.html">row.names</a></span>(abcd)</span>
+<span id="cb24-7"><a href="#cb24-7"></a>result &lt;-<span class="st"> </span>abcd</span>
+<span id="cb24-8"><a href="#cb24-8"></a><span class="kw"><a href="https://rdrr.io/r/base/summary.html">summary</a></span>(result<span class="op">$</span>p_Wilc)</span>
+<span id="cb24-9"><a href="#cb24-9"></a><span class="co">#&gt;     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. </span></span>
+<span id="cb24-10"><a href="#cb24-10"></a><span class="co">#&gt; 0.002165 0.309524 0.588745 0.567469 0.818182 1.000000</span></span>
+<span id="cb24-11"><a href="#cb24-11"></a><span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of features &lt; 0.05 nominal p-value "</span>, </span>
+<span id="cb24-12"><a href="#cb24-12"></a><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(result<span class="op">$</span>p_Wilc <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>))</span>
+<span id="cb24-13"><a href="#cb24-13"></a><span class="co">#&gt; </span></span>
+<span id="cb24-14"><a href="#cb24-14"></a><span class="co">#&gt; Number of features &lt; 0.05 nominal p-value 40</span></span>
+<span id="cb24-15"><a href="#cb24-15"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result[result<span class="op">$</span>p_Wilc <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>, <span class="dv">1</span>])</span>
+<span id="cb24-16"><a href="#cb24-16"></a><span class="co">#&gt; [1] 0.002164502 0.002164502 0.002164502 0.002164502 0.002164502 0.002164502</span></span>
+<span id="cb24-17"><a href="#cb24-17"></a></span>
+<span id="cb24-18"><a href="#cb24-18"></a><span class="co">#FDR</span></span>
+<span id="cb24-19"><a href="#cb24-19"></a>fdr.wilcox &lt;-<span class="st"> </span>stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/p.adjust.html">p.adjust</a></span>(result<span class="op">$</span>p_Wilc, <span class="dt">method =</span> <span class="st">"fdr"</span>)</span>
+<span id="cb24-20"><a href="#cb24-20"></a>result &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span>(result, fdr.wilcox)</span>
+<span id="cb24-21"><a href="#cb24-21"></a><span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Number of features fdr-corrected p value of &lt; 0.05 is "</span>, </span>
+<span id="cb24-22"><a href="#cb24-22"></a><span class="kw"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(result<span class="op">$</span>fdr.wilcox <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>))</span>
+<span id="cb24-23"><a href="#cb24-23"></a><span class="co">#&gt; </span></span>
+<span id="cb24-24"><a href="#cb24-24"></a><span class="co">#&gt; Number of features fdr-corrected p value of &lt; 0.05 is 26</span></span></code></pre></div>
 </div>
 </div>
 <div id="univariate-anotation" class="section level1">
 <h1 class="hasAnchor">
 <a href="#univariate-anotation" class="anchor"></a>Univariate anotation</h1>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># We use the selected vips</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>univ_feat &lt;-<span class="st"> </span>result[result<span class="op">$</span>fdr.wilcox <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>,<span class="st">"id"</span>]</span>
-<span id="cb28-3"><a href="#cb28-3"></a></span>
-<span id="cb28-4"><a href="#cb28-4"></a><span class="co"># Untargeted assignation</span></span>
-<span id="cb28-5"><a href="#cb28-5"></a><span class="co"># Creating mz column</span></span>
-<span id="cb28-6"><a href="#cb28-6"></a>mzr &lt;-<span class="st"> </span>univ_feat <span class="op">%&gt;%</span></span>
-<span id="cb28-7"><a href="#cb28-7"></a><span class="st">  </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span>(.,<span class="st">"</span><span class="ch">\\</span><span class="st">_"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb28-8"><a href="#cb28-8"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(.,<span class="cf">function</span>(x) x[<span class="dv">1</span>]) <span class="op">%&gt;%</span></span>
-<span id="cb28-9"><a href="#cb28-9"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>() <span class="op">%&gt;%</span></span>
-<span id="cb28-10"><a href="#cb28-10"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>()</span>
-<span id="cb28-11"><a href="#cb28-11"></a></span>
-<span id="cb28-12"><a href="#cb28-12"></a><span class="kw"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(univ_feat), <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(mzr))</span>
-<span id="cb28-13"><a href="#cb28-13"></a><span class="co">#&gt; [1] TRUE</span></span>
-<span id="cb28-14"><a href="#cb28-14"></a></span>
-<span id="cb28-15"><a href="#cb28-15"></a>tdata_reduced_univ &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">mz =</span> mzr)</span>
-<span id="cb28-16"><a href="#cb28-16"></a><span class="cf">if</span>(<span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(tdata_reduced_univ)[<span class="dv">1</span>]<span class="op">&gt;</span><span class="dv">0</span>){</span>
-<span id="cb28-17"><a href="#cb28-17"></a>  result_POS_HMDB_univ &lt;-<span class="st"> </span><span class="kw"><a href="../reference/assignation_pos_HMDB.html">assignation_pos_HMDB</a></span>(tdata_reduced_univ)</span>
-<span id="cb28-18"><a href="#cb28-18"></a>  <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result_POS_HMDB_univ)</span>
-<span id="cb28-19"><a href="#cb28-19"></a>} <span class="cf">else</span> {</span>
-<span id="cb28-20"><a href="#cb28-20"></a>  <span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"There is no significant features in Wilcox test"</span>)</span>
-<span id="cb28-21"><a href="#cb28-21"></a>}</span>
-<span id="cb28-22"><a href="#cb28-22"></a><span class="co">#&gt;      mz       HMDB</span></span>
-<span id="cb28-23"><a href="#cb28-23"></a><span class="co">#&gt; 1 298.2       &lt;NA&gt;</span></span>
-<span id="cb28-24"><a href="#cb28-24"></a><span class="co">#&gt; 2 300.2       &lt;NA&gt;</span></span>
-<span id="cb28-25"><a href="#cb28-25"></a><span class="co">#&gt; 3 301.2       &lt;NA&gt;</span></span>
-<span id="cb28-26"><a href="#cb28-26"></a><span class="co">#&gt; 4 302.2       &lt;NA&gt;</span></span>
-<span id="cb28-27"><a href="#cb28-27"></a><span class="co">#&gt; 5 322.1 HMDB12143 </span></span>
-<span id="cb28-28"><a href="#cb28-28"></a><span class="co">#&gt; 6 324.2       &lt;NA&gt;</span></span>
-<span id="cb28-29"><a href="#cb28-29"></a><span class="co">#&gt;                                                                                        Assignation</span></span>
-<span id="cb28-30"><a href="#cb28-30"></a><span class="co">#&gt; 1                                                                                             &lt;NA&gt;</span></span>
-<span id="cb28-31"><a href="#cb28-31"></a><span class="co">#&gt; 2                                                                                             &lt;NA&gt;</span></span>
-<span id="cb28-32"><a href="#cb28-32"></a><span class="co">#&gt; 3                                                                                             &lt;NA&gt;</span></span>
-<span id="cb28-33"><a href="#cb28-33"></a><span class="co">#&gt; 4                                                                                             &lt;NA&gt;</span></span>
-<span id="cb28-34"><a href="#cb28-34"></a><span class="co">#&gt; 5  2-Amino-4-oxo-4-alpha-hydroxy-6-(erythro-1',2',3'-trihydroxypropyl)-5,6,7,8-tetrahydroxypterin </span></span>
-<span id="cb28-35"><a href="#cb28-35"></a><span class="co">#&gt; 6                                                                                             &lt;NA&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># We use the selected vips</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>univ_feat &lt;-<span class="st"> </span>result[result<span class="op">$</span>fdr.wilcox <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.05</span>,<span class="st">"id"</span>]</span>
+<span id="cb25-3"><a href="#cb25-3"></a></span>
+<span id="cb25-4"><a href="#cb25-4"></a><span class="co"># Untargeted assignation</span></span>
+<span id="cb25-5"><a href="#cb25-5"></a><span class="co"># Creating mz column</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>mzr &lt;-<span class="st"> </span>univ_feat <span class="op">%&gt;%</span></span>
+<span id="cb25-7"><a href="#cb25-7"></a><span class="st">  </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span>(.,<span class="st">"</span><span class="ch">\\</span><span class="st">_"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb25-8"><a href="#cb25-8"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(.,<span class="cf">function</span>(x) x[<span class="dv">1</span>]) <span class="op">%&gt;%</span></span>
+<span id="cb25-9"><a href="#cb25-9"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>() <span class="op">%&gt;%</span></span>
+<span id="cb25-10"><a href="#cb25-10"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>()</span>
+<span id="cb25-11"><a href="#cb25-11"></a></span>
+<span id="cb25-12"><a href="#cb25-12"></a><span class="kw"><a href="https://rdrr.io/r/base/all.equal.html">all.equal</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(univ_feat), <span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(mzr))</span>
+<span id="cb25-13"><a href="#cb25-13"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb25-14"><a href="#cb25-14"></a></span>
+<span id="cb25-15"><a href="#cb25-15"></a>tdata_reduced_univ &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">mz =</span> mzr)</span>
+<span id="cb25-16"><a href="#cb25-16"></a><span class="cf">if</span>(<span class="kw"><a href="https://rdrr.io/r/base/dim.html">dim</a></span>(tdata_reduced_univ)[<span class="dv">1</span>]<span class="op">&gt;</span><span class="dv">0</span>){</span>
+<span id="cb25-17"><a href="#cb25-17"></a>  result_POS_HMDB_univ &lt;-<span class="st"> </span><span class="kw"><a href="../reference/assignation_pos_HMDB.html">assignation_pos_HMDB</a></span>(tdata_reduced_univ)</span>
+<span id="cb25-18"><a href="#cb25-18"></a>  <span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result_POS_HMDB_univ)</span>
+<span id="cb25-19"><a href="#cb25-19"></a>} <span class="cf">else</span> {</span>
+<span id="cb25-20"><a href="#cb25-20"></a>  <span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"There is no significant features in Wilcox test"</span>)</span>
+<span id="cb25-21"><a href="#cb25-21"></a>}</span>
+<span id="cb25-22"><a href="#cb25-22"></a><span class="co">#&gt;      mz       HMDB</span></span>
+<span id="cb25-23"><a href="#cb25-23"></a><span class="co">#&gt; 1 298.2       &lt;NA&gt;</span></span>
+<span id="cb25-24"><a href="#cb25-24"></a><span class="co">#&gt; 2 300.2       &lt;NA&gt;</span></span>
+<span id="cb25-25"><a href="#cb25-25"></a><span class="co">#&gt; 3 301.2       &lt;NA&gt;</span></span>
+<span id="cb25-26"><a href="#cb25-26"></a><span class="co">#&gt; 4 302.2       &lt;NA&gt;</span></span>
+<span id="cb25-27"><a href="#cb25-27"></a><span class="co">#&gt; 5 322.1 HMDB12143 </span></span>
+<span id="cb25-28"><a href="#cb25-28"></a><span class="co">#&gt; 6 324.2       &lt;NA&gt;</span></span>
+<span id="cb25-29"><a href="#cb25-29"></a><span class="co">#&gt;                                                                                        Assignation</span></span>
+<span id="cb25-30"><a href="#cb25-30"></a><span class="co">#&gt; 1                                                                                             &lt;NA&gt;</span></span>
+<span id="cb25-31"><a href="#cb25-31"></a><span class="co">#&gt; 2                                                                                             &lt;NA&gt;</span></span>
+<span id="cb25-32"><a href="#cb25-32"></a><span class="co">#&gt; 3                                                                                             &lt;NA&gt;</span></span>
+<span id="cb25-33"><a href="#cb25-33"></a><span class="co">#&gt; 4                                                                                             &lt;NA&gt;</span></span>
+<span id="cb25-34"><a href="#cb25-34"></a><span class="co">#&gt; 5  2-Amino-4-oxo-4-alpha-hydroxy-6-(erythro-1',2',3'-trihydroxypropyl)-5,6,7,8-tetrahydroxypterin </span></span>
+<span id="cb25-35"><a href="#cb25-35"></a><span class="co">#&gt; 6                                                                                             &lt;NA&gt;</span></span></code></pre></div>
 </div>
 <div id="anotation-of-all-features-positive" class="section level1">
 <h1 class="hasAnchor">
 <a href="#anotation-of-all-features-positive" class="anchor"></a>anotation of all features positive</h1>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># Untargeted assignation</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a><span class="co"># Creating mz column</span></span>
-<span id="cb29-3"><a href="#cb29-3"></a></span>
-<span id="cb29-4"><a href="#cb29-4"></a>mzr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(xdata)) <span class="op">%&gt;%</span></span>
-<span id="cb29-5"><a href="#cb29-5"></a><span class="st">  </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span>(.,<span class="st">"</span><span class="ch">\\</span><span class="st">_"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb29-6"><a href="#cb29-6"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(.,<span class="cf">function</span>(x) x[<span class="dv">1</span>]) <span class="op">%&gt;%</span></span>
-<span id="cb29-7"><a href="#cb29-7"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>() <span class="op">%&gt;%</span></span>
-<span id="cb29-8"><a href="#cb29-8"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>()</span>
-<span id="cb29-9"><a href="#cb29-9"></a></span>
-<span id="cb29-10"><a href="#cb29-10"></a>tdata_reduced_all_features &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">mz =</span> mzr)</span>
-<span id="cb29-11"><a href="#cb29-11"></a>result_POS_HMDB_all_features &lt;-<span class="st"> </span><span class="kw"><a href="../reference/assignation_pos_HMDB.html">assignation_pos_HMDB</a></span>(tdata_reduced_all_features)</span>
-<span id="cb29-12"><a href="#cb29-12"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result_POS_HMDB_all_features)</span>
-<span id="cb29-13"><a href="#cb29-13"></a><span class="co">#&gt;      mz HMDB Assignation</span></span>
-<span id="cb29-14"><a href="#cb29-14"></a><span class="co">#&gt; 1 200.1 &lt;NA&gt;        &lt;NA&gt;</span></span>
-<span id="cb29-15"><a href="#cb29-15"></a><span class="co">#&gt; 2 205.0 &lt;NA&gt;        &lt;NA&gt;</span></span>
-<span id="cb29-16"><a href="#cb29-16"></a><span class="co">#&gt; 3 206.0 &lt;NA&gt;        &lt;NA&gt;</span></span>
-<span id="cb29-17"><a href="#cb29-17"></a><span class="co">#&gt; 4 207.1 &lt;NA&gt;        &lt;NA&gt;</span></span>
-<span id="cb29-18"><a href="#cb29-18"></a><span class="co">#&gt; 5 219.1 &lt;NA&gt;        &lt;NA&gt;</span></span>
-<span id="cb29-19"><a href="#cb29-19"></a><span class="co">#&gt; 6 231.0 &lt;NA&gt;        &lt;NA&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Untargeted assignation</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="co"># Creating mz column</span></span>
+<span id="cb26-3"><a href="#cb26-3"></a></span>
+<span id="cb26-4"><a href="#cb26-4"></a>mzr &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span>(xdata)) <span class="op">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5"></a><span class="st">  </span>stringr<span class="op">::</span><span class="kw"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span>(.,<span class="st">"</span><span class="ch">\\</span><span class="st">_"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb26-6"><a href="#cb26-6"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(.,<span class="cf">function</span>(x) x[<span class="dv">1</span>]) <span class="op">%&gt;%</span></span>
+<span id="cb26-7"><a href="#cb26-7"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>() <span class="op">%&gt;%</span></span>
+<span id="cb26-8"><a href="#cb26-8"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>()</span>
+<span id="cb26-9"><a href="#cb26-9"></a></span>
+<span id="cb26-10"><a href="#cb26-10"></a>tdata_reduced_all_features &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">mz =</span> mzr)</span>
+<span id="cb26-11"><a href="#cb26-11"></a>result_POS_HMDB_all_features &lt;-<span class="st"> </span><span class="kw"><a href="../reference/assignation_pos_HMDB.html">assignation_pos_HMDB</a></span>(tdata_reduced_all_features)</span>
+<span id="cb26-12"><a href="#cb26-12"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result_POS_HMDB_all_features)</span>
+<span id="cb26-13"><a href="#cb26-13"></a><span class="co">#&gt;      mz HMDB Assignation</span></span>
+<span id="cb26-14"><a href="#cb26-14"></a><span class="co">#&gt; 1 200.1 &lt;NA&gt;        &lt;NA&gt;</span></span>
+<span id="cb26-15"><a href="#cb26-15"></a><span class="co">#&gt; 2 205.0 &lt;NA&gt;        &lt;NA&gt;</span></span>
+<span id="cb26-16"><a href="#cb26-16"></a><span class="co">#&gt; 3 206.0 &lt;NA&gt;        &lt;NA&gt;</span></span>
+<span id="cb26-17"><a href="#cb26-17"></a><span class="co">#&gt; 4 207.1 &lt;NA&gt;        &lt;NA&gt;</span></span>
+<span id="cb26-18"><a href="#cb26-18"></a><span class="co">#&gt; 5 219.1 &lt;NA&gt;        &lt;NA&gt;</span></span>
+<span id="cb26-19"><a href="#cb26-19"></a><span class="co">#&gt; 6 231.0 &lt;NA&gt;        &lt;NA&gt;</span></span></code></pre></div>
 </div>
 <div id="final-thoughts" class="section level1">
 <h1 class="hasAnchor">
