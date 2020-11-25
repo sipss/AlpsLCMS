@@ -220,67 +220,8 @@ RC <- do_findmain(RC,
 
 
 ## -----------------------------------------------------------------------------
-# Selection of max intensity ion as cluster representative
-Max_int<- lapply(RC$M.ann, function(x) x[which.max(x$int), ])
-Representative_ions <- dplyr::bind_rows(Max_int)
-Representative_ions$name <- paste(round(Representative_ions$mz,4),
-                             round(RC$clrt,2),
-                             sep = "_")
-
-# Adducts of representative ions
-Representative_adducts <- sapply(RC$M.ann, function(x) x[which.max(x$int), ]$adduct)
-
-# Selection of labeled max intensity ion as cluster representative
-Labeled_int <- lapply(RC$M.ann, function(x) {
-  xl <- x[which(!is.na(x$label)), ]
-  xl[which.max(xl$int), ]
-})
-Labeled_ions <- dplyr::bind_rows(Labeled_int)
-
-# We save most important cluster data
-cluster_data <- data.frame(cluster = RC$ann, Max_int_ion_mz = Representative_ions$mz, Max_int_ion_adduct = Representative_adducts, labeled_ion_mz = Labeled_ions$mz, labeled_ion_adduct = Labeled_ions$label, RC_mz = RC$M, retention_time = RC$clrt)
-
-# All labeled ions
-All_labeled_adducts <- lapply(RC$M.ann, function(x) {
-  xl <- x[which(!is.na(x$label)), ]
-})
-All_labeled_adducts <- dplyr::bind_rows(All_labeled_adducts)
-
-## -----------------------------------------------------------------------------
-mz %in% Representative_ions$mz %>% table()
-message("length of features: ", length(mz))
-
-## ----Reduced feature table----------------------------------------------------
-mdataImputed <- as.matrix(xdataImputed)
-
-# Clustered features
-xdata_cluster_ions <- mdataImputed[, mz %in% Representative_ions$mz]
-
-# Singletons
-clustered_mz<- lapply(RC$M.ann,
-                      function (x) x$mz) %>% 
-                      unlist() %>%
-                      as.numeric()
-
-message("A number of ",
-        length(clustered_mz),
-        " features have been clustered into ",
-        dim(xdata_cluster_ions)[2],
-        " representative features")
-
-mdataImputed <- as.data.frame(mdataImputed)
-xdata_cluster_ions <- as.data.frame(xdata_cluster_ions)
-
-singletons <- mdataImputed[,!mz %in% clustered_mz]
-
-message("A number of ",
-        RC$nsing,
-        " features correspond to singletons")
-
-## -----------------------------------------------------------------------------
-#Combine singletons and molecular ions
-xdata_reduced <- cbind.data.frame(xdata_cluster_ions, singletons)
-message("Reduced dataset has ", ncol(xdata_reduced), " features")
+reduced_object  <- feature_reduction(RC, xdata, loaded = FALSE)
+xdata_reduced <- reduced_object$xdata_reduced
 
 ## ----warning=FALSE------------------------------------------------------------
 stat <- function(x){stats::wilcox.test(x ~ classes, xdata_reduced)$p.value}
