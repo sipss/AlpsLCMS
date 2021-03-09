@@ -478,7 +478,7 @@ lcms_plot_tics <- function(tics, treatment = treatment, rt = NULL, plot_type = "
       ggplot2::ggtitle(paste("Total Ion Count across all retention times", polarity))
   }else if(plot_type == "boxplot"){
     tics <- tics %>% dplyr::filter(ret_time >= rt[1] * min2sec & ret_time <= rt[2]* min2sec)
-    tics$fileName <- factor(stringr::str_extract(tics$fileName, "\\w+"), levels = stringr::str_extract(levels(tics$fileName), "\\w+"))
+    tics$fileName <- factor(sub(pattern = "(.*)\\..*$", replacement = "\\1", tics$fileName), levels = sub(pattern = "(.*)\\..*$", replacement = "\\1", levels(tics$fileName)))
     ggplot2::ggplot(tics) +
       ggplot2::geom_boxplot(ggplot2::aes(x = fileName, y = tic, fill = treatment)) +
       ggplot2::scale_fill_manual("Treatment", values = treatment_col) +
