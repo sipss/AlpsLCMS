@@ -262,12 +262,12 @@ do_cv <- function(dataset, y_column, identity_column, train_evaluate_model,
 check_dataset <- function(dataset){
   # do some checks to make sure we have everything we need before proceeding
   if (is.null(dataset) || !((is(dataset, "data.frame") ||
-                             is(dataset, "xcmsObj") || is(dataset, "matrix"))))  {
+                             is(dataset, "XCMSnExp") || is(dataset, "matrix"))))  {
     stop(
       "you must select either
             1: an MS dataset with features as columns
                (__)one column may contain sample names, defined by sampleNames column)
-            2: an xcmsObj
+            2: an XCMSnExp
             3: data.frame with features as columns"
     )
   }
@@ -318,9 +318,19 @@ lcms_data_analysis <- function(dataset,
   }
 
   # Extract data and split for train and test
-  if (is(dataset, "xcmsObj"))  {
-    #TODO
-    dataset <- as.matrix(dataset)
+  if (is(dataset, "XCMSnExp"))  {
+    xdata = feature_values(dataset,
+                           method = "maxint",
+                           value = "into",
+                           filled = TRUE,
+                           missing = "rowmin_half")
+
+    xdata= t(xdata)
+    feature=featureDefinitions(dataset)
+    feature=feature@listData
+    featNames=paste0(feature$mzmed,"_",feature$rtmed/60)
+    colnames(xdata)=featNames
+    dataset <- as.matrix(xdata)
   }
 
   # Extract y_column from metadata
@@ -431,7 +441,8 @@ bp_VIP_analysis <- function(dataset,
                             train_index,
                             y_column,
                             ncomp,
-                            nbootstrap = 300) {
+                            nbootstrap = 300,
+                            multilevel = NULL) {
   check_dataset(dataset)
 
   # Extract data and split for train and test
@@ -440,9 +451,19 @@ bp_VIP_analysis <- function(dataset,
   }
 
   # Extract data and split for train and test
-  if (is(dataset, "xcmsObj"))  {
-    #TODO
-    x_all <- as.matrix(dataset)
+  if (is(dataset, "XCMSnExp"))  {
+    xdata = feature_values(dataset,
+                           method = "maxint",
+                           value = "into",
+                           filled = TRUE,
+                           missing = "rowmin_half")
+
+    xdata= t(xdata)
+    feature=featureDefinitions(dataset)
+    feature=feature@listData
+    featNames=paste0(feature$mzmed,"_",feature$rtmed/60)
+    colnames(xdata)=featNames
+    x_all <- as.matrix(xdata)
   }
 
   # Extract y_column from metadata
@@ -508,7 +529,7 @@ bp_VIP_analysis <- function(dataset,
                 X = x_train_boots,
                 Y = y_train_boots,
                 scale = TRUE,
-                multilevel = NULL,
+                multilevel = multilevel,
                 ncomp = ncomp
             )
         # VIPs per component extraction
@@ -530,7 +551,7 @@ bp_VIP_analysis <- function(dataset,
               X = x_train_boots_perm,
               Y = y_train_boots,
               scale = TRUE,
-              multilevel = NULL,
+              multilevel = multilevel,
               ncomp = ncomp
             )
 
@@ -574,7 +595,7 @@ bp_VIP_analysis <- function(dataset,
       X = x_train,
       Y = y_train,
       scale = TRUE,
-      multilevel = NULL,
+      multilevel = multilevel,
       ncomp = ncomp
     )
 
@@ -616,7 +637,7 @@ bp_VIP_analysis <- function(dataset,
                   X = x_train_reduced,
                   Y = y_train,
                   scale = TRUE,
-                  multilevel = NULL,
+                  multilevel = multilevel,
                   ncomp = ncomp
                 )
 
@@ -636,7 +657,7 @@ bp_VIP_analysis <- function(dataset,
               X = x_train_reduced,
               Y = y_train,
               scale = TRUE,
-              multilevel = NULL,
+              multilevel = multilevel,
               ncomp = ncomp
             )
 
@@ -699,7 +720,8 @@ bp_kfold_VIP_analysis <- function(dataset,
                             y_column,
                             k = 4,
                             ncomp = NULL,
-                            nbootstrap = 300) {
+                            nbootstrap = 300,
+                            multilevel = NULL) {
     check_dataset(dataset)
 
     if (k <= 1) {
@@ -712,9 +734,19 @@ bp_kfold_VIP_analysis <- function(dataset,
     }
 
     # Extract data and split for train and test
-    if (is(dataset, "xcmsObj"))  {
-        #TODO
-        x_all <- as.matrix(dataset)
+    if (is(dataset, "XCMSnExp"))  {
+      xdata = feature_values(dataset,
+                             method = "maxint",
+                             value = "into",
+                             filled = TRUE,
+                             missing = "rowmin_half")
+
+      xdata= t(xdata)
+      feature=featureDefinitions(dataset)
+      feature=feature@listData
+      featNames=paste0(feature$mzmed,"_",feature$rtmed/60)
+      colnames(xdata)=featNames
+      x_all <- as.matrix(xdata)
     }
 
     # Extract y_column from metadata
@@ -739,17 +771,36 @@ bp_kfold_VIP_analysis <- function(dataset,
     #   ncomp = sum(model$explained_variance$Y > 0.05)
     # }
 
+    #TODO check paired split
     # Random and spliting
-    x <- seq_len(length(y_all))
-    index <- sample(x, replace = FALSE)
-    x_all <- x_all[index,]
-    y_all <- y_all[index]
+    if (!is.null(multilevel)) {
+      # Spliting paired data
+      x <- seq_len(length(as.factor(multilevel)))
+      index <- sample(x, replace = FALSE)
+      index <- c(index, 2*index)
+      x_all <- x_all[index,]
+      y_all <- y_all[index]
 
-    # Split data for k-fold
-    k_fold_split <- split(x, x%%k)
-    k_fold_index <- list()
-    for(i in seq_len(k)){
+      # Split data for k-fold
+      k_fold_split <- split(x, x%%k)
+      k_fold_index <- list()
+      for(i in seq_len(k)){
+        k_index <- c(k_fold_split[[i]], 2*k_fold_split[[i]])
+        k_fold_index[[i]] <- seq_len(length(y_all))[-k_index]
+      }
+    } else {
+      # Random and spliting non paired data
+      x <- seq_len(length(y_all))
+      index <- sample(x, replace = FALSE)
+      x_all <- x_all[index,]
+      y_all <- y_all[index]
+
+      # Split data for k-fold
+      k_fold_split <- split(x, x%%k)
+      k_fold_index <- list()
+      for(i in seq_len(k)){
         k_fold_index[[i]] <- seq_len(length(y_all))[-k_fold_split[[i]]]
+      }
     }
 
     # Paralellization
@@ -764,39 +815,16 @@ bp_kfold_VIP_analysis <- function(dataset,
     snow <- BiocParallel::SnowParam(workers = numcores, type = "SOCK")
     results <- BiocParallel::bplapply(
         k_fold_index, function(index, dataset = dataset, y_column = y_column,
-                               ncomp = ncomp, nbootstrap = nbootstrap) {
+                               ncomp = ncomp, nbootstrap = nbootstrap, multilevel = multilevel) {
         bp_VIP_analysis(
             dataset,
             index,
             y_column = y_column,
             ncomp = ncomp,
-            nbootstrap = nbootstrap
+            nbootstrap = nbootstrap,
+            multilevel = multilevel
         )}, BPPARAM = snow, dataset = dataset, y_column = y_column,
-        ncomp = ncomp, nbootstrap = nbootstrap)
-
-    # # Paralellization
-    # chk <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
-    #
-    # if (nzchar(chk) && chk == "TRUE") {
-    #     # use 2 cores in CRAN/Travis/AppVeyor
-    #     numcores <- 2L
-    # } else {
-    #     # use all cores in devtools::test()
-    #     numcores <- parallel::detectCores()
-    # }
-    # if(numcores > k){numcores <- k}
-    # cl <- parallel::makeCluster(numcores)
-    # parallel::clusterExport(cl, c("dataset", "y_column", "ncomp", "nbootstrap"), envir=environment())
-    # results <- parallel::parLapply(cl, k_fold_index, function(index) {
-    #     bp_VIP_analysis(
-    #         dataset,
-    #         index,
-    #         y_column = y_column,
-    #         ncomp = ncomp,
-    #         nbootstrap = nbootstrap
-    #     )
-    # })
-    # parallel::stopCluster(cl)
+        ncomp = ncomp, nbootstrap = nbootstrap, multilevel = multilevel)
 
     # Mean of the vips of the different folds for the plot
     means <- vapply(results, FUN="[", FUN.VALUE = c(list), "pls_vip_means")
@@ -817,16 +845,19 @@ bp_kfold_VIP_analysis <- function(dataset,
     ## Wilcoxon test
     num_var <- dim(results[[1]]$pls_vip)[1]
     wt <- matrix(nrow = k, ncol = num_var)
+    wt_fdr <- matrix(nrow = k, ncol = num_var)
     wt_vips <- list()
     for(i in seq_len(k)) {
         for (j in seq_len(num_var)) {
             x <- results[[i]]$pls_vip[j, ]
             y <- results[[i]]$pls_vip_perm[j, ]
             #wt_object <- wilcox.test(x, y, paired = TRUE, alternative = "two.sided")
-            wt_object <- wilcox.test(x, y, paired = TRUE, alternative = "greater")
+            wt_object <- wilcox.test(x, y, paired = !is.null(multilevel), alternative = "greater")
             wt[i,j] <- wt_object$p.value
         }
-        wt_vips[[i]] <- rownames(results[[i]]$pls_vip)[wt[i,]<0.05]
+        #fdr
+        wt_fdr[i,] <- p.adjust(wt[i,], method = "fdr")
+        wt_vips[[i]] <- rownames(results[[i]]$pls_vip)[wt_fdr[i,]<0.05]
     }
 
     # Plot of the scores
@@ -853,6 +884,8 @@ bp_kfold_VIP_analysis <- function(dataset,
     list(important_vips = Reduce(intersect, (vapply(results, FUN="[", FUN.VALUE = c(list), "important_vips"))),
          relevant_vips = Reduce(intersect, (vapply(results, FUN="[", FUN.VALUE = c(list), "relevant_vips"))),
          wilcoxon_vips = unique(unlist(wt_vips)),
+         wilcoxon_pvalue = unlist(wt),
+         wilcoxon_pvalue_fdr = unlist(wt_fdr),
          vip_means = vip_means,
          vip_score_plot = p,
          kfold_results = results,
@@ -1225,8 +1258,28 @@ plot_bootstrap_multimodel <- function(bp_results, dataset, y_column, plot = TRUE
 
     n_models = length(bp_results$kfold_results)
     ncomp = bp_results$kfold_results[[1]]$general_model$ncomp
+    # Extract data
     # Extract data and split for train and test
-    x_all <- dataset
+    if (is(dataset, "data.frame") || is(dataset, "matrix"))  {
+      x_all <- as.matrix(dataset)
+    }
+
+    # Extract data and split for train and test
+    if (is(dataset, "XCMSnExp"))  {
+      xdata = feature_values(dataset,
+                             method = "maxint",
+                             value = "into",
+                             filled = TRUE,
+                             missing = "rowmin_half")
+
+      xdata= t(xdata)
+      feature=featureDefinitions(dataset)
+      feature=feature@listData
+      featNames=paste0(feature$mzmed,"_",feature$rtmed/60)
+      colnames(xdata)=featNames
+      x_all <- as.matrix(xdata)
+    }
+
     y_all <- y_column
     te_data <- data.frame()
     for(i in seq_len(n_models)){
