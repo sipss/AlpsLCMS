@@ -20,58 +20,6 @@ lcms_peak_annotation(
   annotateAdducts = TRUE
 )
 }
-\arguments{
-\item{MAIT.object}{
-A \link[MAIT]{MAIT-class} object where function \link[MAIT]{sampleProcessing} has already been applied. The output of the function is going to be an update of the same \link[MAIT]{MAIT-class} object.
-}
-
-\item{corrWithSamp}{
-Correlation threshold value within samples
-}
-
-\item{perfwhm}{
-This parameter is used to group two peaks depending on their retention time. Two peaks are considered to be coeluted if their retention time falls in a range defined as  Rt_med +/- FWHM * perfwhm. Where Rt_med is the retention time median and FWHM is the Full Width at Half Maximum. Defined this way, perfwhm is the percentage of the width of the FWHM (Full Width at Half Maximum)}
-
-\item{sigma}{
-Defining the coelution range as defined in the perfwhm variable, the FWHM is obtained by the expression FWHM=SD*sigma, where SD is calculated considering the peak as normally distributed.
- }
-
-\item{adductTable}{
-User-defined input table to annotate the peaks. If it is set to NULL, the default MAIT table for adducts in positive polarization is selected. If its value is "negAdducts", the default MAIT table for fragments in negative polarization is chosen. By default it is set to NULL. 
-  }
-
-\item{printSpectraTable}{
-If it is set to TRUE, a three-column table is build as a csv file, where the first column shows the peak mass, the second column its retention time and the third one shows its spectral ID number. This file is saved under the project directory, in the subfolder named Tables.
-  }
-
-\item{corrBetSamp}{
-Correlation threshold value between samples
-}
-
-\item{pval}{
-See \link{groupCorr} function in the \pkg{CAMERA} package
-}
-
-\item{calcIso}{
-See \link{groupCorr} function in the \pkg{CAMERA} package
-}
-
-\item{calcCiS}{
-See \link{groupCorr} function in the \pkg{CAMERA} package
-}
-
-\item{calcCaS}{
-See \link{groupCorr} function in the \pkg{CAMERA} package
-}
-
-\item{graphMethod}{
-See \link{groupCorr} function in the \pkg{CAMERA} package
-}
-
-\item{annotateAdducts}{
-If it is set to TRUE, the function will perform an adduct annotation stage.
-}
-}
 \value{
 A MAIT-class object with xsAnnotate-class in the rawData slot.
 }

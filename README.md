@@ -24,9 +24,9 @@ if (!requireNamespace("remotes", quietly = TRUE))
     install.packages("remotes")
     
 BiocManager::install(c("xcms", "mzR"))
-BiocManager::install(c("CAMERA", "MAIT"))
+BiocManager::install(c("CAMERA"))
 BiocManager::install(c("GenomicFeatures", "AnnotationDbi"))
-BiocManager::install(c("IPO", "faahKO"))
+BiocManager::install(c(faahKO"))
 remotes::install_github("cbroeckl/RAMClustR")
 devtools::install_git("https://gitlab.com/CarlBrunius/StatTools.git")
 

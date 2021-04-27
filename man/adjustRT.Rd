@@ -42,8 +42,9 @@ for including in the \code{adjustRT} function defines which method will be used.
     methods.
     \code{\link[xcms]{plotAdjustedRtime}} for visualization of alignment results.
 
-Other retention time correction methods: \code{\link[xcms]{adjustRtime-obiwarp}},
-  \code{\link[xcms]{adjustRtime-peakGroups}}
+Other retention time correction methods: 
+\code{\link[xcms]{adjustRtime-obiwarp}},
+\code{\link[xcms]{adjustRtime-peakGroups}}
 }
 \author{
 Johannes Rainer

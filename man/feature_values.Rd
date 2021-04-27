@@ -14,6 +14,10 @@ missing = NA,
 msLevel = integer()
 )
 }
+\arguments{
+\item{...}{For \code{quantify}: additional parameters to be passed on to the
+\code{\link[xcms]{featureValues}} method.}
+}
 \value{
 For \code{featureValues}: a \code{matrix} with
 feature values, columns representing samples, rows features. The order
@@ -22,6 +26,9 @@ of the features matches the order found in the
 \code{matrix} are the same than those of the \code{featureDefinitions}
 \code{DataFrame}. \code{NA} is reported for features without
 corresponding chromatographic peak in the respective sample(s).
+
+For \code{quantify}: a \code{\link{SummarizedExperiment}} representing
+the preprocessing results.
 }
 \description{
 \code{feature_values} is a wrapper from \code{xcms}. The function creates an intensity

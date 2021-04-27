@@ -31,9 +31,10 @@ feature.
 
 \code{\link[xcms]{group}} for the \emph{old} peak grouping methods.
 
-Other peak grouping methods: \code{\link[xcms]{groupChromPeaks-density}},
-  \code{\link[xcms]{groupChromPeaks-mzClust}},
-  \code{\link[xcms]{groupChromPeaks-nearest}}
+Other peak grouping methods: 
+\code{\link[xcms]{groupChromPeaks-density}},
+\code{\link[xcms]{groupChromPeaks-mzClust}},
+\code{\link[xcms]{groupChromPeaks-nearest}}
 }
 \author{
 Johannes Rainer

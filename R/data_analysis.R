@@ -775,18 +775,20 @@ bp_kfold_VIP_analysis <- function(dataset,
     # Random and spliting
     if (!is.null(multilevel)) {
       # Spliting paired data
-      x <- seq_len(length(as.factor(multilevel)))
+      x <- seq_len(length(y_all))
       index <- sample(x, replace = FALSE)
-      index <- c(index, 2*index)
       x_all <- x_all[index,]
       y_all <- y_all[index]
+      #TODO hay que pasar el sampled_multilevel a cada fold
+      sampled_multilevel <- multilevel[index]
 
       # Split data for k-fold
-      k_fold_split <- split(x, x%%k)
+      x_ind <- unique(multilevel)
+      k_fold_split <- split(x_ind, x_ind%%k)
       k_fold_index <- list()
       for(i in seq_len(k)){
-        k_index <- c(k_fold_split[[i]], 2*k_fold_split[[i]])
-        k_fold_index[[i]] <- seq_len(length(y_all))[-k_index]
+        k_index <- match(multilevel, k_fold_split[[i]], nomatch = 0)
+        k_fold_index[[i]] <- seq_len(length(y_all))[k_index == 0]
       }
     } else {
       # Random and spliting non paired data

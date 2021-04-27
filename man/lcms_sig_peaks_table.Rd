@@ -11,23 +11,6 @@ lcms_sig_peaks_table(
   printAnnotation = TRUE
 )
 }
-\arguments{
-\item{MAIT.object}{
-A \link[MAIT]{MAIT-class} object where significant features have already been found.
-}
-
-\item{printCSVfile}{
-Set to TRUE if an output table has to be produced. The table should be found in (working directory)/(project directory)Tables/significativeFeatures.csv. 
-}
-
-\item{extendedTable}{
-Set to TRUE the table created by the peak external data is used.
-}
-
-\item{printAnnotation}{
-Set to TRUE The peak annotation is provided in the output table
-}
-}
 \value{
 A table containing:
 First column (mz): Peak mass

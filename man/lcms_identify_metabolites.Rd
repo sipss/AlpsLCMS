@@ -12,27 +12,6 @@ lcms_identify_metabolites(
   printCSVfile = TRUE
 )
 }
-\arguments{
-\item{MAIT.object}{
-A \link[MAIT]{MAIT-class} object where significant features have already been found.
-}
-
-\item{peakTolerance}{
-Maximum difference between the peak masses differences and the values shown in the database to be considered as a match. As default the value is 0.005 Da.
-}
-
-\item{database}{
-User-defined input table. If it is set to NULL, the default \pkg{MAIT} database is selected to perform the metabolite identification.
-}
-
-\item{polarity}{
-Character parameter that can be set to "positive" or "negative" depending on the polarity in which the samples were taken.
-}
-
-\item{printCSVfile}{
-Set to TRUE if an output table has to be produced. The table should be found in (working directory)/Tables/SearchTable.csv. 
-}
-}
 \value{
 An output table is stored in the folder (working
 directory)/tables/SearchTable.csv if printCSVfile is set to TRUE. More info

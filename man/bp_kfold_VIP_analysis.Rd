@@ -4,7 +4,14 @@
 \alias{bp_kfold_VIP_analysis}
 \title{K-fold bootstrap and permutation over PLS-VIP}
 \usage{
-bp_kfold_VIP_analysis(dataset, y_column, k = 4, ncomp = NULL, nbootstrap = 300)
+bp_kfold_VIP_analysis(
+  dataset,
+  y_column,
+  k = 4,
+  ncomp = NULL,
+  nbootstrap = 300,
+  multilevel = NULL
+)
 }
 \arguments{
 \item{dataset}{An lcms_dataset object}
@@ -38,48 +45,4 @@ Bootstrap and permutation over PLS-VIP on Alpslcms can be performed on both
 Use of the bootstrap and permutation methods for a more robust
 variable importance in the projection metric for partial least
 squares regression, in a k-fold cross validation
-}
-\examples{
-# Data analysis for a table of integrated peaks
-
-## Generate an artificial lcms_dataset_peak_table:
-### Generate artificial metadata:
-num_samples <- 64 # use an even number in this example
-num_peaks <- 20
-metadata <- data.frame(
-    lcmsExperiment = as.character(1:num_samples),
-    Condition = rep(c("A", "B"), times = num_samples/2),
-    stringsAsFactors = FALSE
-)
-
-### The matrix with peaks
-peak_means <- runif(n = num_peaks, min = 300, max = 600)
-peak_sd <- runif(n = num_peaks, min = 30, max = 60)
-peak_matrix <- mapply(function(mu, sd) rnorm(num_samples, mu, sd),
-                                            mu = peak_means, sd = peak_sd)
-colnames(peak_matrix) <- paste0("Peak", 1:num_peaks)
-rownames(peak_matrix) <- paste0("Sample", 1:num_samples)
-
-## Artificial differences depending on the condition:
-peak_matrix[metadata$Condition == "A", "Peak2"] <-
-    peak_matrix[metadata$Condition == "A", "Peak2"] + 70
-
-peak_matrix[metadata$Condition == "A", "Peak6"] <-
-    peak_matrix[metadata$Condition == "A", "Peak6"] - 60
-
-### The lcms_dataset_peak_table
-peak_table <- new_lcms_dataset_peak_table(
-    peak_table = peak_matrix,
-    metadata = list(external = metadata)
-)
-
-## We will use bootstrap and permutation method for VIPs selection
-## in a a k-fold cross validation
-bp_results <- bp_kfold_VIP_analysis(peak_table, # Data to be analized
-                           y_column = "Condition", # Label
-                           k = 3,
-                           nbootstrap = 10)
-
-message("Selected VIPs are: ", bp_results$importarn_vips)
-
 }

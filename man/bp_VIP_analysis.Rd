@@ -4,7 +4,14 @@
 \alias{bp_VIP_analysis}
 \title{Bootstrap and permutation over PLS-VIP}
 \usage{
-bp_VIP_analysis(dataset, train_index, y_column, ncomp, nbootstrap = 300)
+bp_VIP_analysis(
+  dataset,
+  train_index,
+  y_column,
+  ncomp,
+  nbootstrap = 300,
+  multilevel = NULL
+)
 }
 \arguments{
 \item{dataset}{An lcms_dataset object}
@@ -45,66 +52,4 @@ Bootstrap and permutation over PLS-VIP performed on lcms_dataset peak tables.
 Use of the bootstrap and permutation methods for a more robust
 variable importance in the projection metric for partial least
 squares regression
-}
-\examples{
-# Data analysis for a table of integrated peaks
-
-## Generate an artificial lcms_dataset_peak_table:
-### Generate artificial metadata:
-num_samples <- 32 # use an even number in this example
-num_peaks <- 20
-metadata <- data.frame(
-    lcmsExperiment = as.character(1:num_samples),
-    Condition = rep(c("A", "B"), times = num_samples/2),
-    stringsAsFactors = FALSE
-)
-
-### The matrix with peaks
-peak_means <- runif(n = num_peaks, min = 300, max = 600)
-peak_sd <- runif(n = num_peaks, min = 30, max = 60)
-peak_matrix <- mapply(function(mu, sd) rnorm(num_samples, mu, sd),
-                                            mu = peak_means, sd = peak_sd)
-colnames(peak_matrix) <- paste0("Peak", 1:num_peaks)
-
-## Artificial differences depending on the condition:
-peak_matrix[metadata$Condition == "A", "Peak2"] <-
-    peak_matrix[metadata$Condition == "A", "Peak2"] + 70
-
-peak_matrix[metadata$Condition == "A", "Peak6"] <-
-    peak_matrix[metadata$Condition == "A", "Peak6"] - 60
-
-### The lcms_dataset_peak_table
-peak_table <- new_lcms_dataset_peak_table(
-    peak_table = peak_matrix,
-    metadata = list(external = metadata)
-)
-
-## We will use a double cross validation, splitting the samples with random
-## subsampling both in the external and internal validation.
-## The classification model will be a PLSDA, exploring at maximum 3 latent
-## variables.
-## The best model will be selected based on the area under the ROC curve
-methodology <- plsda_auroc_vip_method(ncomp = 3)
-model <- lcms_data_analysis(
-    peak_table,
-    y_column = "Condition",
-    identity_column = NULL,
-    external_val = list(iterations = 1, test_size = 0.25),
-    internal_val = list(iterations = 3, test_size = 0.25),
-    data_analysis_method = methodology
-)
-## Area under ROC for each outer cross-validation iteration:
-model$outer_cv_results_digested$auroc
-
-## The number of components for the bootstrap models is selected
-ncomps <- model$outer_cv_results$`1`$model$ncomp
-train_index <- model$train_test_partitions$outer$`1`$outer_train
-
-# Bootstrap and permutation for VIP selection
-bp_VIPS <- bp_VIP_analysis(peak_table, # Data to be analized
-                           train_index,
-                           y_column = "Condition",
-                           ncomp = ncomps,
-                           nbootstrap = 10)
-
 }

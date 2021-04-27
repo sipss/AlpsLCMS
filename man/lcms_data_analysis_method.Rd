@@ -56,7 +56,3 @@ An object encapsulating the method dependent functions that can be used with \li
 \description{
 Create method for lcms data analysis
 }
-\examples{
-help(new_lcms_data_analysis_method)
-
-}

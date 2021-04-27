@@ -72,9 +72,10 @@ features (i.e. the peak grouping results).
 \code{\link[xcms:plotChromPeakDensity]{plotChromPeakDensity()}} for plotting chromatographic peak density with the
 possibility to test different parameter settings.
 
-Other peak grouping methods: \code{\link[xcms]{groupChromPeaks-mzClust}},
-  \code{\link[xcms]{groupChromPeaks-nearest}},
-  \code{\link[xcms]{groupChromPeaks}}
+Other peak grouping methods: 
+\code{\link[xcms]{groupChromPeaks-mzClust}},
+\code{\link[xcms]{groupChromPeaks-nearest}},
+\code{\link[xcms]{groupChromPeaks}()}
 }
 \author{
 Colin Smith, Johannes Rainer
