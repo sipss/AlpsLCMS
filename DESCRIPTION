@@ -74,7 +74,7 @@ Imports:
  BiocParallel,
  RAMClustR,
 Suggests:
-    knitr, faahKO, testthat (>= 2.0.0)
+    knitr, faahKO, testthat (>= 2.0.0), rmarkdown
 Remotes:
   github::cbroeckl/RAMClustR
 RoxygenNote: 7.1.1
