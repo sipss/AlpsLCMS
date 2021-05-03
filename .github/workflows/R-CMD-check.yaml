@@ -14,7 +14,7 @@ jobs:
       - name: Install dependencies
         run: |
           Rscript -e 'install.packages(c("remotes", "rcmdcheck", "BiocManager", "covr", "devtools"))' \
-                  -e "BiocManager::install(c('xcms', 'CAMERA', 'GenomicFeatures', 'AnnotationDbi', 'mzR', 'IPO', 'faahKO'))" \
+                  -e "BiocManager::install(c('xcms', 'CAMERA', 'GenomicFeatures', 'AnnotationDbi', 'mzR', 'mixOmics', 'Autotuner', 'faahKO'))" \
                   -e 'remotes::install_deps(dependencies = TRUE)' \
                   -e 'remotes::install_github("cbroeckl/RAMClustR")' \
                   -e 'remotes::install_github("jimhester/pkgdown@github-actions-deploy")'
