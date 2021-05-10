@@ -865,7 +865,6 @@ groupPeaks <- function(...){
 #' Extracted from the function `xcms::PeakGroupsParam`.
 #'
 #' @inheritDotParams xcms::PeakGroupsParam
-#' @inherit xcms::PeakGroupsParam
 #'
 #' @return PeakGroupsParam S4 object
 #' @export

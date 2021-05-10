@@ -10,7 +10,7 @@ bp_kfold_VIP_analysis(
   k = 4,
   ncomp = NULL,
   nbootstrap = 300,
-  multilevel = NULL
+  multi = NULL
 )
 }
 \arguments{

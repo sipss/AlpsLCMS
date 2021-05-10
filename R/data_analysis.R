@@ -472,220 +472,257 @@ bp_VIP_analysis <- function(dataset,
     stop("Only one class in data set, at least two needed")
   }
 
-    # Extract data and split for train and test
-    x_train <- x_all[train_index,, drop = FALSE]
-    y_train <- y_all[train_index]
-    # For check performance
-    x_test <- x_all[-train_index,, drop = FALSE]
-    y_test <- y_all[-train_index]
+  # Extract data and split for train and test
+  x_train <- x_all[train_index,, drop = FALSE]
+  y_train <- y_all[train_index]
+  # For check performance
+  x_test <- x_all[-train_index,, drop = FALSE]
+  y_test <- y_all[-train_index]
 
-    if (length(unique(y_train)) == 1) {
-        stop("Only one class in train set, increase number of samples")
+  #For paired data
+  if (!is.null(multilevel)) {
+    multilevel_train <- multilevel[train_index,, drop = FALSE]
+    multilevel_test <- multilevel[-train_index,, drop = FALSE]
+  } else {
+    multilevel_train <- NULL
+    multilevel_test <- NULL
+  }
+
+  if (length(unique(y_train)) == 1) {
+    stop("Only one class in train set, increase number of samples")
+  }
+  if (length(unique(y_test)) == 1) {
+    stop("Only one class in test set, increase number of samples")
+  }
+
+  n <- dim(x_all)[2]
+  names <- colnames(x_all)
+  #some checks
+  if (length(names) == 0) {
+    stop("Error in bp_VIP_analysis, the dataset peak_table don't have colnames.")
+  }
+
+  pls_vip <- matrix(nrow = n, ncol = nbootstrap, dimnames = list(names, NULL))
+  pls_vip_perm <- matrix(nrow = n, ncol = n, dimnames = list(names, NULL))
+  pls_vip_perm_score <- matrix(nrow = n, ncol = nbootstrap, dimnames = list(names, NULL))
+  pls_vip_perm_sd <- matrix(nrow = n, ncol = nbootstrap, dimnames = list(names, NULL))
+  pls_vip_score_diff <- matrix(nrow = n, ncol = nbootstrap, dimnames = list(names, NULL)) # Bootstrap with replacement nbootstraps datasets
+  pls_models <- list()
+  pls_perm_models <- list()
+  CR <- list()
+
+  # Bootstrap with replacement nbootstraps datasets
+  for (i in seq_len(nbootstrap)) {
+    index <- c()
+    multilevel_boots <- NULL
+    if (!is.null(multilevel)) {
+      # Split data for k-fold
+      x_ind <- unique(unlist(multilevel_train))
+      bootstrap_index <- sample(x_ind,length(train_index)/2, replace = TRUE)
+      for (j in seq_len(length(bootstrap_index))){
+        j_index <- match(unlist(multilevel_train), bootstrap_index[j], nomatch = 0)
+        index <- c(index, seq_len(length(train_index))[j_index == 1])
+      }
+      multilevel_boots <- multilevel_train[index,, drop = FALSE]
+    } else{
+      index <- sample(seq_len(nrow(x_train)),nrow(x_train), replace = TRUE)
     }
-    if (length(unique(y_test)) == 1) {
-        stop("Only one class in test set, increase number of samples")
-    }
+    x_train_boots <- x_train[index,]
+    y_train_boots <- y_train[index]
 
-    n <- dim(x_all)[2]
-    names <- colnames(x_all)
-    #some checks
-    if (length(names) == 0) {
-        stop("Error in bp_VIP_analysis, the dataset peak_table don't have colnames.")
-    }
 
-    pls_vip <- matrix(nrow = n, ncol = nbootstrap, dimnames = list(names, NULL))
-    pls_vip_perm <- matrix(nrow = n, ncol = n, dimnames = list(names, NULL))
-    pls_vip_perm_score <- matrix(nrow = n, ncol = nbootstrap, dimnames = list(names, NULL))
-    pls_vip_perm_sd <- matrix(nrow = n, ncol = nbootstrap, dimnames = list(names, NULL))
-    pls_vip_score_diff <- matrix(nrow = n, ncol = nbootstrap, dimnames = list(names, NULL)) # Bootstrap with replacement nbootstraps datasets
-    pls_models <- list()
-    pls_perm_models <- list()
-    CR <- list()
-
-    # Bootstrap with replacement nbootstraps datasets
-    for (i in seq_len(nbootstrap)) {
-        index <- sample(seq_len(nrow(x_train)),nrow(x_train), replace = TRUE)
-        x_train_boots <- x_train[index,]
-        y_train_boots <- y_train[index]
-
-        #if y_train_boots only have one class, plsda models give error
-        if (length(unique(y_train_boots)) == 1) {
-            #Replace the first element for the first element of another class
-            for(i in seq_len(y_train)){
-                if (y_train[i] != y_train_boots[1]){
-                    y_train_boots[1] = y_train[i]
-                    x_train_boots[1] = x_train[i]
-                    break
-                }
-            }
+    #if y_train_boots only have one class, plsda models give error
+    if (length(unique(y_train_boots)) == 1 & is.null(multilevel)) {
+      #Replace the first element for the first element of another class
+      for(i in seq_len(y_train)){
+        if (y_train[i] != y_train_boots[1]){
+          y_train_boots[1] = y_train[i]
+          x_train_boots[1] = x_train[i]
+          break
         }
-
-        # Rename rownames, because if they are repeated, plsda fails
-        rownames(x_train_boots) <- paste0("Sample", seq_len(dim(x_train_boots)[1]))
-
-        # Fit PLS model
-        model <-
-          mixOmics::plsda(
-                X = x_train_boots,
-                Y = y_train_boots,
-                scale = TRUE,
-                multilevel = multilevel,
-                ncomp = ncomp
-            )
-        # VIPs per component extraction
-        pls_vip_comps <- mixOmics::vip(object = model)
-        # Sum contributions of VIPs to each component
-        pls_vip[,i] <- sqrt(rowSums(pls_vip_comps^2)/ncomp)
-        # Measure the classification rate (CR) of the bootstrap model
-        perf <- mixOmics::perf(model, newdata = x_test, folds = 2)
-        CR[[i]] <- 1 - perf$error.rate$overall[1]
-
-        # Permutation of variables
-        for (j in seq_len(n)) {
-            random_pos <- sample(seq_len(n), 1)
-            x_train_boots_perm <- x_train_boots
-            x_train_boots_perm[,j] <- x_train_boots[, random_pos]
-
-            # Refit model with permuted variables
-            model_perm <- mixOmics::plsda(
-              X = x_train_boots_perm,
-              Y = y_train_boots,
-              scale = TRUE,
-              multilevel = multilevel,
-              ncomp = ncomp
-            )
-
-            # VIPs per component extraction
-            pls_vip_comps_perm <- mixOmics::vip(object = model_perm)
-            # Sum contributions of VIPs to each component
-            pls_vip_perm[,j] <- sqrt(rowSums(pls_vip_comps_perm^2)/ncomp)
-        }
-
-        # bootsrapped and randomly permuted PLS-VIPs
-        pls_vip_perm_score[,i] <- colSums(pls_vip_perm)/n
-        # bootsrapped and randomly permuted difference
-        pls_vip_score_diff[,i] <- pls_vip[,i] - pls_vip_perm_score[,i]
-        pls_models[[i]] <- model
-        pls_perm_models[[i]] <- model_perm
+      }
     }
 
-    # Normalization of the difference vector for each variable to
-    # its corresponding standard deviation and construct
-    # 95% confidence intervals around the differences
-    boots_vip <- matrix(nrow = n, dimnames = list(names))
-    boots_vip_sd <- matrix(nrow = n, dimnames = list(names))
-    error <- matrix(nrow = n, dimnames = list(names))
-    lower_bound <- matrix(nrow = n, dimnames = list(names))
-    upper_bound <- matrix(nrow = n, dimnames = list(names))
-    for (k in seq_len(n)){
-        element <- pls_vip_score_diff[k,] / sd(pls_vip_score_diff[k,])
-        boots_vip[k] <- sum(element)/nbootstrap
-        boots_vip_sd[k] <- sqrt(sum((element - boots_vip[k])^2)/(nbootstrap-1))
-        error[k] <- qt(0.975, df = nbootstrap - 1) * boots_vip_sd[k]
-        lower_bound[k] <- boots_vip[k] - error[k]
-        upper_bound[k] <- boots_vip[k] + error[k]
+    # Rename rownames, because if they are repeated, plsda fails
+    rownames(x_train_boots) <- paste0("Sample", seq_len(dim(x_train_boots)[1]))
+
+    #For paired data
+    if (!is.null(multilevel)) {
+      multilevel_boots <- data.frame(sample = unlist(multilevel_boots))
+    } else {
+      multilevel_boots <- NULL
     }
 
-    important_vips <- names[lower_bound > qt(0.975, df = nbootstrap - 1)]
-    relevant_vips <- names[lower_bound > 0]
+    #TODO comprobar si la matrix de datos es computacionalmente singular
 
-    # Chequing performance
     # Fit PLS model
-    general_model <- mixOmics::plsda(
-      X = x_train,
-      Y = y_train,
-      scale = TRUE,
-      multilevel = multilevel,
-      ncomp = ncomp
-    )
+    model <-
+      mixOmics::plsda(
+        X = x_train_boots,
+        Y = y_train_boots,
+        scale = TRUE,
+        multilevel = multilevel_boots,
+        ncomp = ncomp
+      )
+    # VIPs per component extraction
+    pls_vip_comps <- mixOmics::vip(object = model)
+    # Sum contributions of VIPs to each component
+    pls_vip[,i] <- sqrt(rowSums(pls_vip_comps^2)/ncomp)
 
-    # Measure the classification rate (CR) of the fold
-    perf <- mixOmics::perf(general_model, newdata = x_test, folds = 2)
-    general_CR <- 1 - perf$error.rate$overall[1]
+    #Measure the classification rate (CR) of the bootstrap model
+    test.predict <- predict(model, x_test, multilevel = multilevel_test, dist = "max.dist")
+    prediction <- test.predict$class$max.dist[,ncomp]
+    confusion.mat = mixOmics::get.confusion_matrix(truth = y_test, predicted = prediction)
+    CR[[i]] <- 1 - mixOmics::get.BER(confusion.mat)
 
+    # Permutation of variables
+    for (j in seq_len(n)) {
+      random_pos <- sample(seq_len(n), 1)
+      x_train_boots_perm <- x_train_boots
+      x_train_boots_perm[,j] <- x_train_boots[, random_pos]
 
-    if (length(important_vips) == 0) {
-        if (length(relevant_vips) == 0) {
-            warning(
-                "Error in bp_VIP_analysis, none of the variables seems relevant:\n
+      # Refit model with permuted variables
+      model_perm <- mixOmics::plsda(
+        X = x_train_boots_perm,
+        Y = y_train_boots,
+        scale = TRUE,
+        multilevel = multilevel_boots,
+        ncomp = ncomp
+      )
+
+      # VIPs per component extraction
+      pls_vip_comps_perm <- mixOmics::vip(object = model_perm)
+      # Sum contributions of VIPs to each component
+      pls_vip_perm[,j] <- sqrt(rowSums(pls_vip_comps_perm^2)/ncomp)
+    }
+
+    # bootsrapped and randomly permuted PLS-VIPs
+    pls_vip_perm_score[,i] <- colSums(pls_vip_perm)/n
+    # bootsrapped and randomly permuted difference
+    pls_vip_score_diff[,i] <- pls_vip[,i] - pls_vip_perm_score[,i]
+    pls_models[[i]] <- model
+    pls_perm_models[[i]] <- model_perm
+  }
+
+  # Normalization of the difference vector for each variable to
+  # its corresponding standard deviation and construct
+  # 95% confidence intervals around the differences
+  boots_vip <- matrix(nrow = n, dimnames = list(names))
+  boots_vip_sd <- matrix(nrow = n, dimnames = list(names))
+  error <- matrix(nrow = n, dimnames = list(names))
+  lower_bound <- matrix(nrow = n, dimnames = list(names))
+  upper_bound <- matrix(nrow = n, dimnames = list(names))
+  for (k in seq_len(n)){
+    element <- pls_vip_score_diff[k,] / sd(pls_vip_score_diff[k,])
+    boots_vip[k] <- sum(element)/nbootstrap
+    boots_vip_sd[k] <- sqrt(sum((element - boots_vip[k])^2)/(nbootstrap-1))
+    error[k] <- qt(0.975, df = nbootstrap - 1) * boots_vip_sd[k]
+    lower_bound[k] <- boots_vip[k] - error[k]
+    upper_bound[k] <- boots_vip[k] + error[k]
+  }
+
+  important_vips <- names[lower_bound > qt(0.975, df = nbootstrap - 1)]
+  relevant_vips <- names[lower_bound > 0]
+
+  # Chequing performance
+  # Fit PLS model
+  general_model <- mixOmics::plsda(
+    X = x_train,
+    Y = y_train,
+    scale = TRUE,
+    multilevel = multilevel_train,
+    ncomp = ncomp
+  )
+
+  #Measure the classification rate (CR) of the bootstrap model
+  test.predict <- predict(general_model, x_test, multilevel = multilevel_test, dist = "max.dist")
+  prediction <- test.predict$class$max.dist[,ncomp]
+  confusion.mat = mixOmics::get.confusion_matrix(truth = y_test, predicted = prediction)
+  general_CR <- 1 - mixOmics::get.BER(confusion.mat)
+
+  if (length(important_vips) == 0) {
+    if (length(relevant_vips) == 0) {
+      warning(
+        "Error in bp_VIP_analysis, none of the variables seems relevant:\n
              try increasing the number of bootstraps"
-            )
-        }
+      )
+    }
+    warning(
+      "No VIPs are ranked as important, use the relevant_vips or try again with more bootstraps"
+    )
+    vips_model <- NULL
+    vips_CR <- 0
+  } else {
+    # Chequing performance of selected vips
+    if (length(important_vips) <= 1) {
+      if (length(relevant_vips) <= 1) {
         warning(
-            "No VIPs are ranked as important, use the relevant_vips or try again with more bootstraps"
+          "Only one VIP or less ranked as important and relevant, you can try again with more bootstraps"
         )
         vips_model <- NULL
         vips_CR <- 0
+      } else {
+        # if the are only one importan vip, we use relevants instead
+        x_train_reduced <-
+          as.matrix(x_all[train_index, relevant_vips, drop = FALSE])
+        x_test_reduced <-
+          as.matrix(x_all[-train_index, relevant_vips, drop = FALSE])
+
+        # Fit PLS model
+        vips_model <- mixOmics::plsda(
+          X = x_train_reduced,
+          Y = y_train,
+          scale = TRUE,
+          multilevel = multilevel_train,
+          ncomp = ncomp
+        )
+
+        test.predict <- predict(vips_model, x_test, multilevel = multilevel_test, dist = "max.dist")
+        prediction <- test.predict$class$max.dist[,ncomp]
+        confusion.mat = mixOmics::get.confusion_matrix(truth = y_test, predicted = prediction)
+        vips_CR <- 1 - mixOmics::get.BER(confusion.mat)
+      }
     } else {
-        # Chequing performance of selected vips
-        if (length(important_vips) == 1) {
-            if (length(relevant_vips) == 1) {
-                warning(
-                    "Only one VIP ranked as important and relevant, you can try again with more bootstraps"
-                )
-                vips_model <- NULL
-                vips_CR <- 0
-            } else {
-                # if the are only one importan vip, we use relevants instead
-                x_train_reduced <-
-                    as.matrix(x_all[train_index, relevant_vips, drop = FALSE])
-                x_test_reduced <-
-                    as.matrix(x_all[-train_index, relevant_vips, drop = FALSE])
+      x_train_reduced <-
+        as.matrix(x_all[train_index, important_vips, drop = FALSE])
+      x_test_reduced <-
+        as.matrix(x_all[-train_index, important_vips, drop = FALSE])
 
-                # Fit PLS model
-                vips_model <- mixOmics::plsda(
-                  X = x_train_reduced,
-                  Y = y_train,
-                  scale = TRUE,
-                  multilevel = multilevel,
-                  ncomp = ncomp
-                )
+      # Fit PLS model
+      vips_model <- mixOmics::plsda(
+        X = x_train_reduced,
+        Y = y_train,
+        scale = TRUE,
+        multilevel = multilevel_train,
+        ncomp = ncomp
+      )
 
-                # Measure the classification rate (CR) of the fold
-                perf <-
-                    mixOmics::perf(vips_model, newdata = x_test_reduced, folds = 2)
-                vips_CR  <- 1 - perf$error.rate$overall[1]
-            }
-        } else {
-            x_train_reduced <-
-                as.matrix(x_all[train_index, important_vips, drop = FALSE])
-            x_test_reduced <-
-                as.matrix(x_all[-train_index, important_vips, drop = FALSE])
-
-            # Fit PLS model
-            vips_model <- mixOmics::plsda(
-              X = x_train_reduced,
-              Y = y_train,
-              scale = TRUE,
-              multilevel = multilevel,
-              ncomp = ncomp
-            )
-
-            # Measure the classification rate (CR) of the fold
-            perf <- mixOmics::perf(vips_model, newdata = x_test_reduced, folds = 2)
-            vips_CR  <- 1 - perf$error.rate$overall[1]
-        }
+      test.predict <- predict(vips_model, x_test, multilevel = multilevel_test, dist = "max.dist")
+      prediction <- test.predict$class$max.dist[,ncomp]
+      confusion.mat = mixOmics::get.confusion_matrix(truth = y_test, predicted = prediction)
+      vips_CR <- 1 - mixOmics::get.BER(confusion.mat)
     }
+  }
 
-    # To return it ordered by mean of the normalized vectors
-    orden <- order(boots_vip, decreasing = TRUE)
-    #Return important vips and auc performance
-    list(important_vips = important_vips,
-         relevant_vips = relevant_vips,
-         pls_vip = pls_vip[orden,,drop=FALSE],
-         pls_vip_perm = pls_vip_perm_score[orden,,drop=FALSE],
-         pls_vip_means = boots_vip[orden,,drop=FALSE],
-         pls_vip_score_diff = pls_vip_score_diff[orden,,drop=FALSE],
-         pls_models = pls_models,
-         pls_perm_models = pls_perm_models,
-         classif_rate = CR,
-         general_model = general_model,
-         general_CR = general_CR,
-         vips_model = vips_model,
-         vips_CR = vips_CR,
-         error = error[orden,,drop=FALSE],
-         lower_bound = lower_bound[orden,,drop=FALSE],
-         upper_bound = upper_bound[orden,,drop=FALSE])
+  # To return it ordered by mean of the normalized vectors
+  orden <- order(boots_vip, decreasing = TRUE)
+  #Return important vips and auc performance
+  list(important_vips = important_vips,
+       relevant_vips = relevant_vips,
+       pls_vip = pls_vip[orden,,drop=FALSE],
+       pls_vip_perm = pls_vip_perm_score[orden,,drop=FALSE],
+       pls_vip_means = boots_vip[orden,,drop=FALSE],
+       pls_vip_score_diff = pls_vip_score_diff[orden,,drop=FALSE],
+       pls_models = pls_models,
+       pls_perm_models = pls_perm_models,
+       classif_rate = CR,
+       general_model = general_model,
+       general_CR = general_CR,
+       vips_model = vips_model,
+       vips_CR = vips_CR,
+       error = error[orden,,drop=FALSE],
+       lower_bound = lower_bound[orden,,drop=FALSE],
+       upper_bound = upper_bound[orden,,drop=FALSE])
 }
 
 
@@ -721,7 +758,7 @@ bp_kfold_VIP_analysis <- function(dataset,
                             k = 4,
                             ncomp = NULL,
                             nbootstrap = 300,
-                            multilevel = NULL) {
+                            multi = NULL) {
     check_dataset(dataset)
 
     if (k <= 1) {
@@ -755,6 +792,8 @@ bp_kfold_VIP_analysis <- function(dataset,
         stop("Only one class in data set, at least two needed")
     }
 
+    #TODO seleccionar el numero de componentes automaticamente
+    #si el usuario no lo quiere calcular
     # if (is.null(ncomp)){
     #   model <-
     #     mixOmics::plsda(
@@ -773,33 +812,21 @@ bp_kfold_VIP_analysis <- function(dataset,
 
     #TODO check paired split
     # Random and spliting
-    if (!is.null(multilevel)) {
-      # Spliting paired data
-      x <- seq_len(length(y_all))
-      index <- sample(x, replace = FALSE)
-      x_all <- x_all[index,]
-      y_all <- y_all[index]
-      #TODO hay que pasar el sampled_multilevel a cada fold
-      sampled_multilevel <- multilevel[index]
-
-      # Split data for k-fold
-      x_ind <- unique(multilevel)
+    k_fold_index <- list()
+    if (!is.null(multi)) {
+      # Split data for k-fold paired data
+      x_ind <- as.numeric(unique(unlist(multi)))
       k_fold_split <- split(x_ind, x_ind%%k)
-      k_fold_index <- list()
+
       for(i in seq_len(k)){
-        k_index <- match(multilevel, k_fold_split[[i]], nomatch = 0)
+        k_index <- match(multi, k_fold_split[[i]], nomatch = 0)
         k_fold_index[[i]] <- seq_len(length(y_all))[k_index == 0]
       }
     } else {
-      # Random and spliting non paired data
+      # Split data for k-fold non paired data
       x <- seq_len(length(y_all))
-      index <- sample(x, replace = FALSE)
-      x_all <- x_all[index,]
-      y_all <- y_all[index]
-
-      # Split data for k-fold
+      random_index <- sample(x, replace = FALSE)
       k_fold_split <- split(x, x%%k)
-      k_fold_index <- list()
       for(i in seq_len(k)){
         k_fold_index[[i]] <- seq_len(length(y_all))[-k_fold_split[[i]]]
       }
@@ -814,19 +841,24 @@ bp_kfold_VIP_analysis <- function(dataset,
         # use all cores in devtools::test()
         numcores <- k
     }
-    snow <- BiocParallel::SnowParam(workers = numcores, type = "SOCK")
+
+    multisample <- data.frame(sample = multi)
+
+    #for debug, change snow to serialparam
+    #snow <- SerialParam()
+    snow <- BiocParallel::SnowParam(workers = numcores, type = "SOCK", stop.on.error = FALSE, progressbar = TRUE)
     results <- BiocParallel::bplapply(
-        k_fold_index, function(index, dataset = dataset, y_column = y_column,
-                               ncomp = ncomp, nbootstrap = nbootstrap, multilevel = multilevel) {
+      k_fold_index, function(k_index, dataset = dataset, y_column = y_column,
+                             ncomp = ncomp, nbootstrap = nbootstrap, multis = multisample) {
         bp_VIP_analysis(
-            dataset,
-            index,
-            y_column = y_column,
-            ncomp = ncomp,
-            nbootstrap = nbootstrap,
-            multilevel = multilevel
+          dataset,
+          k_index,
+          y_column = y_column,
+          ncomp = ncomp,
+          nbootstrap = nbootstrap,
+          multilevel = multis
         )}, BPPARAM = snow, dataset = dataset, y_column = y_column,
-        ncomp = ncomp, nbootstrap = nbootstrap, multilevel = multilevel)
+      ncomp = ncomp, nbootstrap = nbootstrap, multis = multisample)
 
     # Mean of the vips of the different folds for the plot
     means <- vapply(results, FUN="[", FUN.VALUE = c(list), "pls_vip_means")
@@ -854,7 +886,7 @@ bp_kfold_VIP_analysis <- function(dataset,
             x <- results[[i]]$pls_vip[j, ]
             y <- results[[i]]$pls_vip_perm[j, ]
             #wt_object <- wilcox.test(x, y, paired = TRUE, alternative = "two.sided")
-            wt_object <- wilcox.test(x, y, paired = !is.null(multilevel), alternative = "greater")
+            wt_object <- wilcox.test(x, y, paired = !is.null(multi), alternative = "greater")
             wt[i,j] <- wt_object$p.value
         }
         #fdr
