@@ -73,6 +73,8 @@ Imports:
  mixOmics (>= 6.3.2),
  BiocParallel,
  RAMClustR,
+ Autotuner, 
+ mixOmics
 Suggests:
     knitr, faahKO, testthat (>= 2.0.0), rmarkdown
 Remotes:
