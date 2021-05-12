@@ -531,6 +531,7 @@ bp_VIP_analysis <- function(dataset,
     y_train_boots <- y_train[index]
 
 
+    #TODO en estos casos descartar la muestra? o forzar que sea balanceado?
     #if y_train_boots only have one class, plsda models give error
     if (length(unique(y_train_boots)) == 1 & is.null(multilevel)) {
       #Replace the first element for the first element of another class
@@ -634,6 +635,7 @@ bp_VIP_analysis <- function(dataset,
     ncomp = ncomp
   )
 
+  #TODO la matrix general_model, y x_test no tienen las mismas dimensiones y da error
   #Measure the classification rate (CR) of the bootstrap model
   test.predict <- predict(general_model, x_test, multilevel = multilevel_test, dist = "max.dist")
   prediction <- test.predict$class$max.dist[,ncomp]
@@ -822,6 +824,7 @@ bp_kfold_VIP_analysis <- function(dataset,
         k_index <- match(multi, k_fold_split[[i]], nomatch = 0)
         k_fold_index[[i]] <- seq_len(length(y_all))[k_index == 0]
       }
+      multisample <- data.frame(sample = multi)
     } else {
       # Split data for k-fold non paired data
       x <- seq_len(length(y_all))
@@ -830,6 +833,7 @@ bp_kfold_VIP_analysis <- function(dataset,
       for(i in seq_len(k)){
         k_fold_index[[i]] <- seq_len(length(y_all))[-k_fold_split[[i]]]
       }
+      multisample <- NULL
     }
 
     # Paralellization
@@ -842,11 +846,9 @@ bp_kfold_VIP_analysis <- function(dataset,
         numcores <- k
     }
 
-    multisample <- data.frame(sample = multi)
-
     #for debug, change snow to serialparam
-    #snow <- SerialParam()
-    snow <- BiocParallel::SnowParam(workers = numcores, type = "SOCK", stop.on.error = FALSE, progressbar = TRUE)
+    snow <- SerialParam()
+    #snow <- BiocParallel::SnowParam(workers = numcores, type = "SOCK", stop.on.error = FALSE, progressbar = TRUE)
     results <- BiocParallel::bplapply(
       k_fold_index, function(k_index, dataset = dataset, y_column = y_column,
                              ncomp = ncomp, nbootstrap = nbootstrap, multis = multisample) {
