@@ -699,7 +699,7 @@ bp_VIP_analysis <- function(dataset,
         ncomp = ncomp
       )
 
-      test.predict <- predict(vips_model, x_test, multilevel = multilevel_test, dist = "max.dist")
+      test.predict <- predict(vips_model, x_test_reduced, multilevel = multilevel_test, dist = "max.dist")
       prediction <- test.predict$class$max.dist[,ncomp]
       confusion.mat = mixOmics::get.confusion_matrix(truth = y_test, predicted = prediction)
       vips_CR <- 1 - mixOmics::get.BER(confusion.mat)
